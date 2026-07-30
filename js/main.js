@@ -177,6 +177,53 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  // === CALCULATOR: PIT ===
+  const pitForm = document.getElementById('pit-form');
+  const pitResult = document.getElementById('pit-result');
+
+  if (pitForm) {
+    pitForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const incomeInput = document.getElementById('monthly-income');
+      const insuranceInput = document.getElementById('insurance-deduction');
+      const dependentsInput = document.getElementById('dependents');
+
+      const gross = parseFloat(incomeInput.value) || 0;
+      const insurance = parseFloat(insuranceInput.value) || 0;
+      const dependents = parseInt(dependentsInput.value) || 0;
+
+      const personalDeduction = 11000000;
+      const dependentsDeduction = dependents * 4400000;
+
+      let taxableIncome = gross - insurance - personalDeduction - dependentsDeduction;
+      if (taxableIncome < 0) taxableIncome = 0;
+
+      let pit = 0;
+      if (taxableIncome > 0) {
+        if (taxableIncome <= 5000000) pit = taxableIncome * 0.05;
+        else if (taxableIncome <= 10000000) pit = 250000 + (taxableIncome - 5000000) * 0.1;
+        else if (taxableIncome <= 18000000) pit = 750000 + (taxableIncome - 10000000) * 0.15;
+        else if (taxableIncome <= 32000000) pit = 1950000 + (taxableIncome - 18000000) * 0.2;
+        else if (taxableIncome <= 52000000) pit = 4750000 + (taxableIncome - 32000000) * 0.25;
+        else if (taxableIncome <= 80000000) pit = 9750000 + (taxableIncome - 52000000) * 0.3;
+        else pit = 18150000 + (taxableIncome - 80000000) * 0.35;
+      }
+
+      document.getElementById('total-income-display').textContent = Math.round(gross).toLocaleString('vi-VN');
+      document.getElementById('personal-deduction-display').textContent = '- ' + personalDeduction.toLocaleString('vi-VN');
+      document.getElementById('dependent-deduction-display').textContent = '- ' + dependentsDeduction.toLocaleString('vi-VN');
+      document.getElementById('insurance-display').textContent = '- ' + Math.round(insurance).toLocaleString('vi-VN');
+      document.getElementById('taxable-income-display').textContent = Math.round(taxableIncome).toLocaleString('vi-VN');
+      document.getElementById('pit-tax-display').textContent = Math.round(pit).toLocaleString('vi-VN');
+
+      if (pitResult) {
+        pitResult.classList.remove('hidden');
+        pitResult.classList.add('page-fade-in');
+      }
+    });
+  }
+
   // === SMOOTH SCROLL FOR ANCHOR LINKS ===
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -371,6 +418,58 @@ document.addEventListener('DOMContentLoaded', function() {
       }, 2000);
     });
   });
+
+  // === NUMBER COUNTER ANIMATION ===
+  const counters = document.querySelectorAll('.counter');
+  
+  if (counters.length > 0) {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+    
+    const counterObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const counter = entry.target;
+          const target = +counter.getAttribute('data-target');
+          const duration = 1500; // 1.5 seconds counting
+          
+          // Scramble effect before starting (approx 500ms)
+          let scrambleTicks = 0;
+          const maxScramble = 10;
+          const scramble = setInterval(() => {
+            counter.innerText = Math.floor(Math.random() * (target * 1.5));
+            scrambleTicks++;
+            if (scrambleTicks >= maxScramble) {
+              clearInterval(scramble);
+              
+              // Start real counting
+              const increment = target / (duration / 16); // ~60fps
+              let current = 0;
+              const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                  counter.innerText = Math.ceil(current);
+                  requestAnimationFrame(updateCounter);
+                } else {
+                  counter.innerText = target;
+                }
+              };
+              updateCounter();
+            }
+          }, 50);
+          
+          observer.unobserve(counter);
+        }
+      });
+    }, observerOptions);
+    
+    counters.forEach(counter => {
+      counterObserver.observe(counter);
+    });
+  }
 
   console.log('DUC TIN & PARTNERS - Website Ready');
 });

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dịch vụ Pháp lý | DUC TIN & Partners</title>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dịch vụ Pháp lý | DUC TIN &amp; Partners</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
     try {
       tailwind.config = {
         darkMode: "class",
@@ -53,348 +54,355 @@
       }
     } catch (_e) { }
   </script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet">
-  <link rel="stylesheet" href="../css/shared.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"/>
+<link href="../css/shared.css" rel="stylesheet"/>
 </head>
 <body class="bg-background text-text-primary antialiased">
-
-  <!-- ========== TOP NAVBAR ========== -->
-  <nav class="bg-primary fixed top-0 w-full z-50 border-b border-border-neutral">
-    <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex justify-between items-center h-20">
-      <a href="../index.html" class="font-headline-lg text-headline-lg font-black tracking-tighter text-accent">DUCTIN &amp; PARTNERS</a>
-      <!-- Desktop Nav -->
-      <div class="hidden md:flex gap-gutter items-center font-label-sm text-label-sm">
-        <a href="../index.html" class="text-surface-alt hover:text-accent transition-colors duration-200">Trang chủ</a>
-        <a href="services.html" class="text-on-primary font-bold border-b-2 border-accent pb-1">Dịch vụ</a>
-        <a href="ai-form-library.html" class="text-surface-alt hover:text-accent transition-colors duration-200">Biểu mẫu AI</a>
-        <div class="relative group">
-          <a href="#" class="text-surface-alt hover:text-accent transition-colors duration-200 flex items-center gap-1">Công cụ <span class="material-symbols-outlined text-sm">expand_more</span></a>
-          <div class="absolute top-full left-0 mt-2 w-64 bg-primary rounded shadow-lg border border-border-neutral opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col z-50 overflow-hidden">
-            <a href="court-fee-calculator.html" class="px-4 py-3 text-on-primary hover:bg-secondary hover:text-accent font-label-sm text-label-sm border-b border-border-neutral">Tính án phí</a>
-            <a href="salary-calculator.html" class="px-4 py-3 text-on-primary hover:bg-secondary hover:text-accent font-label-sm text-label-sm border-b border-border-neutral">Tính lương Gross-to-Net</a>
-            <a href="pit-calculator.html" class="px-4 py-3 text-on-primary hover:bg-secondary hover:text-accent font-label-sm text-label-sm">Tính thuế Thu nhập cá nhân</a>
-          </div>
-        </div>
-        <a href="ai-chatbot.html" class="text-surface-alt hover:text-accent transition-colors duration-200">AI Chat</a>
-        <a href="appointment.html" class="text-surface-alt hover:text-accent transition-colors duration-200">Đặt lịch</a>
-      </div>
-      <div class="flex items-center gap-stack-md">
-        <span class="font-label-sm text-label-sm hidden md:block text-on-primary">Hotline: 09xx.xxx.xxx</span>
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="md:hidden material-symbols-outlined cursor-pointer text-on-primary">menu</button>
-      </div>
-    </div>
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-primary border-t border-border-neutral px-margin-mobile py-4">
-      <div class="flex flex-col gap-4">
-        <a href="../index.html" class="font-label-sm text-label-sm text-surface-alt hover:text-accent">Trang chủ</a>
-        <a href="services.html" class="font-label-sm text-label-sm text-accent font-bold">Dịch vụ</a>
-        <a href="ai-form-library.html" class="font-label-sm text-label-sm text-surface-alt hover:text-accent">Biểu mẫu AI</a>
-        <div class="font-label-sm text-label-sm text-on-primary font-bold opacity-50 uppercase mt-2">Công cụ</div>
-        <a href="court-fee-calculator.html" class="font-label-sm text-label-sm text-surface-alt hover:text-accent pl-4">Tính án phí</a>
-        <a href="salary-calculator.html" class="font-label-sm text-label-sm text-surface-alt hover:text-accent pl-4">Tính lương Gross-to-Net</a>
-        <a href="pit-calculator.html" class="font-label-sm text-label-sm text-surface-alt hover:text-accent pl-4">Tính thuế TNCN</a>
-        <a href="ai-chatbot.html" class="font-label-sm text-label-sm text-surface-alt hover:text-accent">AI Chat</a>
-        <a href="appointment.html" class="font-label-sm text-label-sm text-surface-alt hover:text-accent">Đặt lịch</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- ========== MAIN CONTENT ========== -->
-  <main class="pt-32 pb-section-padding page-fade-in">
-
-    <!-- Services Hero Section -->
-    <section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-padding">
-      <h1 class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-primary mb-stack-md">
-        Dịch vụ pháp lý
-      </h1>
-      <p class="font-body-md text-body-md text-text-secondary max-w-2xl">
-        Giải pháp pháp lý toàn diện, chuyên nghiệp cho doanh nghiệp và cá nhân. Lựa chọn dịch vụ phù hợp với nhu cầu của bạn.
+<!-- ========== TOP NAVBAR ========== -->
+<nav class="bg-primary fixed top-0 w-full z-50 border-b border-border-neutral">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex justify-between items-center h-20">
+<a class="font-headline-lg text-headline-lg font-black tracking-tighter text-accent" href="../index.html">DUCTIN &amp; PARTNERS</a>
+<!-- Desktop Nav -->
+<div class="hidden md:flex gap-gutter items-center font-label-sm text-label-sm">
+<a class="text-surface-alt hover:text-accent transition-colors duration-200" href="../index.html">Trang chủ</a>
+<a class="text-accent font-bold transition-colors duration-200" href="services.html">Dịch vụ</a>
+<a class="text-surface-alt hover:text-accent transition-colors duration-200" href="ai-form-library.html">Biểu mẫu AI</a>
+<div class="relative group">
+<a class="text-surface-alt hover:text-accent transition-colors duration-200 flex items-center gap-1" href="#">Công cụ <span class="material-symbols-outlined text-sm">expand_more</span></a>
+<div class="absolute top-full left-0 mt-2 w-64 bg-primary rounded shadow-lg border border-border-neutral opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col z-50 overflow-hidden">
+<a class="px-4 py-3 text-on-primary hover:bg-secondary hover:text-accent font-label-sm text-label-sm border-b border-border-neutral" href="court-fee-calculator.html">Tính án phí</a>
+<a class="px-4 py-3 text-on-primary hover:bg-secondary hover:text-accent font-label-sm text-label-sm border-b border-border-neutral" href="salary-calculator.html">Tính lương Gross-to-Net</a>
+<a class="px-4 py-3 text-on-primary hover:bg-secondary hover:text-accent font-label-sm text-label-sm" href="pit-calculator.html">Tính thuế TNCN</a>
+</div>
+</div>
+<a class="text-surface-alt hover:text-accent transition-colors duration-200" href="ai-chatbot.html">AI Chat</a>
+<a class="text-surface-alt hover:text-accent transition-colors duration-200" href="appointment.html">Đặt lịch</a>
+</div>
+<div class="flex items-center gap-stack-md">
+<span class="font-label-sm text-label-sm hidden md:block text-on-primary">Hotline: 09xx.xxx.xxx</span>
+<!-- Mobile Menu Button -->
+<button class="md:hidden material-symbols-outlined cursor-pointer text-on-primary" id="mobile-menu-btn">menu</button>
+</div>
+</div>
+<!-- Mobile Menu -->
+<div class="hidden md:hidden bg-primary border-t border-border-neutral px-margin-mobile py-4" id="mobile-menu">
+<div class="flex flex-col gap-4">
+<a class="font-label-sm text-label-sm text-surface-alt hover:text-accent" href="../index.html">Trang chủ</a>
+<a class="font-label-sm text-label-sm text-accent font-bold" href="services.html">Dịch vụ</a>
+<a class="font-label-sm text-label-sm text-surface-alt hover:text-accent" href="ai-form-library.html">Biểu mẫu AI</a>
+<div class="font-label-sm text-label-sm text-on-primary font-bold opacity-50 uppercase mt-2">Công cụ</div>
+<a class="font-label-sm text-label-sm text-surface-alt hover:text-accent pl-4" href="court-fee-calculator.html">Tính án phí</a>
+<a class="font-label-sm text-label-sm text-surface-alt hover:text-accent pl-4" href="salary-calculator.html">Tính lương Gross-to-Net</a>
+<a class="font-label-sm text-label-sm text-surface-alt hover:text-accent pl-4" href="pit-calculator.html">Tính thuế TNCN</a>
+<a class="font-label-sm text-label-sm text-surface-alt hover:text-accent" href="ai-chatbot.html">AI Chat</a>
+<a class="font-label-sm text-label-sm text-surface-alt hover:text-accent" href="appointment.html">Đặt lịch</a>
+</div>
+</div>
+</nav>
+<!-- ========== MAIN CONTENT ========== -->
+<main class="pt-40 pb-40 page-fade-in bg-surface-alt">
+<!-- Premium Hero Section -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-24 md:py-32 flex flex-col items-center text-center">
+<div class="rounded-full px-4 py-1.5 bg-border-neutral/30 text-[10px] uppercase tracking-[0.2em] font-medium text-primary mb-8 border border-border-neutral">Tầm nhìn &amp; Sứ mệnh</div>
+<h1 class="font-headline-xl-mobile md:text-[80px] leading-[1.1] text-primary tracking-tighter mb-8 max-w-4xl">
+        Giải pháp pháp lý <br/> <span class="italic text-accent">toàn diện</span>
+</h1>
+<p class="font-body-md text-xl text-text-secondary max-w-2xl leading-relaxed">
+        Bảo vệ quyền lợi hợp pháp, kiến tạo giá trị bền vững cho doanh nghiệp và cá nhân thông qua đội ngũ chuyên gia dày dặn kinh nghiệm.
       </p>
-    </section>
-
-    <!-- Category Filters & Services Grid -->
-    <section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-padding">
-      <!-- Filter Pills -->
-      <div class="flex overflow-x-auto pb-4 mb-stack-lg gap-stack-md border-b border-border-neutral no-scrollbar">
-        <button class="whitespace-nowrap px-4 py-2 font-label-sm text-label-sm text-on-primary bg-primary rounded-full transition-colors">Tất cả dịch vụ</button>
-        <button class="whitespace-nowrap px-4 py-2 font-label-sm text-label-sm text-primary bg-surface-main border border-border-neutral rounded-full hover:bg-surface-container-low transition-colors">Doanh nghiệp</button>
-        <button class="whitespace-nowrap px-4 py-2 font-label-sm text-label-sm text-primary bg-surface-main border border-border-neutral rounded-full hover:bg-surface-container-low transition-colors">Tố tụng</button>
-        <button class="whitespace-nowrap px-4 py-2 font-label-sm text-label-sm text-primary bg-surface-main border border-border-neutral rounded-full hover:bg-surface-container-low transition-colors">Đầu tư</button>
-        <button class="whitespace-nowrap px-4 py-2 font-label-sm text-label-sm text-primary bg-surface-main border border-border-neutral rounded-full hover:bg-surface-container-low transition-colors">Dân sự</button>
-      </div>
-
-      <!-- Bento Grid Service Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-
-        <!-- Card 1: Tư vấn Doanh nghiệp -->
-        <div class="bg-surface-alt border border-border-neutral rounded-lg p-6 hover:shadow-elegant-hover shadow-elegant transition-shadow flex flex-col justify-between group">
-          <div>
-            <div class="w-12 h-12 bg-surface-container-high rounded-full flex items-center justify-center mb-stack-md">
-              <span class="material-symbols-outlined text-primary">domain</span>
-            </div>
-            <h3 class="font-headline-md text-headline-md text-primary mb-stack-sm">Tư vấn Doanh nghiệp</h3>
-            <p class="font-body-md text-body-md text-text-secondary mb-stack-md line-clamp-3">Thành lập, tái cơ cấu, M&amp;A, và tuân thủ pháp luật doanh nghiệp. Dịch vụ luật sư nội bộ cho SME.</p>
-          </div>
-          <a href="appointment.html" class="inline-flex items-center font-label-sm text-label-sm text-primary mt-auto group-hover:underline">
-            Tìm hiểu thêm <span class="material-symbols-outlined ml-1 text-sm">arrow_forward</span>
-          </a>
-        </div>
-
-        <!-- Card 2: Giải quyết Tranh chấp -->
-        <div class="bg-surface-alt border border-border-neutral rounded-lg p-6 hover:shadow-elegant-hover shadow-elegant transition-shadow flex flex-col justify-between group">
-          <div>
-            <div class="w-12 h-12 bg-surface-container-high rounded-full flex items-center justify-center mb-stack-md">
-              <span class="material-symbols-outlined text-primary">gavel</span>
-            </div>
-            <h3 class="font-headline-md text-headline-md text-primary mb-stack-sm">Giải quyết Tranh chấp</h3>
-            <p class="font-body-md text-body-md text-text-secondary mb-stack-md line-clamp-3">Đại diện tham gia tố tụng tại Tòa án và Trọng tài thương mại. Giải quyết tranh chấp hợp đồng, lao động.</p>
-          </div>
-          <a href="appointment.html" class="inline-flex items-center font-label-sm text-label-sm text-primary mt-auto group-hover:underline">
-            Tìm hiểu thêm <span class="material-symbols-outlined ml-1 text-sm">arrow_forward</span>
-          </a>
-        </div>
-
-        <!-- Card 3: Bất động sản & Xây dựng -->
-        <div class="bg-surface-alt border border-border-neutral rounded-lg p-6 hover:shadow-elegant-hover shadow-elegant transition-shadow flex flex-col justify-between group">
-          <div>
-            <div class="w-12 h-12 bg-surface-container-high rounded-full flex items-center justify-center mb-stack-md">
-              <span class="material-symbols-outlined text-primary">real_estate_agent</span>
-            </div>
-            <h3 class="font-headline-md text-headline-md text-primary mb-stack-sm">Bất động sản &amp; Xây dựng</h3>
-            <p class="font-body-md text-body-md text-text-secondary mb-stack-md line-clamp-3">Tư vấn pháp lý dự án, hợp đồng mua bán, chuyển nhượng dự án, và các vấn đề quy hoạch, đất đai.</p>
-          </div>
-          <a href="appointment.html" class="inline-flex items-center font-label-sm text-label-sm text-primary mt-auto group-hover:underline">
-            Tìm hiểu thêm <span class="material-symbols-outlined ml-1 text-sm">arrow_forward</span>
-          </a>
-        </div>
-
-        <!-- Card 4: Sở hữu Trí tuệ -->
-        <div class="bg-surface-alt border border-border-neutral rounded-lg p-6 hover:shadow-elegant-hover shadow-elegant transition-shadow flex flex-col justify-between group">
-          <div>
-            <div class="w-12 h-12 bg-surface-container-high rounded-full flex items-center justify-center mb-stack-md">
-              <span class="material-symbols-outlined text-primary">copyright</span>
-            </div>
-            <h3 class="font-headline-md text-headline-md text-primary mb-stack-sm">Sở hữu Trí tuệ</h3>
-            <p class="font-body-md text-body-md text-text-secondary mb-stack-md line-clamp-3">Đăng ký nhãn hiệu, bản quyền, sáng chế. Xử lý vi phạm quyền sở hữu trí tuệ và chống hàng giả.</p>
-          </div>
-          <a href="appointment.html" class="inline-flex items-center font-label-sm text-label-sm text-primary mt-auto group-hover:underline">
-            Tìm hiểu thêm <span class="material-symbols-outlined ml-1 text-sm">arrow_forward</span>
-          </a>
-        </div>
-
-        <!-- Card 5: Đầu tư Nước ngoài -->
-        <div class="bg-surface-alt border border-border-neutral rounded-lg p-6 hover:shadow-elegant-hover shadow-elegant transition-shadow flex flex-col justify-between group">
-          <div>
-            <div class="w-12 h-12 bg-surface-container-high rounded-full flex items-center justify-center mb-stack-md">
-              <span class="material-symbols-outlined text-primary">trending_up</span>
-            </div>
-            <h3 class="font-headline-md text-headline-md text-primary mb-stack-sm">Đầu tư Nước ngoài</h3>
-            <p class="font-body-md text-body-md text-text-secondary mb-stack-md line-clamp-3">Tư vấn xin giấy phép đầu tư FDI, thành lập chi nhánh/văn phòng đại diện, tuân thủ pháp luật Việt Nam.</p>
-          </div>
-          <a href="appointment.html" class="inline-flex items-center font-label-sm text-label-sm text-primary mt-auto group-hover:underline">
-            Tìm hiểu thêm <span class="material-symbols-outlined ml-1 text-sm">arrow_forward</span>
-          </a>
-        </div>
-
-        <!-- Card 6: Lao động & Việc làm -->
-        <div class="bg-surface-alt border border-border-neutral rounded-lg p-6 hover:shadow-elegant-hover shadow-elegant transition-shadow flex flex-col justify-between group">
-          <div>
-            <div class="w-12 h-12 bg-surface-container-high rounded-full flex items-center justify-center mb-stack-md">
-              <span class="material-symbols-outlined text-primary">group</span>
-            </div>
-            <h3 class="font-headline-md text-headline-md text-primary mb-stack-sm">Lao động &amp; Việc làm</h3>
-            <p class="font-body-md text-body-md text-text-secondary mb-stack-md line-clamp-3">Tư vấn hợp đồng lao động, nội quy, thỏa ước lao động tập thể. Cấp giấy phép lao động cho người nước ngoài.</p>
-          </div>
-          <a href="appointment.html" class="inline-flex items-center font-label-sm text-label-sm text-primary mt-auto group-hover:underline">
-            Tìm hiểu thêm <span class="material-symbols-outlined ml-1 text-sm">arrow_forward</span>
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- 4-Step Workflow Section -->
-    <section class="bg-surface-main border-y border-border-neutral py-section-padding">
-      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary text-center mb-stack-lg">Quy trình làm việc</h2>
-        <div class="flex flex-col md:flex-row items-start justify-between relative gap-stack-lg md:gap-0">
-          <!-- Connecting Line (Desktop) -->
-          <div class="hidden md:block absolute top-10 left-12 right-12 h-px bg-border-neutral z-0"></div>
-
-          <!-- Step 1 -->
-          <div class="flex flex-col items-center text-center relative z-10 w-full md:w-1/4">
-            <div class="w-20 h-20 bg-surface-main border border-border-neutral rounded-full flex items-center justify-center mb-stack-md">
-              <span class="material-symbols-outlined text-primary text-3xl">mark_email_unread</span>
-            </div>
-            <h4 class="font-headline-md text-headline-md text-primary mb-stack-sm">Step 1: Tiếp nhận</h4>
-            <p class="font-body-md text-body-md text-text-secondary px-4">Thu thập thông tin sơ bộ và yêu cầu của khách hàng qua hệ thống trực tuyến hoặc trực tiếp.</p>
-          </div>
-
-          <!-- Step 2 -->
-          <div class="flex flex-col items-center text-center relative z-10 w-full md:w-1/4">
-            <div class="w-20 h-20 bg-surface-main border border-border-neutral rounded-full flex items-center justify-center mb-stack-md">
-              <span class="material-symbols-outlined text-primary text-3xl">plagiarism</span>
-            </div>
-            <h4 class="font-headline-md text-headline-md text-primary mb-stack-sm">Step 2: Đánh giá</h4>
-            <p class="font-body-md text-body-md text-text-secondary px-4">Luật sư chuyên môn phân tích hồ sơ, đánh giá rủi ro và đề xuất giải pháp pháp lý.</p>
-          </div>
-
-          <!-- Step 3 -->
-          <div class="flex flex-col items-center text-center relative z-10 w-full md:w-1/4">
-            <div class="w-20 h-20 bg-surface-main border border-border-neutral rounded-full flex items-center justify-center mb-stack-md">
-              <span class="material-symbols-outlined text-primary text-3xl">history_edu</span>
-            </div>
-            <h4 class="font-headline-md text-headline-md text-primary mb-stack-sm">Step 3: Ký Hợp đồng</h4>
-            <p class="font-body-md text-body-md text-text-secondary px-4">Thống nhất phạm vi công việc, chi phí và tiến độ. Ký kết hợp đồng dịch vụ pháp lý.</p>
-          </div>
-
-          <!-- Step 4 -->
-          <div class="flex flex-col items-center text-center relative z-10 w-full md:w-1/4">
-            <div class="w-20 h-20 bg-surface-main border border-border-neutral rounded-full flex items-center justify-center mb-stack-md">
-              <span class="material-symbols-outlined text-primary text-3xl">task_alt</span>
-            </div>
-            <h4 class="font-headline-md text-headline-md text-primary mb-stack-sm">Step 4: Thực thi</h4>
-            <p class="font-body-md text-body-md text-text-secondary px-4">Triển khai công việc theo cam kết, báo cáo tiến độ định kỳ và bàn giao kết quả.</p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="max-w-3xl mx-auto px-margin-mobile md:px-margin-desktop py-section-padding">
-      <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-stack-lg text-center">Câu hỏi thường gặp</h2>
-      <div class="space-y-4">
-
-        <!-- FAQ Item 1 -->
-        <div class="border border-border-neutral rounded-lg bg-surface-alt">
-          <button class="w-full px-6 py-4 flex justify-between items-center focus:outline-none faq-item"
-                  onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.material-symbols-outlined').textContent = this.nextElementSibling.classList.contains('hidden') ? 'add' : 'remove';">
-            <span class="font-headline-md text-headline-md text-primary text-left">Chi phí dịch vụ được tính như thế nào?</span>
-            <span class="material-symbols-outlined text-primary">add</span>
-          </button>
-          <div class="hidden px-6 pb-4">
-            <p class="font-body-md text-body-md text-text-secondary">Chi phí được xác định dựa trên mức độ phức tạp của vụ việc, thời gian xử lý và yêu cầu cụ thể của khách hàng. Chúng tôi luôn báo giá minh bạch trước khi ký hợp đồng, không phát sinh chi phí ẩn.</p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 2 -->
-        <div class="border border-border-neutral rounded-lg bg-surface-alt">
-          <button class="w-full px-6 py-4 flex justify-between items-center focus:outline-none faq-item"
-                  onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.material-symbols-outlined').textContent = this.nextElementSibling.classList.contains('hidden') ? 'add' : 'remove';">
-            <span class="font-headline-md text-headline-md text-primary text-left">Quá trình tư vấn ban đầu có tính phí không?</span>
-            <span class="material-symbols-outlined text-primary">add</span>
-          </button>
-          <div class="hidden px-6 pb-4">
-            <p class="font-body-md text-body-md text-text-secondary">Chúng tôi cung cấp buổi đánh giá sơ bộ miễn phí qua điện thoại hoặc email. Đối với tư vấn chuyên sâu yêu cầu nghiên cứu hồ sơ chi tiết, mức phí tư vấn sẽ được áp dụng và khấu trừ nếu bạn tiếp tục sử dụng dịch vụ.</p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 3 -->
-        <div class="border border-border-neutral rounded-lg bg-surface-alt">
-          <button class="w-full px-6 py-4 flex justify-between items-center focus:outline-none faq-item"
-                  onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('.material-symbols-outlined').textContent = this.nextElementSibling.classList.contains('hidden') ? 'add' : 'remove';">
-            <span class="font-headline-md text-headline-md text-primary text-left">Công ty có cam kết kết quả thắng kiện không?</span>
-            <span class="material-symbols-outlined text-primary">add</span>
-          </button>
-          <div class="hidden px-6 pb-4">
-            <p class="font-body-md text-body-md text-text-secondary">Theo quy định về đạo đức hành nghề luật sư, chúng tôi không được phép cam kết chắc chắn 100% kết quả thắng kiện. Tuy nhiên, chúng tôi cam kết tận tâm, sử dụng tối đa kiến thức chuyên môn và kinh nghiệm để bảo vệ tốt nhất quyền lợi hợp pháp của bạn.</p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ========== LEAD GATE MODAL ========== -->
-  <div class="fixed inset-0 z-[100] hidden items-center justify-center lead-gate-overlay px-margin-mobile" id="lead-gate-modal">
-    <div class="bg-surface-main w-full max-w-container-max max-w-xl rounded-lg shadow-elegant p-stack-lg flex flex-col items-center text-center relative">
-      <!-- Close Button -->
-      <button id="lead-gate-close" class="absolute top-4 right-4 text-text-secondary hover:text-primary transition-colors" aria-label="Đóng">
-        <span class="material-symbols-outlined">close</span>
-      </button>
-      <div class="w-16 h-16 bg-surface-container-high rounded-full flex items-center justify-center mb-stack-md">
-        <span class="material-symbols-outlined text-primary text-[32px]">lock_person</span>
-      </div>
-      <h2 class="font-headline-md text-headline-md text-primary mb-2">
+</section>
+<!-- Services Grid (Double-Bezel Architecture) -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+<!-- 1. Nội bộ doanh nghiệp -->
+<div class="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
+<div class="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-8 h-full flex flex-col border border-border-neutral/50">
+<div class="rounded-full px-3 py-1 bg-surface-alt text-[10px] uppercase tracking-[0.2em] font-medium text-text-secondary w-max mb-8 border border-border-neutral/50">Doanh nghiệp</div>
+<h3 class="font-headline-lg text-[28px] text-primary mb-4 leading-tight">Nội bộ doanh nghiệp</h3>
+<p class="font-body-md text-text-secondary leading-relaxed mb-10 flex-grow">
+              Xây dựng quy chế hoạt động, cơ cấu quản trị nội bộ, giải quyết mâu thuẫn giữa các thành viên/cổ đông. Hỗ trợ soát xét và chuẩn hóa hệ thống văn bản pháp lý nội bộ nhằm phòng ngừa rủi ro ngay từ bên trong.
+            </p>
+<div class="flex flex-col gap-3 mt-auto">
+<a class="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn" href="appointment.html">
+<span class="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
+<div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</a>
+<a class="flex w-full items-center justify-center gap-2 bg-surface-main border border-border-neutral text-primary rounded-full px-6 py-3 hover:bg-surface-alt transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]" href="ai-chatbot.html">
+<span class="material-symbols-outlined text-base text-accent">smart_toy</span>
+<span class="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
+</a>
+</div>
+</div>
+</div>
+<!-- 2. Tư vấn đầu tư -->
+<div class="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
+<div class="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-8 h-full flex flex-col border border-border-neutral/50">
+<div class="rounded-full px-3 py-1 bg-surface-alt text-[10px] uppercase tracking-[0.2em] font-medium text-text-secondary w-max mb-8 border border-border-neutral/50">Thương mại</div>
+<h3 class="font-headline-lg text-[28px] text-primary mb-4 leading-tight">Tư vấn đầu tư</h3>
+<p class="font-body-md text-text-secondary leading-relaxed mb-10 flex-grow">
+              Cố vấn chiến lược cho các nhà đầu tư trong và ngoài nước (FDI). Đánh giá tính pháp lý của dự án, tối ưu hóa cấu trúc giao dịch và đại diện thực hiện các thủ tục xin cấp phép đầu tư phức tạp.
+            </p>
+<div class="flex flex-col gap-3 mt-auto">
+<a class="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn" href="appointment.html">
+<span class="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
+<div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</a>
+<a class="flex w-full items-center justify-center gap-2 bg-surface-main border border-border-neutral text-primary rounded-full px-6 py-3 hover:bg-surface-alt transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]" href="ai-chatbot.html">
+<span class="material-symbols-outlined text-base text-accent">smart_toy</span>
+<span class="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
+</a>
+</div>
+</div>
+</div>
+<!-- 3. Thủ tục pháp lý - giấy phép -->
+<div class="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
+<div class="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-8 h-full flex flex-col border border-border-neutral/50">
+<div class="rounded-full px-3 py-1 bg-surface-alt text-[10px] uppercase tracking-[0.2em] font-medium text-text-secondary w-max mb-8 border border-border-neutral/50">Hành chính</div>
+<h3 class="font-headline-lg text-[28px] text-primary mb-4 leading-tight">Thủ tục pháp lý &amp; Giấy phép</h3>
+<p class="font-body-md text-text-secondary leading-relaxed mb-10 flex-grow">
+              Đại diện xin cấp các loại giấy phép con, giấy phép hoạt động, đăng ký kinh doanh và các văn bản chấp thuận từ cơ quan nhà nước có thẩm quyền một cách nhanh chóng và chuẩn xác nhất.
+            </p>
+<div class="flex flex-col gap-3 mt-auto">
+<a class="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn" href="appointment.html">
+<span class="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
+<div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</a>
+<a class="flex w-full items-center justify-center gap-2 bg-surface-main border border-border-neutral text-primary rounded-full px-6 py-3 hover:bg-surface-alt transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]" href="ai-chatbot.html">
+<span class="material-symbols-outlined text-base text-accent">smart_toy</span>
+<span class="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
+</a>
+</div>
+</div>
+</div>
+<!-- 4. Di chúc - thừa kế -->
+<div class="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
+<div class="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-8 h-full flex flex-col border border-border-neutral/50">
+<div class="rounded-full px-3 py-1 bg-surface-alt text-[10px] uppercase tracking-[0.2em] font-medium text-text-secondary w-max mb-8 border border-border-neutral/50">Cá nhân</div>
+<h3 class="font-headline-lg text-[28px] text-primary mb-4 leading-tight">Di chúc &amp; Thừa kế</h3>
+<p class="font-body-md text-text-secondary leading-relaxed mb-10 flex-grow">
+              Tư vấn lập di chúc, phân chia di sản thừa kế theo pháp luật hoặc theo di chúc. Hỗ trợ giải quyết các tranh chấp phát sinh trong quá trình phân chia tài sản gia đình êm thấm và hợp pháp.
+            </p>
+<div class="flex flex-col gap-3 mt-auto">
+<a class="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn" href="appointment.html">
+<span class="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
+<div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</a>
+<a class="flex w-full items-center justify-center gap-2 bg-surface-main border border-border-neutral text-primary rounded-full px-6 py-3 hover:bg-surface-alt transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]" href="ai-chatbot.html">
+<span class="material-symbols-outlined text-base text-accent">smart_toy</span>
+<span class="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
+</a>
+</div>
+</div>
+</div>
+<!-- 5. Dân sự -->
+<div class="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
+<div class="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-8 h-full flex flex-col border border-border-neutral/50">
+<div class="rounded-full px-3 py-1 bg-surface-alt text-[10px] uppercase tracking-[0.2em] font-medium text-text-secondary w-max mb-8 border border-border-neutral/50">Tranh tụng</div>
+<h3 class="font-headline-lg text-[28px] text-primary mb-4 leading-tight">Dân sự</h3>
+<p class="font-body-md text-text-secondary leading-relaxed mb-10 flex-grow">
+              Tư vấn và giải quyết các vấn đề dân sự đa dạng: bồi thường thiệt hại, hợp đồng vay mượn, giao dịch dân sự thông thường. Bảo vệ quyền và lợi ích hợp pháp của cá nhân trong đời sống thường nhật.
+            </p>
+<div class="flex flex-col gap-3 mt-auto">
+<a class="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn" href="appointment.html">
+<span class="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
+<div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</a>
+<a class="flex w-full items-center justify-center gap-2 bg-surface-main border border-border-neutral text-primary rounded-full px-6 py-3 hover:bg-surface-alt transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]" href="ai-chatbot.html">
+<span class="material-symbols-outlined text-base text-accent">smart_toy</span>
+<span class="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
+</a>
+</div>
+</div>
+</div>
+<!-- 6. Lao động -->
+<div class="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
+<div class="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-8 h-full flex flex-col border border-border-neutral/50">
+<div class="rounded-full px-3 py-1 bg-surface-alt text-[10px] uppercase tracking-[0.2em] font-medium text-text-secondary w-max mb-8 border border-border-neutral/50">Doanh nghiệp</div>
+<h3 class="font-headline-lg text-[28px] text-primary mb-4 leading-tight">Lao động</h3>
+<p class="font-body-md text-text-secondary leading-relaxed mb-10 flex-grow">
+              Tư vấn hợp đồng lao động, nội quy, thỏa ước lao động tập thể. Xử lý kỷ luật lao động và giải quyết các tranh chấp về sa thải, bồi thường, trợ cấp thôi việc giữa người lao động và người sử dụng.
+            </p>
+<div class="flex flex-col gap-3 mt-auto">
+<a class="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn" href="appointment.html">
+<span class="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
+<div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</a>
+<a class="flex w-full items-center justify-center gap-2 bg-surface-main border border-border-neutral text-primary rounded-full px-6 py-3 hover:bg-surface-alt transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]" href="ai-chatbot.html">
+<span class="material-symbols-outlined text-base text-accent">smart_toy</span>
+<span class="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
+</a>
+</div>
+</div>
+</div>
+<!-- 7. Tranh tụng -->
+<div class="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
+<div class="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-8 h-full flex flex-col border border-border-neutral/50">
+<div class="rounded-full px-3 py-1 bg-surface-alt text-[10px] uppercase tracking-[0.2em] font-medium text-text-secondary w-max mb-8 border border-border-neutral/50">Cốt lõi</div>
+<h3 class="font-headline-lg text-[28px] text-primary mb-4 leading-tight">Tranh tụng</h3>
+<p class="font-body-md text-text-secondary leading-relaxed mb-10 flex-grow">
+              Đại diện khách hàng tham gia tố tụng tại Tòa án và Trọng tài thương mại các cấp. Lên phương án bào chữa, bảo vệ quyền lợi tối đa trong các vụ án hình sự, dân sự, thương mại và hành chính.
+            </p>
+<div class="flex flex-col gap-3 mt-auto">
+<a class="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn" href="appointment.html">
+<span class="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
+<div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</a>
+<a class="flex w-full items-center justify-center gap-2 bg-surface-main border border-border-neutral text-primary rounded-full px-6 py-3 hover:bg-surface-alt transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]" href="ai-chatbot.html">
+<span class="material-symbols-outlined text-base text-accent">smart_toy</span>
+<span class="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
+</a>
+</div>
+</div>
+</div>
+<!-- 8. Nhà đất - bất động sản -->
+<div class="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
+<div class="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-8 h-full flex flex-col border border-border-neutral/50">
+<div class="rounded-full px-3 py-1 bg-surface-alt text-[10px] uppercase tracking-[0.2em] font-medium text-text-secondary w-max mb-8 border border-border-neutral/50">Thương mại</div>
+<h3 class="font-headline-lg text-[28px] text-primary mb-4 leading-tight">Nhà đất &amp; Bất động sản</h3>
+<p class="font-body-md text-text-secondary leading-relaxed mb-10 flex-grow">
+              Tư vấn pháp lý mua bán, chuyển nhượng, tặng cho, thế chấp quyền sử dụng đất. Xử lý các tranh chấp ranh giới, bồi thường giải tỏa và hoàn thiện hồ sơ pháp lý cho các dự án bất động sản lớn.
+            </p>
+<div class="flex flex-col gap-3 mt-auto">
+<a class="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn" href="appointment.html">
+<span class="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
+<div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</a>
+<a class="flex w-full items-center justify-center gap-2 bg-surface-main border border-border-neutral text-primary rounded-full px-6 py-3 hover:bg-surface-alt transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]" href="ai-chatbot.html">
+<span class="material-symbols-outlined text-base text-accent">smart_toy</span>
+<span class="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
+</a>
+</div>
+</div>
+</div>
+<!-- 9. Hôn nhân gia đình -->
+<div class="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
+<div class="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-8 h-full flex flex-col border border-border-neutral/50">
+<div class="rounded-full px-3 py-1 bg-surface-alt text-[10px] uppercase tracking-[0.2em] font-medium text-text-secondary w-max mb-8 border border-border-neutral/50">Cá nhân</div>
+<h3 class="font-headline-lg text-[28px] text-primary mb-4 leading-tight">Hôn nhân &amp; Gia đình</h3>
+<p class="font-body-md text-text-secondary leading-relaxed mb-10 flex-grow">
+              Hỗ trợ thủ tục ly hôn thuận tình, đơn phương, tranh chấp quyền nuôi con, cấp dưỡng và phân chia tài sản chung. Tư vấn pháp luật về mang thai hộ, nhận con nuôi và các vấn đề gia đình khác.
+            </p>
+<div class="flex flex-col gap-3 mt-auto">
+<a class="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn" href="appointment.html">
+<span class="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
+<div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</a>
+<a class="flex w-full items-center justify-center gap-2 bg-surface-main border border-border-neutral text-primary rounded-full px-6 py-3 hover:bg-surface-alt transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]" href="ai-chatbot.html">
+<span class="material-symbols-outlined text-base text-accent">smart_toy</span>
+<span class="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- ========== LEAD GATE MODAL ========== -->
+<div class="fixed inset-0 z-[100] hidden items-center justify-center lead-gate-overlay px-margin-mobile" id="lead-gate-modal">
+<div class="bg-surface-main w-full max-w-container-max max-w-xl rounded-lg shadow-elegant p-stack-lg flex flex-col items-center text-center relative">
+<!-- Close Button -->
+<button aria-label="Đóng" class="absolute top-4 right-4 text-text-secondary hover:text-primary transition-colors" id="lead-gate-close">
+<span class="material-symbols-outlined">close</span>
+</button>
+<div class="w-16 h-16 bg-surface-container-high rounded-full flex items-center justify-center mb-stack-md">
+<span class="material-symbols-outlined text-primary text-[32px]">lock_person</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-primary mb-2">
         Nhập Thông Tin Để Tải Brochure Dịch Vụ
       </h2>
-      <p class="font-body-md text-body-md text-text-secondary mb-stack-lg">
+<p class="font-body-md text-body-md text-text-secondary mb-stack-lg">
         Tài liệu chi tiết về dịch vụ pháp lý sẽ được gửi đến bạn hoàn toàn miễn phí.
       </p>
-      <form class="w-full space-y-stack-md">
-        <div class="relative">
-          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-[20px]">person</span>
-          <input class="w-full bg-surface-alt border border-border-neutral rounded py-3 pl-10 pr-4 font-body-md text-body-md text-text-primary focus:outline-none focus:border-primary focus:border-2 transition-all placeholder:text-border-neutral" placeholder="Họ và tên của bạn *" required="" type="text">
-        </div>
-        <div class="relative">
-          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-[20px]">phone_iphone</span>
-          <input class="w-full bg-surface-alt border border-border-neutral rounded py-3 pl-10 pr-4 font-body-md text-body-md text-text-primary focus:outline-none focus:border-primary focus:border-2 transition-all placeholder:text-border-neutral" placeholder="Số điện thoại nhận file (Zalo) *" required="" type="tel">
-        </div>
-        <label class="flex items-start gap-2 text-left cursor-pointer group">
-          <input class="mt-1 rounded border-border-neutral text-primary focus:ring-primary" type="checkbox">
-          <span class="font-body-md text-body-md text-text-secondary text-sm leading-tight group-hover:text-primary transition-colors">
+<form class="w-full space-y-stack-md">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-[20px]">person</span>
+<input class="w-full bg-surface-alt border border-border-neutral rounded py-3 pl-10 pr-4 font-body-md text-body-md text-text-primary focus:outline-none focus:border-primary focus:border-2 transition-all placeholder:text-border-neutral" placeholder="Họ và tên của bạn *" required="" type="text"/>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-[20px]">phone_iphone</span>
+<input class="w-full bg-surface-alt border border-border-neutral rounded py-3 pl-10 pr-4 font-body-md text-body-md text-text-primary focus:outline-none focus:border-primary focus:border-2 transition-all placeholder:text-border-neutral" placeholder="Số điện thoại nhận file (Zalo) *" required="" type="tel"/>
+</div>
+<label class="flex items-start gap-2 text-left cursor-pointer group">
+<input class="mt-1 rounded border-border-neutral text-primary focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-text-secondary text-sm leading-tight group-hover:text-primary transition-colors">
             Tôi đồng ý nhận tư vấn sơ bộ từ Luật sư nếu có thắc mắc.
           </span>
-        </label>
-        <button class="w-full py-4 bg-accent text-on-accent font-label-sm text-label-sm rounded hover:bg-inverse-surface transition-colors flex justify-center items-center gap-2" type="submit">
-          <span class="material-symbols-outlined">lock_open</span> MỞ KHÓA &amp; TẢI FILE NGAY
+</label>
+<button class="w-full py-4 bg-accent text-on-accent font-label-sm text-label-sm rounded hover:bg-inverse-surface transition-colors flex justify-center items-center gap-2" type="submit">
+<span class="material-symbols-outlined">lock_open</span> MỞ KHÓA &amp; TẢI FILE NGAY
         </button>
-      </form>
-      <div class="mt-stack-md flex items-center gap-1 text-text-secondary">
-        <span class="material-symbols-outlined text-[14px]">verified_user</span>
-        <p class="font-label-sm text-label-sm text-[12px]">
+</form>
+<div class="mt-stack-md flex items-center gap-1 text-text-secondary">
+<span class="material-symbols-outlined text-[14px]">verified_user</span>
+<p class="font-label-sm text-label-sm text-[12px]">
           Cam kết bảo mật thông tin theo Quy tắc đạo đức Luật sư.
         </p>
+</div>
+</div>
+</div>
+<!-- ========== FLOATING AI WIDGET ========== -->
+<a class="fixed bottom-margin-mobile right-margin-mobile z-50 bg-accent text-on-accent rounded-full h-16 w-16 border border-border-neutral shadow-elegant hover:bg-primary-container hover:text-on-primary-container transition-all flex items-center justify-center" href="ai-chatbot.html">
+<span class="material-symbols-outlined text-2xl">smart_toy</span>
+</a>
+<!-- ========== FOOTER ========== -->
+<footer class="bg-primary border-t border-border-neutral w-full">
+<div class="grid grid-cols-1 gap-gutter max-w-container-max mx-auto px-margin-desktop py-section-padding md:grid-cols-12"><div class="col-span-1 mb-stack-lg md:col-span-12">
+<div class="font-headline-md text-headline-md font-bold text-accent">DUCTIN &amp; PARTNERS</div>
+</div>
+      <div class="col-span-1 md:col-span-5 lg:col-span-4">
+<iframe allowfullscreen="" class="rounded-lg shadow-elegant w-full h-full" height="100%" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125419.33178072695!2d106.5754288003725!3d10.784166700000023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f4bc8ad1f21%3A0x1c31b41801cfac6c!2sSaigon%20Trade%20Center%20Tower%20-%20Office%20Saigon!5e0!3m2!1svi!2s!4v1785438121278!5m2!1svi!2s" style="border:0; min-height: 250px;" width="100%"></iframe>
+</div>
+      <div class="col-span-1 md:col-span-7 lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-gutter">
+        <div class="flex flex-col gap-stack-sm">
+<p class="font-label-sm text-label-sm text-on-primary mb-2 font-bold">Về chúng tôi</p>
+<a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="services.html">Dịch vụ</a>
+<a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="ai-chatbot.html">AI Chat</a>
+<a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="ai-form-library.html">Biểu mẫu AI</a>
+</div>
+        <div class="flex flex-col gap-stack-sm">
+<p class="font-label-sm text-label-sm text-on-primary mb-2 font-bold">Công cụ</p>
+<a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="court-fee-calculator.html">Tính án phí</a>
+<a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="salary-calculator.html">Tính lương</a>
+<a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="ai-form-library.html">Tra cứu biểu mẫu</a>
+</div>
+        <div class="flex flex-col gap-stack-sm">
+<p class="font-label-sm text-label-sm text-on-primary mb-2 font-bold">Hỗ trợ</p>
+<a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="appointment.html">Đặt lịch hẹn</a>
+<a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="#">Chính sách bảo mật</a>
+<a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="#">Điều khoản</a>
+</div>
+        <div class="flex flex-col gap-stack-sm">
+<p class="font-label-sm text-label-sm text-on-primary mb-2 font-bold">Liên hệ</p>
+<a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="#">Hotline: 09xx.xxx.xxx</a>
+<a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="#">Email: info@ductinlaw.vn</a>
+<a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="#">Địa chỉ: TP. Hồ Chí Minh</a>
+</div>
       </div>
+      <div class="col-span-1 mt-stack-lg pt-stack-md border-t border-border-neutral md:col-span-12">
+<p class="font-body-md text-body-md text-surface-alt text-sm">© 2024 DUCTIN &amp; PARTNERS. All Rights Reserved.</p>
+</div>
     </div>
-  </div>
-
-  <!-- ========== FLOATING AI WIDGET ========== -->
-  <a href="ai-chatbot.html" class="fixed bottom-margin-mobile right-margin-mobile z-50 bg-accent text-on-accent rounded-full h-16 w-16 border border-border-neutral shadow-elegant hover:bg-primary-container hover:text-on-primary-container transition-all flex items-center justify-center">
-    <span class="material-symbols-outlined text-2xl">smart_toy</span>
-  </a>
-
-  <!-- ========== FOOTER ========== -->
-  <footer class="bg-primary border-t border-border-neutral w-full">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-margin-desktop py-section-padding">
-      <div class="col-span-1 md:col-span-4 mb-stack-lg">
-        <div class="font-headline-md text-headline-md font-bold text-accent">DUCTIN &amp; PARTNERS</div>
-      </div>
-      <div class="flex flex-col gap-stack-sm">
-        <p class="font-label-sm text-label-sm text-on-primary mb-2 font-bold">Về chúng tôi</p>
-        <a href="services.html" class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors">Dịch vụ</a>
-        <a href="ai-chatbot.html" class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors">AI Chat</a>
-        <a href="ai-form-library.html" class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors">Biểu mẫu AI</a>
-      </div>
-      <div class="flex flex-col gap-stack-sm">
-        <p class="font-label-sm text-label-sm text-on-primary mb-2 font-bold">Công cụ</p>
-        <a href="court-fee-calculator.html" class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors">Tính án phí</a>
-        <a href="salary-calculator.html" class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors">Tính lương</a>
-        <a href="ai-form-library.html" class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors">Tra cứu biểu mẫu</a>
-      </div>
-      <div class="flex flex-col gap-stack-sm">
-        <p class="font-label-sm text-label-sm text-on-primary mb-2 font-bold">Hỗ trợ</p>
-        <a href="appointment.html" class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors">Đặt lịch hẹn</a>
-        <a href="#" class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors">Chính sách bảo mật</a>
-        <a href="#" class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors">Điều khoản</a>
-      </div>
-      <div class="flex flex-col gap-stack-sm">
-        <p class="font-label-sm text-label-sm text-on-primary mb-2 font-bold">Liên hệ</p>
-        <a href="#" class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors">Hotline: 09xx.xxx.xxx</a>
-        <a href="#" class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors">Email: info@ductinlaw.vn</a>
-        <a href="#" class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors">Địa chỉ: TP. Hồ Chí Minh</a>
-      </div>
-      <div class="col-span-1 md:col-span-4 mt-stack-lg pt-stack-md border-t border-border-neutral">
-        <p class="font-body-md text-body-md text-surface-alt text-sm">© 2024 DUCTIN &amp; PARTNERS. All Rights Reserved.</p>
-      </div>
-    </div>
-  </footer>
-
-  <script src="../js/main.js"></script>
+</footer>
+<script src="../js/main.js"></script>
 </body>
 </html>
