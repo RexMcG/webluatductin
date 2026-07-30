@@ -63,6 +63,16 @@ document.addEventListener('DOMContentLoaded', function() {
   const leadGateClose = document.getElementById('lead-gate-close');
   const leadGateTriggers = document.querySelectorAll('[data-trigger="lead-gate"]');
 
+  const isLeadGateUnlocked = sessionStorage.getItem('leadGateUnlocked') === 'true';
+
+  if (leadGateModal && !leadGateModal.classList.contains('hidden')) {
+    if (isLeadGateUnlocked) {
+      leadGateModal.classList.add('hidden');
+    } else {
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
   function openLeadGate() {
     if (leadGateModal) {
       leadGateModal.classList.remove('hidden');
@@ -85,10 +95,20 @@ document.addEventListener('DOMContentLoaded', function() {
     trigger.addEventListener('click', openLeadGate);
   });
 
-  // Close lead gate on overlay click
-  if (leadGateModal) {
+  // Close lead gate on overlay click only if there's a close button
+  if (leadGateModal && leadGateClose) {
     leadGateModal.addEventListener('click', function(e) {
       if (e.target === this) closeLeadGate();
+    });
+  }
+
+  const leadGateForm = document.getElementById('lead-gate-form');
+  if (leadGateForm) {
+    leadGateForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      sessionStorage.setItem('leadGateUnlocked', 'true');
+      closeLeadGate();
+      // Also enable any disabled download buttons if necessary
     });
   }
 
