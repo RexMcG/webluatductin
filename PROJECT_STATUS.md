@@ -55,7 +55,13 @@
 - **Antigravity**: UI/UX tinh chỉnh, layout, animation, dark mode, trang hồ sơ luật sư, timeline index.
 - **Quy tắc git**: mỗi bên 1 branch `feature/<tên>`, merge vào `master` khi xong; không sửa cùng 1 file trong cùng lúc (báo nhau qua README/báo cáo này).
 
-## 5. Cách chạy thử
+## 6. Công cụ & Kỹ năng đã dùng cho Feat: Calculator 2026
+
+*   **`web_search`**: Research luật 2026 (NĐ 293/2025, NĐ 161/2026, Luật BHXH 2024, NQ 326/2016).
+*   **`execute_code`**: Viết script kiểm định logic công thức (Test 10/10 cases).
+*   **`delegate_task`**: Song song hóa công việc (1 subagent patch HTML, 1 subagent patch JS).
+*   **`patch`**: Patch chính xác code (không phá vỡ cấu trúc).
+*   **`terminal`**: Quản lý git, chạy node server test.
 
 ```bash
 cd C:\Users\GIGA\Documents\web\webluatductin
