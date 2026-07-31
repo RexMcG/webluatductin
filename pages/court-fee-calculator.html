@@ -144,7 +144,7 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
             <div>
               <label class="block font-label-sm text-label-sm text-primary mb-stack-sm">Lĩnh vực tranh chấp</label>
-              <select
+              <select id="case-type"
                 class="w-full border border-border-neutral bg-surface-main text-primary p-stack-sm rounded focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md">
                 <option>Dân sự</option>
                 <option>Kinh doanh thương mại</option>
@@ -154,10 +154,10 @@
             </div>
             <div>
               <label class="block font-label-sm text-label-sm text-primary mb-stack-sm">Cấp tòa án</label>
-              <select
+              <select id="court-level"
                 class="w-full border border-border-neutral bg-surface-main text-primary p-stack-sm rounded focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md">
-                <option>Sơ thẩm</option>
-                <option>Phúc thẩm</option>
+                <option value="so-tham">Sơ thẩm</option>
+                <option value="phuc-tham">Phúc thẩm</option>
               </select>
             </div>
           </div>
@@ -187,7 +187,7 @@
           </div>
           <div>
             <label class="flex items-center gap-stack-sm cursor-pointer">
-              <input class="text-primary focus:ring-primary border-border-neutral rounded" type="checkbox" />
+              <input class="text-primary focus:ring-primary border-border-neutral rounded" id="fee-exempt" type="checkbox" />
               <span class="font-body-md text-body-md text-primary">Thuộc diện miễn/giảm án phí</span>
             </label>
           </div>
@@ -219,6 +219,16 @@
               <h3 class="font-label-sm text-label-sm text-text-secondary mb-stack-sm">Án Phí Chính Thức</h3>
               <p class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary font-bold"
                 id="fee-total">5.000.000 VNĐ</p>
+            </div>
+            <div id="fee-reduced-row" class="hidden">
+              <h3 class="font-label-sm text-label-sm text-text-secondary mb-stack-sm">Số Tiền Được Miễn/Giảm</h3>
+              <p class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold"
+                id="fee-reduced" style="color: #16a34a;">0 VNĐ</p>
+            </div>
+            <div id="fee-final-row" class="hidden">
+              <h3 class="font-label-sm text-label-sm text-text-secondary mb-stack-sm">Số Tiền Phải Nộp</h3>
+              <p class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary font-bold"
+                id="fee-final">0 VNĐ</p>
             </div>
             <div
               class="inline-flex items-center gap-stack-sm bg-surface-alt px-stack-sm py-stack-sm border border-border-neutral rounded mt-stack-md">

@@ -112,35 +112,106 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // === CALCULATOR: Court Fee ===
+  // =====================================================================
+  // LAW CONSTANTS — CẬP NHẬT 31/07/2026
+  // NĐ 293/2025/NĐ-CP: Lương tối thiểu vùng 2026 (hiệu lực 01/01/2026)
+  // NĐ 161/2026/NĐ-CP: Lương cơ sở từ 01/07/2026 = 2.530.000đ
+  // Luật BHXH 2024: Trần BHXH = 20 × lương cơ sở (hiệu lực 01/07/2025)
+  // NQ 954/2020 + NQ mới 2026: Giảm trừ gia cảnh
+  // NQ 326/2016/UBTVQH14: Án phí (hiệu lực đến nay)
+  // =====================================================================
+  const MIN_WAGE = { 1: 5310000, 2: 4730000, 3: 4140000, 4: 3700000 };
+  const BASE_SALARY = 2530000; // Lương cơ sở từ 01/07/2026
+  const BHXH_CAP = BASE_SALARY * 20; // 50.600.000 — trần BHXH/BHYT
+  const RATES = { bhxh: 0.08, bhyt: 0.015, bhtn: 0.01 };
+  const DEDUCTION_SELF = 15500000; // Giảm trừ bản thân 2026
+  const DEDUCTION_DEP = 6200000;  // Giảm trừ người phụ thuộc 2026
+  const PIT_BRACKETS = [
+    { limit: 5000000, rate: 0.05, cumTax: 0 },
+    { limit: 10000000, rate: 0.10, cumTax: 250000 },
+    { limit: 18000000, rate: 0.15, cumTax: 750000 },
+    { limit: 32000000, rate: 0.20, cumTax: 1950000 },
+    { limit: 52000000, rate: 0.25, cumTax: 4750000 },
+    { limit: 80000000, rate: 0.30, cumTax: 9750000 },
+    { limit: Infinity, rate: 0.35, cumTax: 18150000 }
+  ];
+
+  function calcPIT(taxableIncome) {
+    if (taxableIncome <= 0) return 0;
+    for (const b of PIT_BRACKETS) {
+      if (taxableIncome <= b.limit) {
+        return b.cumTax + (taxableIncome - (b.limit === Infinity ? 80000000 : b.limit === 5000000 ? 0 : PIT_BRACKETS[PIT_BRACKETS.indexOf(b) - 1]?.limit || 0)) * b.rate;
+      }
+    }
+    return 0;
+  }
+
+  // === CALCULATOR: Court Fee — NQ 326/2016/UBTVQH14 ===
   const courtFeeForm = document.getElementById('court-fee-form');
   const courtFeeResult = document.getElementById('court-fee-result');
+
+  function calcCourtFee(value, caseType, isExempt) {
+    if (isExempt) return { fee: 0, deposit: 0 };
+
+    // Án phí không có giá ngạch
+    const noValueFee = (caseType === 'kinh-doanh') ? 3000000 : 300000;
+    if (value <= 0) return { fee: noValueFee, deposit: noValueFee };
+
+    // Bậc thang án phí có giá ngạch (NQ 326 Điều 24)
+    let fee = 0;
+    if (value <= 6000000) {
+      fee = 300000;
+    } else if (value <= 400000000) {
+      fee = value * 0.05;
+    } else if (value <= 800000000) {
+      fee = 20000000 + (value - 400000000) * 0.04;
+    } else if (value <= 2000000000) {
+      fee = 36000000 + (value - 800000000) * 0.03;
+    } else if (value <= 4000000000) {
+      fee = 72000000 + (value - 2000000000) * 0.02;
+    } else {
+      fee = 112000000 + (value - 4000000000) * 0.001;
+    }
+
+    const deposit = Math.round(fee * 0.5);
+    return { fee: Math.round(fee), deposit };
+  }
 
   if (courtFeeForm) {
     courtFeeForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      const value = parseFloat(document.getElementById('claim-value')?.value) || 0;
-      let fee = 0;
+      const claimValue = parseFloat(document.getElementById('claim-value')?.value) || 0;
+      const caseTypeSelect = this.querySelector('select');
+      const caseTypeText = caseTypeSelect ? caseTypeSelect.value : 'Dân sự';
+      let caseType = 'dan-su';
+      if (/kinh/i.test(caseTypeText)) caseType = 'kinh-doanh';
+      else if (/hôn/i.test(caseTypeText) || /gđ/i.test(caseTypeText)) caseType = 'hon-nhan';
+      else if (/lao/i.test(caseTypeText)) caseType = 'lao-dong';
 
-      // Simplified court fee calculation based on Vietnamese law
-      if (value <= 0) {
-        fee = 300000; // Non-monetary claim
-      } else if (value <= 4000000) {
-        fee = value * 0.05;
-      } else if (value <= 80000000) {
-        fee = 200000 + (value - 4000000) * 0.04;
-      } else if (value <= 200000000) {
-        fee = 3240000 + (value - 80000000) * 0.035;
-      } else if (value <= 400000000) {
-        fee = 7440000 + (value - 200000000) * 0.03;
+      const isExempt = document.getElementById('fee-exempt')?.checked || false;
+      const hasValue = this.querySelector('input[name="claim_type"]:checked')?.value === 'ngach';
+      const calcValue = hasValue ? claimValue : 0;
+
+      const { fee, deposit } = calcCourtFee(calcValue, caseType, isExempt);
+      document.getElementById('fee-deposit').textContent = deposit.toLocaleString('vi-VN') + ' VNĐ';
+      document.getElementById('fee-total').textContent = fee.toLocaleString('vi-VN') + ' VNĐ';
+
+      const reducedRow = document.getElementById('fee-reduced-row');
+      const finalRow = document.getElementById('fee-final-row');
+      if (isExempt && fee > 0) {
+        const preExempt = calcCourtFee(calcValue, caseType, false);
+        document.getElementById('fee-reduced').textContent = preExempt.deposit.toLocaleString('vi-VN') + ' VNĐ';
+        document.getElementById('fee-final').textContent = '0 VNĐ (Miễn)';
+        reducedRow?.classList.remove('hidden');
+        finalRow?.classList.remove('hidden');
+      } else if (isExempt) {
+        reducedRow?.classList.add('hidden');
+        finalRow?.classList.add('hidden');
       } else {
-        fee = 13440000 + (value - 400000000) * 0.02;
+        document.getElementById('fee-final').textContent = deposit.toLocaleString('vi-VN') + ' VNĐ';
+        finalRow?.classList.remove('hidden');
+        reducedRow?.classList.add('hidden');
       }
-
-      const deposit = fee * 0.5;
-
-      document.getElementById('fee-deposit').textContent = Math.round(deposit).toLocaleString('vi-VN') + ' VNĐ';
-      document.getElementById('fee-total').textContent = Math.round(fee).toLocaleString('vi-VN') + ' VNĐ';
 
       if (courtFeeResult) {
         courtFeeResult.classList.remove('hidden');
@@ -149,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // === CALCULATOR: Salary Gross-to-Net ===
+  // === CALCULATOR: Salary Gross-to-Net — Luật 2026 ===
   const salaryForm = document.getElementById('salary-form');
   const salaryResult = document.getElementById('salary-result');
 
@@ -158,29 +229,20 @@ document.addEventListener('DOMContentLoaded', function() {
       e.preventDefault();
       const gross = parseFloat(document.getElementById('gross-salary')?.value) || 0;
       const dependents = parseInt(document.getElementById('dependents')?.value) || 0;
-      const insurance = document.getElementById('include-insurance')?.checked || false;
+      const region = parseInt(document.getElementById('region')?.value) || 1;
+      const hasInsurance = document.getElementById('include-insurance')?.checked || false;
 
       let bhxh = 0, bhyt = 0, bhtn = 0;
-      if (insurance) {
-        bhxh = Math.min(gross, 29800000) * 0.08;
-        bhyt = Math.min(gross, 29800000) * 0.015;
-        bhtn = Math.min(gross, 29800000) * 0.01;
+      if (hasInsurance) {
+        const bhxCap = Math.min(gross, BHXH_CAP);
+        const bhtnCap = MIN_WAGE[region] ? MIN_WAGE[region] * 20 : MIN_WAGE[1] * 20;
+        bhxh = bhxCap * RATES.bhxh;      // 8%
+        bhyt = bhxCap * RATES.bhyt;      // 1.5%
+        bhtn = Math.min(gross, bhtnCap) * RATES.bhtn; // 1%
       }
 
-      // Simplified PIT calculation
-      const taxableIncome = gross - bhxh - bhyt - bhtn - 11000000 - dependents * 4400000;
-      let pit = 0;
-
-      if (taxableIncome > 0) {
-        if (taxableIncome <= 5000000) pit = taxableIncome * 0.05;
-        else if (taxableIncome <= 10000000) pit = 250000 + (taxableIncome - 5000000) * 0.1;
-        else if (taxableIncome <= 18000000) pit = 750000 + (taxableIncome - 10000000) * 0.15;
-        else if (taxableIncome <= 32000000) pit = 1950000 + (taxableIncome - 18000000) * 0.2;
-        else if (taxableIncome <= 52000000) pit = 4750000 + (taxableIncome - 32000000) * 0.25;
-        else if (taxableIncome <= 80000000) pit = 9750000 + (taxableIncome - 52000000) * 0.3;
-        else pit = 18150000 + (taxableIncome - 80000000) * 0.35;
-      }
-
+      const taxableIncome = Math.max(0, gross - bhxh - bhyt - bhtn - DEDUCTION_SELF - dependents * DEDUCTION_DEP);
+      const pit = calcPIT(taxableIncome);
       const net = gross - bhxh - bhyt - bhtn - pit;
 
       document.getElementById('gross-display').textContent = Math.round(gross).toLocaleString('vi-VN');
@@ -197,42 +259,23 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // === CALCULATOR: PIT ===
+  // === CALCULATOR: PIT (Thuế TNCN) — Luật 2026 ===
   const pitForm = document.getElementById('pit-form');
   const pitResult = document.getElementById('pit-result');
 
   if (pitForm) {
     pitForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      
-      const incomeInput = document.getElementById('monthly-income');
-      const insuranceInput = document.getElementById('insurance-deduction');
-      const dependentsInput = document.getElementById('dependents');
+      const gross = parseFloat(document.getElementById('monthly-income')?.value) || 0;
+      const insurance = parseFloat(document.getElementById('insurance-deduction')?.value) || 0;
+      const dependents = parseInt(document.getElementById('dependents')?.value) || 0;
 
-      const gross = parseFloat(incomeInput.value) || 0;
-      const insurance = parseFloat(insuranceInput.value) || 0;
-      const dependents = parseInt(dependentsInput.value) || 0;
-
-      const personalDeduction = 11000000;
-      const dependentsDeduction = dependents * 4400000;
-
-      let taxableIncome = gross - insurance - personalDeduction - dependentsDeduction;
-      if (taxableIncome < 0) taxableIncome = 0;
-
-      let pit = 0;
-      if (taxableIncome > 0) {
-        if (taxableIncome <= 5000000) pit = taxableIncome * 0.05;
-        else if (taxableIncome <= 10000000) pit = 250000 + (taxableIncome - 5000000) * 0.1;
-        else if (taxableIncome <= 18000000) pit = 750000 + (taxableIncome - 10000000) * 0.15;
-        else if (taxableIncome <= 32000000) pit = 1950000 + (taxableIncome - 18000000) * 0.2;
-        else if (taxableIncome <= 52000000) pit = 4750000 + (taxableIncome - 32000000) * 0.25;
-        else if (taxableIncome <= 80000000) pit = 9750000 + (taxableIncome - 52000000) * 0.3;
-        else pit = 18150000 + (taxableIncome - 80000000) * 0.35;
-      }
+      const taxableIncome = Math.max(0, gross - insurance - DEDUCTION_SELF - dependents * DEDUCTION_DEP);
+      const pit = calcPIT(taxableIncome);
 
       document.getElementById('total-income-display').textContent = Math.round(gross).toLocaleString('vi-VN');
-      document.getElementById('personal-deduction-display').textContent = '- ' + personalDeduction.toLocaleString('vi-VN');
-      document.getElementById('dependent-deduction-display').textContent = '- ' + dependentsDeduction.toLocaleString('vi-VN');
+      document.getElementById('personal-deduction-display').textContent = '- ' + DEDUCTION_SELF.toLocaleString('vi-VN');
+      document.getElementById('dependent-deduction-display').textContent = '- ' + (dependents * DEDUCTION_DEP).toLocaleString('vi-VN');
       document.getElementById('insurance-display').textContent = '- ' + Math.round(insurance).toLocaleString('vi-VN');
       document.getElementById('taxable-income-display').textContent = Math.round(taxableIncome).toLocaleString('vi-VN');
       document.getElementById('pit-tax-display').textContent = Math.round(pit).toLocaleString('vi-VN');
