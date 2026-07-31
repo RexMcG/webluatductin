@@ -29,7 +29,7 @@ contact_widget_template = """  <!-- Floating Contact Bubbles (Left) -->
     <!-- Zalo Bubble -->
     <a class="bg-[#0068FF] text-white rounded-full h-12 w-12 border border-[#0068FF] shadow-elegant hover:opacity-90 transition-all flex items-center justify-center relative group"
       href="https://zalo.me/09xxxxxxxx" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/2048px-Icon_of_Zalo.svg.png" alt="Zalo" class="w-6 h-6 object-contain" />
+      <img src="https://stc-zaloprofile.zdn.vn/pc/v1/images/logo.svg" alt="Zalo" class="w-6 h-6 object-contain" />
       <span class="absolute left-full ml-3 bg-secondary text-on-primary text-xs whitespace-nowrap px-2 py-1 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">Chat Zalo</span>
     </a>
   </div>

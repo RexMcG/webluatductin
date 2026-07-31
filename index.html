@@ -77,11 +77,10 @@
 
 <body class="bg-background text-text-primary antialiased">
   <!-- ========== TOP NAVBAR ========== -->
-  <nav class="bg-primary fixed top-0 w-full z-50 border-b border-border-neutral">
+  <nav class="bg-primary fixed top-0 w-full z-50">
     <div
       class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex justify-between items-center h-20">
-      <a class="font-headline-lg text-headline-lg font-black tracking-tighter text-accent" href="index.html">DUCTIN
-        &amp; PARTNERS</a>
+      <a href="index.html"><img src="img/Logo_website.png" alt="Logo" class="h-8 md:h-10 object-contain" /></a>
       <!-- Desktop Nav -->
       <div class="hidden md:flex gap-gutter items-center font-label-sm text-label-sm">
         <a class="text-accent font-bold transition-colors duration-200" href="index.html">Trang chủ</a>
@@ -143,41 +142,33 @@
     </div>
   </nav>
   <!-- ========== MAIN CONTENT ========== -->
-  <main class="pt-32 pb-section-padding page-fade-in">
+  <main class="pt-20 pb-section-padding page-fade-in">
     <!-- Hero Section -->
-    <section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
-        <div class="md:col-span-6 space-y-stack-md">
+    <section class="relative w-full bg-cover bg-[center_25%] bg-no-repeat" style="background-image: url('img/herobanner.png');">
+      <div class="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-32 md:py-48 flex items-center min-h-[500px] md:min-h-[650px]">
+        <div class="max-w-3xl space-y-6 md:space-y-8">
           <h1
-            class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-primary">
+            class="font-headline-xl-mobile text-[40px] leading-[1.2] md:font-headline-xl md:text-[64px] md:leading-[1.1] text-white">
             Công Ty Luật Đức Tín &amp; Partners
           </h1>
-          <p class="font-body-md text-body-md text-text-secondary">
+          <p class="font-body-md text-body-md text-white/90">
             Đội ngũ luật sư giàu kinh nghiệm, kết hợp công nghệ AI tiên tiến, mang đến giải pháp pháp lý tối ưu cho cá
             nhân và doanh nghiệp.
           </p>
-          <div class="mt-stack-lg relative">
+          <div class="mt-8 relative shadow-lg">
             <input
-              class="w-full h-14 pl-4 pr-12 border border-border-neutral rounded focus:border-primary focus:border-2 bg-surface-main text-text-primary placeholder:text-border-neutral outline-none"
+              class="w-full h-14 pl-4 pr-12 border-none rounded focus:ring-2 focus:ring-white bg-white/95 text-text-primary placeholder:text-text-secondary outline-none backdrop-blur-sm"
               id="hero-search" placeholder="Bạn đang gặp vướng mắc pháp lý gì?" type="text" />
             <span
-              class="material-symbols-outlined absolute right-4 top-4 text-border-neutral cursor-pointer hover:text-primary"
+              class="material-symbols-outlined absolute right-4 top-4 text-primary cursor-pointer hover:opacity-80"
               id="hero-search-btn">search</span>
           </div>
-          <div class="flex flex-wrap gap-stack-sm mt-stack-md">
-            <a class="bg-accent text-on-accent h-12 px-6 rounded font-label-sm text-label-sm hover:opacity-90 transition-opacity inline-flex items-center"
+          <div class="flex flex-wrap gap-4 mt-8">
+            <a class="bg-white text-primary h-12 px-6 rounded font-label-sm text-label-sm font-bold hover:bg-gray-100 transition-colors inline-flex items-center shadow-lg"
               href="pages/appointment.html">Đặt Lịch Hẹn</a>
-            <a class="bg-surface-main border border-primary text-primary h-12 px-6 rounded font-label-sm text-label-sm hover:bg-surface-alt transition-colors inline-flex items-center"
+            <a class="bg-accent text-on-accent h-12 px-6 rounded font-label-sm text-label-sm font-bold hover:opacity-90 transition-opacity inline-flex items-center shadow-lg"
               href="pages/ai-chatbot.html">Tư Vấn AI 24/7</a>
           </div>
-        </div>
-        <div
-          class="md:col-span-6 h-96 bg-surface-alt border border-border-neutral rounded-lg flex items-center justify-center relative overflow-hidden">
-          <img alt="Legal professional"
-            class="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-multiply"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhL6xBQ_d-_mYyQ7xl1FTURcpHP81ZGHep_sEojFJUWbhRXKx8iQb3IsqndsPRBx4OTPsflWrucP5mfGOHHc5kEVVUlQBjzdVxLaZgsf-KnD0yN-vAfzqoerPQq1W_iW2hQ5QRrHq2Dg6PZWhsWKDQtoYbCllmJhblf2MjdtnT7z1Wyom1xeMvMZSVNvqLq0yqWNFWjgxCOqynyeVvCfifDm4ornQ0mMMjqMhRVR5zBV62EDpbQE3KIr2LYq_J248gyYyd7KcLwHt_" />
-          <span class="material-symbols-outlined text-6xl text-border-neutral z-10"
-            style="font-variation-settings: 'FILL' 0;">account_balance</span>
         </div>
       </div>
     </section>
@@ -379,7 +370,7 @@
         <!-- Attorney 1 -->
         <div class="border border-border-neutral p-4 flex flex-col items-center text-center">
           <div class="w-32 h-32 bg-surface-alt rounded-full border border-border-neutral mb-4 overflow-hidden">
-            <img alt="Attorney" class="w-full h-full object-cover" src="img/avatar1.png" />
+            <img alt="Attorney" class="w-full h-full object-cover" src="img/avatar2.png" />
           </div>
           <h3 class="font-headline-md text-headline-md text-primary">Ls. Nguyễn Văn A</h3>
           <p class="font-label-sm text-label-sm text-text-secondary uppercase mt-1 mb-4">Giám đốc Điều hành</p>
@@ -403,7 +394,7 @@
         <!-- Attorney 3 -->
         <div class="border border-border-neutral p-4 flex flex-col items-center text-center">
           <div class="w-32 h-32 bg-surface-alt rounded-full border border-border-neutral mb-4 overflow-hidden">
-            <img alt="Attorney" class="w-full h-full object-cover" src="img/avatar3.png" />
+            <img alt="Attorney" class="w-full h-full object-cover" src="img/avatar1.png" />
           </div>
           <h3 class="font-headline-md text-headline-md text-primary">Ls. Lê Văn C</h3>
           <p class="font-label-sm text-label-sm text-text-secondary uppercase mt-1 mb-4">Trưởng phòng Doanh nghiệp</p>
@@ -478,7 +469,7 @@
     <!-- Zalo Bubble -->
     <a class="bg-[#0068FF] text-white rounded-full h-12 w-12 border border-[#0068FF] shadow-elegant hover:opacity-90 transition-all flex items-center justify-center relative group"
       href="https://zalo.me/09xxxxxxxx" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/2048px-Icon_of_Zalo.svg.png" alt="Zalo" class="w-6 h-6 object-contain" />
+      <img src="img/1280px-Icon_of_Zalo.svg.png" alt="Zalo" class="w-6 h-6 object-contain" />
       <span class="absolute left-full ml-3 bg-secondary text-on-primary text-xs whitespace-nowrap px-2 py-1 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">Chat Zalo</span>
     </a>
   </div>
@@ -493,7 +484,7 @@
     <div
       class="grid grid-cols-1 gap-gutter max-w-container-max mx-auto px-margin-desktop py-section-padding md:grid-cols-12">
       <div class="col-span-1 mb-stack-lg md:col-span-12">
-        <div class="font-headline-md text-headline-md font-bold text-accent">DUCTIN &amp; PARTNERS</div>
+        <div><img src="img/Logo_website.png" alt="Logo" class="h-10 md:h-12 object-contain" /></div>
       </div>
       <div class="col-span-1 md:col-span-5 lg:col-span-4">
         <iframe allowfullscreen="" class="rounded-lg shadow-elegant w-full h-full" height="100%" loading="lazy"
@@ -502,8 +493,8 @@
           style="border:0; min-height: 250px;" width="100%"></iframe>
       </div>
       <div class="col-span-1 md:col-span-7 lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-gutter">
-        <div class="flex flex-col gap-stack-sm">
-          <p class="font-label-sm text-label-sm text-on-primary mb-2 font-bold">Về chúng tôi</p>
+        <div class="flex flex-col gap-stack-sm bg-white/5 p-5 rounded-xl border border-white/10 shadow-sm">
+          <p class="font-label-sm text-label-sm text-on-primary mb-3 font-bold border-b-2 border-accent pb-1 w-fit">Về chúng tôi</p>
           <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors"
             href="pages/services.html">Dịch vụ</a>
           <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors"
@@ -511,8 +502,8 @@
           <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors"
             href="pages/ai-form-library.html">Biểu mẫu AI</a>
         </div>
-        <div class="flex flex-col gap-stack-sm">
-          <p class="font-label-sm text-label-sm text-on-primary mb-2 font-bold">Công cụ</p>
+        <div class="flex flex-col gap-stack-sm bg-white/5 p-5 rounded-xl border border-white/10 shadow-sm">
+          <p class="font-label-sm text-label-sm text-on-primary mb-3 font-bold border-b-2 border-accent pb-1 w-fit">Công cụ</p>
           <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors"
             href="pages/court-fee-calculator.html">Tính án phí</a>
           <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors"
@@ -520,8 +511,8 @@
           <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors"
             href="pages/ai-form-library.html">Tra cứu biểu mẫu</a>
         </div>
-        <div class="flex flex-col gap-stack-sm">
-          <p class="font-label-sm text-label-sm text-on-primary mb-2 font-bold">Hỗ trợ</p>
+        <div class="flex flex-col gap-stack-sm bg-white/5 p-5 rounded-xl border border-white/10 shadow-sm">
+          <p class="font-label-sm text-label-sm text-on-primary mb-3 font-bold border-b-2 border-accent pb-1 w-fit">Hỗ trợ</p>
           <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors"
             href="pages/appointment.html">Đặt lịch hẹn</a>
           <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="#">Chính
@@ -529,8 +520,8 @@
           <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="#">Điều
             khoản</a>
         </div>
-        <div class="flex flex-col gap-stack-sm">
-          <p class="font-label-sm text-label-sm text-on-primary mb-2 font-bold">Liên hệ</p>
+        <div class="flex flex-col gap-stack-sm bg-white/5 p-5 rounded-xl border border-white/10 shadow-sm">
+          <p class="font-label-sm text-label-sm text-on-primary mb-3 font-bold border-b-2 border-accent pb-1 w-fit">Liên hệ</p>
           <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="#">Hotline:
             09xx.xxx.xxx</a>
           <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="#">Email:
