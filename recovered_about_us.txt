@@ -1,0 +1,39 @@
+Created At: 2026-08-01T11:07:46Z
+Completed At: 2026-08-01T11:07:46Z
+File Path: `file:///c:/webluat/DemoWebLuat/index.html`
+Total Lines: 431
+Total Bytes: 28404
+Showing lines 190 to 220
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+190:           href="pages/court-fee-calculator.html">Công cụ Tính toán</a>
+191:         <a class="bg-surface-main text-text-secondary hover:text-primary rounded-full px-6 py-2 font-label-sm text-label-sm transition-colors"
+192:           href="pages/ai-chatbot.html">Hỏi đáp AI</a>
+193:       </div>
+194:     </div>
+195:     
+196:     <!-- About Us & Why Choose Us -->
+197:     <section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-padding">
+198:       <div class="flex flex-col gap-12">
+199:         <!-- About Us -->
+200:         <div>
+201:           <div class="text-center mb-10 w-full flex flex-col items-center justify-center">
+202:   <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary uppercase text-center mb-2">Về Chúng Tôi</h2>
+203:   <div class="text-accent flex items-center justify-center mt-1">
+204:     <span class="tracking-widest">— o —</span>
+205:   </div>
+206: </div>
+207:       </div>
+208:     </section>
+209:     <!-- Practice Areas Grid -->
+210:     <section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-padding">
+211:       <div class="text-center mb-10 w-full flex flex-col items-center justify-center">
+212:   <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary uppercase text-center mb-2">Lĩnh Vực Hoạt Động Mũi Nhọn</h2>
+213:   <div class="text-accent flex items-center justify-center mt-1">
+214:     <span class="tracking-widest">— o —</span>
+215:   </div>
+216: </div>
+217: 
+218:         <!-- 2. Tư vấn đầu tư -->
+219:         <div
+220:           class="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="vi">
+<html lang="vi" class="overflow-y-scroll">
 
 <head>
   <meta charset="utf-8" />
@@ -48,9 +48,9 @@
               "stack-md": "16px", gutter: "24px"
             },
             fontFamily: {
-              "headline-lg-mobile": ["Breymont", "'Playfair Display'", "serif"], "headline-md": ["Breymont", "'Playfair Display'", "serif"],
-              "headline-xl-mobile": ["Breymont", "'Playfair Display'", "serif"], "label-sm": ["Inter", "sans-serif"],
-              "headline-xl": ["Breymont", "'Playfair Display'", "serif"], "headline-lg": ["Breymont", "'Playfair Display'", "serif"], "body-md": ["Inter", "sans-serif"]
+              "headline-lg-mobile": ["Inter", "sans-serif"], "headline-md": ["Inter", "sans-serif"],
+              "headline-xl-mobile": ["Inter", "sans-serif"], "label-sm": ["Inter", "sans-serif"],
+              "headline-xl": ["Inter", "sans-serif"], "headline-lg": ["Inter", "sans-serif"], "body-md": ["Inter", "sans-serif"]
             },
             fontSize: {
               "headline-lg-mobile": ["24px", { lineHeight: "1.3", fontWeight: "700" }],
@@ -80,14 +80,14 @@
   <nav class="bg-primary fixed top-0 w-full z-50">
     <div
       class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex justify-between items-center h-20">
-      <a href="index.html"><img src="img/Logo_website.png" alt="Logo" class="h-8 md:h-10 object-contain" /></a>
+      <a href="index.html"><img src="img/Logo_website.png" alt="Logo" class="h-8 md:h-10 w-[195px] md:w-[244px] object-contain" /></a>
       <!-- Desktop Nav -->
       <div class="hidden md:flex gap-gutter items-center font-label-sm text-label-sm">
-        <a class="text-accent font-bold transition-colors duration-200" href="index.html">Trang chủ</a>
-        <a class="text-surface-alt hover:text-accent transition-colors duration-200" href="pages/services.html">Dịch
+        <a class="text-accent transition-colors duration-200 uppercase font-semibold text-[15px]" href="index.html">Trang chủ</a>
+        <a class="text-surface-alt hover:text-accent transition-colors duration-200 uppercase font-semibold text-[15px]" href="pages/services.html">Dịch
           vụ</a>
         <div class="relative group">
-          <a class="text-surface-alt hover:text-accent transition-colors duration-200 flex items-center gap-1"
+          <a class="text-surface-alt hover:text-accent transition-colors duration-200 uppercase font-semibold text-[15px] flex items-center gap-1"
             href="#">Biểu mẫu AI <span class="material-symbols-outlined text-sm">expand_more</span></a>
           <div class="absolute top-full left-0 mt-2 w-64 bg-primary rounded shadow-lg border border-border-neutral opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col z-50 overflow-hidden">
             <a class="px-4 py-3 text-on-primary hover:bg-secondary hover:text-accent font-label-sm text-label-sm border-b border-border-neutral" href="pages/ai-form-library.html">Thư viện biểu mẫu</a>
@@ -95,8 +95,8 @@
           </div>
         </div>
         <div class="relative group">
-          <a class="text-surface-alt hover:text-accent transition-colors duration-200 flex items-center gap-1"
-            href="#">Công cụ <span class="material-symbols-outlined text-sm">expand_more</span></a>
+          <a class="text-surface-alt hover:text-accent transition-colors duration-200 uppercase font-semibold text-[15px] flex items-center gap-1"
+            href="#">Tính năng <span class="material-symbols-outlined text-sm">expand_more</span></a>
           <div
             class="absolute top-full left-0 mt-2 w-64 bg-primary rounded shadow-lg border border-border-neutral opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col z-50 overflow-hidden">
             <a class="px-4 py-3 text-on-primary hover:bg-secondary hover:text-accent font-label-sm text-label-sm border-b border-border-neutral"
@@ -107,9 +107,9 @@
               href="pages/pit-calculator.html">Tính thuế TNCN</a>
           </div>
         </div>
-        <a class="text-surface-alt hover:text-accent transition-colors duration-200" href="pages/ai-chatbot.html">AI
+        <a class="text-surface-alt hover:text-accent transition-colors duration-200 uppercase font-semibold text-[15px]" href="pages/ai-chatbot.html">AI
           Chat</a>
-        <a class="text-surface-alt hover:text-accent transition-colors duration-200" href="pages/appointment.html">Đặt
+        <a class="text-surface-alt hover:text-accent transition-colors duration-200 uppercase font-semibold text-[15px]" href="pages/appointment.html">Đặt
           lịch</a>
       </div>
       <div class="flex items-center gap-stack-md">
@@ -122,21 +122,21 @@
     <!-- Mobile Menu -->
     <div class="hidden md:hidden bg-primary border-t border-border-neutral px-margin-mobile py-4" id="mobile-menu">
       <div class="flex flex-col gap-4">
-        <a class="font-label-sm text-label-sm text-accent font-bold" href="index.html">Trang chủ</a>
-        <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent" href="pages/services.html">Dịch vụ</a>
+        <a class="text-accent uppercase font-semibold text-[15px]" href="index.html">Trang chủ</a>
+        <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent uppercase font-semibold text-[15px]" href="pages/services.html">Dịch vụ</a>
         <div class="font-label-sm text-label-sm text-on-primary font-bold opacity-50 uppercase mt-2">Biểu mẫu AI</div>
-        <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent pl-4" href="pages/ai-form-library.html">Thư viện biểu mẫu</a>
-        <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent pl-4" href="pages/ai-form-checker.html">AI Thẩm định</a>
-        <div class="font-label-sm text-label-sm text-on-primary font-bold opacity-50 uppercase mt-2">Công cụ</div>
-        <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent pl-4"
+        <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent uppercase font-semibold text-[15px] pl-4" href="pages/ai-form-library.html">Thư viện biểu mẫu</a>
+        <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent uppercase font-semibold text-[15px] pl-4" href="pages/ai-form-checker.html">AI Thẩm định</a>
+        <div class="font-label-sm text-label-sm text-on-primary font-bold opacity-50 uppercase mt-2">Tính năng</div>
+        <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent uppercase font-semibold text-[15px] pl-4"
           href="pages/court-fee-calculator.html">Tính án phí</a>
-        <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent pl-4"
+        <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent uppercase font-semibold text-[15px] pl-4"
           href="pages/salary-calculator.html">Tính lương Gross-to-Net</a>
-        <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent pl-4"
+        <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent uppercase font-semibold text-[15px] pl-4"
           href="pages/pit-calculator.html">Tính thuế TNCN</a>
-        <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent" href="pages/ai-chatbot.html">AI
+        <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent uppercase font-semibold text-[15px]" href="pages/ai-chatbot.html">AI
           Chat</a>
-        <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent" href="pages/appointment.html">Đặt
+        <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent uppercase font-semibold text-[15px]" href="pages/appointment.html">Đặt
           lịch</a>
       </div>
     </div>
@@ -176,21 +176,84 @@
     <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
       <div
         class="flex flex-wrap justify-center gap-stack-sm bg-surface-alt border border-border-neutral rounded-full p-2">
-        <a class="bg-primary text-on-primary rounded-full px-6 py-2 font-label-sm text-label-sm"
+        <a class="bg-primary text-on-primary rounded-full px-6 py-2 font-label-sm text-sm uppercase transition-colors font-semibold"
           href="pages/services.html">Dịch vụ Pháp lý</a>
-        <a class="bg-surface-main text-text-secondary hover:text-primary rounded-full px-6 py-2 font-label-sm text-label-sm transition-colors"
+        <a class="bg-surface-main text-text-secondary hover:text-primary rounded-full px-6 py-2 font-label-sm text-sm uppercase transition-colors font-semibold"
           href="pages/ai-form-library.html">Thư viện Biểu mẫu AI</a>
-        <a class="bg-surface-main text-text-secondary hover:text-primary rounded-full px-6 py-2 font-label-sm text-label-sm transition-colors"
+        <a class="bg-surface-main text-text-secondary hover:text-primary rounded-full px-6 py-2 font-label-sm text-sm uppercase transition-colors font-semibold"
           href="pages/court-fee-calculator.html">Công cụ Tính toán</a>
-        <a class="bg-surface-main text-text-secondary hover:text-primary rounded-full px-6 py-2 font-label-sm text-label-sm transition-colors"
+        <a class="bg-surface-main text-text-secondary hover:text-primary rounded-full px-6 py-2 font-label-sm text-sm uppercase transition-colors font-semibold"
           href="pages/ai-chatbot.html">Hỏi đáp AI</a>
       </div>
     </div>
-    <!-- Practice Areas Grid -->
-    <section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-padding">
-      <h2
-        class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-stack-lg border-b border-border-neutral pb-4">
-        Lĩnh Vực Hoạt Động Mũi Nhọn</h2>
+
+    <!-- About Us & Why Choose Us -->
+    <section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-padding">
+      <div class="flex flex-col gap-12">
+        <!-- About Us -->
+        <div>
+          <div class="text-center mb-10 w-full flex flex-col items-center justify-center">
+  <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary uppercase text-center mb-2">Về Chúng Tôi</h2>
+  <div class="text-accent flex items-center justify-center mt-1">
+    <span class="tracking-widest">— o —</span>
+  </div>
+</div>
+          <div class="prose prose-xl md:prose-2xl text-text-secondary leading-relaxed space-y-4 text-justify text-lg md:text-xl">
+            <p>
+              <strong>Luật sư Phan Đức Tín</strong> là người sáng lập Công ty Luật TNHH Đức Tín và Cộng sự. Hãng luật đã tham gia tư vấn, giải quyết thành công nhiều vụ việc chuyên về các lĩnh vực như: đầu tư, lập dự án và xin giấy chứng nhận đầu tư cho các doanh nhân đến từ Nhật, Hàn Quốc, Mỹ, Singapore, Đức...
+            </p>
+            <p>
+              Tư vấn, soạn thảo hợp đồng mua, bán doanh nghiệp, góp vốn, chuyển nhượng vốn, hợp đồng hợp tác kinh doanh; tham gia giải quyết tranh chấp tại tòa án, trọng tài thương mại.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Why Choose Us -->
+        <div>
+          <div class="text-center mb-10 w-full flex flex-col items-center justify-center">
+  <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary uppercase text-center mb-2">Tại Sao Lại Chọn Chúng Tôi</h2>
+  <div class="text-accent flex items-center justify-center mt-1">
+    <span class="tracking-widest">— o —</span>
+  </div>
+</div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-surface-main p-4 border border-border-neutral rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <h3 class="font-bold text-primary mb-2 text-base md:text-lg uppercase">1. Đội ngũ luật sư vững chuyên môn</h3>
+              <p class="text-base md:text-lg text-text-secondary leading-relaxed">Đội ngũ Luật sư của DucTin & Partners năng động, giàu kinh nghiệm, vững chuyên môn, am hiểu về công nghệ, tận tâm và luôn tuân thủ pháp luật, đạo đức nghề nghiệp.</p>
+            </div>
+            <div class="bg-surface-main p-4 border border-border-neutral rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <h3 class="font-bold text-primary mb-2 text-base md:text-lg uppercase">2. Giải quyết vấn đề triệt để</h3>
+              <p class="text-base md:text-lg text-text-secondary leading-relaxed">Giúp giải quyết vấn đề của khách hàng nhanh chóng, hiệu quả với chi phí hợp lý. "Chất lượng dịch vụ là Danh dự của Luật sư".</p>
+            </div>
+            <div class="bg-surface-main p-4 border border-border-neutral rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <h3 class="font-bold text-primary mb-2 text-base md:text-lg uppercase">3. Đảm bảo bí mật tuyệt đối</h3>
+              <p class="text-base md:text-lg text-text-secondary leading-relaxed">Giữ bí mật tuyệt đối thông tin, tài liệu của khách hàng. Chúng tôi cam kết bảo vệ quyền lợi tối đa cho bạn.</p>
+            </div>
+            <div class="bg-surface-main p-4 border border-border-neutral rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <h3 class="font-bold text-primary mb-2 text-base md:text-lg uppercase">4. Tư vấn chính xác</h3>
+              <p class="text-base md:text-lg text-text-secondary leading-relaxed">Nhận định, đánh giá đúng bản chất vấn đề, đưa ra giải pháp toàn diện và tối ưu nhất cho từng trường hợp cụ thể.</p>
+            </div>
+            <div class="bg-surface-main p-4 border border-border-neutral rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <h3 class="font-bold text-primary mb-2 text-base md:text-lg uppercase">5. Chi phí hợp lý</h3>
+              <p class="text-base md:text-lg text-text-secondary leading-relaxed">Cung cấp dịch vụ pháp lý với mức chi phí hợp lý, rõ ràng và minh bạch, phù hợp với tính chất của từng vụ việc.</p>
+            </div>
+            <div class="bg-surface-main p-4 border border-border-neutral rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <h3 class="font-bold text-primary mb-2 text-base md:text-lg uppercase">6. Tận tâm, chuyên nghiệp</h3>
+              <p class="text-base md:text-lg text-text-secondary leading-relaxed">Luôn đặt quyền lợi của khách hàng lên hàng đầu, chăm sóc và hỗ trợ tận tâm trong mọi giai đoạn của vụ việc.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- Practice Areas Grid -->
+    <section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8">
+      <div class="text-center mb-10 w-full flex flex-col items-center justify-center">
+  <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary uppercase text-center mb-2">Lĩnh Vực Hoạt Động Mũi Nhọn</h2>
+  <div class="text-accent flex items-center justify-center mt-1">
+    <span class="tracking-widest">— o —</span>
+  </div>
+</div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
 
         <!-- 1. Nội bộ doanh nghiệp -->
@@ -325,11 +388,14 @@
       </div>
     </section>
     <!-- Featured Tools -->
-    <section class="bg-surface-alt border-y border-border-neutral py-section-padding">
+    <section class="bg-surface-alt border-y border-border-neutral py-8">
       <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        <h2
-          class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-stack-lg border-b border-border-neutral pb-4">
-          Công Cụ Pháp Lý Nổi Bật</h2>
+        <div class="text-center mb-10 w-full flex flex-col items-center justify-center">
+  <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary uppercase text-center mb-2">Công Cụ Pháp Lý Nổi Bật</h2>
+  <div class="text-accent flex items-center justify-center mt-1">
+    <span class="tracking-widest">— o —</span>
+  </div>
+</div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
           <div
             class="bg-surface-main border border-border-neutral p-6 hover:shadow-elegant-hover shadow-elegant transition-shadow">
@@ -361,11 +427,99 @@
         </div>
       </div>
     </section>
-    <!-- Expert Attorneys -->
-    <section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-padding">
-      <h2
-        class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-stack-lg border-b border-border-neutral pb-4">
-        Đội Ngũ Luật Sư Điều Hành</h2>
+<!-- Consultation Form & FAQ -->
+    <section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 my-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        
+        <!-- Consultation Form (Left) -->
+        <div class="bg-[#c29837] p-8 md:p-12 text-white h-full flex flex-col justify-center">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 uppercase leading-snug">ĐẶT CÂU HỎI VỚI ĐỘI NGŨ LUẬT SƯ CỦA CHÚNG TÔI</h2>
+          <p class="mb-8 text-lg">Điền vào thông tin bên dưới đây</p>
+          
+          <form class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <input type="text" placeholder="Họ và tên" class="w-full px-4 py-4 bg-white text-gray-800 border-none focus:outline-none shadow-sm text-sm">
+              <input type="email" placeholder="Địa chỉ Email" class="w-full px-4 py-4 bg-white text-gray-800 border-none focus:outline-none shadow-sm text-sm">
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <input type="tel" placeholder="Điện thoại" class="w-full px-4 py-4 bg-white text-gray-800 border-none focus:outline-none shadow-sm text-sm">
+              <div class="relative">
+                <select class="w-full px-4 py-4 bg-white text-gray-800 border-none focus:outline-none shadow-sm appearance-none text-sm cursor-pointer">
+                  <option value="" disabled selected>Lĩnh vực</option>
+                  <option value="1">Dân sự</option>
+                  <option value="2">Hình sự</option>
+                  <option value="3">Doanh nghiệp</option>
+                  <option value="4">Đất đai</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                </div>
+              </div>
+            </div>
+            <div>
+              <input type="text" placeholder="Tiêu đề" class="w-full px-4 py-4 bg-white text-gray-800 border-none focus:outline-none shadow-sm text-sm">
+            </div>
+            <div>
+              <textarea placeholder="Mô tả về vấn đề của bạn" rows="6" class="w-full px-4 py-4 bg-white text-gray-800 border-none focus:outline-none shadow-sm resize-none text-sm"></textarea>
+            </div>
+            <button type="submit" class="bg-white text-[#c29837] font-bold uppercase px-8 py-3 hover:bg-gray-100 transition-colors shadow-sm text-sm">
+              GỬI
+            </button>
+          </form>
+        </div>
+
+        <!-- FAQ Accordion (Right) -->
+        <div class="p-4 md:p-8">
+          <h2 class="text-[#c29837] font-bold text-3xl uppercase mb-2">CÂU HỎI &amp; TRẢ LỜI</h2>
+          <div class="text-[#c29837] mb-8 flex items-center">
+            <span class="tracking-widest">— o —</span>
+          </div>
+
+          <div class="space-y-6">
+            <!-- FAQ 1 (Expanded) -->
+            <div class="faq-item">
+              <button class="w-full text-left bg-[#641d06] text-white font-semibold py-4 px-6 flex items-center gap-4 transition-colors">
+                <span class="text-white text-xl font-bold">+</span>
+                Khi giấy chứng nhận quyền sử dụng đất hết thời hạn
+              </button>
+              <div class="bg-white text-gray-600 p-6 text-sm leading-relaxed border border-gray-100 shadow-sm">
+                <p class="mb-4">Thắc mắc của bạn tôi xin đưa ra ý kiến giải đáp như sau:</p>
+                <p class="mb-4">Về thời hạn sử dụng đất, căn cứ quy định tại Điều 126 Luật đất đai 2013:</p>
+                <p class="mb-4">1. Thời hạn giao đất, công nhận quyền sử dụng đất nông nghiệp đối với hộ gia đình, cá nhân trực tiếp sản xuất nông nghiệp theo quy định tại khoản 1, khoản 2, điểm b khoản 3, khoản 4 và khoản 5 Điều 129 của Luật này là 50 năm. Khi hết thời hạn, hộ gia đình, cá nhân trực tiếp sản xuất nông nghiệp nếu có nhu cầu thì được tiếp tục sử dụng đất...</p>
+                <a href="#" class="text-blue-500 hover:underline">Xem thêm</a>
+              </div>
+            </div>
+            
+            <!-- FAQ 2 (Collapsed) -->
+            <div class="faq-item">
+              <button class="w-full text-left bg-gray-50 text-gray-700 font-semibold py-4 px-6 flex items-center gap-4 transition-colors hover:bg-gray-100">
+                <span class="text-gray-500 text-xl font-bold">+</span>
+                Chế độ thai sản
+              </button>
+              <div class="hidden bg-white text-gray-600 p-6 text-sm leading-relaxed border border-gray-100 shadow-sm">
+                <p>Nội dung tư vấn về chế độ thai sản theo quy định mới nhất.</p>
+              </div>
+            </div>
+
+          </div>
+          
+          <div class="mt-8">
+            <a href="#" class="inline-block bg-[#c29837] text-white font-bold uppercase px-8 py-3 hover:bg-[#a37b2c] transition-colors shadow-sm text-sm">
+              XEM TẤT CẢ
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+<!-- Expert Attorneys -->
+    <section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8">
+      <div class="text-center mb-10 w-full flex flex-col items-center justify-center">
+  <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary uppercase text-center mb-2">Đội Ngũ Luật Sư Điều Hành</h2>
+  <div class="text-accent flex items-center justify-center mt-1">
+    <span class="tracking-widest">— o —</span>
+  </div>
+</div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
         <!-- Attorney 1 -->
         <div class="border border-border-neutral p-4 flex flex-col items-center text-center">
@@ -482,8 +636,8 @@
   <!-- ========== FOOTER ========== -->
   <footer class="bg-primary border-t border-border-neutral w-full">
     <div
-      class="grid grid-cols-1 gap-gutter max-w-container-max mx-auto px-margin-desktop py-section-padding md:grid-cols-12">
-      <div class="col-span-1 mb-stack-lg md:col-span-12">
+      class="grid grid-cols-1 gap-4 max-w-container-max mx-auto px-margin-desktop py-4 md:grid-cols-12">
+      <div class="col-span-1 mb-4 md:col-span-12">
         <div><img src="img/Logo_website.png" alt="Logo" class="h-10 md:h-12 object-contain" /></div>
       </div>
       <div class="col-span-1 md:col-span-5 lg:col-span-4">
@@ -492,45 +646,36 @@
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125419.33178072695!2d106.5754288003725!3d10.784166700000023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f4bc8ad1f21%3A0x1c31b41801cfac6c!2sSaigon%20Trade%20Center%20Tower%20-%20Office%20Saigon!5e0!3m2!1svi!2s!4v1785438121278!5m2!1svi!2s"
           style="border:0; min-height: 250px;" width="100%"></iframe>
       </div>
-      <div class="col-span-1 md:col-span-7 lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-gutter">
-        <div class="flex flex-col gap-stack-sm bg-white/5 p-5 rounded-xl border border-white/10 shadow-sm">
-          <p class="font-label-sm text-label-sm text-on-primary mb-3 font-bold border-b-2 border-accent pb-1 w-fit">Về chúng tôi</p>
-          <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors"
-            href="pages/services.html">Dịch vụ</a>
-          <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors"
-            href="pages/ai-chatbot.html">AI Chat</a>
-          <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors"
-            href="pages/ai-form-library.html">Biểu mẫu AI</a>
+      <div class="col-span-1 md:col-span-7 lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="flex flex-col gap-1 bg-white/5 border border-white/10 rounded p-2">
+          <p class="text-base text-on-primary mb-1 font-bold border-b border-accent pb-1 w-fit uppercase">Về chúng tôi</p>
+          <a class="text-sm text-surface-alt hover:text-accent transition-colors" href="pages/services.html">Dịch vụ</a>
+          <a class="text-sm text-surface-alt hover:text-accent transition-colors" href="#">Đội ngũ</a>
+          <a class="text-sm text-surface-alt hover:text-accent transition-colors" href="#">Tuyển dụng</a>
         </div>
-        <div class="flex flex-col gap-stack-sm bg-white/5 p-5 rounded-xl border border-white/10 shadow-sm">
-          <p class="font-label-sm text-label-sm text-on-primary mb-3 font-bold border-b-2 border-accent pb-1 w-fit">Công cụ</p>
-          <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors"
-            href="pages/court-fee-calculator.html">Tính án phí</a>
-          <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors"
-            href="pages/salary-calculator.html">Tính lương</a>
-          <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors"
-            href="pages/ai-form-library.html">Tra cứu biểu mẫu</a>
+        <div class="flex flex-col gap-1 bg-white/5 border border-white/10 rounded p-2">
+          <p class="text-base text-on-primary mb-1 font-bold border-b border-accent pb-1 w-fit uppercase">Tính năng</p>
+          <a class="text-sm text-surface-alt hover:text-accent transition-colors" href="pages/court-fee-calculator.html">Tính án phí</a>
+          <a class="text-sm text-surface-alt hover:text-accent transition-colors" href="pages/salary-calculator.html">Tính lương</a>
+          <a class="text-sm text-surface-alt hover:text-accent transition-colors" href="pages/ai-chatbot.html">Hỏi đáp AI</a>
+          <a class="text-sm text-surface-alt hover:text-accent transition-colors" href="pages/ai-form-library.html">Biểu mẫu AI</a>
         </div>
-        <div class="flex flex-col gap-stack-sm bg-white/5 p-5 rounded-xl border border-white/10 shadow-sm">
-          <p class="font-label-sm text-label-sm text-on-primary mb-3 font-bold border-b-2 border-accent pb-1 w-fit">Hỗ trợ</p>
-          <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors"
-            href="pages/appointment.html">Đặt lịch hẹn</a>
-          <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="#">Chính
-            sách bảo mật</a>
-          <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="#">Điều
-            khoản</a>
+        <div class="flex flex-col gap-1 bg-white/5 border border-white/10 rounded p-2">
+          <p class="text-base text-on-primary mb-1 font-bold border-b border-accent pb-1 w-fit uppercase">Hỗ trợ</p>
+          <a class="text-sm text-surface-alt hover:text-accent transition-colors" href="pages/appointment.html">Đặt lịch hẹn</a>
+          <a class="text-sm text-surface-alt hover:text-accent transition-colors" href="#">Chính sách bảo mật</a>
+          <a class="text-sm text-surface-alt hover:text-accent transition-colors" href="#">Điều khoản</a>
         </div>
-        <div class="flex flex-col gap-stack-sm bg-white/5 p-5 rounded-xl border border-white/10 shadow-sm">
-          <p class="font-label-sm text-label-sm text-on-primary mb-3 font-bold border-b-2 border-accent pb-1 w-fit">Liên hệ</p>
-          <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="#">Hotline:
-            09xx.xxx.xxx</a>
-          <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="#">Email:
-            info@ductinlaw.vn</a>
-          <a class="font-label-sm text-label-sm text-surface-alt hover:text-accent transition-colors" href="#">Địa chỉ:
-            TP. Hồ Chí Minh</a>
+        <div class="flex flex-col gap-1 bg-white/5 border border-white/10 rounded p-2">
+          <p class="text-base text-on-primary mb-1 font-bold border-b border-accent pb-1 w-fit uppercase">Liên hệ</p>
+          <a class="text-sm text-surface-alt hover:text-accent transition-colors" href="#">Hotline: 09xx.xxx.xxx</a>
+          <a class="text-sm text-surface-alt hover:text-accent transition-colors" href="#">Email: info@ductinlaw.vn</a>
+          <a class="text-sm text-surface-alt hover:text-accent transition-colors" href="#">Địa chỉ: TP. Hồ Chí Minh</a>
         </div>
       </div>
-      <div class="col-span-1 mt-stack-lg pt-stack-md border-t border-border-neutral md:col-span-12">
+        </div>
+      </div>
+      <div class="col-span-1 mt-4 pt-4 border-t border-border-neutral md:col-span-12">
         <p class="font-body-md text-body-md text-surface-alt text-sm">© 2024 DUCTIN &amp; PARTNERS. All Rights Reserved.
         </p>
       </div>
