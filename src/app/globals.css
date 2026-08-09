@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #641D06;
+  --color-accent: #C0963B;
+  --color-secondary: #1A1A1A;
+  --color-background: #FFFFFF;
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #1A1A1A;
+  --color-surface-main: #FFFFFF;
+  --color-surface-alt: #FFFFFF;
+  --color-border-neutral: #E5E5E5;
+  --color-on-primary: #FFFFFF;
+  --color-on-accent: #FFFFFF;
+  --color-on-secondary: #FFFFFF;
+  --color-error: #ba1a1a;
+
+  --shadow-elegant: 0 4px 15px rgba(100, 29, 6, 0.15);
+  --shadow-elegant-hover: 0 8px 25px rgba(100, 29, 6, 0.2);
+
+  --animate-marquee: marquee 30s linear infinite;
+
+  --spacing-stack-sm: 8px;
+  --spacing-section-padding: 80px;
+  --spacing-margin-mobile: 24px;
+  --spacing-stack-lg: 32px;
+  --spacing-container-max: 1728px;
+  --spacing-margin-desktop: 64px;
+  --spacing-stack-md: 16px;
+  --spacing-gutter: 24px;
+
+  --font-headline-lg-mobile: Inter, sans-serif;
+  --font-headline-md: Inter, sans-serif;
+  --font-headline-xl-mobile: Inter, sans-serif;
+  --font-label-sm: Inter, sans-serif;
+  --font-headline-xl: Inter, sans-serif;
+  --font-headline-lg: Inter, sans-serif;
+  --font-body-md: Inter, sans-serif;
+  --font-sans: Inter, sans-serif;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar for horizontal scroll containers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Active nav link underline style */
+.nav-active {
+  border-bottom: 2px solid #000;
+  padding-bottom: 4px;
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+/* Hover transitions */
+.nav-link {
+  transition: color 0.2s ease;
+}
+
+/* Skeleton pulse animation */
+.skeleton-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Chat bubble animation */
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+/* Mobile hamburger menu */
+.mobile-menu-open {
+  display: flex !important;
+}
+
+/* Lead gate modal */
+.lead-gate-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+/* Page transition */
+.page-fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Tooltip styles */
+.tooltip {
+  position: relative;
+}
+.tooltip .tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  nav, footer, .fixed, .sticky { display: none !important; }
+  body { padding-top: 0 !important; }
+}
