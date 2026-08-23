@@ -19,60 +19,67 @@ export interface MindmapData {
   branches: MindmapBranch[];
 }
 
-const PASTEL_THEMES = [
+// BỘ MÀU CHUẨN ĐỒNG BỘ 100% VỚI SƠ ĐỒ FLOWCHART & BẢN SẮC THƯƠNG HIỆU LUẬT ĐỨC TÍN
+const CORPORATE_MINDMAP_THEMES = [
+  // 1. NHÁNH 1: #641D06 (Đỏ Đô Thẫm - Deep Burgundy Red)
   {
-    colorBg: "#fed7aa", // Peach / Soft Orange
-    colorBorder: "#ea580c",
-    textColor: "#7c2d12",
-    lineColor: "#ea580c",
-    subBg: "#ffedd5",
-    subBorder: "#fdba74",
-    subTextColor: "#9a3412",
+    colorBg: "#641D06",
+    colorBorder: "#641D06",
+    textColor: "#ffffff",
+    lineColor: "#641D06",
+    subBg: "#fffbeb",
+    subBorder: "#fde68a",
+    subTextColor: "#451a03",
   },
+  // 2. NHÁNH 2: #1D3540 (Xanh Đen Đô Thị - Deep Navy Teal)
   {
-    colorBg: "#fecdd3", // Soft Rose / Pink
-    colorBorder: "#e11d48",
-    textColor: "#881337",
-    lineColor: "#e11d48",
-    subBg: "#ffe4e6",
+    colorBg: "#1D3540",
+    colorBorder: "#1D3540",
+    textColor: "#ffffff",
+    lineColor: "#1D3540",
+    subBg: "#eff6ff",
+    subBorder: "#bfdbfe",
+    subTextColor: "#172554",
+  },
+  // 3. NHÁNH 3: #708061 (Xanh Rêu Trầm Sage)
+  {
+    colorBg: "#708061",
+    colorBorder: "#708061",
+    textColor: "#ffffff",
+    lineColor: "#708061",
+    subBg: "#f0fdf4",
+    subBorder: "#bbf7d0",
+    subTextColor: "#052e16",
+  },
+  // 4. NHÁNH 4: #C0963B (Vàng Kim Hàng Hiệu - Warm Luxury Gold)
+  {
+    colorBg: "#C0963B",
+    colorBorder: "#C0963B",
+    textColor: "#ffffff",
+    lineColor: "#C0963B",
+    subBg: "#fefce8",
+    subBorder: "#fef08a",
+    subTextColor: "#422006",
+  },
+  // 5. NHÁNH 5: #5C5550 (Xám Đá Trầm Charcoal)
+  {
+    colorBg: "#5C5550",
+    colorBorder: "#5C5550",
+    textColor: "#ffffff",
+    lineColor: "#5C5550",
+    subBg: "#f5f5f4",
+    subBorder: "#e7e5e4",
+    subTextColor: "#1c1917",
+  },
+  // 6. NHÁNH 6: #842A16 (Đỏ Rượu Vang Thẫm)
+  {
+    colorBg: "#842A16",
+    colorBorder: "#842A16",
+    textColor: "#ffffff",
+    lineColor: "#842A16",
+    subBg: "#fff1f2",
     subBorder: "#fecdd3",
-    subTextColor: "#9f1239",
-  },
-  {
-    colorBg: "#bbf7d0", // Soft Green / Mint
-    colorBorder: "#16a34a",
-    textColor: "#14532d",
-    lineColor: "#16a34a",
-    subBg: "#dcfce7",
-    subBorder: "#86efac",
-    subTextColor: "#166534",
-  },
-  {
-    colorBg: "#bae6fd", // Soft Sky Blue
-    colorBorder: "#0284c7",
-    textColor: "#0c4a6e",
-    lineColor: "#0284c7",
-    subBg: "#e0f2fe",
-    subBorder: "#7dd3fc",
-    subTextColor: "#075985",
-  },
-  {
-    colorBg: "#e9d5ff", // Soft Purple
-    colorBorder: "#9333ea",
-    textColor: "#581c87",
-    lineColor: "#9333ea",
-    subBg: "#f3e8ff",
-    subBorder: "#d8b4fe",
-    subTextColor: "#6b21a8",
-  },
-  {
-    colorBg: "#fef08a", // Soft Yellow
-    colorBorder: "#ca8a04",
-    textColor: "#713f12",
-    lineColor: "#ca8a04",
-    subBg: "#fef9c3",
-    subBorder: "#fde047",
-    subTextColor: "#854d0e",
+    subTextColor: "#4c0519",
   },
 ];
 
@@ -117,7 +124,7 @@ export function extractMindmapAndCleanText(rawText: string): {
       center = line.replace(/^(tâm|root|center):/i, "").trim();
     } else if (line.startsWith("-") || line.startsWith("*")) {
       const branchName = line.replace(/^[-*]\s*(nhánh:)?/i, "").trim();
-      const theme = PASTEL_THEMES[colorIdx % PASTEL_THEMES.length];
+      const theme = CORPORATE_MINDMAP_THEMES[colorIdx % CORPORATE_MINDMAP_THEMES.length];
       colorIdx++;
       currentBranch = {
         name: branchName,
@@ -190,8 +197,8 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
       {/* Header Bar */}
       <div className="flex items-center justify-between border-b border-slate-200/80 pb-2.5 mb-3">
         <div className="flex items-center gap-2">
-          <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-purple-100 text-purple-800 font-bold text-base">
-            <span className="material-symbols-outlined text-base">bubble_chart</span>
+          <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-[#641D06]/10 text-[#641D06] font-bold text-base">
+            <span className="material-symbols-outlined text-base">hub</span>
           </span>
           <div>
             <h4 className="font-bold text-slate-900 text-xs sm:text-sm">
@@ -223,23 +230,26 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
               className="w-full h-auto drop-shadow-2xs overflow-visible"
             >
               <defs>
-                {/* Standard Forward Arrowhead Marker for Center Hub Connections */}
-                <marker
-                  id="arrow-main-purple"
-                  viewBox="0 0 10 10"
-                  refX="8"
-                  refY="5"
-                  markerWidth="6"
-                  markerHeight="6"
-                  orient="auto"
-                >
-                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#7c3aed" />
-                </marker>
+                {/* Dynamic Forward Arrowhead Markers for Center-to-Branch Connections */}
+                {data.branches.map((b, idx) => (
+                  <marker
+                    key={`marker-main-${idx}`}
+                    id={`arrow-main-dyn-${idx}`}
+                    viewBox="0 0 10 10"
+                    refX="8"
+                    refY="5"
+                    markerWidth="6"
+                    markerHeight="6"
+                    orient="auto"
+                  >
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill={b.lineColor} />
+                  </marker>
+                ))}
 
                 {/* Forward Arrowhead Markers for Branch to Sub-item Connections */}
                 {data.branches.map((b, idx) => (
                   <marker
-                    key={`marker-${idx}`}
+                    key={`marker-sub-${idx}`}
                     id={`arrow-sub-dyn-${idx}`}
                     viewBox="0 0 10 10"
                     refX="8"
@@ -274,10 +284,10 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                     key={`l-main-dyn-${idx}`}
                     d={`M ${startX} ${startY} C ${cp1X} ${cp1Y}, ${cp2X} ${cp2Y}, ${endX} ${endY}`}
                     fill="none"
-                    stroke="#7c3aed"
-                    strokeWidth="3"
+                    stroke={b.lineColor}
+                    strokeWidth="2.8"
                     strokeLinecap="round"
-                    markerEnd="url(#arrow-main-purple)"
+                    markerEnd={`url(#arrow-main-dyn-${idx})`}
                   />
                 );
               })}
@@ -344,10 +354,10 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                     key={`r-main-dyn-${idx}`}
                     d={`M ${startX} ${startY} C ${cp1X} ${cp1Y}, ${cp2X} ${cp2Y}, ${endX} ${endY}`}
                     fill="none"
-                    stroke="#7c3aed"
-                    strokeWidth="3"
+                    stroke={b.lineColor}
+                    strokeWidth="2.8"
                     strokeLinecap="round"
-                    markerEnd="url(#arrow-main-purple)"
+                    markerEnd={`url(#arrow-main-dyn-${half + idx})`}
                   />
                 );
               })}
@@ -404,9 +414,9 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 height={centerBoxH}
               >
                 <div className="w-full h-full flex items-center justify-center p-0.5">
-                  <div className="w-full h-full rounded-2xl bg-[#7c3aed] text-white p-2.5 shadow-md border border-white flex flex-col items-center justify-center text-center">
-                    <span className="material-symbols-outlined text-lg mb-0.5">lightbulb</span>
-                    <h3 className="font-black text-[11px] uppercase tracking-wide leading-snug line-clamp-3">
+                  <div className="w-full h-full rounded-2xl bg-[#641D06] text-white p-2.5 shadow-md border-2 border-[#C0963B]/60 flex flex-col items-center justify-center text-center">
+                    <span className="material-symbols-outlined text-lg mb-0.5 text-amber-300">account_balance</span>
+                    <h3 className="font-black text-[11px] uppercase tracking-wide leading-snug line-clamp-3 text-amber-100">
                       {data.center}
                     </h3>
                   </div>
