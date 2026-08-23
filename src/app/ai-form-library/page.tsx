@@ -276,11 +276,11 @@ export default function AIFormLibrary() {
             <div className="bg-white border border-slate-200 p-6 rounded-xl shadow-sm">
               <h3 className="text-lg font-bold text-slate-900 mb-4">Dịch Vụ Liên Quan</h3>
               <div className="space-y-3">
-                <Link href="/ai-form-checker" className="flex items-center gap-3 p-3.5 bg-slate-50 border border-slate-200 rounded-lg hover:border-emerald-500 hover:bg-emerald-50/30 transition-all">
-                  <span className="material-symbols-outlined text-emerald-600">fact_check</span>
+                <Link href="/ai-chatbot" className="flex items-center gap-3 p-3.5 bg-slate-50 border border-slate-200 rounded-lg hover:border-amber-500 hover:bg-amber-50/30 transition-all">
+                  <span className="material-symbols-outlined text-amber-800">smart_toy</span>
                   <div>
-                    <div className="text-sm font-semibold text-slate-900">AI Thẩm Định Form</div>
-                    <div className="text-xs text-slate-500 mt-0.5">Kiểm tra tính hợp lệ của đơn</div>
+                    <div className="text-sm font-semibold text-slate-900">Trợ Lý Luật Sư AI</div>
+                    <div className="text-xs text-slate-500 mt-0.5">Tư vấn pháp lý tự động 24/7</div>
                   </div>
                 </Link>
                 <Link href="/court-fee-calculator" className="flex items-center gap-3 p-3.5 bg-slate-50 border border-slate-200 rounded-lg hover:border-emerald-500 hover:bg-emerald-50/30 transition-all">

@@ -47,32 +47,13 @@ export default function Header() {
               Tin tức
             </Link>
 
-            {/* Dropdown: Biểu mẫu AI */}
-            <div className="relative group">
-              <a
-                href="#"
-                className="text-slate-800 hover:text-[#641D06] font-bold transition-colors duration-200 uppercase text-[14px] lg:text-[15px] flex items-center gap-1 whitespace-nowrap py-2"
-                onClick={(e) => e.preventDefault()}
-              >
-                Biểu mẫu AI <span className="material-symbols-outlined text-sm">expand_more</span>
-              </a>
-              <div className="absolute top-full left-0 mt-1 w-64 bg-white rounded-2xl shadow-xl border border-slate-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col z-50 overflow-hidden">
-                <Link
-                  href="/ai-form-library"
-                  className="px-4 py-3 text-slate-800 hover:bg-amber-50 hover:text-[#641D06] text-sm font-semibold border-b border-slate-100 flex items-center gap-2"
-                >
-                  <span className="material-symbols-outlined text-base text-amber-800">folder_open</span>
-                  Thư viện biểu mẫu pháp lý
-                </Link>
-                <Link
-                  href="/ai-form-checker"
-                  className="px-4 py-3 text-slate-800 hover:bg-amber-50 hover:text-[#641D06] text-sm font-semibold flex items-center gap-2"
-                >
-                  <span className="material-symbols-outlined text-base text-amber-800">fact_check</span>
-                  AI Thẩm định hợp đồng
-                </Link>
-              </div>
-            </div>
+            {/* Direct Link: Biểu mẫu AI */}
+            <Link
+              href="/ai-form-library"
+              className={`${isActive("/ai-form-library")} uppercase text-[14px] lg:text-[15px] whitespace-nowrap`}
+            >
+              Biểu mẫu AI
+            </Link>
 
             {/* Dropdown: Tính năng */}
             <div className="relative group">
@@ -156,14 +137,8 @@ export default function Header() {
               Tin tức
             </Link>
 
-            <div className="text-xs font-black uppercase tracking-wider text-slate-400 mt-2">
+            <Link href="/ai-form-library" className="hover:text-[#641D06] uppercase text-[15px]">
               Biểu mẫu AI
-            </div>
-            <Link href="/ai-form-library" className="hover:text-[#641D06] text-sm pl-3">
-              Thư viện biểu mẫu
-            </Link>
-            <Link href="/ai-form-checker" className="hover:text-[#641D06] text-sm pl-3">
-              AI Thẩm định hợp đồng
             </Link>
 
             <div className="text-xs font-black uppercase tracking-wider text-slate-400 mt-2">
