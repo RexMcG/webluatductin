@@ -4,52 +4,46 @@ export default function Footer() {
   return (
     <>
       {/* Floating Contact Bubbles (Left) */}
-      <div className="fixed bottom-margin-mobile left-margin-mobile z-50 flex flex-col gap-3">
+      <div className="fixed bottom-margin-mobile left-margin-mobile z-50 flex flex-col gap-4">
         {/* Booking Bubble */}
         <Link
-          className="bg-primary text-on-primary rounded-full h-12 w-12 border border-border-neutral shadow-elegant hover:bg-secondary hover:text-accent transition-all flex items-center justify-center relative group"
+          className="bg-gradient-to-br from-red-500 to-primary text-white rounded-full h-20 w-20 border-2 border-white shadow-[0_0_15px_rgba(220,38,38,0.6)] hover:scale-110 transition-transform flex items-center justify-center relative group animate-bounce"
+          style={{ animationDuration: '3s' }}
           href="/appointment"
         >
-          <span className="material-symbols-outlined">calendar_month</span>
-          <span className="absolute left-full ml-3 bg-secondary text-on-primary text-xs whitespace-nowrap px-2 py-1 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+          <span className="material-symbols-outlined text-4xl">calendar_month</span>
+          <span className="absolute left-full ml-4 bg-primary text-white text-sm font-bold whitespace-nowrap px-3 py-2 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg">
             Đặt lịch hẹn
           </span>
         </Link>
         {/* SMS Bubble */}
         <a
-          className="bg-surface-main text-primary rounded-full h-12 w-12 border border-border-neutral shadow-elegant hover:bg-surface-alt transition-all flex items-center justify-center relative group"
-          href="sms:09xxxxxxxx"
+          className="bg-gradient-to-br from-green-400 to-green-600 text-white rounded-full h-20 w-20 border-2 border-white shadow-[0_0_15px_rgba(34,197,94,0.6)] hover:scale-110 transition-transform flex items-center justify-center relative group"
+          href="sms:0937863263"
         >
-          <span className="material-symbols-outlined">sms</span>
-          <span className="absolute left-full ml-3 bg-secondary text-on-primary text-xs whitespace-nowrap px-2 py-1 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+          <span className="material-symbols-outlined text-4xl">sms</span>
+          <span className="absolute left-full ml-4 bg-green-600 text-white text-sm font-bold whitespace-nowrap px-3 py-2 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg">
             Gửi SMS
           </span>
         </a>
         {/* Zalo Bubble */}
         <a
-          className="bg-[#0068FF] text-white rounded-full h-12 w-12 border border-[#0068FF] shadow-elegant hover:opacity-90 transition-all flex items-center justify-center relative group"
-          href="https://zalo.me/09xxxxxxxx"
+          className="bg-gradient-to-br from-blue-400 to-[#0068FF] text-white rounded-full h-20 w-20 border-2 border-white shadow-[0_0_15px_rgba(0,104,255,0.6)] hover:scale-110 transition-transform flex items-center justify-center relative group"
+          href="https://zalo.me/0937863263"
           target="_blank"
           rel="noopener noreferrer"
         >
           <img
             src="/img/1280px-Icon_of_Zalo.svg.png"
             alt="Zalo"
-            className="w-6 h-6 object-contain"
+            className="w-10 h-10 object-contain"
           />
-          <span className="absolute left-full ml-3 bg-secondary text-on-primary text-xs whitespace-nowrap px-2 py-1 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+          <span className="absolute left-full ml-4 bg-[#0068FF] text-white text-sm font-bold whitespace-nowrap px-3 py-2 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg">
             Chat Zalo
           </span>
         </a>
       </div>
 
-      {/* Floating AI Widget */}
-      <Link
-        className="fixed bottom-margin-mobile right-margin-mobile z-50 bg-accent text-on-accent rounded-full h-16 w-16 border border-border-neutral shadow-elegant hover:bg-primary-container hover:text-on-primary-container transition-all flex items-center justify-center"
-        href="/ai-chatbot"
-      >
-        <span className="material-symbols-outlined text-2xl">smart_toy</span>
-      </Link>
 
       {/* ========== FOOTER ========== */}
       <footer className="bg-primary border-t border-border-neutral w-full">
@@ -94,9 +88,9 @@ export default function Footer() {
               </Link>
               <Link
                 className="text-sm text-surface-alt hover:text-accent transition-colors"
-                href="#"
+                href="/appointment"
               >
-                Đội ngũ
+                Luật sư Phan Đức Tín
               </Link>
             </div>
             <div className="flex flex-col gap-1 bg-white/5 border border-white/10 rounded p-2">
@@ -140,15 +134,15 @@ export default function Footer() {
               </Link>
               <Link
                 className="text-sm text-surface-alt hover:text-accent transition-colors"
-                href="#"
+                href="/news"
               >
-                Chính sách bảo mật
+                Tin tức pháp luật
               </Link>
               <Link
                 className="text-sm text-surface-alt hover:text-accent transition-colors"
-                href="#"
+                href="/services"
               >
-                Điều khoản
+                Dịch vụ pháp lý
               </Link>
             </div>
             <div className="flex flex-col gap-1 bg-white/5 border border-white/10 rounded p-2">
@@ -156,30 +150,35 @@ export default function Footer() {
                 Liên hệ
               </p>
               <a
-                className="text-sm text-surface-alt hover:text-accent transition-colors"
-                href="#"
+                className="text-sm text-surface-alt hover:text-accent transition-colors font-bold text-accent"
+                href="tel:0937863263"
               >
-                Hotline: 09xx.xxx.xxx
+                Hotline: 093 786 32 63
               </a>
               <a
                 className="text-sm text-surface-alt hover:text-accent transition-colors"
-                href="#"
+                href="https://zalo.me/0937863263"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                Email: info@ductinlaw.vn
+                Zalo: 093 786 32 63
               </a>
               <a
                 className="text-sm text-surface-alt hover:text-accent transition-colors"
-                href="#"
+                href="mailto:rexmcg12345678@gmail.com"
               >
+                Email: rexmcg12345678@gmail.com
+              </a>
+              <span className="text-xs text-surface-alt">
                 Địa chỉ: TP. Hồ Chí Minh
-              </a>
+              </span>
             </div>
           </div>
         </div>
         <div className="col-span-1 mt-4 pt-4 border-t border-border-neutral md:col-span-12">
           <div className="max-w-container-max mx-auto px-margin-desktop">
             <p className="font-body-md text-body-md text-surface-alt text-sm pb-4">
-              © 2024 DUCTIN &amp; PARTNERS. All Rights Reserved.
+              © 2026 CÔNG TY LUẬT TNHH ĐỨC TÍN VÀ CỘNG SỰ (DUC TIN &amp; PARTNERS). All Rights Reserved.
             </p>
           </div>
         </div>

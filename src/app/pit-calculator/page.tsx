@@ -45,12 +45,19 @@ export default function PITCalculator() {
     <main className="pt-32 pb-section-padding page-fade-in bg-background min-h-screen">
       <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
         {/* Page Title */}
-        <header className="mb-8 border-b border-border-neutral pb-stack-md">
-          <h1 className="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-primary mb-stack-sm">
+        <header className="mb-10 border-b border-border-neutral pb-stack-md text-center max-w-4xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-3 uppercase tracking-wider">
+            <span className="material-symbols-outlined text-[16px]">receipt_long</span>
+            Luật Thuế Thu Nhập Cá Nhân 2026
+          </div>
+          <h1 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase mb-3">
             Công Cụ Tính Thuế TNCN (PIT)
           </h1>
-          <p className="text-text-secondary font-body-md text-body-md">
-            Tính toán nhanh số thuế Thu nhập cá nhân phải nộp dựa trên thu nhập chịu thuế và các khoản giảm trừ gia cảnh.
+          <div className="text-amber-600 flex items-center justify-center my-3">
+            <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
+          </div>
+          <p className="text-slate-600 font-body-md text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+            Tính toán nhanh và chuẩn xác số thuế Thu nhập cá nhân phải nộp theo biểu thuế lũy tiến từng phần và giảm trừ gia cảnh mới nhất.
           </p>
         </header>
 

@@ -58,12 +58,19 @@ export default function SalaryCalculator() {
     <main className="pt-32 pb-section-padding page-fade-in bg-background min-h-screen">
       <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
         {/* Page Title */}
-        <header className="mb-8 border-b border-border-neutral pb-stack-md">
-          <h1 className="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-primary mb-stack-sm">
+        <header className="mb-10 border-b border-border-neutral pb-stack-md text-center max-w-4xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-3 uppercase tracking-wider">
+            <span className="material-symbols-outlined text-[16px]">payments</span>
+            Quy định Tiền lương &amp; Bảo hiểm 2026
+          </div>
+          <h1 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase mb-3">
             Công Cụ Tính Lương Gross-to-Net
           </h1>
-          <p className="text-text-secondary font-body-md text-body-md">
-            Tính toán nhanh lương thực nhận (Net) từ lương tổng (Gross) và các khoản trích theo lương, thuế TNCN theo quy định mới nhất.
+          <div className="text-amber-600 flex items-center justify-center my-3">
+            <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
+          </div>
+          <p className="text-slate-600 font-body-md text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+            Tính toán chính xác lương thực nhận (Net) từ lương tổng (Gross), các khoản trích nộp BHXH, BHYT, BHTN và thuế TNCN theo quy định mới nhất.
           </p>
         </header>
 

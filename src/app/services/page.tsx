@@ -1,308 +1,127 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { Metadata } from "next";
+import { SERVICES_DATA } from "@/data/servicesData";
 
 export default function ServicesPage() {
-  const [isLeadGateOpen, setIsLeadGateOpen] = useState(false);
+  const serviceList = Object.values(SERVICES_DATA);
 
   return (
-    <>
-      <div className="bg-surface-alt min-h-screen">
-        {/* Hero Section */}
-        <section
-          className="relative w-full bg-cover bg-[center_25%] bg-no-repeat"
-          style={{ backgroundImage: "url('/img/herobanner.png')" }}
-        >
-          <div className="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-32 md:py-48 flex items-center min-h-[500px] md:min-h-[650px]">
-            <div className="max-w-3xl space-y-6 md:space-y-8 flex flex-col items-start text-left">
-              <div className="rounded-full px-4 py-1.5 bg-primary text-[10px] uppercase tracking-[0.2em] font-bold text-white shadow-md">
-                Tầm nhìn &amp; Sứ mệnh
-              </div>
-              <h1 className="font-headline-xl-mobile md:text-[80px] leading-[1.1] text-primary tracking-tighter">
-                Giải pháp pháp lý <br /> <span className="italic text-accent">toàn diện</span>
-              </h1>
-              <p className="font-body-md text-xl text-primary font-semibold max-w-2xl leading-relaxed">
-                Bảo vệ quyền lợi hợp pháp, kiến tạo giá trị bền vững cho doanh nghiệp và cá nhân thông qua đội ngũ chuyên gia dày dặn kinh nghiệm.
-              </p>
+    <div className="bg-surface-alt min-h-screen pb-20">
+      {/* Hero Section VỚI ĐƯỜNG LINE ĐỎ ĐÔ 7PX Ở DƯỚI CÙNG */}
+      <section
+        className="relative w-full bg-cover bg-[center_25%] bg-no-repeat border-b-[7px] border-[#641D06]"
+        style={{ backgroundImage: "url('/img/herobanner.png')" }}
+      >
+        <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-32 md:py-40 flex items-center min-h-[480px]">
+          <div className="max-w-3xl space-y-6 flex flex-col items-start text-left">
+            <div className="rounded-full px-4 py-1.5 bg-primary text-[11px] uppercase tracking-[0.2em] font-bold text-accent shadow-md">
+              Tầm nhìn &amp; Sứ mệnh Pháp Lý 2026
             </div>
-          </div>
-        </section>
-
-        {/* Services Grid */}
-        <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-            {/* 1. Nội bộ doanh nghiệp */}
-            <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
-              <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-8 h-full flex flex-col border border-border-neutral/50">
-                <div className="rounded-full px-3 py-1 bg-surface-alt text-[10px] uppercase tracking-[0.2em] font-medium text-text-secondary w-max mb-8 border border-border-neutral/50">Doanh nghiệp</div>
-                <h3 className="font-headline-lg text-[28px] text-primary mb-4 leading-tight">Nội bộ doanh nghiệp</h3>
-                <p className="font-body-md text-text-secondary leading-relaxed mb-10 flex-grow">
-                  Xây dựng quy chế hoạt động, cơ cấu quản trị nội bộ, giải quyết mâu thuẫn giữa các thành viên/cổ đông. Hỗ trợ soát xét và chuẩn hóa hệ thống văn bản pháp lý nội bộ nhằm phòng ngừa rủi ro ngay từ bên trong.
-                </p>
-                <div className="flex flex-col gap-3 mt-auto">
-                  <Link href="/appointment" className="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn">
-                    <span className="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
-                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
-                      <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                    </div>
-                  </Link>
-                  <Link href="/ai-chatbot" className="flex w-full items-center justify-center gap-2 bg-accent border-accent text-on-accent rounded-full px-6 py-3 hover:opacity-90 transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
-                    <span className="material-symbols-outlined text-base text-on-accent">smart_toy</span>
-                    <span className="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* 2. Tư vấn đầu tư */}
-            <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
-              <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-8 h-full flex flex-col border border-border-neutral/50">
-                <div className="rounded-full px-3 py-1 bg-surface-alt text-[10px] uppercase tracking-[0.2em] font-medium text-text-secondary w-max mb-8 border border-border-neutral/50">Thương mại</div>
-                <h3 className="font-headline-lg text-[28px] text-primary mb-4 leading-tight">Tư vấn đầu tư</h3>
-                <p className="font-body-md text-text-secondary leading-relaxed mb-10 flex-grow">
-                  Cố vấn chiến lược cho các nhà đầu tư trong và ngoài nước (FDI). Đánh giá tính pháp lý của dự án, tối ưu hóa cấu trúc giao dịch và đại diện thực hiện các thủ tục xin cấp phép đầu tư phức tạp.
-                </p>
-                <div className="flex flex-col gap-3 mt-auto">
-                  <Link href="/appointment" className="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn">
-                    <span className="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
-                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
-                      <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                    </div>
-                  </Link>
-                  <Link href="/ai-chatbot" className="flex w-full items-center justify-center gap-2 bg-accent border-accent text-on-accent rounded-full px-6 py-3 hover:opacity-90 transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
-                    <span className="material-symbols-outlined text-base text-on-accent">smart_toy</span>
-                    <span className="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* 3. Thủ tục pháp lý - giấy phép */}
-            <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
-              <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-8 h-full flex flex-col border border-border-neutral/50">
-                <div className="rounded-full px-3 py-1 bg-surface-alt text-[10px] uppercase tracking-[0.2em] font-medium text-text-secondary w-max mb-8 border border-border-neutral/50">Hành chính</div>
-                <h3 className="font-headline-lg text-[28px] text-primary mb-4 leading-tight">Thủ tục pháp lý &amp; Giấy phép</h3>
-                <p className="font-body-md text-text-secondary leading-relaxed mb-10 flex-grow">
-                  Đại diện xin cấp các loại giấy phép con, giấy phép hoạt động, đăng ký kinh doanh và các văn bản chấp thuận từ cơ quan nhà nước có thẩm quyền một cách nhanh chóng và chuẩn xác nhất.
-                </p>
-                <div className="flex flex-col gap-3 mt-auto">
-                  <Link href="/appointment" className="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn">
-                    <span className="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
-                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
-                      <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                    </div>
-                  </Link>
-                  <Link href="/ai-chatbot" className="flex w-full items-center justify-center gap-2 bg-accent border-accent text-on-accent rounded-full px-6 py-3 hover:opacity-90 transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
-                    <span className="material-symbols-outlined text-base text-on-accent">smart_toy</span>
-                    <span className="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* 4. Di chúc - thừa kế */}
-            <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
-              <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-8 h-full flex flex-col border border-border-neutral/50">
-                <div className="rounded-full px-3 py-1 bg-surface-alt text-[10px] uppercase tracking-[0.2em] font-medium text-text-secondary w-max mb-8 border border-border-neutral/50">Cá nhân</div>
-                <h3 className="font-headline-lg text-[28px] text-primary mb-4 leading-tight">Di chúc &amp; Thừa kế</h3>
-                <p className="font-body-md text-text-secondary leading-relaxed mb-10 flex-grow">
-                  Tư vấn lập di chúc, phân chia di sản thừa kế theo pháp luật hoặc theo di chúc. Hỗ trợ giải quyết các tranh chấp phát sinh trong quá trình phân chia tài sản gia đình êm thấm và hợp pháp.
-                </p>
-                <div className="flex flex-col gap-3 mt-auto">
-                  <Link href="/appointment" className="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn">
-                    <span className="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
-                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
-                      <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                    </div>
-                  </Link>
-                  <Link href="/ai-chatbot" className="flex w-full items-center justify-center gap-2 bg-accent border-accent text-on-accent rounded-full px-6 py-3 hover:opacity-90 transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
-                    <span className="material-symbols-outlined text-base text-on-accent">smart_toy</span>
-                    <span className="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* 5. Dân sự */}
-            <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
-              <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-8 h-full flex flex-col border border-border-neutral/50">
-                <div className="rounded-full px-3 py-1 bg-surface-alt text-[10px] uppercase tracking-[0.2em] font-medium text-text-secondary w-max mb-8 border border-border-neutral/50">Tranh tụng</div>
-                <h3 className="font-headline-lg text-[28px] text-primary mb-4 leading-tight">Dân sự</h3>
-                <p className="font-body-md text-text-secondary leading-relaxed mb-10 flex-grow">
-                  Tư vấn và giải quyết các vấn đề dân sự đa dạng: bồi thường thiệt hại, hợp đồng vay mượn, giao dịch dân sự thông thường. Bảo vệ quyền và lợi ích hợp pháp của cá nhân trong đời sống thường nhật.
-                </p>
-                <div className="flex flex-col gap-3 mt-auto">
-                  <Link href="/appointment" className="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn">
-                    <span className="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
-                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
-                      <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                    </div>
-                  </Link>
-                  <Link href="/ai-chatbot" className="flex w-full items-center justify-center gap-2 bg-accent border-accent text-on-accent rounded-full px-6 py-3 hover:opacity-90 transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
-                    <span className="material-symbols-outlined text-base text-on-accent">smart_toy</span>
-                    <span className="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* 6. Lao động */}
-            <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
-              <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-8 h-full flex flex-col border border-border-neutral/50">
-                <div className="rounded-full px-3 py-1 bg-surface-alt text-[10px] uppercase tracking-[0.2em] font-medium text-text-secondary w-max mb-8 border border-border-neutral/50">Doanh nghiệp</div>
-                <h3 className="font-headline-lg text-[28px] text-primary mb-4 leading-tight">Lao động</h3>
-                <p className="font-body-md text-text-secondary leading-relaxed mb-10 flex-grow">
-                  Tư vấn hợp đồng lao động, nội quy, thỏa ước lao động tập thể. Xử lý kỷ luật lao động và giải quyết các tranh chấp về sa thải, bồi thường, trợ cấp thôi việc giữa người lao động và người sử dụng.
-                </p>
-                <div className="flex flex-col gap-3 mt-auto">
-                  <Link href="/appointment" className="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn">
-                    <span className="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
-                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
-                      <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                    </div>
-                  </Link>
-                  <Link href="/ai-chatbot" className="flex w-full items-center justify-center gap-2 bg-accent border-accent text-on-accent rounded-full px-6 py-3 hover:opacity-90 transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
-                    <span className="material-symbols-outlined text-base text-on-accent">smart_toy</span>
-                    <span className="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* 7. Tranh tụng */}
-            <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
-              <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-8 h-full flex flex-col border border-border-neutral/50">
-                <div className="rounded-full px-3 py-1 bg-surface-alt text-[10px] uppercase tracking-[0.2em] font-medium text-text-secondary w-max mb-8 border border-border-neutral/50">Cốt lõi</div>
-                <h3 className="font-headline-lg text-[28px] text-primary mb-4 leading-tight">Tranh tụng</h3>
-                <p className="font-body-md text-text-secondary leading-relaxed mb-10 flex-grow">
-                  Đại diện khách hàng tham gia tố tụng tại Tòa án và Trọng tài thương mại các cấp. Lên phương án bào chữa, bảo vệ quyền lợi tối đa trong các vụ án hình sự, dân sự, thương mại và hành chính.
-                </p>
-                <div className="flex flex-col gap-3 mt-auto">
-                  <Link href="/appointment" className="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn">
-                    <span className="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
-                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
-                      <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                    </div>
-                  </Link>
-                  <Link href="/ai-chatbot" className="flex w-full items-center justify-center gap-2 bg-accent border-accent text-on-accent rounded-full px-6 py-3 hover:opacity-90 transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
-                    <span className="material-symbols-outlined text-base text-on-accent">smart_toy</span>
-                    <span className="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* 8. Nhà đất - bất động sản */}
-            <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
-              <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-8 h-full flex flex-col border border-border-neutral/50">
-                <div className="rounded-full px-3 py-1 bg-surface-alt text-[10px] uppercase tracking-[0.2em] font-medium text-text-secondary w-max mb-8 border border-border-neutral/50">Thương mại</div>
-                <h3 className="font-headline-lg text-[28px] text-primary mb-4 leading-tight">Nhà đất &amp; Bất động sản</h3>
-                <p className="font-body-md text-text-secondary leading-relaxed mb-10 flex-grow">
-                  Tư vấn pháp lý mua bán, chuyển nhượng, tặng cho, thế chấp quyền sử dụng đất. Xử lý các tranh chấp ranh giới, bồi thường giải tỏa và hoàn thiện hồ sơ pháp lý cho các dự án bất động sản lớn.
-                </p>
-                <div className="flex flex-col gap-3 mt-auto">
-                  <Link href="/appointment" className="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn">
-                    <span className="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
-                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
-                      <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                    </div>
-                  </Link>
-                  <Link href="/ai-chatbot" className="flex w-full items-center justify-center gap-2 bg-accent border-accent text-on-accent rounded-full px-6 py-3 hover:opacity-90 transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
-                    <span className="material-symbols-outlined text-base text-on-accent">smart_toy</span>
-                    <span className="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* 9. Hôn nhân gia đình */}
-            <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
-              <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-8 h-full flex flex-col border border-border-neutral/50">
-                <div className="rounded-full px-3 py-1 bg-surface-alt text-[10px] uppercase tracking-[0.2em] font-medium text-text-secondary w-max mb-8 border border-border-neutral/50">Cá nhân</div>
-                <h3 className="font-headline-lg text-[28px] text-primary mb-4 leading-tight">Hôn nhân &amp; Gia đình</h3>
-                <p className="font-body-md text-text-secondary leading-relaxed mb-10 flex-grow">
-                  Hỗ trợ thủ tục ly hôn thuận tình, đơn phương, tranh chấp quyền nuôi con, cấp dưỡng và phân chia tài sản chung. Tư vấn pháp luật về mang thai hộ, nhận con nuôi và các vấn đề gia đình khác.
-                </p>
-                <div className="flex flex-col gap-3 mt-auto">
-                  <Link href="/appointment" className="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn">
-                    <span className="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
-                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
-                      <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                    </div>
-                  </Link>
-                  <Link href="/ai-chatbot" className="flex w-full items-center justify-center gap-2 bg-accent border-accent text-on-accent rounded-full px-6 py-3 hover:opacity-90 transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
-                    <span className="material-symbols-outlined text-base text-on-accent">smart_toy</span>
-                    <span className="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      {/* LEAD GATE MODAL */}
-      <div className={`fixed inset-0 z-[100] flex items-center justify-center lead-gate-overlay px-margin-mobile ${isLeadGateOpen ? 'block' : 'hidden'}`} id="lead-gate-modal">
-        <div className="bg-surface-main w-full max-w-container-max max-w-xl rounded-lg shadow-elegant p-stack-lg flex flex-col items-center text-center relative">
-          {/* Close Button */}
-          <button
-            onClick={() => setIsLeadGateOpen(false)}
-            aria-label="Đóng"
-            className="absolute top-4 right-4 text-text-secondary hover:text-primary transition-colors"
-          >
-            <span className="material-symbols-outlined">close</span>
-          </button>
-          
-          <div className="w-16 h-16 bg-surface-alt rounded-full flex items-center justify-center mb-stack-md">
-            <span className="material-symbols-outlined text-primary text-[32px]">lock_person</span>
-          </div>
-          <h2 className="font-headline-md text-headline-md text-primary mb-2">
-            Nhập Thông Tin Để Tải Brochure Dịch Vụ
-          </h2>
-          <p className="font-body-md text-body-md text-text-secondary mb-4">
-            Tài liệu chi tiết về dịch vụ pháp lý sẽ được gửi đến bạn hoàn toàn miễn phí.
-          </p>
-          
-          <form className="w-full space-y-stack-md" onSubmit={(e) => e.preventDefault()}>
-            <div className="relative">
-              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-[20px]">person</span>
-              <input
-                className="w-full bg-surface-alt border border-border-neutral rounded py-3 pl-10 pr-4 font-body-md text-body-md text-text-primary focus:outline-none focus:border-primary focus:border-2 transition-all placeholder:text-border-neutral"
-                placeholder="Họ và tên của bạn *"
-                required
-                type="text"
-              />
-            </div>
-            <div className="relative">
-              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-[20px]">phone_iphone</span>
-              <input
-                className="w-full bg-surface-alt border border-border-neutral rounded py-3 pl-10 pr-4 font-body-md text-body-md text-text-primary focus:outline-none focus:border-primary focus:border-2 transition-all placeholder:text-border-neutral"
-                placeholder="Số điện thoại nhận file (Zalo) *"
-                required
-                type="tel"
-              />
-            </div>
-            <label className="flex items-start gap-2 text-left cursor-pointer group">
-              <input className="mt-1 rounded border-border-neutral text-primary focus:ring-primary" type="checkbox" />
-              <span className="font-body-md text-body-md text-text-secondary text-sm leading-tight group-hover:text-primary transition-colors">
-                Tôi đồng ý nhận tư vấn sơ bộ từ Luật sư nếu có thắc mắc.
-              </span>
-            </label>
-            <button className="w-full py-4 bg-accent text-on-accent font-label-sm text-label-sm rounded hover:bg-opacity-90 transition-colors flex justify-center items-center gap-2" type="submit">
-              <span className="material-symbols-outlined">lock_open</span> MỞ KHÓA &amp; TẢI FILE NGAY
-            </button>
-          </form>
-          
-          <div className="mt-stack-md flex items-center gap-1 text-text-secondary">
-            <span className="material-symbols-outlined text-[14px]">verified_user</span>
-            <p className="font-label-sm text-label-sm text-[12px]">
-              Cam kết bảo mật thông tin theo Quy tắc đạo đức Luật sư.
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black font-sans leading-[1.15] text-primary tracking-tight">
+              Giải Pháp Pháp Lý <br /> <span className="italic text-accent font-sans">Toàn Diện &amp; Tận Tâm</span>
+            </h1>
+            <p className="font-body-md text-base md:text-xl text-primary font-semibold max-w-2xl leading-relaxed">
+              Bảo vệ tối đa quyền lợi hợp pháp, đồng hành giải quyết tranh chấp và kiến tạo giá trị bền vững cho doanh nghiệp và cá nhân.
             </p>
           </div>
         </div>
-      </div>
-    </>
+      </section>
+
+      {/* Services Grid (GIỮ NGUYÊN LƯỚI 3 CỘT/HÀNG CÂN ĐỐI VỪA PHẢI, KHÔNG ĐÁNH SỐ) */}
+      <section className="max-w-7xl mx-auto px-4 md:px-8 py-16">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="text-amber-700 font-bold text-xs uppercase tracking-widest mb-2">DANH MỤC DỊCH VỤ CHUYÊN SÂU</div>
+          <h2 className="text-3xl md:text-4xl font-black text-slate-900 uppercase font-sans">
+            Lĩnh Vực Hoạt Động Cốt Lõi
+          </h2>
+          <div className="text-amber-600 flex items-center justify-center my-3">
+            <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
+          </div>
+          <p className="text-slate-600 text-base md:text-lg leading-relaxed">
+            Đức Tín &amp; Cộng sự quy tụ đội ngũ luật sư chuyên gia với bề dày thực chiến, giải quyết nhanh chóng và hiệu quả mọi bài toán pháp lý.
+          </p>
+        </div>
+
+        {/* Lưới 3 cột chuẩn cân đối vừa phải */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+          {serviceList.map((srv, idx) => (
+            <div
+              key={idx}
+              className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm hover:shadow-xl hover:border-amber-500 transition-all flex flex-col justify-between group"
+            >
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-4">
+                  <span className="rounded-full px-3.5 py-1 bg-amber-50 text-[11px] uppercase tracking-wider font-extrabold text-amber-900 border border-amber-200">
+                    {srv.category}
+                  </span>
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-[#641D06] transition-colors leading-snug">
+                  {srv.title}
+                </h3>
+                <p className="text-slate-600 text-sm leading-relaxed mb-6">
+                  {srv.heroDesc}
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-2.5 pt-5 border-t border-slate-100 mt-auto">
+                <Link
+                  href={`/services/${srv.slug}`}
+                  className="flex w-full items-center justify-between bg-[#641D06] text-white rounded-xl px-4 py-2.5 hover:bg-black transition-colors font-bold text-xs shadow-2xs"
+                >
+                  <span>Xem Chi Tiết Dịch Vụ</span>
+                  <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                </Link>
+                <div className="grid grid-cols-2 gap-2">
+                  <Link
+                    href="/appointment"
+                    className="flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-900 rounded-xl py-2 text-xs font-bold transition-colors"
+                  >
+                    <span className="material-symbols-outlined text-sm">calendar_month</span>
+                    Đặt Hẹn
+                  </Link>
+                  <Link
+                    href="/ai-chatbot"
+                    className="flex items-center justify-center gap-1 bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-200 rounded-xl py-2 text-xs font-bold transition-colors"
+                  >
+                    <span className="material-symbols-outlined text-sm">chat</span>
+                    Hỏi AI
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Consultation Banner */}
+      <section className="max-w-7xl mx-auto px-4 md:px-8 mt-6">
+        <div className="bg-[#1A1A1A] text-white p-8 md:p-12 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <div className="text-amber-400 font-bold text-xs uppercase tracking-widest mb-1">Tư vấn trực tiếp cùng Luật sư</div>
+            <h3 className="text-2xl md:text-3xl font-black font-sans uppercase text-white mb-2">Luật Sư Phan Đức Tín</h3>
+            <p className="text-slate-300 text-sm md:text-base max-w-xl leading-relaxed">
+              Hơn 15 năm kinh nghiệm giải quyết tranh chấp kinh doanh, bất động sản và đầu tư FDI tại Việt Nam.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3 shrink-0">
+            <a
+              href="tel:0937863263"
+              className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold px-6 py-3.5 rounded-xl uppercase text-sm shadow-md transition-colors flex items-center gap-2"
+            >
+              <span className="material-symbols-outlined">call</span>
+              093 786 32 63
+            </a>
+            <Link
+              href="/appointment"
+              className="bg-[#C0963B] hover:bg-[#a37b2c] text-white font-bold px-6 py-3.5 rounded-xl uppercase text-sm shadow-md transition-colors flex items-center gap-2"
+            >
+              <span className="material-symbols-outlined">calendar_month</span>
+              Đặt Lịch Hẹn
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

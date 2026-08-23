@@ -21,13 +21,20 @@ export default function CourtFeeCalculator() {
   };
 
   return (
-    <main className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-32 page-fade-in min-h-screen">
-      <header className="mb-8 border-b border-border-neutral pb-stack-md">
-        <h1 className="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-primary mb-stack-sm">
+    <main className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-28 page-fade-in min-h-screen">
+      <header className="mb-10 border-b border-border-neutral pb-stack-md text-center max-w-4xl mx-auto">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-800 text-xs font-bold mb-3 uppercase tracking-wider">
+          <span className="material-symbols-outlined text-[16px]">account_balance_wallet</span>
+          Nghị quyết 326/2016/UBTVQH14
+        </div>
+        <h1 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase mb-3">
           Công Cụ Tính Án Phí Tòa Án
         </h1>
-        <p className="text-text-secondary font-body-md text-body-md">
-          Tính toán nhanh mức tạm ứng án phí và án phí chính thức theo quy định hiện hành (Nghị quyết 326/2016/UBTVQH14).
+        <div className="text-amber-600 flex items-center justify-center my-3">
+          <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
+        </div>
+        <p className="text-slate-600 font-body-md text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+          Tính toán nhanh mức tạm ứng án phí và án phí chính thức theo quy định hiện hành mới nhất.
         </p>
       </header>
 

@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import Providers from "@/components/providers";
+import LayoutShell from "@/components/layout/LayoutShell";
 
 export const metadata: Metadata = {
   title: "DUC TIN & Partners - Hãng Luật Hàng Đầu Việt Nam",
@@ -17,26 +16,24 @@ export default function RootLayout({
   return (
     <html lang="vi" className="overflow-y-scroll">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400;1,700&display=swap&subset=vietnamese"
           rel="stylesheet"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
           rel="stylesheet"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block"
+          href="https://fonts.googleapis.com/css2?family=Material+Icons"
           rel="stylesheet"
         />
       </head>
       <body className="bg-background text-text-primary antialiased min-h-full flex flex-col">
         <Providers>
-          <Header />
-          <main className="pt-20 pb-section-padding page-fade-in flex-grow">
-            {children}
-          </main>
-          <Footer />
+          <LayoutShell>{children}</LayoutShell>
         </Providers>
       </body>
     </html>
