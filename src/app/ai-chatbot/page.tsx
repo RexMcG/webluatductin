@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { chatbotService, ChatMessageResponse, LawyerInfo, SuggestedForm, QuickAction } from "@/services/chatbot.service";
 import MindmapVisual, { extractMindmapAndCleanText } from "@/components/common/MindmapVisual";
+import { useSearchParams } from "next/navigation";
 
 type Message = {
   id: number;
@@ -37,9 +38,7 @@ Bạn đang có thắc mắc hoặc cần tư vấn về vấn đề gì, hãy n
   ]
 };
 
-import { useSearchParams } from "next/navigation";
-
-export default function AIChatbot() {
+function AIChatbotContent() {
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get("q");
   const hasAutoSent = useRef(false);
@@ -484,3 +483,21 @@ export default function AIChatbot() {
     </main>
   );
 }
+
+export default function AIChatbot() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-slate-50">
+          <div className="flex flex-col items-center gap-3">
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#641D06]"></div>
+            <p className="text-sm font-semibold text-slate-600">Đang khởi tạo Trợ lý AI...</p>
+          </div>
+        </div>
+      }
+    >
+      <AIChatbotContent />
+    </Suspense>
+  );
+}
+

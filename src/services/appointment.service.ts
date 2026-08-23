@@ -14,6 +14,19 @@ export interface Appointment {
 }
 
 export const appointmentService = {
+  createAppointment: async (data: {
+    name: string;
+    phone: string;
+    email: string;
+    appointmentDate: string;
+    appointmentTime: string;
+    service?: string;
+    notes?: string;
+  }): Promise<any> => {
+    const res = await apiClient.post('/appointments', data);
+    return res;
+  },
+
   getAppointments: async (): Promise<Appointment[]> => {
     const res = await apiClient.get<Appointment[]>('/appointments');
     return (res as any) || [];
