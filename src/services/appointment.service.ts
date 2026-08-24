@@ -26,6 +26,14 @@ export const appointmentService = {
     attorney?: string;
     address?: string;
   }): Promise<any> => {
+    // 1. Send email directly from Vercel Edge Serverless
+    fetch('/api/send-appointment-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }).catch((err) => console.error('Direct email dispatch failed:', err));
+
+    // 2. Persist to Backend DB
     const res = await apiClient.post('/appointments', data);
     return res;
   },
