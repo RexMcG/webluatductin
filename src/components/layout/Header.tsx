@@ -116,52 +116,90 @@ export default function Header() {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden material-symbols-outlined cursor-pointer text-slate-900 p-2"
+              className="md:hidden material-symbols-outlined cursor-pointer text-slate-900 p-2 rounded-lg hover:bg-slate-100 transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label={isMobileMenuOpen ? "Đóng menu điều hướng" : "Mở menu điều hướng"}
+              aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? "close" : "menu"}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu Drawer */}
         <div
-          className={`${isMobileMenuOpen ? "block" : "hidden"} md:hidden bg-white border-t border-slate-200 px-6 py-4 shadow-xl`}
+          className={`${isMobileMenuOpen ? "block" : "hidden"} md:hidden bg-white border-t border-slate-200 px-6 py-5 shadow-2xl transition-all max-h-[calc(100vh-5rem)] overflow-y-auto`}
         >
-          <div className="flex flex-col gap-3 font-bold text-slate-800">
-            <Link href="/" className="text-[#641D06] uppercase text-[15px]">
-              Trang chủ
+          <div className="flex flex-col gap-3.5 font-bold text-slate-800">
+            <Link 
+              href="/" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-[#641D06] hover:bg-amber-50 px-3 py-2 rounded-xl uppercase text-[15px] flex items-center gap-2"
+            >
+              <span className="material-symbols-outlined text-xl">home</span> Trang chủ
             </Link>
-            <Link href="/services" className="hover:text-[#641D06] uppercase text-[15px]">
-              Lĩnh vực
+            <Link 
+              href="/services" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="hover:text-[#641D06] hover:bg-amber-50 px-3 py-2 rounded-xl uppercase text-[15px] flex items-center gap-2"
+            >
+              <span className="material-symbols-outlined text-xl">gavel</span> Lĩnh vực pháp lý
             </Link>
-            <Link href="/news" className="hover:text-[#641D06] uppercase text-[15px]">
-              Tin tức
+            <Link 
+              href="/news" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="hover:text-[#641D06] hover:bg-amber-50 px-3 py-2 rounded-xl uppercase text-[15px] flex items-center gap-2"
+            >
+              <span className="material-symbols-outlined text-xl">newspaper</span> Tin tức &amp; Án lệ
+            </Link>
+            <Link 
+              href="/ai-form-library" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="hover:text-[#641D06] hover:bg-amber-50 px-3 py-2 rounded-xl uppercase text-[15px] flex items-center gap-2"
+            >
+              <span className="material-symbols-outlined text-xl">description</span> Biểu mẫu AI
             </Link>
 
-            <Link href="/ai-form-library" className="hover:text-[#641D06] uppercase text-[15px]">
-              Biểu mẫu AI
-            </Link>
-
-            <div className="text-xs font-black uppercase tracking-wider text-slate-400 mt-2">
-              Tính năng
+            <div className="text-xs font-black uppercase tracking-wider text-slate-400 mt-1 px-3">
+              Công cụ tính toán
             </div>
-            <Link href="/court-fee-calculator" className="hover:text-[#641D06] text-sm pl-3">
-              Tính án phí
+            <Link 
+              href="/court-fee-calculator" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="hover:text-[#641D06] hover:bg-amber-50 text-sm px-4 py-1.5 rounded-lg flex items-center gap-2 font-medium"
+            >
+              <span className="material-symbols-outlined text-base text-amber-800">calculate</span> Tính án phí
             </Link>
-            <Link href="/salary-calculator" className="hover:text-[#641D06] text-sm pl-3">
-              Tính lương Gross-to-Net
+            <Link 
+              href="/salary-calculator" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="hover:text-[#641D06] hover:bg-amber-50 text-sm px-4 py-1.5 rounded-lg flex items-center gap-2 font-medium"
+            >
+              <span className="material-symbols-outlined text-base text-amber-800">payments</span> Tính lương Gross-to-Net
             </Link>
-            <Link href="/pit-calculator" className="hover:text-[#641D06] text-sm pl-3">
-              Tính thuế TNCN
+            <Link 
+              href="/pit-calculator" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="hover:text-[#641D06] hover:bg-amber-50 text-sm px-4 py-1.5 rounded-lg flex items-center gap-2 font-medium"
+            >
+              <span className="material-symbols-outlined text-base text-amber-800">account_balance</span> Tính thuế TNCN
             </Link>
 
-            <Link href="/ai-chatbot" className="hover:text-[#641D06] uppercase text-[15px] mt-2">
-              AI Chat
-            </Link>
-            <Link href="/appointment" className="hover:text-[#641D06] uppercase text-[15px]">
-              Đặt lịch
-            </Link>
+            <div className="pt-3 border-t border-slate-100 flex flex-col gap-2.5">
+              <Link 
+                href="/appointment" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-full bg-[#641D06] hover:bg-black text-white text-center py-3 rounded-xl uppercase text-[14px] font-bold shadow-md flex items-center justify-center gap-2"
+              >
+                <span className="material-symbols-outlined text-lg">calendar_month</span> Đặt Lịch Hẹn Tư Vấn
+              </Link>
+              <a 
+                href="tel:0937863263" 
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center py-3 rounded-xl uppercase text-[14px] font-bold shadow-md flex items-center justify-center gap-2"
+              >
+                <span className="material-symbols-outlined text-lg">call</span> Hotline: 093 786 32 63
+              </a>
+            </div>
           </div>
         </div>
       </nav>

@@ -3,44 +3,49 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <>
-      {/* Floating Contact Bubbles (Left) */}
-      <div className="fixed bottom-margin-mobile left-margin-mobile z-50 flex flex-col gap-4">
+      {/* Floating Contact Bubbles (Left) - Ergonomic on mobile */}
+      <div className="fixed bottom-4 left-3 md:bottom-6 md:left-6 z-50 flex flex-col gap-2.5 md:gap-3.5">
+        {/* Call Hotline Bubble (Direct Call on Mobile) */}
+        <a
+          className="bg-gradient-to-br from-emerald-500 to-emerald-700 text-white rounded-full h-12 w-12 md:h-16 md:w-16 border-2 border-white shadow-[0_0_15px_rgba(16,185,129,0.5)] hover:scale-110 active:scale-95 transition-transform flex items-center justify-center relative group"
+          href="tel:0937863263"
+          aria-label="Gọi ngay Hotline tư vấn pháp luật"
+        >
+          <span className="material-symbols-outlined text-2xl md:text-3xl">call</span>
+          <span className="absolute left-full ml-3 bg-emerald-700 text-white text-xs md:text-sm font-bold whitespace-nowrap px-3 py-1.5 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg pointer-events-none">
+            Hotline: 093 786 32 63
+          </span>
+        </a>
+
         {/* Booking Bubble */}
         <Link
-          className="bg-gradient-to-br from-red-500 to-primary text-white rounded-full h-20 w-20 border-2 border-white shadow-[0_0_15px_rgba(220,38,38,0.6)] hover:scale-110 transition-transform flex items-center justify-center relative group animate-bounce"
+          className="bg-gradient-to-br from-red-500 to-primary text-white rounded-full h-12 w-12 md:h-16 md:w-16 border-2 border-white shadow-[0_0_15px_rgba(220,38,38,0.5)] hover:scale-110 active:scale-95 transition-transform flex items-center justify-center relative group animate-bounce"
           style={{ animationDuration: '3s' }}
           href="/appointment"
+          aria-label="Đặt lịch hẹn tư vấn luật sư"
         >
-          <span className="material-symbols-outlined text-4xl">calendar_month</span>
-          <span className="absolute left-full ml-4 bg-primary text-white text-sm font-bold whitespace-nowrap px-3 py-2 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg">
+          <span className="material-symbols-outlined text-2xl md:text-3xl">calendar_month</span>
+          <span className="absolute left-full ml-3 bg-primary text-white text-xs md:text-sm font-bold whitespace-nowrap px-3 py-1.5 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg pointer-events-none">
             Đặt lịch hẹn
           </span>
         </Link>
-        {/* SMS Bubble */}
-        <a
-          className="bg-gradient-to-br from-green-400 to-green-600 text-white rounded-full h-20 w-20 border-2 border-white shadow-[0_0_15px_rgba(34,197,94,0.6)] hover:scale-110 transition-transform flex items-center justify-center relative group"
-          href="sms:0937863263"
-        >
-          <span className="material-symbols-outlined text-4xl">sms</span>
-          <span className="absolute left-full ml-4 bg-green-600 text-white text-sm font-bold whitespace-nowrap px-3 py-2 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg">
-            Gửi SMS
-          </span>
-        </a>
+
         {/* Zalo Bubble */}
         <a
-          className="bg-gradient-to-br from-blue-400 to-[#0068FF] text-white rounded-full h-20 w-20 border-2 border-white shadow-[0_0_15px_rgba(0,104,255,0.6)] hover:scale-110 transition-transform flex items-center justify-center relative group"
+          className="bg-gradient-to-br from-blue-400 to-[#0068FF] text-white rounded-full h-12 w-12 md:h-16 md:w-16 border-2 border-white shadow-[0_0_15px_rgba(0,104,255,0.5)] hover:scale-110 active:scale-95 transition-transform flex items-center justify-center relative group"
           href="https://zalo.me/0937863263"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Chat trực tiếp qua Zalo"
         >
           <img
             src="/img/1280px-Icon_of_Zalo.svg.png"
             alt="Zalo"
-            width={40}
-            height={40}
-            className="w-10 h-10 object-contain"
+            width={28}
+            height={28}
+            className="w-6 h-6 md:w-8 md:h-8 object-contain"
           />
-          <span className="absolute left-full ml-4 bg-[#0068FF] text-white text-sm font-bold whitespace-nowrap px-3 py-2 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg">
+          <span className="absolute left-full ml-3 bg-[#0068FF] text-white text-xs md:text-sm font-bold whitespace-nowrap px-3 py-1.5 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg pointer-events-none">
             Chat Zalo
           </span>
         </a>

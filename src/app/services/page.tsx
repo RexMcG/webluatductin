@@ -11,7 +11,7 @@ export default function ServicesPage() {
       {/* Hero Section VỚI ĐƯỜNG LINE ĐỎ ĐÔ 7PX Ở DƯỚI CÙNG */}
       <section
         className="relative w-full bg-cover bg-[center_25%] bg-no-repeat border-b-[7px] border-[#641D06]"
-        style={{ backgroundImage: "url('/img/herobanner.png')" }}
+        style={{ backgroundImage: "url('/img/herobanner.webp')" }}
       >
         <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-32 md:py-40 flex items-center min-h-[480px]">
           <div className="max-w-3xl space-y-6 flex flex-col items-start text-left">
