@@ -22,6 +22,9 @@ export const appointmentService = {
     appointmentTime: string;
     service?: string;
     notes?: string;
+    consultType?: string;
+    attorney?: string;
+    address?: string;
   }): Promise<any> => {
     const res = await apiClient.post('/appointments', data);
     return res;
