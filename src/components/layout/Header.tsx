@@ -21,7 +21,9 @@ export default function Header() {
           <Link href="/" className="shrink-0 mr-8 lg:mr-16">
             <img
               src="/img/Logo_website.png"
-              alt="Logo"
+              alt="Logo Công ty Luật Đức Tín"
+              width={244}
+              height={40}
               className="h-8 md:h-10 w-[195px] md:w-[244px] object-contain"
             />
           </Link>

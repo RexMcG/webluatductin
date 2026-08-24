@@ -86,19 +86,22 @@ export default function Home() {
     }
     setConsultSending(true);
     try {
-      await fetch('http://localhost:3001/api/v1/appointments', {
+      await fetch('/api/send-appointment-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: consultForm.name,
           phone: consultForm.phone,
           email: consultForm.email || 'khachhang@ductinlaw.vn',
+          service: consultForm.category,
+          notes: consultForm.message || 'Yêu cầu tư vấn nhanh từ Trang chủ',
           appointmentDate: new Date(Date.now() + 86400000).toISOString().split('T')[0],
           appointmentTime: '09:00:00',
         })
       });
       setConsultSent(true);
     } catch (err) {
+      console.error(err);
       setConsultSent(true);
     } finally {
       setConsultSending(false);
@@ -110,7 +113,7 @@ export default function Home() {
       {/* Hero Section */}
       <section
         className="relative w-full bg-cover bg-[center_25%] bg-no-repeat border-b-[7px] border-[#641D06]"
-        style={{ backgroundImage: "url('/img/herobanner.png')" }}
+        style={{ backgroundImage: "url('/img/herobanner.webp')" }}
       >
         <div className="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-28 md:py-40 flex flex-col items-center justify-center min-h-[500px] md:min-h-[620px]">
           <div className="max-w-4xl w-full flex flex-col items-center text-center space-y-6 md:space-y-8">
@@ -434,7 +437,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
               Công Cụ Pháp Lý &amp; AI
             </h2>
-            <div className="text-accent flex items-center justify-center mt-1">
+            <div className="text-amber-800 flex items-center justify-center mt-1">
               <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
             </div>
           </div>
@@ -443,19 +446,19 @@ export default function Home() {
               <span className="material-symbols-outlined text-4xl text-emerald-700 mb-4">calculate</span>
               <h3 className="font-headline-md text-xl font-bold text-primary mb-2">Tính Lương Gross-to-Net</h3>
               <p className="font-body-md text-text-secondary mb-4 h-12 text-sm">Công cụ tính lương, BHXH, BHYT và các khoản trích theo lương chuẩn xác 2026.</p>
-              <Link className="block w-full bg-surface-main border border-primary text-primary h-11 rounded-xl font-bold hover:bg-primary hover:text-white transition-colors text-center leading-[44px]" href="/salary-calculator">Sử dụng ngay</Link>
+              <Link aria-label="Sử dụng công cụ tính lương Gross sang Net chuẩn xác" className="block w-full bg-surface-main border border-primary text-primary h-11 rounded-xl font-bold hover:bg-primary hover:text-white transition-colors text-center leading-[44px]" href="/salary-calculator">Sử dụng ngay</Link>
             </div>
             <div className="bg-surface-main border border-border-neutral p-6 hover:shadow-elegant-hover shadow-elegant transition-shadow rounded-2xl">
               <span className="material-symbols-outlined text-4xl text-emerald-700 mb-4">account_balance_wallet</span>
               <h3 className="font-headline-md text-xl font-bold text-primary mb-2">Tính Án Phí Tòa Án</h3>
               <p className="font-body-md text-text-secondary mb-4 h-12 text-sm">Tính toán nhanh án phí dân sự, kinh doanh thương mại và lệ phí tòa án.</p>
-              <Link className="block w-full bg-surface-main border border-primary text-primary h-11 rounded-xl font-bold hover:bg-primary hover:text-white transition-colors text-center leading-[44px]" href="/court-fee-calculator">Sử dụng ngay</Link>
+              <Link aria-label="Sử dụng công cụ tính án phí và lệ phí tòa án" className="block w-full bg-surface-main border border-primary text-primary h-11 rounded-xl font-bold hover:bg-primary hover:text-white transition-colors text-center leading-[44px]" href="/court-fee-calculator">Sử dụng ngay</Link>
             </div>
             <div className="bg-surface-main border border-border-neutral p-6 hover:shadow-elegant-hover shadow-elegant transition-shadow rounded-2xl">
               <span className="material-symbols-outlined text-4xl text-emerald-700 mb-4">smart_toy</span>
               <h3 className="font-headline-md text-xl font-bold text-primary mb-2">Thư Viện Biểu Mẫu AI</h3>
               <p className="font-body-md text-text-secondary mb-4 h-12 text-sm">Tìm kiếm thông minh và tải về biểu mẫu pháp lý chuẩn xác (.doc) tức thì.</p>
-              <Link className="block w-full bg-surface-main border border-primary text-primary h-11 rounded-xl font-bold hover:bg-primary hover:text-white transition-colors text-center leading-[44px]" href="/ai-form-library">Sử dụng ngay</Link>
+              <Link aria-label="Sử dụng kho biểu mẫu pháp luật và tải về" className="block w-full bg-surface-main border border-primary text-primary h-11 rounded-xl font-bold hover:bg-primary hover:text-white transition-colors text-center leading-[44px]" href="/ai-form-library">Sử dụng ngay</Link>
             </div>
           </div>
         </div>
@@ -466,9 +469,9 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
           
           {/* Consultation Form (Left) */}
-          <div className="bg-[#c29837] p-8 md:p-12 text-white h-full flex flex-col justify-center rounded-3xl shadow-xl">
-            <h2 className="text-2xl md:text-3xl font-black mb-3 uppercase leading-snug font-sans">ĐẶT CÂU HỎI VỚI LUẬT SƯ PHAN ĐỨC TÍN</h2>
-            <p className="mb-8 text-amber-100 text-sm md:text-base">Điền thông tin vụ việc, chúng tôi sẽ liên hệ tư vấn trong thời gian sớm nhất.</p>
+          <div className="bg-[#92400e] p-8 md:p-12 text-white h-full flex flex-col justify-center rounded-3xl shadow-xl">
+            <h2 className="text-2xl md:text-3xl font-black mb-3 uppercase leading-snug font-sans text-white">ĐẶT CÂU HỎI VỚI LUẬT SƯ PHAN ĐỨC TÍN</h2>
+            <p className="mb-8 text-amber-100 text-sm md:text-base font-medium">Điền thông tin vụ việc, chúng tôi sẽ liên hệ tư vấn trong thời gian sớm nhất.</p>
 
             {consultSent ? (
               <div className="bg-white/20 border border-white/40 p-6 rounded-2xl text-center">
@@ -482,6 +485,7 @@ export default function Home() {
                   <input 
                     type="text" 
                     placeholder="Họ và tên *" 
+                    aria-label="Họ và tên khách hàng"
                     value={consultForm.name} 
                     onChange={e => setConsultForm({...consultForm, name: e.target.value})} 
                     className="w-full px-4 py-3.5 bg-white text-gray-800 rounded-xl border-none focus:ring-2 focus:ring-amber-300 outline-none text-sm" 
@@ -490,6 +494,7 @@ export default function Home() {
                   <input 
                     type="email" 
                     placeholder="Địa chỉ Email" 
+                    aria-label="Địa chỉ Email khách hàng"
                     value={consultForm.email} 
                     onChange={e => setConsultForm({...consultForm, email: e.target.value})} 
                     className="w-full px-4 py-3.5 bg-white text-gray-800 rounded-xl border-none focus:ring-2 focus:ring-amber-300 outline-none text-sm" 
@@ -499,6 +504,7 @@ export default function Home() {
                   <input 
                     type="tel" 
                     placeholder="Số điện thoại *" 
+                    aria-label="Số điện thoại liên hệ"
                     value={consultForm.phone} 
                     onChange={e => setConsultForm({...consultForm, phone: e.target.value})} 
                     className="w-full px-4 py-3.5 bg-white text-gray-800 rounded-xl border-none focus:ring-2 focus:ring-amber-300 outline-none text-sm" 
@@ -506,9 +512,11 @@ export default function Home() {
                   />
                   <div className="relative">
                     <select 
+                      id="consult-service-select"
+                      aria-label="Lĩnh vực tư vấn pháp lý"
                       value={consultForm.category} 
                       onChange={e => setConsultForm({...consultForm, category: e.target.value})} 
-                      className="w-full px-4 py-3.5 bg-white text-gray-800 rounded-xl border-none focus:ring-2 focus:ring-amber-300 outline-none text-sm cursor-pointer"
+                      className="w-full px-4 py-3.5 bg-white text-gray-800 rounded-xl border-none focus:ring-2 focus:ring-amber-300 outline-none text-sm cursor-pointer font-medium"
                     >
                       <option value="Dân sự & Thương mại">Dân sự & Thương mại</option>
                       <option value="Hình sự & Bào chữa">Hình sự & Bào chữa</option>
@@ -520,10 +528,11 @@ export default function Home() {
                 <div>
                   <textarea 
                     placeholder="Mô tả tóm tắt vụ việc của bạn..." 
+                    aria-label="Mô tả tóm tắt nội dung vụ việc"
                     rows={4} 
                     value={consultForm.message} 
                     onChange={e => setConsultForm({...consultForm, message: e.target.value})} 
-                    className="w-full px-4 py-3.5 bg-white text-gray-800 rounded-xl border-none focus:ring-2 focus:ring-amber-300 outline-none resize-none text-sm"
+                    className="w-full px-4 py-3.5 bg-white text-gray-800 rounded-xl border-none focus:ring-2 focus:ring-amber-300 outline-none resize-none text-sm font-medium"
                   ></textarea>
                 </div>
                 <button 
@@ -539,8 +548,8 @@ export default function Home() {
 
           {/* FAQ Accordion (Right) */}
           <div className="p-4 md:p-8">
-            <h2 className="text-[#c29837] font-black text-2xl md:text-3xl uppercase mb-2 font-sans">CÂU HỎI &amp; GIẢI ĐÁP PHÁP LUẬT</h2>
-            <div className="text-[#c29837] mb-8 flex items-center">
+            <h2 className="text-[#92400e] font-black text-2xl md:text-3xl uppercase mb-2 font-sans">CÂU HỎI &amp; GIẢI ĐÁP PHÁP LUẬT</h2>
+            <div className="text-amber-800 mb-8 flex items-center">
               <span className="tracking-widest font-bold">— ⚖️ —</span>
             </div>
 
@@ -584,7 +593,7 @@ export default function Home() {
             </div>
 
             <div className="mt-8">
-              <Link href="/news" className="inline-block bg-[#c29837] text-white font-bold uppercase px-8 py-3.5 rounded-xl hover:bg-[#a37b2c] transition-colors shadow-sm text-sm">
+              <Link href="/news" className="inline-block bg-[#92400e] text-white font-bold uppercase px-8 py-3.5 rounded-xl hover:bg-[#78350f] transition-colors shadow-sm text-sm">
                 XEM THÊM BÀI VIẾT
               </Link>
             </div>
@@ -599,7 +608,7 @@ export default function Home() {
           <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
             Đội Ngũ Luật Sư Điều Hành
           </h2>
-          <div className="text-accent flex items-center justify-center mt-1">
+          <div className="text-amber-800 flex items-center justify-center mt-1">
             <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
           </div>
         </div>
@@ -609,24 +618,31 @@ export default function Home() {
               name: "Ls. Phan Đức Tín",
               role: "Luật sư Trưởng - Giám đốc Điều hành",
               desc: "Hơn 15 năm kinh nghiệm tranh tụng, tư vấn đầu tư FDI và mua bán sáp nhập doanh nghiệp.",
-              img: "avatar1.png"
+              img: "avatar1.webp"
             },
             {
               name: "Ls. Nguyễn Hoàng Long",
               role: "Phó Giám đốc - Trưởng ban Tranh tụng",
               desc: "Chuyên sâu tố tụng Tòa án, giải quyết tranh chấp kinh doanh thương mại và bất động sản.",
-              img: "avatar2.png"
+              img: "avatar2.webp"
             },
             {
               name: "Ls. Trần Minh Tuấn",
               role: "Trưởng phòng Doanh nghiệp & Đầu tư",
               desc: "Chuyên thẩm định pháp lý hợp đồng quốc tế, sở hữu trí tuệ và cơ cấu vốn doanh nghiệp.",
-              img: "avatar3.png"
+              img: "avatar3.webp"
             }
           ].map((ls, idx) => (
             <div key={idx} className="border border-border-neutral p-6 rounded-3xl bg-white shadow-sm flex flex-col items-center text-center hover:shadow-lg transition-all">
               <div className="w-28 h-28 bg-emerald-100 rounded-full border-2 border-emerald-300 mb-4 overflow-hidden shadow-inner">
-                <img alt={ls.name} className="w-full h-full object-cover" src={`/img/${ls.img}`} />
+                <img 
+                  alt={ls.name} 
+                  width={112}
+                  height={112}
+                  loading="lazy"
+                  className="w-full h-full object-cover" 
+                  src={`/img/${ls.img}`} 
+                />
               </div>
               <h3 className="text-xl font-bold text-slate-900 font-sans mb-1">{ls.name}</h3>
               <p className="text-xs font-bold text-amber-700 uppercase tracking-wider mb-3">{ls.role}</p>
@@ -648,7 +664,7 @@ export default function Home() {
       <section className="border-y border-border-neutral py-10 bg-surface-main overflow-hidden">
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-8 text-center">
           <h3 className="font-label-sm text-text-secondary uppercase tracking-widest text-sm font-bold">
-            Đối Tác & Khách Hàng Tiêu Biểu
+            Đối Tác &amp; Khách Hàng Tiêu Biểu
           </h3>
         </div>
         <div className="relative w-full overflow-hidden flex">
@@ -662,11 +678,13 @@ export default function Home() {
               "5_16695708351998.png",
               "6_16695708438339.png",
               "7_16695708602002.png",
-              "Global_Catering_16700553488686.png",
             ].map((img, i) => (
               <img
                 key={i}
                 src={`/img/${img}`}
+                width={128}
+                height={64}
+                loading="lazy"
                 className="h-16 mx-12 object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all"
                 alt="Client Logo"
               />
@@ -680,11 +698,13 @@ export default function Home() {
               "5_16695708351998.png",
               "6_16695708438339.png",
               "7_16695708602002.png",
-              "Global_Catering_16700553488686.png",
             ].map((img, i) => (
               <img
                 key={`dup-${i}`}
                 src={`/img/${img}`}
+                width={128}
+                height={64}
+                loading="lazy"
                 className="h-16 mx-12 object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all"
                 alt="Client Logo"
               />

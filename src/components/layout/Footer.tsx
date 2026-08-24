@@ -36,6 +36,8 @@ export default function Footer() {
           <img
             src="/img/1280px-Icon_of_Zalo.svg.png"
             alt="Zalo"
+            width={40}
+            height={40}
             className="w-10 h-10 object-contain"
           />
           <span className="absolute left-full ml-4 bg-[#0068FF] text-white text-sm font-bold whitespace-nowrap px-3 py-2 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg">
@@ -52,13 +54,16 @@ export default function Footer() {
             <div>
               <img
                 src="/img/Logo_website.png"
-                alt="Logo"
+                alt="Logo Công ty Luật Đức Tín"
+                width={244}
+                height={48}
                 className="h-10 md:h-12 object-contain"
               />
             </div>
           </div>
           <div className="col-span-1 md:col-span-5 lg:col-span-4">
             <iframe
+              title="Văn phòng Công ty Luật TNHH Đức Tín & Cộng Sự trên Google Maps"
               allowFullScreen={false}
               className="rounded-lg shadow-elegant w-full h-full"
               height="100%"
