@@ -185,7 +185,6 @@ export default function AppointmentPage() {
   };
 
   const nextStep = () => {
-    // Mark all fields of current step as touched
     if (step === 1) {
       setTouched((prev) => ({
         ...prev,
@@ -278,8 +277,19 @@ export default function AppointmentPage() {
         {isSuccess ? (
           /* SUCCESS STATE */
           <div className="max-w-2xl mx-auto bg-white border border-emerald-200 rounded-3xl p-8 md:p-12 text-center shadow-xl">
-            <div className="w-24 h-24 bg-emerald-50 border-2 border-emerald-300 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-md">
-              <span className="material-symbols-outlined text-6xl">check_circle</span>
+            {/* DẤU TÍCH XANH LÁ TO RÕ NỔI BẬT */}
+            <div className="w-24 h-24 bg-emerald-50 border-2 border-emerald-400 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-md">
+              <svg
+                className="w-14 h-14 text-emerald-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
             </div>
             <h2 className="text-2xl md:text-4xl font-black text-slate-900 mb-3 font-sans tracking-tight">
               Đặt Lịch Hẹn Thành Công!
@@ -361,10 +371,10 @@ export default function AppointmentPage() {
               {/* Progress Steps Header */}
               <div className="flex items-center gap-0 mb-8 bg-white p-4 md:p-6 rounded-2xl border border-slate-200 shadow-xs">
                 {[
-                  { num: 1, label: "Lĩnh Vực & Thông Tin", icon: "folder_open" },
-                  { num: 2, label: "Chọn Luật Sư", icon: "person" },
-                  { num: 3, label: "Thời Gian Hẹn", icon: "calendar_today" },
-                  { num: 4, label: "Xác Nhận & Gửi", icon: "task_alt" },
+                  { num: 1, label: "Lĩnh Vực & Thông Tin" },
+                  { num: 2, label: "Chọn Luật Sư" },
+                  { num: 3, label: "Thời Gian Hẹn" },
+                  { num: 4, label: "Xác Nhận & Gửi" },
                 ].map((s, index) => (
                   <div key={s.num} className="flex-1 flex flex-col items-center relative">
                     <button
@@ -915,10 +925,20 @@ export default function AppointmentPage() {
                     step === 4 ? "block" : "hidden"
                   }`}
                 >
-                  {/* ICON TO HƠN & MÀU XANH LÁ RỰC RỠ THEO YÊU CẦU */}
+                  {/* DẤU TÍCH XANH LÁ TO RÕ NỔI BẬT KHÔNG BỊ NHỎ */}
                   <div className="text-center mb-8">
-                    <div className="w-24 h-24 bg-emerald-50 border-2 border-emerald-300 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
-                      <span className="material-symbols-outlined text-6xl">verified</span>
+                    <div className="w-24 h-24 bg-emerald-50 border-2 border-emerald-400 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
+                      <svg
+                        className="w-14 h-14 text-emerald-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        strokeWidth="3.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
                     </div>
                     <span className="text-xs uppercase font-extrabold tracking-widest text-[#641D06]">Bước 4 / 4</span>
                     <h2 className="text-2xl md:text-4xl font-black text-slate-900 font-sans tracking-tight mt-1">
@@ -1011,7 +1031,7 @@ export default function AppointmentPage() {
               </form>
             </div>
 
-            {/* Right Column: Sticky Summary & Estimates (SỬA ĐẦY ĐỦ DẤU TIẾNG VIỆT) */}
+            {/* Right Column: Sticky Summary & Estimates */}
             <div className="lg:col-span-1">
               <div className="border border-slate-200 rounded-3xl bg-white p-6 sticky top-24 shadow-sm">
                 <div className="border-b border-slate-200 pb-4 mb-5 flex items-center justify-between">
