@@ -115,7 +115,7 @@ export default function Home() {
         className="relative w-full bg-cover bg-[center_25%] bg-no-repeat border-b-[7px] border-[#641D06]"
         style={{ backgroundImage: "url('/img/herobanner.webp')" }}
       >
-        <div className="relative z-10 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-28 md:py-40 flex flex-col items-center justify-center min-h-[500px] md:min-h-[620px]">
+        <div className="relative z-10 max-w-container-max mx-auto px-4 md:px-margin-desktop py-14 md:py-36 flex flex-col items-center justify-center min-h-[420px] md:min-h-[600px]">
           <div className="max-w-4xl w-full flex flex-col items-center text-center space-y-6 md:space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/90 text-accent text-xs md:text-sm font-bold uppercase tracking-wider shadow-lg">
               <span className="w-2.5 h-2.5 rounded-full bg-accent animate-ping" />
