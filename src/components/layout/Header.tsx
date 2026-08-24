@@ -20,10 +20,11 @@ export default function Header() {
         <div className="w-full max-w-[1728px] mx-auto px-6 md:px-12 lg:px-16 flex justify-between items-center h-20">
           <Link href="/" className="shrink-0 mr-8 lg:mr-16">
             <img
-              src="/img/Logo_website.png"
+              src="/img/Logo_website.webp"
               alt="Logo Công ty Luật Đức Tín"
               width={244}
               height={40}
+              fetchPriority="high"
               className="h-8 md:h-10 w-[195px] md:w-[244px] object-contain"
             />
           </Link>

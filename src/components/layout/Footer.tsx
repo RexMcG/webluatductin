@@ -39,7 +39,7 @@ export default function Footer() {
           aria-label="Chat trực tiếp qua Zalo"
         >
           <img
-            src="/img/1280px-Icon_of_Zalo.svg.png"
+            src="/img/zalo_icon.webp"
             alt="Zalo"
             width={28}
             height={28}
@@ -58,10 +58,11 @@ export default function Footer() {
           <div className="col-span-1 mb-4 md:col-span-12">
             <div>
               <img
-                src="/img/Logo_website.png"
+                src="/img/Logo_website.webp"
                 alt="Logo Công ty Luật Đức Tín"
                 width={244}
                 height={48}
+                loading="lazy"
                 className="h-10 md:h-12 object-contain"
               />
             </div>

@@ -119,17 +119,17 @@ async function optimize() {
     totalBefore += stat.size;
 
     await sharp(logoWebPath)
-      .resize({ height: 96, fit: 'inside', withoutEnlargement: true })
-      .webp({ quality: 90 })
+      .resize({ width: 350, fit: 'inside', withoutEnlargement: true })
+      .webp({ quality: 80 })
       .toFile(path.join(imgDir, 'Logo_website.webp'));
 
     const logoBuf = await sharp(logoWebPath)
-      .resize({ height: 96, fit: 'inside', withoutEnlargement: true })
+      .resize({ width: 350, fit: 'inside', withoutEnlargement: true })
       .png({ compressionLevel: 9 })
       .toBuffer();
     fs.writeFileSync(logoWebPath, logoBuf);
     totalAfter += logoBuf.length;
-    console.log(`✅ Logo_website: ${(stat.size/1024).toFixed(1)}KB -> ${(logoBuf.length/1024).toFixed(1)}KB`);
+    console.log(`✅ Logo_website: ${(stat.size/1024).toFixed(1)}KB -> ${(logoBuf.length/1024).toFixed(1)}KB (WebP: ${(fs.statSync(path.join(imgDir, 'Logo_website.webp')).size/1024).toFixed(1)}KB)`);
   }
 
   console.log(`🎉 HOÀN THÀNH TỐI ƯU HÓA: ${(totalBefore/1024/1024).toFixed(2)} MB -> ${(totalAfter/1024).toFixed(1)} KB (Giảm hơn 90% dung lượng hình ảnh!)`);
