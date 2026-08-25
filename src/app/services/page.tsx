@@ -54,14 +54,15 @@ export default function ServicesPage() {
           </p>
         </div>
 
-        {/* Lưới 3 cột chuẩn cân đối vừa phải */}
+        {/* Lưới 3 cột chuẩn cân đối vừa phải - Clickable Card toàn diện */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
           {serviceList.map((srv, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-sm hover:shadow-xl hover:border-amber-500 transition-all flex flex-col justify-between group overflow-hidden"
+              className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-xs hover:shadow-2xl hover:border-amber-500 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group overflow-hidden relative cursor-pointer"
             >
-              <div>
+              {/* Main Clickable Area navigating to service detail */}
+              <Link href={`/services/${srv.slug}`} className="block flex-1 flex flex-col">
                 {/* Thumbnail Image */}
                 <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-5 border border-slate-100 bg-slate-100 shadow-2xs">
                   <img
@@ -73,8 +74,15 @@ export default function ServicesPage() {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-3 left-3">
-                    <span className="rounded-full px-3.5 py-1 bg-white/95 backdrop-blur-xs text-[11px] uppercase tracking-wider font-extrabold text-amber-950 border border-amber-200/80 shadow-sm">
+                    <span className="rounded-full px-3.5 py-1 bg-white/95 backdrop-blur-xs text-[11px] uppercase tracking-wider font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
                       {srv.category}
+                    </span>
+                  </div>
+                  
+                  {/* Subtle top-right arrow badge */}
+                  <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-xs text-slate-700 group-hover:bg-[#641D06] group-hover:text-white flex items-center justify-center shadow-xs transition-colors">
+                    <span className="material-symbols-outlined text-base group-hover:translate-x-0.5 transition-transform">
+                      arrow_forward
                     </span>
                   </div>
                 </div>
@@ -82,35 +90,27 @@ export default function ServicesPage() {
                 <h3 className="text-xl font-bold text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug">
                   {srv.title}
                 </h3>
-                <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3">
+                <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3 flex-1">
                   {srv.heroDesc}
                 </p>
-              </div>
+              </Link>
 
-              <div className="flex flex-col gap-2.5 pt-5 border-t border-slate-100 mt-auto">
+              {/* Quick Action Footer: 2 compact buttons */}
+              <div className="pt-4 border-t border-slate-100 grid grid-cols-2 gap-2 mt-auto">
                 <Link
-                  href={`/services/${srv.slug}`}
-                  className="flex w-full items-center justify-between bg-[#641D06] text-white rounded-xl px-4 py-2.5 hover:bg-black transition-colors font-bold text-xs shadow-2xs"
+                  href="/appointment"
+                  className="flex items-center justify-center gap-1.5 bg-slate-50 hover:bg-slate-100 text-slate-800 border border-slate-200/80 rounded-xl py-2 text-xs font-bold transition-all active:scale-95 shadow-2xs"
                 >
-                  <span>Xem Chi Tiết Dịch Vụ</span>
-                  <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                  <span className="material-symbols-outlined text-sm text-slate-600">calendar_month</span>
+                  Đặt Hẹn
                 </Link>
-                <div className="grid grid-cols-2 gap-2">
-                  <Link
-                    href="/appointment"
-                    className="flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-900 rounded-xl py-2 text-xs font-bold transition-colors"
-                  >
-                    <span className="material-symbols-outlined text-sm">calendar_month</span>
-                    Đặt Hẹn
-                  </Link>
-                  <Link
-                    href="/ai-chatbot"
-                    className="flex items-center justify-center gap-1 bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-200 rounded-xl py-2 text-xs font-bold transition-colors"
-                  >
-                    <span className="material-symbols-outlined text-sm">chat</span>
-                    Hỏi AI
-                  </Link>
-                </div>
+                <Link
+                  href="/ai-chatbot"
+                  className="flex items-center justify-center gap-1.5 bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-200 rounded-xl py-2 text-xs font-bold transition-all active:scale-95 shadow-2xs"
+                >
+                  <span className="material-symbols-outlined text-sm text-amber-800">smart_toy</span>
+                  Hỏi AI
+                </Link>
               </div>
             </div>
           ))}
