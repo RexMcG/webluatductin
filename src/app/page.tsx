@@ -225,49 +225,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Floating Sub-Nav Pill Bar */}
-      <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
-        <div className="flex flex-wrap justify-center gap-stack-sm bg-surface-alt border border-border-neutral rounded-full p-2">
-          <Link
-            className="bg-primary text-on-primary rounded-full px-5 py-2.5 font-label-sm text-sm uppercase transition-colors font-semibold flex items-center gap-2"
-            href="/services"
-          >
-            <span className="material-symbols-outlined text-lg">gavel</span>
-            Lĩnh vực Pháp lý
-          </Link>
-          <Link
-            className="bg-surface-main text-text-secondary hover:text-primary rounded-full px-5 py-2.5 font-label-sm text-sm uppercase transition-colors font-semibold flex items-center gap-2"
-            href="/ai-form-library"
-          >
-            <span className="material-symbols-outlined text-lg">description</span>
-            Thư viện Biểu mẫu AI
-          </Link>
-          <Link
-            className="bg-surface-main text-text-secondary hover:text-primary rounded-full px-5 py-2.5 font-label-sm text-sm uppercase transition-colors font-semibold flex items-center gap-2"
-            href="/court-fee-calculator"
-          >
-            <span className="material-symbols-outlined text-lg">calculate</span>
-            Công cụ Tính toán
-          </Link>
-          <Link
-            className="bg-surface-main text-text-secondary hover:text-primary rounded-full px-5 py-2.5 font-label-sm text-sm uppercase transition-colors font-semibold flex items-center gap-2"
-            href="/news"
-          >
-            <span className="material-symbols-outlined text-lg">newspaper</span>
-            Bảng tin Pháp luật
-          </Link>
-          <Link
-            className="bg-surface-main text-text-secondary hover:text-primary rounded-full px-5 py-2.5 font-label-sm text-sm uppercase transition-colors font-semibold flex items-center gap-2"
-            href="/ai-chatbot"
-          >
-            <span className="material-symbols-outlined text-lg">smart_toy</span>
-            Trợ lý Luật sư AI
-          </Link>
-        </div>
-      </div>
-
       {/* About Us & Why Choose Us */}
-      <section id="about-us" className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-padding">
+      <section id="about-us" className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-12 md:pt-16 pb-section-padding">
         <div className="flex flex-col gap-12">
           {/* About Us */}
           <div>
