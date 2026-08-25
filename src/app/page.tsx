@@ -782,16 +782,16 @@ export default function Home() {
       </section>
 
       {/* Client Marquee */}
-      <section className="border-y border-border-neutral py-14 md:py-20 bg-surface-main overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 mb-10 text-center">
-          <h3 className="font-sans text-slate-800 uppercase tracking-widest text-base md:text-lg font-black">
+      <section className="border-y border-border-neutral py-10 md:py-14 bg-surface-main overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 mb-8 text-center">
+          <h3 className="font-sans text-slate-800 uppercase tracking-widest text-sm md:text-base font-black">
             Đối Tác &amp; Khách Hàng Tiêu Biểu
           </h3>
-          <div className="text-amber-800 flex items-center justify-center mt-2">
-            <span className="tracking-widest font-bold text-sm">— ⚖️ —</span>
+          <div className="text-amber-800 flex items-center justify-center mt-1.5">
+            <span className="tracking-widest font-bold text-xs">— ⚖️ —</span>
           </div>
         </div>
-        <div className="relative w-full overflow-hidden flex py-4">
+        <div className="relative w-full overflow-hidden flex py-2">
           <div className="flex whitespace-nowrap animate-marquee w-max items-center">
             {/* Logos */}
             {[
@@ -803,13 +803,13 @@ export default function Home() {
               "6_16695708438339.webp",
               "7_16695708602002.webp",
             ].map((img, i) => (
-              <div key={i} className="mx-8 md:mx-16 shrink-0 flex items-center justify-center">
+              <div key={i} className="mx-6 md:mx-10 shrink-0 flex items-center justify-center">
                 <img
                   src={`/img/${img}`}
-                  width={240}
-                  height={120}
+                  width={140}
+                  height={70}
                   loading="lazy"
-                  className="h-24 md:h-32 max-w-[180px] md:max-w-[240px] object-contain grayscale hover:grayscale-0 opacity-75 hover:opacity-100 hover:scale-110 transition-all duration-300"
+                  className="h-12 md:h-16 max-w-[120px] md:max-w-[150px] object-contain opacity-95 hover:opacity-100 hover:scale-105 transition-all duration-300"
                   alt="Client Logo"
                 />
               </div>
@@ -824,13 +824,13 @@ export default function Home() {
               "6_16695708438339.webp",
               "7_16695708602002.webp",
             ].map((img, i) => (
-              <div key={`dup-${i}`} className="mx-8 md:mx-16 shrink-0 flex items-center justify-center">
+              <div key={`dup-${i}`} className="mx-6 md:mx-10 shrink-0 flex items-center justify-center">
                 <img
                   src={`/img/${img}`}
-                  width={240}
-                  height={120}
+                  width={140}
+                  height={70}
                   loading="lazy"
-                  className="h-24 md:h-32 max-w-[180px] md:max-w-[240px] object-contain grayscale hover:grayscale-0 opacity-75 hover:opacity-100 hover:scale-110 transition-all duration-300"
+                  className="h-12 md:h-16 max-w-[120px] md:max-w-[150px] object-contain opacity-95 hover:opacity-100 hover:scale-105 transition-all duration-300"
                   alt="Client Logo"
                 />
               </div>
