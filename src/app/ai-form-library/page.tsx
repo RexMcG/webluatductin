@@ -69,7 +69,7 @@ export default function AIFormLibrary() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 pt-10 pb-16 min-h-screen bg-slate-50 relative">
+    <div className="max-w-7xl mx-auto px-4 md:px-8 pt-10 pb-16 min-h-screen relative">
       {/* Lead Gate Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
@@ -150,7 +150,7 @@ export default function AIFormLibrary() {
       </div>
 
       {/* Results Section */}
-      <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8">
+      <section className="w-full py-6">
         <div className="flex items-center gap-2 mb-6 border-b border-border-neutral pb-4">
           <span className="material-symbols-outlined text-text-secondary">auto_awesome</span>
           <h2 className="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Kết quả gợi ý từ AI</h2>
@@ -159,7 +159,7 @@ export default function AIFormLibrary() {
           </span>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           {/* Left Column: AI Match Cards */}
           <div className="lg:col-span-8 space-y-6">
             {!debouncedSearchTerm && (
