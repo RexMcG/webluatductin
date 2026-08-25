@@ -134,7 +134,22 @@ export default function AdminQuestionsPage() {
       {/* Questions List */}
       <div className="bg-white rounded-3xl border border-slate-200 shadow-2xs overflow-hidden">
         {isLoading ? (
-          <div className="py-20 text-center text-slate-400 text-sm">Đang tải danh sách câu hỏi...</div>
+          <div className="p-6 space-y-4 animate-pulse">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <div key={i} className="flex items-center justify-between gap-4 py-3.5 border-b border-slate-100">
+                <div className="flex items-center gap-2 w-44">
+                  <div className="w-8 h-8 rounded-full bg-slate-200" />
+                  <div className="h-4 w-28 bg-slate-200 rounded" />
+                </div>
+                <div className="h-4 w-28 bg-slate-200 rounded" />
+                <div className="h-6 w-32 bg-slate-100 rounded-lg" />
+                <div className="h-4 w-64 bg-slate-200 rounded flex-1" />
+                <div className="h-4 w-24 bg-slate-200 rounded" />
+                <div className="h-7 w-28 bg-amber-100 rounded-xl" />
+                <div className="h-7 w-20 bg-slate-100 rounded-lg" />
+              </div>
+            ))}
+          </div>
         ) : filtered.length === 0 ? (
           <div className="py-20 text-center">
             <span className="material-symbols-outlined text-4xl text-slate-300 mb-2">inbox</span>

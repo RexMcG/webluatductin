@@ -25,8 +25,20 @@ export default function NewsPage() {
       </div>
 
       {isLoading ? (
-        <div className="flex justify-center items-center py-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div key={i} className="flex flex-col bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-xs animate-pulse">
+              <div className="h-48 bg-slate-200" />
+              <div className="p-6 flex flex-col flex-grow space-y-3">
+                <div className="h-4 w-24 bg-slate-200 rounded" />
+                <div className="h-6 w-full bg-slate-300 rounded" />
+                <div className="h-6 w-4/5 bg-slate-300 rounded" />
+                <div className="h-4 w-full bg-slate-100 rounded" />
+                <div className="h-4 w-2/3 bg-slate-100 rounded" />
+                <div className="h-4 w-20 bg-amber-100 rounded pt-3" />
+              </div>
+            </div>
+          ))}
         </div>
       ) : error ? (
         <div className="text-center py-20 text-red-500">

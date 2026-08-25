@@ -128,6 +128,9 @@ const jsonLd = {
   ],
 };
 
+import { Suspense } from "react";
+import TopProgressBar from "@/components/common/TopProgressBar";
+
 export default function RootLayout({
   children,
 }: {
@@ -154,6 +157,9 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-background text-text-primary antialiased min-h-full flex flex-col font-sans">
+        <Suspense fallback={null}>
+          <TopProgressBar />
+        </Suspense>
         <Providers>
           <LayoutShell>{children}</LayoutShell>
         </Providers>
