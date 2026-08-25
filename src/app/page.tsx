@@ -408,15 +408,11 @@ export default function Home() {
                 Đại diện khách hàng tham gia tố tụng tại Tòa án và Trọng tài thương mại các cấp. Bào chữa, bảo vệ tối đa quyền lợi.
               </p>
               <div className="flex flex-col gap-3 mt-auto">
-                <Link href="/appointment" className="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn">
-                  <span className="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
-                  <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
-                    <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                  </div>
+                <Link href="/appointment" className="flex w-full items-center justify-center bg-primary text-on-primary rounded-full px-6 py-3 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] font-semibold tracking-wide text-sm">
+                  Đặt lịch hẹn
                 </Link>
-                <Link href="/ai-chatbot" className="flex w-full items-center justify-center gap-2 bg-surface-main border border-border-neutral text-primary rounded-full px-6 py-3 hover:bg-surface-alt transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
-                  <span className="material-symbols-outlined text-base text-accent">smart_toy</span>
-                  <span className="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
+                <Link href="/ai-chatbot" className="flex w-full items-center justify-center bg-surface-main border border-border-neutral text-primary rounded-full px-6 py-3 hover:bg-surface-alt transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98] font-semibold tracking-wide text-sm">
+                  Hỏi ngay AI
                 </Link>
               </div>
             </div>
@@ -427,7 +423,7 @@ export default function Home() {
 
       {/* Featured Tools */}
       <section className="bg-surface-alt border-y border-border-neutral py-16">
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
               Công Cụ Pháp Lý &amp; AI
@@ -437,7 +433,7 @@ export default function Home() {
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            <div className="bg-surface-main border border-border-neutral p-5 sm:p-6 hover:shadow-xl shadow-sm transition-all rounded-3xl group flex flex-col justify-between">
+            <Link href="/salary-calculator" className="bg-surface-main border border-border-neutral p-5 sm:p-6 hover:shadow-xl hover:border-amber-400 hover:-translate-y-1 shadow-sm transition-all rounded-3xl group flex flex-col justify-between cursor-pointer">
               <div>
                 <div className="relative w-full h-44 rounded-2xl overflow-hidden mb-5 border border-slate-100 bg-slate-100 shadow-2xs">
                   <img
@@ -448,17 +444,16 @@ export default function Home() {
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-3 left-3 bg-emerald-700 text-white rounded-xl w-8 h-8 flex items-center justify-center shadow-md">
-                    <span className="material-symbols-outlined text-lg">calculate</span>
-                  </div>
                 </div>
-                <h3 className="font-headline-md text-xl font-bold text-primary mb-2">Tính Lương Gross-to-Net</h3>
+                <h3 className="font-headline-md text-xl font-bold text-primary mb-2 group-hover:text-[#641D06] transition-colors">Tính Lương Gross-to-Net</h3>
                 <p className="font-body-md text-text-secondary mb-6 text-sm leading-relaxed">Công cụ tính lương, BHXH, BHYT và các khoản trích theo lương chuẩn xác 2026.</p>
               </div>
-              <Link aria-label="Sử dụng công cụ tính lương Gross sang Net chuẩn xác" className="block w-full bg-[#641D06] text-white h-11 rounded-xl font-bold hover:bg-black transition-colors text-center leading-[44px] text-xs shadow-2xs" href="/salary-calculator">Sử dụng ngay</Link>
-            </div>
+              <div className="w-full bg-[#641D06] text-white h-11 rounded-xl font-bold group-hover:bg-black transition-colors text-center leading-[44px] text-sm shadow-2xs">
+                Sử dụng ngay
+              </div>
+            </Link>
 
-            <div className="bg-surface-main border border-border-neutral p-5 sm:p-6 hover:shadow-xl shadow-sm transition-all rounded-3xl group flex flex-col justify-between">
+            <Link href="/court-fee-calculator" className="bg-surface-main border border-border-neutral p-5 sm:p-6 hover:shadow-xl hover:border-amber-400 hover:-translate-y-1 shadow-sm transition-all rounded-3xl group flex flex-col justify-between cursor-pointer">
               <div>
                 <div className="relative w-full h-44 rounded-2xl overflow-hidden mb-5 border border-slate-100 bg-slate-100 shadow-2xs">
                   <img
@@ -469,17 +464,16 @@ export default function Home() {
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-3 left-3 bg-emerald-700 text-white rounded-xl w-8 h-8 flex items-center justify-center shadow-md">
-                    <span className="material-symbols-outlined text-lg">account_balance_wallet</span>
-                  </div>
                 </div>
-                <h3 className="font-headline-md text-xl font-bold text-primary mb-2">Tính Án Phí Tòa Án</h3>
+                <h3 className="font-headline-md text-xl font-bold text-primary mb-2 group-hover:text-[#641D06] transition-colors">Tính Án Phí Tòa Án</h3>
                 <p className="font-body-md text-text-secondary mb-6 text-sm leading-relaxed">Tính toán nhanh án phí dân sự, kinh doanh thương mại và lệ phí tòa án.</p>
               </div>
-              <Link aria-label="Sử dụng công cụ tính án phí và lệ phí tòa án" className="block w-full bg-[#641D06] text-white h-11 rounded-xl font-bold hover:bg-black transition-colors text-center leading-[44px] text-xs shadow-2xs" href="/court-fee-calculator">Sử dụng ngay</Link>
-            </div>
+              <div className="w-full bg-[#641D06] text-white h-11 rounded-xl font-bold group-hover:bg-black transition-colors text-center leading-[44px] text-sm shadow-2xs">
+                Sử dụng ngay
+              </div>
+            </Link>
 
-            <div className="bg-surface-main border border-border-neutral p-5 sm:p-6 hover:shadow-xl shadow-sm transition-all rounded-3xl group flex flex-col justify-between">
+            <Link href="/ai-form-library" className="bg-surface-main border border-border-neutral p-5 sm:p-6 hover:shadow-xl hover:border-amber-400 hover:-translate-y-1 shadow-sm transition-all rounded-3xl group flex flex-col justify-between cursor-pointer">
               <div>
                 <div className="relative w-full h-44 rounded-2xl overflow-hidden mb-5 border border-slate-100 bg-slate-100 shadow-2xs">
                   <img
@@ -490,15 +484,14 @@ export default function Home() {
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-3 left-3 bg-emerald-700 text-white rounded-xl w-8 h-8 flex items-center justify-center shadow-md">
-                    <span className="material-symbols-outlined text-lg">smart_toy</span>
-                  </div>
                 </div>
-                <h3 className="font-headline-md text-xl font-bold text-primary mb-2">Thư Viện Biểu Mẫu AI</h3>
+                <h3 className="font-headline-md text-xl font-bold text-primary mb-2 group-hover:text-[#641D06] transition-colors">Thư Viện Biểu Mẫu AI</h3>
                 <p className="font-body-md text-text-secondary mb-6 text-sm leading-relaxed">Tìm kiếm thông minh và tải về biểu mẫu pháp lý chuẩn xác (.doc) tức thì.</p>
               </div>
-              <Link aria-label="Sử dụng kho biểu mẫu pháp luật và tải về" className="block w-full bg-[#641D06] text-white h-11 rounded-xl font-bold hover:bg-black transition-colors text-center leading-[44px] text-xs shadow-2xs" href="/ai-form-library">Sử dụng ngay</Link>
-            </div>
+              <div className="w-full bg-[#641D06] text-white h-11 rounded-xl font-bold group-hover:bg-black transition-colors text-center leading-[44px] text-sm shadow-2xs">
+                Sử dụng ngay
+              </div>
+            </Link>
           </div>
         </div>
       </section>
@@ -686,12 +679,12 @@ export default function Home() {
               <h3 className="text-xl font-bold text-slate-900 font-sans mb-1">{ls.name}</h3>
               <p className="text-xs font-bold text-amber-700 uppercase tracking-wider mb-3">{ls.role}</p>
               <p className="text-slate-600 text-sm mb-6 leading-relaxed flex-grow">{ls.desc}</p>
-              <div className="flex gap-2 w-full pt-4 border-t border-slate-100">
-                <Link className="flex items-center justify-center gap-1.5 flex-1 bg-[#641D06] text-white h-10 rounded-xl font-bold text-xs hover:bg-black transition-colors shadow-2xs" href="/appointment">
-                  <span className="material-symbols-outlined text-sm">calendar_month</span> Đặt hẹn
+              <div className="flex gap-2.5 w-full pt-4 border-t border-slate-100">
+                <Link className="flex items-center justify-center flex-1 bg-[#641D06] text-white h-10 rounded-xl font-bold text-sm hover:bg-black transition-colors shadow-2xs text-center" href="/appointment">
+                  Đặt Hẹn
                 </Link>
-                <Link className="flex items-center justify-center gap-1.5 flex-1 bg-amber-50 text-amber-950 border border-amber-200 h-10 rounded-xl font-bold text-xs hover:bg-amber-100 transition-colors shadow-2xs" href="/ai-chatbot">
-                  <span className="material-symbols-outlined text-sm text-amber-800">chat</span> Hỏi AI
+                <Link className="flex items-center justify-center flex-1 bg-amber-50 text-[#641D06] border border-amber-300/80 h-10 rounded-xl font-bold text-sm hover:bg-amber-100 transition-colors shadow-2xs text-center" href="/ai-chatbot">
+                  Hỏi AI
                 </Link>
               </div>
             </div>
