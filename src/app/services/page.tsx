@@ -6,6 +6,18 @@ import { SERVICES_DATA } from "@/data/servicesData";
 export default function ServicesPage() {
   const serviceList = Object.values(SERVICES_DATA);
 
+  const SERVICE_IMAGES: Record<string, string> = {
+    "hop-tac-doanh-nghiep": "/img/card_business.webp",
+    "dau-tu-fdi": "/img/card_fdi.webp",
+    "tranh-tung-toa-an": "/img/card_court.webp",
+    "nha-dat-bat-dong-san": "/img/card_realestate.webp",
+    "lao-dong-tien-luong": "/img/card_labor.webp",
+    "hon-nhan-gia-dinh": "/img/card_family.webp",
+    "thu-tuc-phap-ly": "/img/card_license.webp",
+    "hinh-su-bao-chua": "/img/card_criminal.webp",
+    "so-huu-tri-tue": "/img/card_ip.webp",
+  };
+
   return (
     <div className="bg-surface-alt min-h-screen pb-20">
       {/* Hero Section VỚI ĐƯỜNG LINE ĐỎ ĐÔ 7PX Ở DƯỚI CÙNG */}
@@ -48,18 +60,30 @@ export default function ServicesPage() {
           {serviceList.map((srv, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm hover:shadow-xl hover:border-amber-500 transition-all flex flex-col justify-between group"
+              className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-sm hover:shadow-xl hover:border-amber-500 transition-all flex flex-col justify-between group overflow-hidden"
             >
               <div>
-                <div className="flex items-center justify-between gap-2 mb-4">
-                  <span className="rounded-full px-3.5 py-1 bg-amber-50 text-[11px] uppercase tracking-wider font-extrabold text-amber-900 border border-amber-200">
-                    {srv.category}
-                  </span>
+                {/* Thumbnail Image */}
+                <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-5 border border-slate-100 bg-slate-100 shadow-2xs">
+                  <img
+                    src={SERVICE_IMAGES[srv.slug] || "/img/card_court.webp"}
+                    alt={srv.title}
+                    width={700}
+                    height={394}
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-3 left-3">
+                    <span className="rounded-full px-3.5 py-1 bg-white/95 backdrop-blur-xs text-[11px] uppercase tracking-wider font-extrabold text-amber-950 border border-amber-200/80 shadow-sm">
+                      {srv.category}
+                    </span>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-[#641D06] transition-colors leading-snug">
+
+                <h3 className="text-xl font-bold text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug">
                   {srv.title}
                 </h3>
-                <p className="text-slate-600 text-sm leading-relaxed mb-6">
+                <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3">
                   {srv.heroDesc}
                 </p>
               </div>
