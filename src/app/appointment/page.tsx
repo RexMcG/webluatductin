@@ -254,15 +254,11 @@ export default function AppointmentPage() {
   };
 
   return (
-    <div className="pt-24 pb-16 page-fade-in bg-slate-50 min-h-screen">
+    <div className="pt-10 pb-16 page-fade-in bg-slate-50 min-h-screen">
       <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold mb-3 uppercase tracking-wider shadow-2xs">
-            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-ping" />
-            Làm Việc Trực Tiếp Cùng Luật Sư Trưởng
-          </div>
-          <h1 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase">
+          <h1 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase mb-3">
             Đặt Lịch Hẹn Tư Vấn Pháp Lý
           </h1>
           <div className="text-amber-600 flex items-center justify-center my-3">

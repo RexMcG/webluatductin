@@ -23,15 +23,11 @@ export default function AIFormChecker() {
   };
 
   return (
-    <main className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-32 pb-8 page-fade-in flex-grow w-full min-h-screen">
+    <main className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-10 pb-16 page-fade-in flex-grow w-full min-h-screen">
       {/* HEADER AREA */}
-      <header className="mb-10 border-b border-border-neutral pb-stack-md text-center max-w-4xl mx-auto">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-3 uppercase tracking-wider">
-          <span className="material-symbols-outlined text-[16px]">document_scanner</span>
-          Trí tuệ nhân tạo kiểm tra pháp lý
-        </div>
+      <header className="mb-10 border-b border-border-neutral pb-6 text-center max-w-4xl mx-auto">
         <h1 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase mb-3">
-          AI Thẩm Định & Hướng Dẫn Điền Biểu Mẫu
+          AI Thẩm Định &amp; Hướng Dẫn Điền Biểu Mẫu
         </h1>
         <div className="text-amber-600 flex items-center justify-center my-3">
           <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>

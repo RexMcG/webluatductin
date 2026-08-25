@@ -41,9 +41,8 @@ export default function ServicesPage() {
       </section>
 
       {/* Services Grid (GIỮ NGUYÊN LƯỚI 3 CỘT/HÀNG CÂN ĐỐI VỪA PHẢI, KHÔNG ĐÁNH SỐ) */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 py-16">
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="text-amber-700 font-bold text-xs uppercase tracking-widest mb-2">DANH MỤC DỊCH VỤ CHUYÊN SÂU</div>
+      <section className="max-w-7xl mx-auto px-4 md:px-8 py-12">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-3xl md:text-4xl font-black text-slate-900 uppercase font-sans">
             Lĩnh Vực Hoạt Động Cốt Lõi
           </h2>

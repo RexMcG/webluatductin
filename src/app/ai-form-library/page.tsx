@@ -69,7 +69,7 @@ export default function AIFormLibrary() {
   };
 
   return (
-    <main className="pt-32 pb-16 min-h-screen bg-slate-50 relative">
+    <main className="pt-10 pb-16 min-h-screen bg-slate-50 relative">
       {/* Lead Gate Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
@@ -125,12 +125,8 @@ export default function AIFormLibrary() {
       )}
 
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 py-8">
+      <section className="max-w-7xl mx-auto px-4 md:px-8 pb-8">
         <div className="text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-3 uppercase tracking-wider">
-            <span className="material-symbols-outlined text-[16px]">psychology</span>
-            Radar Ý Nghĩa AI (BGE-M3 Multilingual)
-          </div>
           <h1 className="text-3xl md:text-5xl lg:text-5xl font-black text-slate-900 font-sans tracking-tight uppercase mb-3">
             Kho Biểu Mẫu Pháp Lý AI
           </h1>

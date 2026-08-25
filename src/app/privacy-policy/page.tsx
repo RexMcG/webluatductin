@@ -14,10 +14,10 @@ export default function PrivacyPolicyPage() {
   return (
     <div className="bg-slate-50 min-h-screen pb-20">
       {/* Header Banner */}
-      <section className="bg-gradient-to-b from-amber-900/10 via-amber-900/5 to-transparent pt-14 pb-10 border-b border-slate-200">
+      <section className="bg-gradient-to-b from-amber-900/10 via-amber-900/5 to-transparent pt-8 pb-6 border-b border-slate-200">
         <div className="max-w-5xl mx-auto px-4 md:px-8">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-xs md:text-sm text-slate-500 font-semibold mb-6">
+          <nav className="flex items-center gap-2 text-xs md:text-sm text-slate-500 font-semibold mb-5">
             <Link href="/" className="hover:text-emerald-700 transition-colors">
               Trang chủ
             </Link>
@@ -26,13 +26,12 @@ export default function PrivacyPolicyPage() {
           </nav>
 
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-4">
-              <span className="material-symbols-outlined text-[16px]">verified_user</span>
-              Bảo Mật Tuyệt Đối Theo Quy Định Pháp Luật
-            </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight mb-4 uppercase leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight mb-3 uppercase leading-tight">
               Chính Sách Bảo Mật Thông Tin &amp; Dữ Liệu Cá Nhân
             </h1>
+            <div className="text-amber-600 flex items-center justify-center my-3">
+              <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
+            </div>
             <p className="text-sm md:text-base text-slate-600 leading-relaxed">
               Áp dụng tại <strong>Công ty Luật TNHH Đức Tín và Cộng sự</strong> (DUC TIN &amp; PARTNERS).<br className="hidden sm:inline" />
               Cập nhật và hiệu lực từ ngày <strong>01/01/2026</strong>.
