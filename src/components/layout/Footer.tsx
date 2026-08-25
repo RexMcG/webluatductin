@@ -183,6 +183,10 @@ export default function Footer() {
                 <Link className="text-xs md:text-sm text-slate-200 hover:text-amber-300 transition-colors" href="/services">
                   Dịch vụ pháp lý
                 </Link>
+                <Link className="text-xs md:text-sm text-slate-200 hover:text-amber-300 transition-colors flex items-center gap-1" href="/privacy-policy">
+                  <span className="material-symbols-outlined text-xs text-amber-400">shield</span>
+                  Chính sách bảo mật
+                </Link>
               </div>
 
               <div className="flex flex-col gap-2 bg-white/5 border border-white/10 rounded-2xl p-4">
@@ -207,10 +211,13 @@ export default function Footer() {
           </div>
 
           {/* Copyright */}
-          <div className="mt-10 pt-6 border-t border-white/10 text-center">
+          <div className="mt-10 pt-6 border-t border-white/10 text-center flex flex-col sm:flex-row items-center justify-between gap-3">
             <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
               © 2026 CÔNG TY LUẬT TNHH ĐỨC TÍN VÀ CỘNG SỰ (DUC TIN &amp; PARTNERS). All Rights Reserved.
             </p>
+            <Link href="/privacy-policy" className="text-xs text-slate-400 hover:text-amber-300 transition-colors underline">
+              Chính Sách Bảo Mật &amp; Quyền Riêng Tư
+            </Link>
           </div>
 
         </div>
