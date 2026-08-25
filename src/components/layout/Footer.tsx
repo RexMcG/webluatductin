@@ -108,7 +108,7 @@ export default function Footer() {
           {/* Top Logo */}
           <div className="flex justify-center md:justify-start mb-8">
             <img
-              src="/img/Logo_website.webp"
+              src="/img/Logo_website_footer.webp"
               alt="Logo Công ty Luật Đức Tín"
               width={260}
               height={52}
