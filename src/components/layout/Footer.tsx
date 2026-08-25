@@ -120,18 +120,27 @@ export default function Footer() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             {/* Google Maps (Left on Desktop, Top on Mobile) */}
-            <div className="lg:col-span-4 w-full h-56 md:h-64 rounded-2xl overflow-hidden shadow-lg border border-white/10">
-              <iframe
-                title="Văn phòng Công ty Luật TNHH Đức Tín & Cộng Sự trên Google Maps"
-                allowFullScreen={false}
-                className="w-full h-full"
-                height="100%"
-                loading="lazy"
-                referrerPolicy="strict-origin-when-cross-origin"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125419.33178072695!2d106.5754288003725!3d10.784166700000023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f4bc8ad1f21%3A0x1c31b41801cfac6c!2sSaigon%20Trade%20Center%20Tower%20-%20Office%20Saigon!5e0!3m2!1svi!2s!4v1785438121278!5m2!1svi!2s"
-                style={{ border: 0 }}
-                width="100%"
-              />
+            <div className="lg:col-span-4 flex flex-col gap-3">
+              <div className="w-full h-44 md:h-48 rounded-2xl overflow-hidden shadow-lg border border-white/10">
+                <iframe
+                  title="Văn phòng Công ty Luật TNHH Đức Tín & Cộng Sự trên Google Maps"
+                  allowFullScreen={false}
+                  className="w-full h-full"
+                  height="100%"
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125419.33178072695!2d106.5754288003725!3d10.784166700000023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f4bc8ad1f21%3A0x1c31b41801cfac6c!2sSaigon%20Trade%20Center%20Tower%20-%20Office%20Saigon!5e0!3m2!1svi!2s!4v1785438121278!5m2!1svi!2s"
+                  style={{ border: 0 }}
+                  width="100%"
+                />
+              </div>
+              <div className="bg-white/5 border border-white/10 rounded-2xl p-3 flex items-start gap-2.5">
+                <span className="material-symbols-outlined text-amber-300 text-lg shrink-0 mt-0.5">location_on</span>
+                <div className="text-xs md:text-sm text-slate-200 leading-snug">
+                  <strong className="text-amber-300 font-bold block mb-0.5">Trụ sở chính:</strong>
+                  P. 1901, Tầng 19, Saigon Trade Center, 37 Tôn Đức Thắng, P. Bến Nghé, Q.1, Tp. HCM.
+                </div>
+              </div>
             </div>
 
             {/* 4 Footer Columns (Responsive Grid) */}
@@ -201,8 +210,8 @@ export default function Footer() {
                 <a className="text-xs md:text-sm text-slate-200 hover:text-amber-300 transition-colors truncate" href="mailto:rexmcg12345678@gmail.com">
                   rexmcg12345678@gmail.com
                 </a>
-                <span className="text-[11px] md:text-xs text-slate-300">
-                  TP. Hồ Chí Minh
+                <span className="text-[11px] md:text-xs text-slate-300 leading-snug">
+                  P. 1901, Tầng 19, Saigon Trade Center, 37 Tôn Đức Thắng, Q.1, Tp. HCM
                 </span>
               </div>
 
