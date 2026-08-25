@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { appointmentService } from "@/services/appointment.service";
+import { questionService } from "@/services/question.service";
 
 export default function Home() {
   const router = useRouter();
@@ -120,16 +120,12 @@ export default function Home() {
     }
     setConsultSending(true);
     try {
-      await appointmentService.createAppointment({
+      await questionService.createQuestion({
         name: consultForm.name.trim(),
         phone: consultForm.phone.trim(),
         email: consultForm.email.trim() || 'khachhang@ductinlaw.vn',
-        service: consultForm.category,
-        notes: `[CÂU HỎI TƯ VẤN TRANG CHỦ] ${consultForm.message.trim()}`,
-        consultType: 'Đặt câu hỏi trực tuyến',
-        attorney: 'Luật sư Phan Đức Tín',
-        appointmentDate: new Date().toISOString().split('T')[0],
-        appointmentTime: new Date().toTimeString().split(' ')[0],
+        category: consultForm.category,
+        question: consultForm.message.trim(),
       });
       setConsultSent(true);
       setConsultErrors({});

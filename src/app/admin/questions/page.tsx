@@ -2,36 +2,36 @@
 
 import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { appointmentService, Appointment } from "@/services/appointment.service";
+import { questionService, UserQuestion } from "@/services/question.service";
 
 export default function AdminQuestionsPage() {
   const queryClient = useQueryClient();
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  const [selectedItem, setSelectedItem] = useState<Appointment | null>(null);
+  const [selectedItem, setSelectedItem] = useState<UserQuestion | null>(null);
 
-  const { data: appointments = [], isLoading } = useQuery({
-    queryKey: ["admin-appointments"],
-    queryFn: () => appointmentService.getAppointments(),
+  const { data: questions = [], isLoading } = useQuery({
+    queryKey: ["admin-questions"],
+    queryFn: () => questionService.getQuestions(),
   });
 
   const updateStatusMutation = useMutation({
-    mutationFn: ({ id, status }: { id: number; status: string }) =>
-      appointmentService.updateStatus(id, status),
+    mutationFn: ({ id, status }: { id: number; status: 'pending' | 'confirmed' | 'completed' | 'cancelled' }) =>
+      questionService.updateStatus(id, status),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["admin-appointments"] });
+      queryClient.invalidateQueries({ queryKey: ["admin-questions"] });
     },
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id: number) => appointmentService.deleteAppointment(id),
+    mutationFn: (id: number) => questionService.deleteQuestion(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["admin-appointments"] });
+      queryClient.invalidateQueries({ queryKey: ["admin-questions"] });
       if (selectedItem) setSelectedItem(null);
     },
   });
 
-  const handleStatusChange = (id: number, newStatus: string) => {
+  const handleStatusChange = (id: number, newStatus: any) => {
     updateStatusMutation.mutate({ id, status: newStatus });
   };
 
@@ -41,18 +41,18 @@ export default function AdminQuestionsPage() {
     }
   };
 
-  const filtered = appointments.filter((apt) => {
+  const filtered = questions.filter((q) => {
     const matchSearch =
-      apt.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      apt.phone.includes(searchTerm) ||
-      (apt.notes && apt.notes.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (apt.service && apt.service.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchStatus = statusFilter === "all" || apt.status === statusFilter;
+      q.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      q.phone.includes(searchTerm) ||
+      (q.question && q.question.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (q.category && q.category.toLowerCase().includes(searchTerm.toLowerCase()));
+    const matchStatus = statusFilter === "all" || q.status === statusFilter;
     return matchSearch && matchStatus;
   });
 
-  const pendingCount = appointments.filter((a) => a.status === "pending").length;
-  const completedCount = appointments.filter((a) => a.status === "completed").length;
+  const pendingCount = questions.filter((a) => a.status === "pending").length;
+  const completedCount = questions.filter((a) => a.status === "completed").length;
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -180,16 +180,16 @@ export default function AdminQuestionsPage() {
                       </td>
                       <td className="py-4 px-4 whitespace-nowrap">
                         <span className="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-800 font-semibold border border-slate-200">
-                          {item.service || "Chung"}
+                          {item.category || "Chung"}
                         </span>
                       </td>
                       <td className="py-4 px-4 max-w-xs md:max-w-md">
                         <p className="text-slate-700 font-medium line-clamp-2 leading-relaxed">
-                          {item.notes || "Khách hàng gửi yêu cầu tư vấn trực tiếp."}
+                          {item.question || "Khách hàng gửi câu hỏi tư vấn trực tiếp."}
                         </p>
                       </td>
                       <td className="py-4 px-4 text-slate-500 whitespace-nowrap text-[11px]">
-                        {item.createdAt ? new Date(item.createdAt).toLocaleString('vi-VN') : item.appointmentDate}
+                        {item.createdAt ? new Date(item.createdAt).toLocaleString('vi-VN') : "Vừa xong"}
                       </td>
                       <td className="py-4 px-4 whitespace-nowrap">
                         <select
@@ -254,7 +254,7 @@ export default function AdminQuestionsPage() {
               </span>
               <div>
                 <h3 className="text-lg font-black text-slate-900">Chi Tiết Câu Hỏi Khách Hàng</h3>
-                <p className="text-xs text-slate-500">Mã yêu cầu: #{selectedItem.id}</p>
+                <p className="text-xs text-slate-500">Mã câu hỏi: #{selectedItem.id}</p>
               </div>
             </div>
 
@@ -278,14 +278,14 @@ export default function AdminQuestionsPage() {
                 )}
                 <div className="flex justify-between">
                   <span className="text-slate-500 font-semibold">Lĩnh vực:</span>
-                  <span className="font-bold text-[#641D06]">{selectedItem.service || "Chung"}</span>
+                  <span className="font-bold text-[#641D06]">{selectedItem.category || "Chung"}</span>
                 </div>
               </div>
 
               <div>
-                <label className="block text-slate-600 font-bold mb-1.5">Nội dung câu hỏi / Tóm tắt vụ việc:</label>
+                <label className="block text-slate-600 font-bold mb-1.5">Nội dung câu hỏi / Vụ việc:</label>
                 <div className="p-4 bg-amber-50/50 border border-amber-200 rounded-2xl text-slate-800 text-sm leading-relaxed whitespace-pre-wrap">
-                  {selectedItem.notes || "Khách hàng không để lại ghi chú chi tiết."}
+                  {selectedItem.question || "Khách hàng không để lại ghi chú chi tiết."}
                 </div>
               </div>
 
