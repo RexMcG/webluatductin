@@ -21,15 +21,17 @@ type Message = {
 const INITIAL_MESSAGE: Message = {
   id: 1,
   sender: "ai",
-  text: `Xin chào! Tôi là Trợ lý Pháp lý AI của **Công ty Luật TNHH Đức Tín và Cộng sự**.
+  text: `Xin chào! Tôi là **Trợ lý Pháp lý AI**, chuyên hỗ trợ tra cứu và giải đáp các quy định pháp luật theo **hệ thống luật hiện hành năm 2026**.
 
-Tôi có thể hỗ trợ giải đáp nhanh theo **quy định pháp luật hiện hành năm 2026** về:
+**Các lĩnh vực chuyên môn hỗ trợ:**
 - **Đất đai & Bất động sản:** Cấp sổ đỏ, chuyển nhượng, tặng cho, tranh chấp ranh giới.
-- **Hôn nhân & Gia đình:** Ly hôn đơn phương/thuận tình, quyền nuôi con, phân chia tài sản.
+- **Hôn nhân & Gia đình:** Ly hôn đơn phương/thuận tình, quyền nuôi con, chia tài sản.
 - **Doanh nghiệp & Hợp đồng:** Thành lập công ty, hợp đồng kinh tế, tranh chấp nợ.
-- **Giao thông, Lao động & Dân sự:** Xử phạt vi phạm, hợp đồng lao động, bồi thường thiệt hại.
+- **Giao thông, Lao động & Dân sự:** Xử phạt vi phạm, hợp đồng lao động, bồi thường.
 
-Bạn đang có thắc mắc hoặc cần tư vấn về vấn đề gì, hãy nhập câu hỏi bên dưới nhé!`,
+*(Lưu ý: Hệ thống chỉ tiếp nhận và giải đáp các câu hỏi trong phạm vi pháp luật và thủ tục pháp lý).*
+
+Bạn đang có vướng mắc pháp lý nào cần hỗ trợ?`,
   quickActions: [
     { label: "Vạch mắt võng giao thông", action: "Tôi muốn biết ở một tuyến đường có vạch mắt võng nhưng không có đèn xanh thì tôi có được phép rẽ theo vạch mắt võng đó không", icon: "traffic", type: "prompt" },
     { label: "Thủ tục ly hôn đơn phương", action: "Tôi muốn tư vấn thủ tục ly hôn đơn phương và giành quyền nuôi con", icon: "family_restroom", type: "prompt" },
