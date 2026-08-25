@@ -85,24 +85,24 @@ export default function Header() {
               <div className="absolute top-full left-0 mt-1 w-64 bg-white rounded-2xl shadow-xl border border-slate-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col z-50 overflow-hidden">
                 <Link
                   href="/court-fee-calculator"
-                  className="px-4 py-3 text-slate-800 hover:bg-amber-50 hover:text-[#641D06] text-sm font-semibold border-b border-slate-100 flex items-center gap-2"
+                  className="px-4 py-3 text-slate-800 hover:bg-amber-50 hover:text-[#641D06] text-sm font-semibold border-b border-slate-100 flex items-center gap-2.5 group/item transition-colors"
                 >
-                  <span className="material-symbols-outlined text-base text-amber-800">calculate</span>
-                  Tính án phí tòa án
+                  <span className="text-amber-800 font-bold text-base leading-none">•</span>
+                  <span>Tính án phí tòa án</span>
                 </Link>
                 <Link
                   href="/salary-calculator"
-                  className="px-4 py-3 text-slate-800 hover:bg-amber-50 hover:text-[#641D06] text-sm font-semibold border-b border-slate-100 flex items-center gap-2"
+                  className="px-4 py-3 text-slate-800 hover:bg-amber-50 hover:text-[#641D06] text-sm font-semibold border-b border-slate-100 flex items-center gap-2.5 group/item transition-colors"
                 >
-                  <span className="material-symbols-outlined text-base text-amber-800">payments</span>
-                  Tính lương Gross-to-Net
+                  <span className="text-amber-800 font-bold text-base leading-none">•</span>
+                  <span>Tính lương Gross-to-Net</span>
                 </Link>
                 <Link
                   href="/pit-calculator"
-                  className="px-4 py-3 text-slate-800 hover:bg-amber-50 hover:text-[#641D06] text-sm font-semibold flex items-center gap-2"
+                  className="px-4 py-3 text-slate-800 hover:bg-amber-50 hover:text-[#641D06] text-sm font-semibold flex items-center gap-2.5 group/item transition-colors"
                 >
-                  <span className="material-symbols-outlined text-base text-amber-800">account_balance</span>
-                  Tính thuế TNCN
+                  <span className="text-amber-800 font-bold text-base leading-none">•</span>
+                  <span>Tính thuế TNCN</span>
                 </Link>
               </div>
             </div>

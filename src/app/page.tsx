@@ -259,7 +259,7 @@ export default function Home() {
       </section>
 
       {/* About Us & Why Choose Us */}
-      <section id="about-us" className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-12 md:pt-16 pb-section-padding">
+      <section id="about-us" className="max-w-7xl mx-auto px-4 md:px-8 pt-12 md:pt-16 pb-16">
         <div className="flex flex-col gap-12">
           {/* About Us */}
           <div>
@@ -333,7 +333,7 @@ export default function Home() {
       </section>
 
       {/* Practice Areas Grid */}
-      <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12">
+      <section className="max-w-7xl mx-auto px-4 md:px-8 py-14">
         <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
           <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
             Lĩnh Vực Hoạt Động Mũi Nhọn
@@ -342,7 +342,7 @@ export default function Home() {
             <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           
           {/* 1. Nội bộ doanh nghiệp */}
           <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
@@ -367,15 +367,11 @@ export default function Home() {
                 Xây dựng quy chế hoạt động, cơ cấu quản trị nội bộ, giải quyết mâu thuẫn giữa các thành viên/cổ đông.
               </p>
               <div className="flex flex-col gap-3 mt-auto">
-                <Link href="/appointment" className="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn">
-                  <span className="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
-                  <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
-                    <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                  </div>
+                <Link href="/appointment" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                  Đặt lịch hẹn
                 </Link>
-                <Link href="/ai-chatbot" className="flex w-full items-center justify-center gap-2 bg-surface-main border border-border-neutral text-primary rounded-full px-6 py-3 hover:bg-surface-alt transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
-                  <span className="material-symbols-outlined text-base text-accent">smart_toy</span>
-                  <span className="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
+                <Link href="/ai-chatbot" className="flex w-full items-center justify-center bg-amber-50 hover:bg-amber-100 text-[#641D06] border border-amber-300/80 rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                  Hỏi ngay AI
                 </Link>
               </div>
             </div>
@@ -404,15 +400,11 @@ export default function Home() {
                 Cố vấn chiến lược cho các nhà đầu tư trong và ngoài nước (FDI). Đánh giá tính pháp lý của dự án, tối ưu hóa cấu trúc vốn.
               </p>
               <div className="flex flex-col gap-3 mt-auto">
-                <Link href="/appointment" className="flex w-full items-center justify-between bg-primary text-on-primary rounded-full pl-6 pr-2 py-2 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group/btn">
-                  <span className="font-label-sm font-semibold tracking-wide text-sm">Đặt lịch hẹn</span>
-                  <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 group-hover/btn:-translate-y-[1px] group-hover/btn:scale-105 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
-                    <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                  </div>
+                <Link href="/appointment" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                  Đặt lịch hẹn
                 </Link>
-                <Link href="/ai-chatbot" className="flex w-full items-center justify-center gap-2 bg-surface-main border border-border-neutral text-primary rounded-full px-6 py-3 hover:bg-surface-alt transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
-                  <span className="material-symbols-outlined text-base text-accent">smart_toy</span>
-                  <span className="font-label-sm font-semibold tracking-wide text-sm">Hỏi ngay AI</span>
+                <Link href="/ai-chatbot" className="flex w-full items-center justify-center bg-amber-50 hover:bg-amber-100 text-[#641D06] border border-amber-300/80 rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                  Hỏi ngay AI
                 </Link>
               </div>
             </div>
@@ -441,10 +433,10 @@ export default function Home() {
                 Đại diện khách hàng tham gia tố tụng tại Tòa án và Trọng tài thương mại các cấp. Bào chữa, bảo vệ tối đa quyền lợi.
               </p>
               <div className="flex flex-col gap-3 mt-auto">
-                <Link href="/appointment" className="flex w-full items-center justify-center bg-primary text-on-primary rounded-full px-6 py-3 hover:bg-secondary transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] font-semibold tracking-wide text-sm">
+                <Link href="/appointment" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
                   Đặt lịch hẹn
                 </Link>
-                <Link href="/ai-chatbot" className="flex w-full items-center justify-center bg-surface-main border border-border-neutral text-primary rounded-full px-6 py-3 hover:bg-surface-alt transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98] font-semibold tracking-wide text-sm">
+                <Link href="/ai-chatbot" className="flex w-full items-center justify-center bg-amber-50 hover:bg-amber-100 text-[#641D06] border border-amber-300/80 rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
                   Hỏi ngay AI
                 </Link>
               </div>
@@ -530,7 +522,7 @@ export default function Home() {
       </section>
 
       {/* Consultation Form & FAQ */}
-      <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 my-8">
+      <section className="max-w-7xl mx-auto px-4 md:px-8 py-16 my-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
           
           {/* Consultation Form (Left) */}
@@ -760,7 +752,7 @@ export default function Home() {
 
       {/* Client Marquee */}
       <section className="border-y border-border-neutral py-10 bg-surface-main overflow-hidden">
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-8 text-center">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 mb-8 text-center">
           <h3 className="font-label-sm text-text-secondary uppercase tracking-widest text-sm font-bold">
             Đối Tác &amp; Khách Hàng Tiêu Biểu
           </h3>
