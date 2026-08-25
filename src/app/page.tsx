@@ -782,7 +782,7 @@ export default function Home() {
       </section>
 
       {/* Client Marquee */}
-      <section className="border-y border-border-neutral py-10 md:py-14 bg-surface-main overflow-hidden">
+      <section className="border-y border-border-neutral py-12 md:py-16 bg-surface-main overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 md:px-8 mb-8 text-center">
           <h3 className="font-sans text-slate-800 uppercase tracking-widest text-sm md:text-base font-black">
             Đối Tác &amp; Khách Hàng Tiêu Biểu
@@ -806,10 +806,10 @@ export default function Home() {
               <div key={i} className="mx-6 md:mx-10 shrink-0 flex items-center justify-center">
                 <img
                   src={`/img/${img}`}
-                  width={140}
-                  height={70}
+                  width={200}
+                  height={100}
                   loading="lazy"
-                  className="h-12 md:h-16 max-w-[120px] md:max-w-[150px] object-contain opacity-95 hover:opacity-100 hover:scale-105 transition-all duration-300"
+                  className="h-20 md:h-24 max-w-[160px] md:max-w-[200px] object-contain opacity-100 hover:scale-105 transition-all duration-300"
                   alt="Client Logo"
                 />
               </div>
@@ -827,10 +827,10 @@ export default function Home() {
               <div key={`dup-${i}`} className="mx-6 md:mx-10 shrink-0 flex items-center justify-center">
                 <img
                   src={`/img/${img}`}
-                  width={140}
-                  height={70}
+                  width={200}
+                  height={100}
                   loading="lazy"
-                  className="h-12 md:h-16 max-w-[120px] md:max-w-[150px] object-contain opacity-95 hover:opacity-100 hover:scale-105 transition-all duration-300"
+                  className="h-20 md:h-24 max-w-[160px] md:max-w-[200px] object-contain opacity-100 hover:scale-105 transition-all duration-300"
                   alt="Client Logo"
                 />
               </div>
