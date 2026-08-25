@@ -259,7 +259,7 @@ export default function Home() {
       </section>
 
       {/* About Us & Why Choose Us */}
-      <section id="about-us" className="max-w-7xl mx-auto px-4 md:px-8 pt-12 md:pt-16 pb-16">
+      <section id="about-us" className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-12 md:pt-16 pb-16">
         <div className="flex flex-col gap-12">
           {/* About Us */}
           <div>
@@ -333,7 +333,7 @@ export default function Home() {
       </section>
 
       {/* Practice Areas Grid */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 py-14">
+      <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16">
         <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
           <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
             Lĩnh Vực Hoạt Động Mũi Nhọn
@@ -342,7 +342,7 @@ export default function Home() {
             <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           
           {/* 1. Nội bộ doanh nghiệp */}
           <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
@@ -448,7 +448,7 @@ export default function Home() {
 
       {/* Featured Tools */}
       <section className="bg-surface-alt border-y border-border-neutral py-16">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
+        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
           <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
               Công Cụ Pháp Lý &amp; AI
@@ -457,10 +457,11 @@ export default function Home() {
               <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            <Link href="/salary-calculator" className="bg-surface-main border border-border-neutral p-5 sm:p-6 hover:shadow-xl hover:border-amber-400 hover:-translate-y-1 shadow-sm transition-all rounded-3xl group flex flex-col justify-between cursor-pointer">
-              <div>
-                <div className="relative w-full h-44 rounded-2xl overflow-hidden mb-5 border border-slate-100 bg-slate-100 shadow-2xs">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+            {/* Tool 1 */}
+            <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
+              <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-6 sm:p-8 h-full flex flex-col border border-border-neutral/50">
+                <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-6 border border-slate-100 bg-slate-100 shadow-2xs">
                   <img
                     src="/img/card_labor.webp"
                     alt="Tính Lương Gross-to-Net"
@@ -469,18 +470,30 @@ export default function Home() {
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
+                  <div className="absolute top-3 left-3">
+                    <span className="rounded-full px-3 py-1 bg-white/95 backdrop-blur-xs text-[10px] uppercase tracking-[0.2em] font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
+                      Lao động & Thuế
+                    </span>
+                  </div>
                 </div>
-                <h3 className="font-headline-md text-xl font-bold text-primary mb-2 group-hover:text-[#641D06] transition-colors">Tính Lương Gross-to-Net</h3>
-                <p className="font-body-md text-text-secondary mb-6 text-sm leading-relaxed">Công cụ tính lương, BHXH, BHYT và các khoản trích theo lương chuẩn xác 2026.</p>
+                <h3 className="font-headline-lg text-[26px] sm:text-[28px] text-primary mb-3 leading-tight font-bold group-hover:text-[#641D06] transition-colors">
+                  Tính Lương Gross-to-Net
+                </h3>
+                <p className="font-body-md text-text-secondary leading-relaxed mb-8 flex-grow text-sm sm:text-base">
+                  Công cụ tính lương, BHXH, BHYT và các khoản trích theo lương chuẩn xác theo quy định pháp luật 2026.
+                </p>
+                <div className="mt-auto">
+                  <Link href="/salary-calculator" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3.5 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                    Sử dụng ngay
+                  </Link>
+                </div>
               </div>
-              <div className="w-full bg-[#641D06] text-white h-11 rounded-xl font-bold group-hover:bg-black transition-colors text-center leading-[44px] text-sm shadow-2xs">
-                Sử dụng ngay
-              </div>
-            </Link>
+            </div>
 
-            <Link href="/court-fee-calculator" className="bg-surface-main border border-border-neutral p-5 sm:p-6 hover:shadow-xl hover:border-amber-400 hover:-translate-y-1 shadow-sm transition-all rounded-3xl group flex flex-col justify-between cursor-pointer">
-              <div>
-                <div className="relative w-full h-44 rounded-2xl overflow-hidden mb-5 border border-slate-100 bg-slate-100 shadow-2xs">
+            {/* Tool 2 */}
+            <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
+              <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-6 sm:p-8 h-full flex flex-col border border-border-neutral/50">
+                <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-6 border border-slate-100 bg-slate-100 shadow-2xs">
                   <img
                     src="/img/card_tool_calc.webp"
                     alt="Tính Án Phí Tòa Án"
@@ -489,18 +502,30 @@ export default function Home() {
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
+                  <div className="absolute top-3 left-3">
+                    <span className="rounded-full px-3 py-1 bg-white/95 backdrop-blur-xs text-[10px] uppercase tracking-[0.2em] font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
+                      Tố tụng & Án phí
+                    </span>
+                  </div>
                 </div>
-                <h3 className="font-headline-md text-xl font-bold text-primary mb-2 group-hover:text-[#641D06] transition-colors">Tính Án Phí Tòa Án</h3>
-                <p className="font-body-md text-text-secondary mb-6 text-sm leading-relaxed">Tính toán nhanh án phí dân sự, kinh doanh thương mại và lệ phí tòa án.</p>
+                <h3 className="font-headline-lg text-[26px] sm:text-[28px] text-primary mb-3 leading-tight font-bold group-hover:text-[#641D06] transition-colors">
+                  Tính Án Phí Tòa Án
+                </h3>
+                <p className="font-body-md text-text-secondary leading-relaxed mb-8 flex-grow text-sm sm:text-base">
+                  Tính toán nhanh tạm ứng án phí và án phí chính thức các vụ việc dân sự, kinh doanh thương mại và lệ phí tòa án.
+                </p>
+                <div className="mt-auto">
+                  <Link href="/court-fee-calculator" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3.5 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                    Sử dụng ngay
+                  </Link>
+                </div>
               </div>
-              <div className="w-full bg-[#641D06] text-white h-11 rounded-xl font-bold group-hover:bg-black transition-colors text-center leading-[44px] text-sm shadow-2xs">
-                Sử dụng ngay
-              </div>
-            </Link>
+            </div>
 
-            <Link href="/ai-form-library" className="bg-surface-main border border-border-neutral p-5 sm:p-6 hover:shadow-xl hover:border-amber-400 hover:-translate-y-1 shadow-sm transition-all rounded-3xl group flex flex-col justify-between cursor-pointer">
-              <div>
-                <div className="relative w-full h-44 rounded-2xl overflow-hidden mb-5 border border-slate-100 bg-slate-100 shadow-2xs">
+            {/* Tool 3 */}
+            <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
+              <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-6 sm:p-8 h-full flex flex-col border border-border-neutral/50">
+                <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-6 border border-slate-100 bg-slate-100 shadow-2xs">
                   <img
                     src="/img/card_tool_forms.webp"
                     alt="Thư Viện Biểu Mẫu AI"
@@ -509,21 +534,31 @@ export default function Home() {
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
+                  <div className="absolute top-3 left-3">
+                    <span className="rounded-full px-3 py-1 bg-white/95 backdrop-blur-xs text-[10px] uppercase tracking-[0.2em] font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
+                      Kho biểu mẫu AI
+                    </span>
+                  </div>
                 </div>
-                <h3 className="font-headline-md text-xl font-bold text-primary mb-2 group-hover:text-[#641D06] transition-colors">Thư Viện Biểu Mẫu AI</h3>
-                <p className="font-body-md text-text-secondary mb-6 text-sm leading-relaxed">Tìm kiếm thông minh và tải về biểu mẫu pháp lý chuẩn xác (.doc) tức thì.</p>
+                <h3 className="font-headline-lg text-[26px] sm:text-[28px] text-primary mb-3 leading-tight font-bold group-hover:text-[#641D06] transition-colors">
+                  Thư Viện Biểu Mẫu AI
+                </h3>
+                <p className="font-body-md text-text-secondary leading-relaxed mb-8 flex-grow text-sm sm:text-base">
+                  Tìm kiếm thông minh ngữ nghĩa và tải về trọn bộ biểu mẫu pháp lý chuẩn xác (.doc) có thẩm định tức thì.
+                </p>
+                <div className="mt-auto">
+                  <Link href="/ai-form-library" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3.5 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                    Sử dụng ngay
+                  </Link>
+                </div>
               </div>
-              <div className="w-full bg-[#641D06] text-white h-11 rounded-xl font-bold group-hover:bg-black transition-colors text-center leading-[44px] text-sm shadow-2xs">
-                Sử dụng ngay
-              </div>
-            </Link>
+            </div>
+
           </div>
         </div>
       </section>
-
-      {/* Consultation Form & FAQ */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 py-16 my-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 my-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 items-start">
           
           {/* Consultation Form (Left) */}
           <div className="bg-[#92400e] p-8 md:p-12 text-white h-full flex flex-col justify-center rounded-3xl shadow-xl">
@@ -696,7 +731,7 @@ export default function Home() {
       </section>
 
       {/* Expert Attorneys */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 py-14">
+      <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-14">
         <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
           <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
             Đội Ngũ Luật Sư Điều Hành
