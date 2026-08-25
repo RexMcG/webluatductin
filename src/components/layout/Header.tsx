@@ -9,9 +9,24 @@ export default function Header() {
   const pathname = usePathname();
 
   const isActive = (path: string) => {
-    return pathname === path
+    const active = path === "/" ? pathname === "/" : pathname.startsWith(path);
+    return active
       ? "font-black text-[#641D06] border-b-2 border-[#641D06] pb-1"
       : "text-slate-800 hover:text-[#641D06] font-bold transition-colors duration-200";
+  };
+
+  const isMobileActive = (path: string) => {
+    const active = path === "/" ? pathname === "/" : pathname.startsWith(path);
+    return active
+      ? "bg-amber-50 text-[#641D06] font-black border-l-4 border-[#641D06] pl-3.5 pr-4 py-2.5 rounded-r-xl uppercase text-[15px] transition-colors"
+      : "text-slate-800 hover:text-[#641D06] hover:bg-slate-50 pl-4 pr-4 py-2.5 rounded-xl uppercase text-[15px] font-bold transition-colors";
+  };
+
+  const isSubItemActive = (path: string) => {
+    const active = pathname === path;
+    return active
+      ? "bg-amber-50 text-[#641D06] font-bold text-sm pl-6 pr-4 py-2 rounded-xl flex items-center gap-2 transition-colors"
+      : "text-slate-700 hover:text-[#641D06] hover:bg-slate-50 text-sm pl-6 pr-4 py-2 rounded-xl flex items-center gap-2 font-medium transition-colors";
   };
 
   return (
@@ -129,64 +144,74 @@ export default function Header() {
 
         {/* Mobile Menu Drawer */}
         <div
-          className={`${isMobileMenuOpen ? "block" : "hidden"} md:hidden bg-white border-t border-slate-200 px-6 py-5 shadow-2xl transition-all max-h-[calc(100vh-5rem)] overflow-y-auto`}
+          className={`${isMobileMenuOpen ? "block" : "hidden"} md:hidden bg-white border-t border-slate-200 px-5 py-4 shadow-2xl transition-all max-h-[calc(100vh-5rem)] overflow-y-auto`}
         >
-          <div className="flex flex-col gap-3.5 font-bold text-slate-800">
+          <div className="flex flex-col gap-1.5 font-bold text-slate-800">
             <Link 
               href="/" 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-[#641D06] hover:bg-amber-50 px-3 py-2 rounded-xl uppercase text-[15px] flex items-center gap-2"
+              className={isMobileActive("/")}
             >
-              <span className="material-symbols-outlined text-xl">home</span> Trang chủ
+              Trang chủ
             </Link>
             <Link 
               href="/services" 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="hover:text-[#641D06] hover:bg-amber-50 px-3 py-2 rounded-xl uppercase text-[15px] flex items-center gap-2"
+              className={isMobileActive("/services")}
             >
-              <span className="material-symbols-outlined text-xl">gavel</span> Lĩnh vực pháp lý
+              Lĩnh vực pháp lý
             </Link>
             <Link 
               href="/news" 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="hover:text-[#641D06] hover:bg-amber-50 px-3 py-2 rounded-xl uppercase text-[15px] flex items-center gap-2"
+              className={isMobileActive("/news")}
             >
-              <span className="material-symbols-outlined text-xl">newspaper</span> Tin tức &amp; Án lệ
+              Tin tức &amp; Án lệ
             </Link>
             <Link 
               href="/ai-form-library" 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="hover:text-[#641D06] hover:bg-amber-50 px-3 py-2 rounded-xl uppercase text-[15px] flex items-center gap-2"
+              className={isMobileActive("/ai-form-library")}
             >
-              <span className="material-symbols-outlined text-xl">description</span> Biểu mẫu AI
+              Biểu mẫu AI
+            </Link>
+            <Link 
+              href="/ai-chatbot" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={isMobileActive("/ai-chatbot")}
+            >
+              Trợ lý AI 24/7
             </Link>
 
-            <div className="text-xs font-black uppercase tracking-wider text-slate-400 mt-1 px-3">
+            <div className="text-[11px] font-black uppercase tracking-wider text-slate-400 mt-2 pt-2 border-t border-slate-100 px-4">
               Công cụ tính toán
             </div>
             <Link 
               href="/court-fee-calculator" 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="hover:text-[#641D06] hover:bg-amber-50 text-sm px-4 py-1.5 rounded-lg flex items-center gap-2 font-medium"
+              className={isSubItemActive("/court-fee-calculator")}
             >
-              <span className="material-symbols-outlined text-base text-amber-800">calculate</span> Tính án phí
+              <span className="text-amber-800 font-bold">•</span>
+              <span>Tính án phí tòa án</span>
             </Link>
             <Link 
               href="/salary-calculator" 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="hover:text-[#641D06] hover:bg-amber-50 text-sm px-4 py-1.5 rounded-lg flex items-center gap-2 font-medium"
+              className={isSubItemActive("/salary-calculator")}
             >
-              <span className="material-symbols-outlined text-base text-amber-800">payments</span> Tính lương Gross-to-Net
+              <span className="text-amber-800 font-bold">•</span>
+              <span>Tính lương Gross-to-Net</span>
             </Link>
             <Link 
               href="/pit-calculator" 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="hover:text-[#641D06] hover:bg-amber-50 text-sm px-4 py-1.5 rounded-lg flex items-center gap-2 font-medium"
+              className={isSubItemActive("/pit-calculator")}
             >
-              <span className="material-symbols-outlined text-base text-amber-800">account_balance</span> Tính thuế TNCN
+              <span className="text-amber-800 font-bold">•</span>
+              <span>Tính thuế TNCN</span>
             </Link>
 
-            <div className="pt-3 border-t border-slate-100 flex flex-col gap-2.5">
+            <div className="pt-3 mt-2 border-t border-slate-100 flex flex-col gap-2.5">
               <Link 
                 href="/appointment" 
                 onClick={() => setIsMobileMenuOpen(false)}
