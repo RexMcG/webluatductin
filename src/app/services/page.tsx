@@ -95,20 +95,18 @@ export default function ServicesPage() {
                 </p>
               </Link>
 
-              {/* Quick Action Footer: 2 compact buttons */}
-              <div className="pt-4 border-t border-slate-100 grid grid-cols-2 gap-2 mt-auto">
+              {/* Quick Action Footer: 2 clean buttons without icons, larger text */}
+              <div className="pt-4 border-t border-slate-100 grid grid-cols-2 gap-2.5 mt-auto">
                 <Link
                   href="/appointment"
-                  className="flex items-center justify-center gap-1.5 bg-slate-50 hover:bg-slate-100 text-slate-800 border border-slate-200/80 rounded-xl py-2 text-xs font-bold transition-all active:scale-95 shadow-2xs"
+                  className="flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-200/90 rounded-xl py-2.5 text-sm sm:text-[15px] font-bold transition-all active:scale-95 shadow-2xs text-center"
                 >
-                  <span className="material-symbols-outlined text-sm text-slate-600">calendar_month</span>
                   Đặt Hẹn
                 </Link>
                 <Link
                   href="/ai-chatbot"
-                  className="flex items-center justify-center gap-1.5 bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-200 rounded-xl py-2 text-xs font-bold transition-all active:scale-95 shadow-2xs"
+                  className="flex items-center justify-center bg-amber-50 hover:bg-amber-100 text-[#641D06] border border-amber-300/80 rounded-xl py-2.5 text-sm sm:text-[15px] font-bold transition-all active:scale-95 shadow-2xs text-center"
                 >
-                  <span className="material-symbols-outlined text-sm text-amber-800">smart_toy</span>
                   Hỏi AI
                 </Link>
               </div>
