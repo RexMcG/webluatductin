@@ -642,7 +642,7 @@ export default function Home() {
       </section>
 
       {/* Expert Attorneys */}
-      <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12">
+      <section className="max-w-7xl mx-auto px-4 md:px-8 py-14">
         <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
           <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
             Đội Ngũ Luật Sư Điều Hành
@@ -651,7 +651,7 @@ export default function Home() {
             <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {[
             {
               name: "Ls. Phan Đức Tín",
@@ -672,8 +672,8 @@ export default function Home() {
               img: "avatar3.webp"
             }
           ].map((ls, idx) => (
-            <div key={idx} className="border border-border-neutral p-6 rounded-3xl bg-white shadow-sm flex flex-col items-center text-center hover:shadow-lg transition-all">
-              <div className="w-28 h-28 bg-emerald-100 rounded-full border-2 border-emerald-300 mb-4 overflow-hidden shadow-inner">
+            <div key={idx} className="border border-slate-200 p-6 sm:p-7 rounded-3xl bg-white shadow-sm hover:shadow-xl hover:border-amber-400 hover:-translate-y-1 transition-all flex flex-col items-center text-center">
+              <div className="w-28 h-28 bg-emerald-100 rounded-full border-2 border-emerald-300 mb-5 overflow-hidden shadow-xs">
                 <img 
                   alt={ls.name} 
                   width={112}
@@ -686,12 +686,12 @@ export default function Home() {
               <h3 className="text-xl font-bold text-slate-900 font-sans mb-1">{ls.name}</h3>
               <p className="text-xs font-bold text-amber-700 uppercase tracking-wider mb-3">{ls.role}</p>
               <p className="text-slate-600 text-sm mb-6 leading-relaxed flex-grow">{ls.desc}</p>
-              <div className="flex gap-2 w-full">
-                <Link className="flex items-center justify-center gap-1.5 flex-1 bg-emerald-700 text-white h-10 rounded-xl font-bold text-xs hover:bg-emerald-800 transition-colors" href="/appointment">
+              <div className="flex gap-2 w-full pt-4 border-t border-slate-100">
+                <Link className="flex items-center justify-center gap-1.5 flex-1 bg-[#641D06] text-white h-10 rounded-xl font-bold text-xs hover:bg-black transition-colors shadow-2xs" href="/appointment">
                   <span className="material-symbols-outlined text-sm">calendar_month</span> Đặt hẹn
                 </Link>
-                <Link className="flex items-center justify-center gap-1.5 flex-1 bg-slate-100 text-slate-800 border border-slate-200 h-10 rounded-xl font-bold text-xs hover:bg-slate-200 transition-colors" href="/ai-chatbot">
-                  <span className="material-symbols-outlined text-sm">chat</span> Hỏi AI
+                <Link className="flex items-center justify-center gap-1.5 flex-1 bg-amber-50 text-amber-950 border border-amber-200 h-10 rounded-xl font-bold text-xs hover:bg-amber-100 transition-colors shadow-2xs" href="/ai-chatbot">
+                  <span className="material-symbols-outlined text-sm text-amber-800">chat</span> Hỏi AI
                 </Link>
               </div>
             </div>
