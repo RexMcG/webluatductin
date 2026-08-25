@@ -162,9 +162,6 @@ export default function Footer() {
                   <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services">
                     Lĩnh vực hoạt động
                   </Link>
-                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/appointment">
-                    Luật sư Phan Đức Tín
-                  </Link>
                   <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/news">
                     Bảng tin &amp; Án lệ
                   </Link>
