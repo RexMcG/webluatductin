@@ -102,20 +102,20 @@ export default function Footer() {
       </div>
 
       {/* ========== FOOTER ========== */}
-      <footer className="bg-white border-t-[7px] border-[#641D06] w-full pb-28 md:pb-8 pt-10 md:pt-12 text-slate-800 shadow-xs">
+      <footer className="bg-[#521705] border-t-4 border-amber-600/60 w-full pb-28 md:pb-8 pt-10 md:pt-12 text-white">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           
           {/* Main Footer Grid: 2 balanced halves */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
             
             {/* LEFT COLUMN: Brand, Map, Address & Hours (5 cols) */}
-            <div className="lg:col-span-5 flex flex-col justify-between bg-slate-50/80 border border-slate-200 rounded-2xl p-5 md:p-6 shadow-2xs">
+            <div className="lg:col-span-5 flex flex-col justify-between bg-white/[0.04] border border-white/10 rounded-2xl p-5 md:p-6 shadow-sm">
               <div>
                 {/* Brand Logo & Tagline */}
                 <div className="mb-5">
                   <Link href="/" className="inline-block">
                     <img
-                      src="/img/Logo_website.webp"
+                      src="/img/Logo_website_footer.webp"
                       alt="Logo Công ty Luật Đức Tín"
                       width={240}
                       height={48}
@@ -123,42 +123,42 @@ export default function Footer() {
                       className="h-9 md:h-10 object-contain"
                     />
                   </Link>
-                  <p className="text-xs md:text-[13px] text-slate-600 mt-2 italic leading-relaxed">
+                  <p className="text-xs md:text-[13px] text-amber-100/80 mt-2 italic leading-relaxed">
                     Hãng luật uy tín – Bảo vệ tối đa quyền &amp; lợi ích hợp pháp cho khách hàng.
                   </p>
                 </div>
 
-                {/* Google Map with clean framed shadow */}
-                <div className="w-full h-40 rounded-xl overflow-hidden shadow-xs border border-slate-200 bg-slate-100 relative mb-4">
+                {/* Google Map with harmonious dark frame */}
+                <div className="w-full h-40 rounded-xl overflow-hidden shadow-inner border border-amber-500/20 bg-slate-900/40 relative mb-4">
                   <iframe
                     title="Văn phòng Công ty Luật TNHH Đức Tín & Cộng Sự trên Google Maps"
                     allowFullScreen={false}
-                    className="w-full h-full"
+                    className="w-full h-full opacity-90 hover:opacity-100 transition-opacity"
                     height="100%"
                     loading="lazy"
                     referrerPolicy="strict-origin-when-cross-origin"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125419.33178072695!2d106.5754288003725!3d10.784166700000023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f4bc8ad1f21%3A0x1c31b41801cfac6c!2sSaigon%20Trade%20Center%20Tower%20-%20Office%20Saigon!5e0!3m2!1svi!2s!4v1785438121278!5m2!1svi!2s"
-                    style={{ border: 0 }}
+                    style={{ border: 0, filter: "contrast(1.05) brightness(0.95)" }}
                     width="100%"
                   />
                 </div>
               </div>
 
               {/* Office Address & Working Hours */}
-              <div className="space-y-3 pt-3 border-t border-slate-200 text-xs md:text-[13px]">
+              <div className="space-y-3 pt-3 border-t border-white/10 text-xs md:text-[13px]">
                 <div className="flex items-start gap-2.5">
-                  <span className="material-symbols-outlined text-[#641D06] text-base shrink-0 mt-0.5">location_on</span>
-                  <div className="leading-snug text-slate-700">
-                    <strong className="text-[#641D06] font-bold block mb-0.5">Trụ sở chính:</strong>
+                  <span className="material-symbols-outlined text-amber-300 text-base shrink-0 mt-0.5">location_on</span>
+                  <div className="leading-snug text-slate-200">
+                    <strong className="text-amber-300 font-bold block mb-0.5">Trụ sở chính:</strong>
                     P. 1901, Tầng 19, Saigon Trade Center, 37 Tôn Đức Thắng, P. Bến Nghé, Q.1, Tp. HCM.
                   </div>
                 </div>
-                <div className="flex items-start gap-2.5 pt-2 border-t border-slate-200/60">
-                  <span className="material-symbols-outlined text-[#641D06] text-base shrink-0 mt-0.5">schedule</span>
-                  <div className="leading-snug text-slate-700">
-                    <strong className="text-[#641D06] font-bold block mb-0.5">Thời gian làm việc:</strong>
+                <div className="flex items-start gap-2.5 pt-2 border-t border-white/5">
+                  <span className="material-symbols-outlined text-amber-300 text-base shrink-0 mt-0.5">schedule</span>
+                  <div className="leading-snug text-slate-200">
+                    <strong className="text-amber-300 font-bold block mb-0.5">Thời gian làm việc:</strong>
                     Thứ 2 – Thứ 6: 08:00 – 17:30 | Thứ 7: 08:00 – 12:00
-                    <span className="block text-amber-800 font-bold mt-0.5">• Hotline &amp; Zalo hỗ trợ: 24/7</span>
+                    <span className="block text-amber-200 font-semibold mt-0.5">• Hotline &amp; Zalo hỗ trợ: 24/7</span>
                   </div>
                 </div>
               </div>
@@ -168,103 +168,103 @@ export default function Footer() {
             <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5 items-stretch">
               
               {/* Box 1: Về chúng tôi */}
-              <div className="bg-slate-50/80 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between hover:border-amber-400 hover:shadow-xs transition-all">
+              <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-5 flex flex-col justify-between">
                 <div>
-                  <p className="text-xs md:text-sm font-black uppercase tracking-wider text-[#641D06] pb-2 mb-3 border-b-2 border-amber-200/80">
+                  <p className="text-xs md:text-sm font-extrabold uppercase tracking-wider text-amber-300 pb-2 mb-3 border-b border-amber-500/30">
                     Về chúng tôi
                   </p>
                   <div className="flex flex-col gap-2.5">
-                    <Link className="text-xs md:text-[13px] text-slate-600 hover:text-[#641D06] font-medium transition-colors flex items-center gap-1.5" href="/#about-us">
-                      <span className="text-amber-700 font-bold">›</span> Giới thiệu công ty
+                    <Link className="text-xs md:text-[13px] text-slate-200 hover:text-amber-300 transition-colors flex items-center gap-1.5" href="/#about-us">
+                      <span className="text-amber-400 font-bold">›</span> Giới thiệu công ty
                     </Link>
-                    <Link className="text-xs md:text-[13px] text-slate-600 hover:text-[#641D06] font-medium transition-colors flex items-center gap-1.5" href="/services">
-                      <span className="text-amber-700 font-bold">›</span> Lĩnh vực hoạt động
+                    <Link className="text-xs md:text-[13px] text-slate-200 hover:text-amber-300 transition-colors flex items-center gap-1.5" href="/services">
+                      <span className="text-amber-400 font-bold">›</span> Lĩnh vực hoạt động
                     </Link>
-                    <Link className="text-xs md:text-[13px] text-slate-600 hover:text-[#641D06] font-medium transition-colors flex items-center gap-1.5" href="/appointment">
-                      <span className="text-amber-700 font-bold">›</span> Luật sư Phan Đức Tín
+                    <Link className="text-xs md:text-[13px] text-slate-200 hover:text-amber-300 transition-colors flex items-center gap-1.5" href="/appointment">
+                      <span className="text-amber-400 font-bold">›</span> Luật sư Phan Đức Tín
                     </Link>
-                    <Link className="text-xs md:text-[13px] text-slate-600 hover:text-[#641D06] font-medium transition-colors flex items-center gap-1.5" href="/news">
-                      <span className="text-amber-700 font-bold">›</span> Bảng tin &amp; Án lệ
+                    <Link className="text-xs md:text-[13px] text-slate-200 hover:text-amber-300 transition-colors flex items-center gap-1.5" href="/news">
+                      <span className="text-amber-400 font-bold">›</span> Bảng tin &amp; Án lệ
                     </Link>
                   </div>
                 </div>
-                <div className="pt-3 mt-3 border-t border-slate-200/60 text-[11px] text-slate-400 font-medium">
+                <div className="pt-3 mt-3 border-t border-white/5 text-[11px] text-amber-200/80">
                   Tận tâm – Minh bạch – Hiệu quả
                 </div>
               </div>
 
               {/* Box 2: Công cụ & AI */}
-              <div className="bg-slate-50/80 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between hover:border-amber-400 hover:shadow-xs transition-all">
+              <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-5 flex flex-col justify-between">
                 <div>
-                  <p className="text-xs md:text-sm font-black uppercase tracking-wider text-[#641D06] pb-2 mb-3 border-b-2 border-amber-200/80">
+                  <p className="text-xs md:text-sm font-extrabold uppercase tracking-wider text-amber-300 pb-2 mb-3 border-b border-amber-500/30">
                     Công cụ &amp; AI
                   </p>
                   <div className="flex flex-col gap-2.5">
-                    <Link className="text-xs md:text-[13px] text-slate-600 hover:text-[#641D06] font-medium transition-colors flex items-center gap-1.5" href="/court-fee-calculator">
-                      <span className="text-amber-700 font-bold">›</span> Tính án phí tòa án
+                    <Link className="text-xs md:text-[13px] text-slate-200 hover:text-amber-300 transition-colors flex items-center gap-1.5" href="/court-fee-calculator">
+                      <span className="text-amber-400 font-bold">›</span> Tính án phí tòa án
                     </Link>
-                    <Link className="text-xs md:text-[13px] text-slate-600 hover:text-[#641D06] font-medium transition-colors flex items-center gap-1.5" href="/salary-calculator">
-                      <span className="text-amber-700 font-bold">›</span> Tính lương Gross-to-Net
+                    <Link className="text-xs md:text-[13px] text-slate-200 hover:text-amber-300 transition-colors flex items-center gap-1.5" href="/salary-calculator">
+                      <span className="text-amber-400 font-bold">›</span> Tính lương Gross-to-Net
                     </Link>
-                    <Link className="text-xs md:text-[13px] text-slate-600 hover:text-[#641D06] font-medium transition-colors flex items-center gap-1.5" href="/pit-calculator">
-                      <span className="text-amber-700 font-bold">›</span> Tính thuế TNCN
+                    <Link className="text-xs md:text-[13px] text-slate-200 hover:text-amber-300 transition-colors flex items-center gap-1.5" href="/pit-calculator">
+                      <span className="text-amber-400 font-bold">›</span> Tính thuế TNCN
                     </Link>
-                    <Link className="text-xs md:text-[13px] text-slate-600 hover:text-[#641D06] font-medium transition-colors flex items-center gap-1.5" href="/ai-form-library">
-                      <span className="text-amber-700 font-bold">›</span> Biểu mẫu pháp lý AI
+                    <Link className="text-xs md:text-[13px] text-slate-200 hover:text-amber-300 transition-colors flex items-center gap-1.5" href="/ai-form-library">
+                      <span className="text-amber-400 font-bold">›</span> Biểu mẫu pháp lý AI
                     </Link>
                   </div>
                 </div>
-                <div className="pt-3 mt-3 border-t border-slate-200/60 text-[11px] text-slate-400 font-medium">
+                <div className="pt-3 mt-3 border-t border-white/5 text-[11px] text-amber-200/80">
                   Tra cứu &amp; tính toán chuẩn xác
                 </div>
               </div>
 
               {/* Box 3: Hỗ trợ khách hàng */}
-              <div className="bg-slate-50/80 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between hover:border-amber-400 hover:shadow-xs transition-all">
+              <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-5 flex flex-col justify-between">
                 <div>
-                  <p className="text-xs md:text-sm font-black uppercase tracking-wider text-[#641D06] pb-2 mb-3 border-b-2 border-amber-200/80">
+                  <p className="text-xs md:text-sm font-extrabold uppercase tracking-wider text-amber-300 pb-2 mb-3 border-b border-amber-500/30">
                     Hỗ trợ pháp lý
                   </p>
                   <div className="flex flex-col gap-2.5">
-                    <Link className="text-xs md:text-[13px] text-slate-600 hover:text-[#641D06] font-medium transition-colors flex items-center gap-1.5" href="/appointment">
-                      <span className="text-amber-700 font-bold">›</span> Đặt lịch hẹn tư vấn
+                    <Link className="text-xs md:text-[13px] text-slate-200 hover:text-amber-300 transition-colors flex items-center gap-1.5" href="/appointment">
+                      <span className="text-amber-400 font-bold">›</span> Đặt lịch hẹn tư vấn
                     </Link>
-                    <Link className="text-xs md:text-[13px] text-slate-600 hover:text-[#641D06] font-medium transition-colors flex items-center gap-1.5" href="/ai-chatbot">
-                      <span className="text-amber-700 font-bold">›</span> Trợ lý Luật sư AI 24/7
+                    <Link className="text-xs md:text-[13px] text-slate-200 hover:text-amber-300 transition-colors flex items-center gap-1.5" href="/ai-chatbot">
+                      <span className="text-amber-400 font-bold">›</span> Trợ lý Luật sư AI 24/7
                     </Link>
-                    <Link className="text-xs md:text-[13px] text-slate-600 hover:text-[#641D06] font-medium transition-colors flex items-center gap-1.5" href="/ai-form-checker">
-                      <span className="text-amber-700 font-bold">›</span> AI Thẩm định biểu mẫu
+                    <Link className="text-xs md:text-[13px] text-slate-200 hover:text-amber-300 transition-colors flex items-center gap-1.5" href="/ai-form-checker">
+                      <span className="text-amber-400 font-bold">›</span> AI Thẩm định biểu mẫu
                     </Link>
-                    <Link className="text-xs md:text-[13px] text-slate-600 hover:text-[#641D06] font-medium transition-colors flex items-center gap-1.5" href="/privacy-policy">
-                      <span className="text-amber-700 font-bold">›</span> Chính sách bảo mật
+                    <Link className="text-xs md:text-[13px] text-slate-200 hover:text-amber-300 transition-colors flex items-center gap-1.5" href="/privacy-policy">
+                      <span className="text-amber-400 font-bold">›</span> Chính sách bảo mật
                     </Link>
                   </div>
                 </div>
-                <div className="pt-3 mt-3 border-t border-slate-200/60 text-[11px] text-slate-400 font-medium">
+                <div className="pt-3 mt-3 border-t border-white/5 text-[11px] text-amber-200/80">
                   Bảo mật thông tin tuyệt đối
                 </div>
               </div>
 
               {/* Box 4: Kênh liên hệ */}
-              <div className="bg-slate-50/80 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between hover:border-amber-400 hover:shadow-xs transition-all">
+              <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-5 flex flex-col justify-between">
                 <div>
-                  <p className="text-xs md:text-sm font-black uppercase tracking-wider text-[#641D06] pb-2 mb-3 border-b-2 border-amber-200/80">
+                  <p className="text-xs md:text-sm font-extrabold uppercase tracking-wider text-amber-300 pb-2 mb-3 border-b border-amber-500/30">
                     Liên hệ trực tiếp
                   </p>
                   <div className="flex flex-col gap-2.5">
-                    <a className="text-xs md:text-[13px] text-slate-800 hover:text-[#641D06] transition-colors" href="tel:0937863263">
-                      <strong className="text-[#641D06]">Hotline / Zalo:</strong> 093 786 32 63
+                    <a className="text-xs md:text-[13px] text-slate-100 hover:text-amber-300 transition-colors" href="tel:0937863263">
+                      <strong className="text-amber-300">Hotline / Zalo:</strong> 093 786 32 63
                     </a>
-                    <a className="text-xs md:text-[13px] text-slate-800 hover:text-[#641D06] transition-colors break-all" href="mailto:rexmcg12345678@gmail.com">
-                      <strong className="text-[#641D06]">Email:</strong> rexmcg12345678@gmail.com
+                    <a className="text-xs md:text-[13px] text-slate-100 hover:text-amber-300 transition-colors break-all" href="mailto:rexmcg12345678@gmail.com">
+                      <strong className="text-amber-300">Email:</strong> rexmcg12345678@gmail.com
                     </a>
-                    <div className="text-xs md:text-[13px] text-slate-700">
-                      <strong className="text-[#641D06]">Tư vấn:</strong> Văn phòng &amp; Trực tuyến
+                    <div className="text-xs md:text-[13px] text-slate-200">
+                      <strong className="text-amber-300">Tư vấn:</strong> Văn phòng &amp; Trực tuyến
                     </div>
                   </div>
                 </div>
-                <div className="pt-3 mt-3 border-t border-slate-200/60 text-[11px] text-amber-800 font-bold flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span>
+                <div className="pt-3 mt-3 border-t border-white/5 text-[11px] text-amber-300 font-semibold flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
                   Hỗ trợ khẩn cấp: 24/7
                 </div>
               </div>
@@ -273,18 +273,18 @@ export default function Footer() {
           </div>
 
           {/* Legal Disclaimer Box - CANH TRÁI ĐỒNG BỘ 100% */}
-          <div className="mt-8 p-4 rounded-xl bg-amber-50/70 border border-amber-200/80 text-left shadow-2xs">
-            <p className="text-[11px] md:text-xs text-slate-700 leading-relaxed">
-              <strong className="text-[#641D06] font-bold">⚖️ Tuyên bố miễn trừ trách nhiệm:</strong> Toàn bộ thông tin, bài viết phân tích pháp lý và các công cụ tính toán trên website mang tính chất phổ biến kiến thức pháp luật và tham khảo, không cấu thành ý kiến tư vấn pháp lý chính thức hay xác lập quan hệ luật sư – khách hàng cho đến khi hợp đồng dịch vụ pháp lý được ký kết bằng văn bản theo luật định.
+          <div className="mt-8 p-4 rounded-xl bg-white/[0.04] border border-white/10 text-left">
+            <p className="text-[11px] md:text-xs text-slate-300/90 leading-relaxed">
+              <strong className="text-amber-300 font-semibold">⚖️ Tuyên bố miễn trừ trách nhiệm:</strong> Toàn bộ thông tin, bài viết phân tích pháp lý và các công cụ tính toán trên website mang tính chất phổ biến kiến thức pháp luật và tham khảo, không cấu thành ý kiến tư vấn pháp lý chính thức hay xác lập quan hệ luật sư – khách hàng cho đến khi hợp đồng dịch vụ pháp lý được ký kết bằng văn bản theo luật định.
             </p>
           </div>
 
           {/* Copyright Row */}
-          <div className="mt-6 pt-5 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs md:text-sm text-slate-500">
+          <div className="mt-6 pt-5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs md:text-sm text-slate-300">
             <p className="leading-relaxed text-center sm:text-left">
               © 2026 CÔNG TY LUẬT TNHH ĐỨC TÍN VÀ CỘNG SỰ (DUC TIN &amp; PARTNERS). All Rights Reserved.
             </p>
-            <Link href="/privacy-policy" className="text-slate-600 hover:text-[#641D06] font-medium transition-colors underline shrink-0">
+            <Link href="/privacy-policy" className="text-slate-400 hover:text-amber-300 transition-colors underline shrink-0">
               Chính Sách Bảo Mật &amp; Quyền Riêng Tư
             </Link>
           </div>
