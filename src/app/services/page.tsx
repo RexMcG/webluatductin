@@ -8,12 +8,12 @@ export default function ServicesPage() {
 
   const SERVICE_IMAGES: Record<string, string> = {
     "hop-tac-doanh-nghiep": "/img/card_business.webp",
-    "dau-tu-fdi": "/img/card_fdi.webp",
-    "tranh-tung-toa-an": "/img/card_court.webp",
-    "nha-dat-bat-dong-san": "/img/card_realestate.webp",
-    "lao-dong-tien-luong": "/img/card_labor.webp",
+    "tu-van-dau-tu": "/img/card_fdi.webp",
+    "tranh-tung": "/img/card_court.webp",
+    "bat-dong-san": "/img/card_realestate.webp",
+    "lao-dong": "/img/card_labor.webp",
     "hon-nhan-gia-dinh": "/img/card_family.webp",
-    "thu-tuc-phap-ly": "/img/card_license.webp",
+    "thu-tuc-phap-ly-giay-phep": "/img/card_license.webp",
     "hinh-su-bao-chua": "/img/card_criminal.webp",
     "so-huu-tri-tue": "/img/card_ip.webp",
   };
