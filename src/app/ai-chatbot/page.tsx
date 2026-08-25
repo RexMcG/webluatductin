@@ -49,6 +49,42 @@ function AIChatbotContent() {
   const [sessionId, setSessionId] = useState<number | undefined>(undefined);
   const chatFeedRef = useRef<HTMLDivElement>(null);
 
+  const LOCAL_STORAGE_KEY_MSGS = "ductin_chatbot_messages_v1";
+  const LOCAL_STORAGE_KEY_SESSION = "ductin_chatbot_session_id_v1";
+
+  // Load chat history from localStorage on initial render
+  useEffect(() => {
+    try {
+      const savedSession = localStorage.getItem(LOCAL_STORAGE_KEY_SESSION);
+      const savedMessages = localStorage.getItem(LOCAL_STORAGE_KEY_MSGS);
+      if (savedSession) {
+        setSessionId(Number(savedSession));
+      }
+      if (savedMessages) {
+        const parsed = JSON.parse(savedMessages);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setMessages(parsed);
+        }
+      }
+    } catch (e) {
+      console.warn("Failed to load chat from localStorage:", e);
+    }
+  }, []);
+
+  // Save chat history to localStorage whenever messages or sessionId change
+  useEffect(() => {
+    if (messages.length > 1 || sessionId) {
+      try {
+        localStorage.setItem(LOCAL_STORAGE_KEY_MSGS, JSON.stringify(messages));
+        if (sessionId) {
+          localStorage.setItem(LOCAL_STORAGE_KEY_SESSION, String(sessionId));
+        }
+      } catch (e) {
+        console.warn("Failed to save chat to localStorage:", e);
+      }
+    }
+  }, [messages, sessionId]);
+
   // Consultation popup state
   const [showConsultModal, setShowConsultModal] = useState(false);
   const [consultForm, setConsultForm] = useState({ name: "", phone: "", message: "" });
@@ -154,6 +190,12 @@ function AIChatbotContent() {
   const clearChat = () => {
     setMessages([INITIAL_MESSAGE]);
     setSessionId(undefined);
+    try {
+      localStorage.removeItem(LOCAL_STORAGE_KEY_MSGS);
+      localStorage.removeItem(LOCAL_STORAGE_KEY_SESSION);
+    } catch (e) {
+      console.warn("Failed to clear localStorage:", e);
+    }
   };
 
   return (

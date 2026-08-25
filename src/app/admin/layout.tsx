@@ -34,6 +34,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       badge: "Admin",
     },
     {
+      label: "Lịch sử Chat AI",
+      href: "/admin/chat-logs",
+      icon: "forum",
+      badge: "AI Dataset",
+    },
+    {
       label: "Cài đặt Hệ thống",
       href: "/admin/settings",
       icon: "settings",
