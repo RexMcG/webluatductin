@@ -183,8 +183,7 @@ export default function Footer() {
                 <Link className="text-xs md:text-sm text-slate-200 hover:text-amber-300 transition-colors" href="/services">
                   Dịch vụ pháp lý
                 </Link>
-                <Link className="text-xs md:text-sm text-slate-200 hover:text-amber-300 transition-colors flex items-center gap-1" href="/privacy-policy">
-                  <span className="material-symbols-outlined text-xs text-amber-400">shield</span>
+                <Link className="text-xs md:text-sm text-slate-200 hover:text-amber-300 transition-colors" href="/privacy-policy">
                   Chính sách bảo mật
                 </Link>
               </div>
