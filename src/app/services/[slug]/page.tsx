@@ -178,9 +178,11 @@ export default function ServiceDetailPage() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {service.about.workflow.map((w, idx) => (
-                  <div key={idx} className="bg-white/5 border border-white/10 p-6 rounded-2xl relative overflow-hidden">
-                    <div className="text-4xl font-black text-amber-500/30 mb-2">{w.step}</div>
-                    <h3 className="font-bold text-white text-lg mb-2">{w.title}</h3>
+                  <div key={idx} className="bg-white/5 border border-white/15 hover:border-amber-400/60 hover:bg-white/10 p-6 rounded-2xl relative overflow-hidden transition-all duration-300 group">
+                    <div className="text-4xl sm:text-5xl font-black text-amber-400 mb-3 tracking-tight group-hover:scale-105 transition-transform duration-300 inline-block drop-shadow-[0_2px_8px_rgba(251,191,36,0.3)]">
+                      {w.step}
+                    </div>
+                    <h3 className="font-bold text-white text-lg mb-2 group-hover:text-amber-300 transition-colors">{w.title}</h3>
                     <p className="text-slate-300 text-xs md:text-sm leading-relaxed">{w.desc}</p>
                   </div>
                 ))}
