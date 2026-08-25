@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { appointmentService } from "@/services/appointment.service";
 
 export default function Home() {
   const router = useRouter();
@@ -15,10 +16,11 @@ export default function Home() {
     name: "",
     email: "",
     phone: "",
-    category: "1",
+    category: "Dân sự & Thương mại",
     title: "",
     message: ""
   });
+  const [consultErrors, setConsultErrors] = useState<{ [key: string]: string }>({});
   const [consultSent, setConsultSent] = useState(false);
   const [consultSending, setConsultSending] = useState(false);
 
@@ -78,28 +80,59 @@ export default function Home() {
     setOpenFaq(openFaq === index ? null : index);
   };
 
+  const validateConsultForm = () => {
+    const errors: { [key: string]: string } = {};
+    if (!consultForm.name.trim()) {
+      errors.name = "Vui lòng nhập họ và tên của bạn";
+    } else if (consultForm.name.trim().length < 2) {
+      errors.name = "Họ và tên tối thiểu 2 ký tự";
+    }
+
+    const phoneClean = consultForm.phone.replace(/[\s.-]/g, '');
+    const phoneRegex = /^(0[3|5|7|8|9])[0-9]{8}$/;
+    if (!phoneClean) {
+      errors.phone = "Vui lòng nhập số điện thoại liên hệ";
+    } else if (!phoneRegex.test(phoneClean)) {
+      errors.phone = "Số điện thoại không hợp lệ (gồm 10 số, VD: 0937863263)";
+    }
+
+    if (consultForm.email.trim()) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(consultForm.email.trim())) {
+        errors.email = "Địa chỉ email chưa đúng định dạng";
+      }
+    }
+
+    if (!consultForm.message.trim()) {
+      errors.message = "Vui lòng mô tả tóm tắt nội dung câu hỏi / vụ việc";
+    } else if (consultForm.message.trim().length < 10) {
+      errors.message = "Nội dung câu hỏi tối thiểu 10 ký tự để luật sư nắm rõ vụ việc";
+    }
+
+    setConsultErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleConsultSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!consultForm.name || !consultForm.phone) {
-      alert("Vui lòng điền họ tên và số điện thoại.");
+    if (!validateConsultForm()) {
       return;
     }
     setConsultSending(true);
     try {
-      await fetch('/api/send-appointment-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: consultForm.name,
-          phone: consultForm.phone,
-          email: consultForm.email || 'khachhang@ductinlaw.vn',
-          service: consultForm.category,
-          notes: consultForm.message || 'Yêu cầu tư vấn nhanh từ Trang chủ',
-          appointmentDate: new Date(Date.now() + 86400000).toISOString().split('T')[0],
-          appointmentTime: '09:00:00',
-        })
+      await appointmentService.createAppointment({
+        name: consultForm.name.trim(),
+        phone: consultForm.phone.trim(),
+        email: consultForm.email.trim() || 'khachhang@ductinlaw.vn',
+        service: consultForm.category,
+        notes: `[CÂU HỎI TƯ VẤN TRANG CHỦ] ${consultForm.message.trim()}`,
+        consultType: 'Đặt câu hỏi trực tuyến',
+        attorney: 'Luật sư Phan Đức Tín',
+        appointmentDate: new Date().toISOString().split('T')[0],
+        appointmentTime: new Date().toTimeString().split(' ')[0],
       });
       setConsultSent(true);
+      setConsultErrors({});
     } catch (err) {
       console.error(err);
       setConsultSent(true);
@@ -508,40 +541,70 @@ export default function Home() {
             {consultSent ? (
               <div className="bg-white/20 border border-white/40 p-6 rounded-2xl text-center">
                 <span className="material-symbols-outlined text-5xl mb-2">check_circle</span>
-                <h3 className="text-xl font-bold mb-2">Đã Gửi Yêu Cầu Thành Công!</h3>
+                <h3 className="text-xl font-bold mb-2">Đã Gửi Yêu CẦU Thành Công!</h3>
                 <p className="text-sm text-white/90">Luật sư Phan Đức Tín sẽ liên hệ lại với bạn qua số điện thoại <strong>{consultForm.phone}</strong>.</p>
               </div>
             ) : (
-              <form className="space-y-4" onSubmit={handleConsultSubmit}>
+              <form className="space-y-4" onSubmit={handleConsultSubmit} noValidate>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <input 
-                    type="text" 
-                    placeholder="Họ và tên *" 
-                    aria-label="Họ và tên khách hàng"
-                    value={consultForm.name} 
-                    onChange={e => setConsultForm({...consultForm, name: e.target.value})} 
-                    className="w-full px-4 py-3.5 bg-white text-gray-800 rounded-xl border-none focus:ring-2 focus:ring-amber-300 outline-none text-sm" 
-                    required 
-                  />
-                  <input 
-                    type="email" 
-                    placeholder="Địa chỉ Email" 
-                    aria-label="Địa chỉ Email khách hàng"
-                    value={consultForm.email} 
-                    onChange={e => setConsultForm({...consultForm, email: e.target.value})} 
-                    className="w-full px-4 py-3.5 bg-white text-gray-800 rounded-xl border-none focus:ring-2 focus:ring-amber-300 outline-none text-sm" 
-                  />
+                  <div>
+                    <input 
+                      type="text" 
+                      placeholder="Họ và tên *" 
+                      aria-label="Họ và tên khách hàng"
+                      value={consultForm.name} 
+                      onChange={e => {
+                        setConsultForm({...consultForm, name: e.target.value});
+                        if (consultErrors.name) setConsultErrors({...consultErrors, name: ""});
+                      }} 
+                      className={`w-full px-4 py-3.5 bg-white text-gray-800 rounded-xl outline-none text-sm border-2 ${
+                        consultErrors.name ? 'border-red-400 bg-red-50/20 ring-2 ring-red-400' : 'border-transparent focus:ring-2 focus:ring-amber-300'
+                      }`}
+                      required 
+                    />
+                    {consultErrors.name && (
+                      <span className="text-amber-200 text-xs mt-1 block font-medium">⚠️ {consultErrors.name}</span>
+                    )}
+                  </div>
+                  <div>
+                    <input 
+                      type="email" 
+                      placeholder="Địa chỉ Email" 
+                      aria-label="Địa chỉ Email khách hàng"
+                      value={consultForm.email} 
+                      onChange={e => {
+                        setConsultForm({...consultForm, email: e.target.value});
+                        if (consultErrors.email) setConsultErrors({...consultErrors, email: ""});
+                      }} 
+                      className={`w-full px-4 py-3.5 bg-white text-gray-800 rounded-xl outline-none text-sm border-2 ${
+                        consultErrors.email ? 'border-red-400 bg-red-50/20 ring-2 ring-red-400' : 'border-transparent focus:ring-2 focus:ring-amber-300'
+                      }`}
+                    />
+                    {consultErrors.email && (
+                      <span className="text-amber-200 text-xs mt-1 block font-medium">⚠️ {consultErrors.email}</span>
+                    )}
+                  </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <input 
-                    type="tel" 
-                    placeholder="Số điện thoại *" 
-                    aria-label="Số điện thoại liên hệ"
-                    value={consultForm.phone} 
-                    onChange={e => setConsultForm({...consultForm, phone: e.target.value})} 
-                    className="w-full px-4 py-3.5 bg-white text-gray-800 rounded-xl border-none focus:ring-2 focus:ring-amber-300 outline-none text-sm" 
-                    required 
-                  />
+                  <div>
+                    <input 
+                      type="tel" 
+                      placeholder="Số điện thoại (VD: 0937863263) *" 
+                      aria-label="Số điện thoại liên hệ"
+                      value={consultForm.phone} 
+                      onChange={e => {
+                        setConsultForm({...consultForm, phone: e.target.value});
+                        if (consultErrors.phone) setConsultErrors({...consultErrors, phone: ""});
+                      }} 
+                      className={`w-full px-4 py-3.5 bg-white text-gray-800 rounded-xl outline-none text-sm border-2 ${
+                        consultErrors.phone ? 'border-red-400 bg-red-50/20 ring-2 ring-red-400' : 'border-transparent focus:ring-2 focus:ring-amber-300'
+                      }`}
+                      required 
+                    />
+                    {consultErrors.phone && (
+                      <span className="text-amber-200 text-xs mt-1 block font-medium">⚠️ {consultErrors.phone}</span>
+                    )}
+                  </div>
                   <div className="relative">
                     <select 
                       id="consult-service-select"
@@ -554,25 +617,36 @@ export default function Home() {
                       <option value="Hình sự & Bào chữa">Hình sự & Bào chữa</option>
                       <option value="Doanh nghiệp & Đầu tư">Doanh nghiệp & Đầu tư</option>
                       <option value="Đất đai & Nhà ở">Đất đai & Nhà ở</option>
+                      <option value="Hôn nhân & Gia đình">Hôn nhân & Gia đình</option>
+                      <option value="Sở hữu trí tuệ">Sở hữu trí tuệ</option>
+                      <option value="Lao động & Tiền lương">Lao động & Tiền lương</option>
                     </select>
                   </div>
                 </div>
                 <div>
                   <textarea 
-                    placeholder="Mô tả tóm tắt vụ việc của bạn..." 
+                    placeholder="Mô tả tóm tắt câu hỏi hoặc vụ việc của bạn (tối thiểu 10 ký tự)... *" 
                     aria-label="Mô tả tóm tắt nội dung vụ việc"
                     rows={4} 
                     value={consultForm.message} 
-                    onChange={e => setConsultForm({...consultForm, message: e.target.value})} 
-                    className="w-full px-4 py-3.5 bg-white text-gray-800 rounded-xl border-none focus:ring-2 focus:ring-amber-300 outline-none resize-none text-sm font-medium"
+                    onChange={e => {
+                      setConsultForm({...consultForm, message: e.target.value});
+                      if (consultErrors.message) setConsultErrors({...consultErrors, message: ""});
+                    }} 
+                    className={`w-full px-4 py-3.5 bg-white text-gray-800 rounded-xl outline-none resize-none text-sm font-medium border-2 ${
+                      consultErrors.message ? 'border-red-400 bg-red-50/20 ring-2 ring-red-400' : 'border-transparent focus:ring-2 focus:ring-amber-300'
+                    }`}
                   ></textarea>
+                  {consultErrors.message && (
+                    <span className="text-amber-200 text-xs mt-1 block font-medium">⚠️ {consultErrors.message}</span>
+                  )}
                 </div>
                 <button 
                   type="submit" 
                   disabled={consultSending}
-                  className="bg-slate-900 text-white font-bold uppercase px-8 py-3.5 rounded-xl hover:bg-black transition-colors shadow-md text-sm cursor-pointer disabled:opacity-50"
+                  className="bg-slate-900 text-white font-bold uppercase px-8 py-3.5 rounded-xl hover:bg-black transition-colors shadow-md text-sm cursor-pointer disabled:opacity-50 flex items-center justify-center gap-2"
                 >
-                  {consultSending ? "Đang gửi..." : "GỬI YÊU CẦU CHO LUẬT SƯ"}
+                  {consultSending ? "ĐANG GỬI YÊU CẦU..." : "GỬI YÊU CẦU CHO LUẬT SƯ"}
                 </button>
               </form>
             )}
@@ -586,42 +660,37 @@ export default function Home() {
             </div>
 
             <div className="space-y-4">
-              {/* FAQ 1 */}
-              <div className="faq-item rounded-xl overflow-hidden border border-slate-200 shadow-sm">
-                <button
-                  onClick={() => toggleFaq(1)}
-                  className={`w-full text-left font-semibold py-4 px-6 flex items-center justify-between transition-colors ${openFaq === 1 ? 'bg-primary text-white' : 'bg-white text-slate-800 hover:bg-slate-50'}`}
-                >
-                  <span>Khi Giấy chứng nhận quyền sử dụng đất hết thời hạn phải làm sao?</span>
-                  <span className="text-xl font-bold ml-2">{openFaq === 1 ? '−' : '+'}</span>
-                </button>
-                <div className={`${openFaq === 1 ? 'block' : 'hidden'} bg-white text-slate-600 p-6 text-sm leading-relaxed border-t border-slate-100`}>
-                  <p className="mb-3">Theo Luật Đất đai mới nhất, hộ gia đình, cá nhân trực tiếp sản xuất nông nghiệp khi hết thời hạn sử dụng đất nếu có nhu cầu thì được tiếp tục sử dụng mà không phải làm thủ tục gia hạn.</p>
-                  <p>Đối với đất thương mại dịch vụ hoặc tổ chức, cần nộp hồ sơ xin gia hạn trước khi hết hạn ít nhất 06 tháng.</p>
+              {[
+                {
+                  q: "Khi Giấy chứng nhận quyền sử dụng đất hết thời hạn phải làm sao?",
+                  a: "Theo Luật Đất đai mới nhất, hộ gia đình, cá nhân trực tiếp sản xuất nông nghiệp khi hết thời hạn sử dụng đất nếu có nhu cầu thì được tiếp tục sử dụng mà không phải làm thủ tục gia hạn. Đối với đất thương mại dịch vụ hoặc tổ chức, cần nộp hồ sơ xin gia hạn trước khi hết hạn ít nhất 06 tháng."
+                },
+                {
+                  q: "Thủ tục ly hôn thuận tình cần chuẩn bị những hồ sơ gì?",
+                  a: "Hồ sơ gồm: Đơn yêu cầu công nhận thuận tình ly hôn (theo mẫu của Tòa án); Giấy chứng nhận kết hôn (bản chính); Bản sao CCCD/Hộ chiếu của vợ và chồng; Giấy khai sinh của các con chung; Giấy tờ chứng minh tài sản chung và nợ chung (nếu có yêu cầu Tòa án công nhận)."
+                },
+                {
+                  q: "Doanh nghiệp nước ngoài đầu tư vào Việt Nam cần những điều kiện gì?",
+                  a: "Cần đáp ứng điều kiện về tiếp cận thị trường theo ngành nghề đăng ký, có dự án đầu tư hợp pháp, địa điểm thực hiện dự án phù hợp quy hoạch, năng lực tài chính và làm thủ tục xin cấp Giấy chứng nhận đăng ký đầu tư (IRC) và Giấy chứng nhận đăng ký doanh nghiệp (ERC)."
+                }
+              ].map((faq, idx) => (
+                <div key={idx} className="border border-slate-200 rounded-2xl overflow-hidden shadow-2xs">
+                  <button
+                    onClick={() => toggleFaq(idx)}
+                    className="w-full text-left p-4 sm:p-5 bg-white hover:bg-slate-50 flex items-center justify-between gap-4 font-bold text-slate-900 text-sm transition-colors cursor-pointer"
+                  >
+                    <span>{faq.q}</span>
+                    <span className="material-symbols-outlined text-slate-400 text-xl flex-shrink-0">
+                      {openFaq === idx ? "expand_less" : "expand_more"}
+                    </span>
+                  </button>
+                  {openFaq === idx && (
+                    <div className="p-4 sm:p-5 bg-slate-50 border-t border-slate-100 text-slate-600 text-sm leading-relaxed">
+                      {faq.a}
+                    </div>
+                  )}
                 </div>
-              </div>
-
-              {/* FAQ 2 */}
-              <div className="faq-item rounded-xl overflow-hidden border border-slate-200 shadow-sm">
-                <button
-                  onClick={() => toggleFaq(2)}
-                  className={`w-full text-left font-semibold py-4 px-6 flex items-center justify-between transition-colors ${openFaq === 2 ? 'bg-primary text-white' : 'bg-white text-slate-800 hover:bg-slate-50'}`}
-                >
-                  <span>Thủ tục ly hôn thuận tình cần chuẩn bị những hồ sơ gì?</span>
-                  <span className="text-xl font-bold ml-2">{openFaq === 2 ? '−' : '+'}</span>
-                </button>
-                <div className={`${openFaq === 2 ? 'block' : 'hidden'} bg-white text-slate-600 p-6 text-sm leading-relaxed border-t border-slate-100`}>
-                  <p className="mb-2">Hồ sơ ly hôn thuận tình gồm có:</p>
-                  <ul className="list-disc pl-5 space-y-1 mb-3">
-                    <li>Đơn yêu cầu công nhận thuận tình ly hôn (theo mẫu chuẩn của Tòa án).</li>
-                    <li>Bản chính Giấy chứng nhận kết hôn.</li>
-                    <li>Bản sao CCCD của hai vợ chồng.</li>
-                    <li>Bản sao Giấy khai sinh của các con chung.</li>
-                    <li>Giấy tờ chứng minh quyền sở hữu tài sản chung (nếu có yêu cầu công nhận).</li>
-                  </ul>
-                  <p>Bạn có thể tải ngay mẫu đơn chuẩn tại <strong>Kho Biểu Mẫu AI</strong> của chúng tôi.</p>
-                </div>
-              </div>
+              ))}
             </div>
 
             <div className="mt-8">
@@ -679,12 +748,9 @@ export default function Home() {
               <h3 className="text-xl font-bold text-slate-900 font-sans mb-1">{ls.name}</h3>
               <p className="text-xs font-bold text-amber-700 uppercase tracking-wider mb-3">{ls.role}</p>
               <p className="text-slate-600 text-sm mb-6 leading-relaxed flex-grow">{ls.desc}</p>
-              <div className="flex gap-2.5 w-full pt-4 border-t border-slate-100">
-                <Link className="flex items-center justify-center flex-1 bg-[#641D06] text-white h-10 rounded-xl font-bold text-sm hover:bg-black transition-colors shadow-2xs text-center" href="/appointment">
-                  Đặt Hẹn
-                </Link>
-                <Link className="flex items-center justify-center flex-1 bg-amber-50 text-[#641D06] border border-amber-300/80 h-10 rounded-xl font-bold text-sm hover:bg-amber-100 transition-colors shadow-2xs text-center" href="/ai-chatbot">
-                  Hỏi AI
+              <div className="w-full pt-4 border-t border-slate-100">
+                <Link className="flex items-center justify-center w-full bg-[#641D06] hover:bg-black text-white h-11 rounded-xl font-bold text-sm sm:text-base transition-all shadow-xs text-center" href="/appointment">
+                  Đặt Lịch Hẹn Tư Vấn
                 </Link>
               </div>
             </div>
