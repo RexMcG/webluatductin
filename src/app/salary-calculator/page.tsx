@@ -55,20 +55,19 @@ export default function SalaryCalculator() {
   };
 
   return (
-    <main className="pt-10 pb-16 page-fade-in bg-background min-h-screen">
-      <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        {/* Page Title */}
-        <header className="mb-10 border-b border-border-neutral pb-6 text-center max-w-4xl mx-auto">
-          <h1 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase mb-3">
-            Công Cụ Tính Lương Gross-to-Net
-          </h1>
-          <div className="text-amber-600 flex items-center justify-center my-3">
-            <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
-          </div>
-          <p className="text-slate-600 font-body-md text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            Tính toán chính xác lương thực nhận (Net) từ lương tổng (Gross), các khoản trích nộp BHXH, BHYT, BHTN và thuế TNCN theo quy định mới nhất.
-          </p>
-        </header>
+    <div className="max-w-7xl mx-auto px-4 md:px-8 pt-10 pb-16 min-h-screen">
+      {/* Page Title */}
+      <div className="text-center mb-10 max-w-4xl mx-auto">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight uppercase mb-3 leading-tight">
+          Công Cụ Tính Lương Gross-to-Net
+        </h1>
+        <div className="text-amber-600 flex items-center justify-center my-3">
+          <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
+        </div>
+        <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+          Tính toán chính xác lương thực nhận (Net) từ lương tổng (Gross), các khoản trích nộp BHXH, BHYT, BHTN và thuế TNCN theo quy định mới nhất.
+        </p>
+      </div>
 
         {/* Two-Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
@@ -276,7 +275,6 @@ export default function SalaryCalculator() {
             </div>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
   );
 }

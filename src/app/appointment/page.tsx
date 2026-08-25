@@ -254,21 +254,20 @@ export default function AppointmentPage() {
   };
 
   return (
-    <div className="pt-10 pb-16 page-fade-in bg-slate-50 min-h-screen">
-      <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-        {/* Page Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          <h1 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase mb-3">
-            Đặt Lịch Hẹn Tư Vấn Pháp Lý
-          </h1>
-          <div className="text-amber-600 flex items-center justify-center my-3">
-            <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
-          </div>
-          <p className="text-base md:text-lg text-slate-600 leading-relaxed font-medium">
-            Vui lòng điền thông tin chi tiết để đặt lịch làm việc trực tiếp với{" "}
-            <strong className="text-slate-900 font-bold">Luật sư Phan Đức Tín</strong> (Giám đốc Điều hành Công ty Luật TNHH Đức Tín và Cộng sự).
-          </p>
+    <div className="max-w-7xl mx-auto px-4 md:px-8 pt-10 pb-16 min-h-screen">
+      {/* Page Header */}
+      <div className="text-center mb-10 max-w-4xl mx-auto">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight uppercase mb-3 leading-tight">
+          Đặt Lịch Hẹn Tư Vấn Pháp Lý
+        </h1>
+        <div className="text-amber-600 flex items-center justify-center my-3">
+          <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
         </div>
+        <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+          Vui lòng điền thông tin chi tiết để đặt lịch làm việc trực tiếp với{" "}
+          <strong className="text-slate-900 font-bold">Luật sư Phan Đức Tín</strong> (Giám đốc Điều hành Công ty Luật TNHH Đức Tín và Cộng sự).
+        </p>
+      </div>
 
         {isSuccess ? (
           /* SUCCESS STATE */
@@ -1116,7 +1115,6 @@ export default function AppointmentPage() {
             </div>
           </div>
         )}
-      </section>
     </div>
   );
 }

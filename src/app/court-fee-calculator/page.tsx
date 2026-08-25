@@ -21,18 +21,18 @@ export default function CourtFeeCalculator() {
   };
 
   return (
-    <main className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-10 pb-16 page-fade-in min-h-screen">
-      <header className="mb-10 border-b border-border-neutral pb-6 text-center max-w-4xl mx-auto">
-        <h1 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase mb-3">
+    <div className="max-w-7xl mx-auto px-4 md:px-8 pt-10 pb-16 min-h-screen">
+      <div className="text-center mb-10 max-w-4xl mx-auto">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight uppercase mb-3 leading-tight">
           Công Cụ Tính Án Phí Tòa Án
         </h1>
         <div className="text-amber-600 flex items-center justify-center my-3">
           <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
         </div>
-        <p className="text-slate-600 font-body-md text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+        <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
           Tính toán nhanh mức tạm ứng án phí và án phí chính thức theo quy định hiện hành mới nhất.
         </p>
-      </header>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
         {/* Calculator Widget */}
@@ -192,6 +192,6 @@ export default function CourtFeeCalculator() {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

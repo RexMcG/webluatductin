@@ -69,7 +69,7 @@ export default function AIFormLibrary() {
   };
 
   return (
-    <main className="pt-10 pb-16 min-h-screen bg-slate-50 relative">
+    <div className="max-w-7xl mx-auto px-4 md:px-8 pt-10 pb-16 min-h-screen bg-slate-50 relative">
       {/* Lead Gate Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
@@ -125,17 +125,16 @@ export default function AIFormLibrary() {
       )}
 
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 pb-8">
-        <div className="text-center max-w-3xl mx-auto">
-          <h1 className="text-3xl md:text-5xl lg:text-5xl font-black text-slate-900 font-sans tracking-tight uppercase mb-3">
-            Kho Biểu Mẫu Pháp Lý AI
-          </h1>
-          <div className="text-amber-600 flex items-center justify-center my-3">
-            <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
-          </div>
-          <p className="text-base md:text-lg text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Tra cứu và tải xuống miễn phí các biểu mẫu pháp lý chuẩn xác. Nhập câu văn nói tự nhiên, AI sẽ tự động phân tích ngữ nghĩa và gợi ý biểu mẫu chính xác nhất.
-          </p>
+      <div className="text-center mb-10 max-w-4xl mx-auto">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight uppercase mb-3 leading-tight">
+          Kho Biểu Mẫu Pháp Lý AI
+        </h1>
+        <div className="text-amber-600 flex items-center justify-center my-3">
+          <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
+        </div>
+        <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
+          Tra cứu và tải xuống miễn phí các biểu mẫu pháp lý chuẩn xác. Nhập câu văn nói tự nhiên, AI sẽ tự động phân tích ngữ nghĩa và gợi ý biểu mẫu chính xác nhất.
+        </p>
           <div className="relative max-w-2xl mx-auto">
             <input
               type="text"
@@ -148,8 +147,7 @@ export default function AIFormLibrary() {
               search
             </span>
           </div>
-        </div>
-      </section>
+      </div>
 
       {/* Results Section */}
       <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8">
@@ -291,6 +289,6 @@ export default function AIFormLibrary() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

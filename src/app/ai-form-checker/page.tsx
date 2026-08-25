@@ -23,19 +23,19 @@ export default function AIFormChecker() {
   };
 
   return (
-    <main className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-10 pb-16 page-fade-in flex-grow w-full min-h-screen">
+    <div className="max-w-7xl mx-auto px-4 md:px-8 pt-10 pb-16 min-h-screen">
       {/* HEADER AREA */}
-      <header className="mb-10 border-b border-border-neutral pb-6 text-center max-w-4xl mx-auto">
-        <h1 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase mb-3">
+      <div className="text-center mb-10 max-w-4xl mx-auto">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight uppercase mb-3 leading-tight">
           AI Thẩm Định &amp; Hướng Dẫn Điền Biểu Mẫu
         </h1>
         <div className="text-amber-600 flex items-center justify-center my-3">
           <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
         </div>
-        <p className="text-slate-600 font-body-md text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+        <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
           Tải lên bản chụp/PDF biểu mẫu của bạn. Trợ lý AI sẽ rà soát lỗi sai hoặc hướng dẫn điền từng mục chuẩn pháp lý.
         </p>
-      </header>
+      </div>
 
       {/* SPLIT-SCREEN DASHBOARD */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter mb-24">
@@ -261,6 +261,6 @@ export default function AIFormChecker() {
           </Link>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

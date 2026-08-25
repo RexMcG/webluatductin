@@ -11,15 +11,15 @@ export default function NewsPage() {
   });
 
   return (
-    <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-10 pb-16">
-      <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
-        <h1 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-3">
+    <div className="max-w-7xl mx-auto px-4 md:px-8 pt-10 pb-16">
+      <div className="text-center mb-10 max-w-4xl mx-auto">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight uppercase mb-3 leading-tight">
           Bảng Tin &amp; Sự Kiện Pháp Luật
         </h1>
         <div className="text-amber-600 flex items-center justify-center my-3">
           <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
         </div>
-        <p className="text-slate-600 text-base md:text-lg max-w-2xl text-center">
+        <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
           Tổng hợp thông tin pháp luật, phân tích vụ án và quy định pháp lý mới nhất từ Công ty Luật TNHH Đức Tín và Cộng sự.
         </p>
       </div>
