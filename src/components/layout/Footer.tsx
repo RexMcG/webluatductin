@@ -114,10 +114,10 @@ export default function Footer() {
                 <img
                   src="/img/Logo_website_footer.webp"
                   alt="Logo Công ty Luật Đức Tín"
-                  width={200}
-                  height={40}
+                  width={240}
+                  height={50}
                   loading="lazy"
-                  className="h-7 md:h-8 object-contain"
+                  className="h-9 md:h-11 object-contain"
                 />
               </Link>
 
@@ -148,7 +148,7 @@ export default function Footer() {
             </div>
 
             {/* RIGHT BLOCK: 4 Sleek Flat Nav Columns (8 cols) - Aligned with Map */}
-            <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 lg:pt-8">
+            <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 lg:pt-11">
               
               {/* Col 1: Về chúng tôi */}
               <div className="flex flex-col gap-2">
