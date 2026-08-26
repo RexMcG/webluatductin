@@ -188,7 +188,6 @@ const CATEGORIES = [
 export default function AIFormLibrary() {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("Tất cả");
   const [showModal, setShowModal] = useState(false);
   const [selectedForm, setSelectedForm] = useState<FormItem | null>(null);
   const [leadForm, setLeadForm] = useState({ name: "", phone: "" });
@@ -209,34 +208,26 @@ export default function AIFormLibrary() {
     retry: 1,
   });
 
-  // Combine backend results with standard templates
+  // Only display forms when user has searched
   const displayForms = useMemo(() => {
-    let list: FormItem[] = [];
-
-    if (debouncedSearchTerm.trim().length > 0) {
-      if (searchResults && searchResults.length > 0) {
-        list = searchResults;
-      } else {
-        // Fallback local semantic keyword search
-        const term = debouncedSearchTerm.toLowerCase();
-        list = POPULAR_FORMS.filter(
-          (f) =>
-            f.title.toLowerCase().includes(term) ||
-            (f.category && f.category.toLowerCase().includes(term)) ||
-            (f.description && f.description.toLowerCase().includes(term)) ||
-            (f.content && f.content.toLowerCase().includes(term))
-        ).map((f) => ({ ...f, matchPercent: 92 }));
-      }
-    } else {
-      list = POPULAR_FORMS;
+    if (!debouncedSearchTerm.trim()) {
+      return [];
     }
 
-    if (selectedCategory !== "Tất cả") {
-      list = list.filter((f) => f.category === selectedCategory);
+    if (searchResults && searchResults.length > 0) {
+      return searchResults;
     }
 
-    return list;
-  }, [debouncedSearchTerm, searchResults, selectedCategory]);
+    // Fallback local semantic keyword search
+    const term = debouncedSearchTerm.toLowerCase();
+    return POPULAR_FORMS.filter(
+      (f) =>
+        f.title.toLowerCase().includes(term) ||
+        (f.category && f.category.toLowerCase().includes(term)) ||
+        (f.description && f.description.toLowerCase().includes(term)) ||
+        (f.content && f.content.toLowerCase().includes(term))
+    ).map((f) => ({ ...f, matchPercent: 92 }));
+  }, [debouncedSearchTerm, searchResults]);
 
   const handleDownloadClick = (form: FormItem) => {
     setSelectedForm(form);
@@ -401,10 +392,6 @@ export default function AIFormLibrary() {
 
       {/* Hero Section */}
       <div className="text-center mb-10 max-w-4xl mx-auto">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider mb-3">
-          <span className="material-symbols-outlined text-sm">auto_awesome</span>
-          Thư Viện Pháp Lý Thông Minh
-        </div>
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight uppercase mb-3 leading-tight">
           Kho Biểu Mẫu Pháp Lý AI
         </h1>
@@ -412,7 +399,7 @@ export default function AIFormLibrary() {
           <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
         </div>
         <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-          Tra cứu và tải xuống miễn phí các biểu mẫu pháp lý chuẩn xác. Nhập câu văn nói tự nhiên hoặc chọn danh mục, AI sẽ tự động phân tích ngữ nghĩa và xuất file Word (.doc) tức thì.
+          Tra cứu và tải xuống miễn phí các biểu mẫu pháp lý chuẩn xác. Nhập câu văn nói tự nhiên, AI sẽ tự động phân tích ngữ nghĩa và xuất file Word (.doc) tức thì.
         </p>
 
         {/* Search Bar */}
@@ -422,7 +409,7 @@ export default function AIFormLibrary() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full h-14 pl-5 pr-14 border border-slate-300 rounded-2xl focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100 bg-white text-slate-900 placeholder:text-slate-400 shadow-md outline-none transition-all text-sm md:text-base"
-            placeholder="Nhập nhu cầu pháp lý, ví dụ: 'Tôi muốn ly hôn', 'hợp đồng thuê nhà', 'đơn kiện'..."
+            placeholder="Nhập nhu cầu pháp lý của bạn, ví dụ: 'Tôi muốn ly hôn', 'hợp đồng thuê nhà'..."
           />
           <span className="material-symbols-outlined absolute right-4 top-4 text-slate-400 hover:text-emerald-600 cursor-pointer text-2xl">
             search
@@ -430,38 +417,26 @@ export default function AIFormLibrary() {
         </div>
       </div>
 
-      {/* Category Pills Filter */}
-      <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-none">
-        {CATEGORIES.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setSelectedCategory(cat)}
-            className={`px-4 py-2 rounded-xl text-xs md:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
-              selectedCategory === cat
-                ? "bg-[#641D06] text-white shadow-xs"
-                : "bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50/50"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-
       {/* Results Section */}
       <section className="w-full py-2">
         <div className="flex items-center gap-2 mb-6 border-b border-border-neutral pb-4">
           <span className="material-symbols-outlined text-amber-700">auto_awesome</span>
-          <h2 className="text-xl md:text-2xl font-bold text-slate-900">
-            {debouncedSearchTerm ? "Kết quả gợi ý từ AI" : "Biểu mẫu pháp lý phổ biến"}
-          </h2>
+          <h2 className="text-xl md:text-2xl font-bold text-slate-900">Kết quả gợi ý từ AI</h2>
           <span className="text-xs font-semibold text-slate-500 ml-auto hidden md:block">
-            {isLoading ? "Đang tìm kiếm..." : `Hiển thị ${displayForms.length} biểu mẫu`}
+            {isLoading ? "Đang tìm kiếm..." : (debouncedSearchTerm.trim() ? `Tìm thấy ${displayForms.length} biểu mẫu` : "Nhập câu hỏi để tìm kiếm")}
           </span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           {/* Left Column: Form Cards */}
           <div className="lg:col-span-8 space-y-6">
+            {!debouncedSearchTerm.trim() && (
+              <div className="text-center py-16 bg-white rounded-3xl border border-slate-200 p-8 shadow-xs text-slate-500">
+                <span className="material-symbols-outlined text-6xl opacity-20 mb-4 block">search</span>
+                Hãy mô tả nhu cầu của bạn, AI sẽ tự động hiểu và tìm biểu mẫu chuẩn xác nhất.
+              </div>
+            )}
+
             {isLoading && (
               <div className="text-center py-12 text-[#641D06] font-bold flex items-center justify-center gap-2">
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#641D06]"></div>
@@ -469,7 +444,7 @@ export default function AIFormLibrary() {
               </div>
             )}
 
-            {displayForms.length === 0 && !isLoading && (
+            {debouncedSearchTerm.trim().length > 0 && displayForms.length === 0 && !isLoading && (
               <div className="text-center py-16 bg-white rounded-3xl border border-slate-200 p-8 shadow-xs">
                 <span className="material-symbols-outlined text-6xl text-slate-300 mb-3 block">search_off</span>
                 <h3 className="font-bold text-slate-800 text-lg mb-1">Không tìm thấy biểu mẫu phù hợp</h3>
