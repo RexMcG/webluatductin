@@ -399,7 +399,7 @@ export default function AIFormLibrary() {
           <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
         </div>
         <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-          Tra cứu và tải xuống miễn phí các biểu mẫu pháp lý chuẩn xác. Nhập câu văn nói tự nhiên, AI sẽ tự động phân tích ngữ nghĩa và gợi ý biểu mẫu chính xác nhất.
+          Tra cứu và tải xuống miễn phí các biểu mẫu pháp lý chuẩn xác. Nhập câu văn nói tự nhiên, AI sẽ tự động phân tích ngữ nghĩa và gợi ý biểu mẫu chính xác.
         </p>
 
         {/* Search Bar */}
