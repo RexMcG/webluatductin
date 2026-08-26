@@ -27,9 +27,6 @@ export default function ServicesPage() {
       >
         <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-32 md:py-40 flex items-center min-h-[480px]">
           <div className="max-w-3xl space-y-6 flex flex-col items-start text-left">
-            <div className="rounded-full px-4 py-1.5 bg-primary text-[11px] uppercase tracking-[0.2em] font-bold text-accent shadow-md">
-              Tầm nhìn &amp; Sứ mệnh Pháp Lý 2026
-            </div>
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-black font-sans leading-[1.15] text-primary tracking-tight">
               Giải Pháp Pháp Lý <br /> <span className="italic text-accent font-sans">Toàn Diện &amp; Tận Tâm</span>
             </h1>
