@@ -28,6 +28,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       badge: "CMS",
     },
     {
+      label: "Khách Tải Biểu Mẫu",
+      href: "/admin/form-leads",
+      icon: "file_download",
+      badge: "Leads",
+    },
+    {
       label: "Hộp thư Câu hỏi & Tư vấn",
       href: "/admin/questions",
       icon: "contact_support",

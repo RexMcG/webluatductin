@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { formLibraryService, FormItem } from "@/services/form-library.service";
+import { formLeadService } from "@/services/form-lead.service";
 import { exportFormToDoc } from "@/utils/form-exporter";
 
 // Curated standard Vietnamese legal templates fallback & initial library
@@ -191,6 +192,7 @@ export default function AIFormLibrary() {
   const [showModal, setShowModal] = useState(false);
   const [selectedForm, setSelectedForm] = useState<FormItem | null>(null);
   const [leadForm, setLeadForm] = useState({ name: "", phone: "" });
+  const [formErrors, setFormErrors] = useState<{ name?: string; phone?: string }>({});
   const [downloadSuccess, setDownloadSuccess] = useState(false);
 
   // Debounce search input
@@ -238,33 +240,70 @@ export default function AIFormLibrary() {
 
   const handleDownloadClick = (form: FormItem) => {
     setSelectedForm(form);
+    setFormErrors({});
     setDownloadSuccess(false);
     setShowModal(true);
   };
 
-  const handleLeadSubmit = (e: React.FormEvent) => {
+  const validate = () => {
+    const errors: { name?: string; phone?: string } = {};
+
+    if (!leadForm.name.trim()) {
+      errors.name = "Vui lòng nhập Họ và Tên của bạn.";
+    } else if (leadForm.name.trim().length < 2) {
+      errors.name = "Họ và tên phải có ít nhất 2 ký tự.";
+    }
+
+    const cleanPhone = leadForm.phone.replace(/[\s.-]/g, "");
+    const phoneRegex = /^(0|\+84)[0-9]{9,10}$/;
+    if (!cleanPhone) {
+      errors.phone = "Vui lòng nhập số điện thoại để nhận file.";
+    } else if (!phoneRegex.test(cleanPhone)) {
+      errors.phone = "Số điện thoại không hợp lệ (gồm 10 chữ số, ví dụ: 0912345678).";
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedForm) return;
 
-    // 1. GUARANTEED INSTANT CLIENT DOWNLOAD (Always works on all browsers / computers)
-    exportFormToDoc(selectedForm, leadForm);
+    // Validate inputs
+    if (!validate()) return;
+
+    // 1. Save lead to Admin database / local storage
+    await formLeadService.createLead({
+      name: leadForm.name.trim(),
+      phone: leadForm.phone.trim(),
+      formId: selectedForm.id,
+      formTitle: selectedForm.title,
+      formCategory: selectedForm.category,
+    });
 
     // 2. Dispatch lead to backend asynchronously in background (gracefully ignore failures)
     formLibraryService
       .downloadForm({
-        name: leadForm.name || "Khách hàng",
-        phone: leadForm.phone || "0900000000",
+        name: leadForm.name.trim(),
+        phone: leadForm.phone.trim(),
         formId: selectedForm.id,
       })
       .catch(() => {
         // Silently handled
       });
 
+    // 3. GUARANTEED INSTANT CLIENT DOWNLOAD (Always works on all browsers / computers)
+    exportFormToDoc(selectedForm, {
+      name: leadForm.name.trim(),
+      phone: leadForm.phone.trim(),
+    });
+
     setDownloadSuccess(true);
     setTimeout(() => {
       setShowModal(false);
       setDownloadSuccess(false);
-    }, 1200);
+    }, 1500);
   };
 
   return (
@@ -291,36 +330,62 @@ export default function AIFormLibrary() {
               <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-5 text-center space-y-2 animate-bounce">
                 <span className="material-symbols-outlined text-4xl text-emerald-600">check_circle</span>
                 <h3 className="font-bold text-emerald-900 text-base">Đang tải file về máy!</h3>
-                <p className="text-xs text-emerald-700">Tệp Word (.doc) đã được tạo và lưu trực tiếp vào thư mục tải về của bạn.</p>
+                <p className="text-xs text-emerald-700">Tệp Word (.doc) đã được lưu vào thư mục tải về của bạn.</p>
               </div>
             ) : (
-              <form onSubmit={handleLeadSubmit} className="space-y-4">
+              <form onSubmit={handleLeadSubmit} noValidate className="space-y-4">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Họ và Tên
+                    Họ và Tên <span className="text-red-500">*</span>
                   </label>
                   <input
-                    required
                     type="text"
                     value={leadForm.name}
-                    onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
-                    className="w-full h-12 px-4 border border-slate-300 rounded-xl focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 outline-none bg-white text-slate-900 text-sm"
+                    onChange={(e) => {
+                      setLeadForm({ ...leadForm, name: e.target.value });
+                      if (formErrors.name) setFormErrors({ ...formErrors, name: undefined });
+                    }}
+                    className={`w-full h-12 px-4 border rounded-xl outline-none bg-white text-slate-900 text-sm transition-all ${
+                      formErrors.name
+                        ? "border-red-500 bg-red-50/30 focus:border-red-600 focus:ring-2 focus:ring-red-100"
+                        : "border-slate-300 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100"
+                    }`}
                     placeholder="Ví dụ: Nguyễn Văn A"
                   />
+                  {formErrors.name && (
+                    <p className="text-[11px] font-bold text-red-600 mt-1 flex items-center gap-1">
+                      <span className="material-symbols-outlined text-xs">error</span>
+                      {formErrors.name}
+                    </p>
+                  )}
                 </div>
+
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                    Số điện thoại nhận tư vấn
+                    Số điện thoại nhận tư vấn <span className="text-red-500">*</span>
                   </label>
                   <input
-                    required
                     type="tel"
                     value={leadForm.phone}
-                    onChange={(e) => setLeadForm({ ...leadForm, phone: e.target.value })}
-                    className="w-full h-12 px-4 border border-slate-300 rounded-xl focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 outline-none bg-white text-slate-900 text-sm"
+                    onChange={(e) => {
+                      setLeadForm({ ...leadForm, phone: e.target.value });
+                      if (formErrors.phone) setFormErrors({ ...formErrors, phone: undefined });
+                    }}
+                    className={`w-full h-12 px-4 border rounded-xl outline-none bg-white text-slate-900 text-sm transition-all ${
+                      formErrors.phone
+                        ? "border-red-500 bg-red-50/30 focus:border-red-600 focus:ring-2 focus:ring-red-100"
+                        : "border-slate-300 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100"
+                    }`}
                     placeholder="Ví dụ: 0912 345 678"
                   />
+                  {formErrors.phone && (
+                    <p className="text-[11px] font-bold text-red-600 mt-1 flex items-center gap-1">
+                      <span className="material-symbols-outlined text-xs">error</span>
+                      {formErrors.phone}
+                    </p>
+                  )}
                 </div>
+
                 <button
                   type="submit"
                   className="w-full h-12 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl mt-4 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-md active:scale-98 text-sm"
