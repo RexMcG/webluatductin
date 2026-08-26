@@ -102,27 +102,27 @@ export default function Footer() {
       </div>
 
       {/* ========== FOOTER ========== */}
-      <footer className="bg-[#521705] border-t-4 border-amber-600/60 w-full pb-28 md:pb-6 pt-8 md:pt-10 text-white">
+      <footer className="bg-[#521705] border-t-4 border-amber-600/60 w-full pb-24 md:pb-4 pt-6 md:pt-7 text-white">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           
           {/* Main Footer Grid: Left (Brand, Map, Office) | Right (4 Flat Nav Columns) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
             
             {/* LEFT BLOCK: Logo, Compact Map & Address (4 cols) */}
-            <div className="lg:col-span-4 flex flex-col gap-3">
+            <div className="lg:col-span-4 flex flex-col gap-2.5">
               <Link href="/" className="inline-block">
                 <img
                   src="/img/Logo_website_footer.webp"
                   alt="Logo Công ty Luật Đức Tín"
-                  width={220}
-                  height={44}
+                  width={200}
+                  height={40}
                   loading="lazy"
-                  className="h-8 md:h-9 object-contain"
+                  className="h-7 md:h-8 object-contain"
                 />
               </Link>
 
-              {/* Compact Google Map (~120px) */}
-              <div className="w-full h-28 md:h-32 rounded-xl overflow-hidden shadow-xs border border-white/10 bg-slate-900/40 relative">
+              {/* Compact Google Map (~100px) */}
+              <div className="w-full h-24 md:h-28 rounded-xl overflow-hidden shadow-xs border border-white/10 bg-slate-900/40 relative">
                 <iframe
                   title="Văn phòng Công ty Luật TNHH Đức Tín & Cộng Sự trên Google Maps"
                   allowFullScreen={false}
@@ -137,7 +137,7 @@ export default function Footer() {
               </div>
 
               {/* Minimal Address & Working Hours text */}
-              <div className="space-y-1.5 text-xs text-slate-200 leading-snug">
+              <div className="space-y-1 text-xs text-slate-200 leading-snug">
                 <p>
                   <strong className="text-amber-300">Trụ sở chính:</strong> P. 1901, Tầng 19, Saigon Trade Center, 37 Tôn Đức Thắng, Q.1, Tp. HCM.
                 </p>
@@ -147,8 +147,8 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* RIGHT BLOCK: 4 Sleek Flat Nav Columns (8 cols) */}
-            <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
+            {/* RIGHT BLOCK: 4 Sleek Flat Nav Columns (8 cols) - Aligned with Map */}
+            <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 lg:pt-8">
               
               {/* Col 1: Về chúng tôi */}
               <div className="flex flex-col gap-2">
@@ -233,7 +233,7 @@ export default function Footer() {
           </div>
 
           {/* Bottom Area: 1-line Disclaimer + Copyright Row */}
-          <div className="mt-6 pt-4 border-t border-white/10 flex flex-col gap-2 text-slate-300/90 text-[11px]">
+          <div className="mt-4 pt-3 border-t border-white/10 flex flex-col gap-2 text-slate-300/90 text-[11px]">
             <p className="leading-relaxed">
               <strong className="text-amber-300 font-medium">⚖️ Miễn trừ trách nhiệm:</strong> Toàn bộ thông tin, bài viết và công cụ tính toán trên website mang tính chất tham khảo kiến thức pháp luật, không cấu thành ý kiến tư vấn pháp lý chính thức cho đến khi hợp đồng dịch vụ được ký kết bằng văn bản theo luật định.
             </p>
