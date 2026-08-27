@@ -168,10 +168,10 @@ export default function Footer() {
                 </div>
               </div>
 
-              {/* Col 2: Công cụ & AI */}
+              {/* Col 2: Tính năng & AI */}
               <div className="flex flex-col gap-2">
                 <p className="text-xs md:text-sm font-extrabold uppercase tracking-wider text-amber-300 pb-1.5 border-b border-amber-500/30">
-                  Công cụ &amp; AI
+                  Tính năng &amp; AI
                 </p>
                 <div className="flex flex-col gap-1.5 text-xs md:text-[13px]">
                   <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/court-fee-calculator">
@@ -235,7 +235,7 @@ export default function Footer() {
           {/* Bottom Area: 1-line Disclaimer + Copyright Row */}
           <div className="mt-4 pt-3 border-t border-white/10 flex flex-col gap-2 text-slate-300/90 text-[11px]">
             <p className="leading-relaxed">
-              <strong className="text-amber-300 font-medium">⚖️ Miễn trừ trách nhiệm:</strong> Toàn bộ thông tin, bài viết và công cụ tính toán trên website mang tính chất tham khảo kiến thức pháp luật, không cấu thành ý kiến tư vấn pháp lý chính thức cho đến khi hợp đồng dịch vụ được ký kết bằng văn bản theo luật định.
+              <strong className="text-amber-300 font-medium">⚖️ Miễn trừ trách nhiệm:</strong> Toàn bộ thông tin, bài viết và tính năng tính toán trên website mang tính chất tham khảo kiến thức pháp luật, không cấu thành ý kiến tư vấn pháp lý chính thức cho đến khi hợp đồng dịch vụ được ký kết bằng văn bản theo luật định.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-2 border-t border-white/5 text-xs text-slate-400">
               <p>© 2026 CÔNG TY LUẬT TNHH ĐỨC TÍN VÀ CỘNG SỰ (DUC TIN &amp; PARTNERS). All Rights Reserved.</p>

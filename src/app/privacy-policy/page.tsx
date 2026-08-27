@@ -96,7 +96,7 @@ export default function PrivacyPolicyPage() {
                 <strong>Nội dung hồ sơ, vụ việc:</strong> Tóm tắt tình trạng tranh chấp, nhu cầu tư vấn pháp lý, tài liệu hoặc văn bản đính kèm do Quý khách tự nguyện cung cấp để luật sư thẩm định.
               </li>
               <li>
-                <strong>Dữ liệu tương tác công cụ trực tuyến:</strong> Câu hỏi gửi đến Trợ lý AI, văn bản tra cứu biểu mẫu hoặc tính toán án phí, lương Gross-Net. Dữ liệu này được xử lý phục vụ phiên làm việc và ẩn danh hóa an toàn.
+                <strong>Dữ liệu tương tác tính năng trực tuyến:</strong> Câu hỏi gửi đến Trợ lý AI, văn bản tra cứu biểu mẫu hoặc tính toán án phí, lương Gross-Net. Dữ liệu này được xử lý phục vụ phiên làm việc và ẩn danh hóa an toàn.
               </li>
               <li>
                 <strong>Dữ liệu kỹ thuật:</strong> Địa chỉ IP, loại trình duyệt, nhật ký truy cập nhằm duy trì tính ổn định và an ninh của hệ thống máy chủ website.

@@ -184,7 +184,7 @@ export default function Header() {
             </Link>
 
             <div className="text-[11px] font-black uppercase tracking-wider text-slate-400 mt-2 pt-2 border-t border-slate-100 px-4">
-              Công cụ tính toán
+              Tính năng tính toán
             </div>
             <Link 
               href="/court-fee-calculator" 

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | Luật Đức Tín (DUC TIN & Partners)",
   },
   description:
-    "Công ty Luật TNHH Đức Tín & Cộng Sự do Luật sư Phan Đức Tín trực tiếp điều hành. Chuyên sâu tư vấn đầu tư FDI, doanh nghiệp, bất động sản, hôn nhân gia đình, tranh tụng Tòa án và cung cấp công cụ AI pháp lý hàng đầu.",
+    "Công ty Luật TNHH Đức Tín & Cộng Sự do Luật sư Phan Đức Tín trực tiếp điều hành. Chuyên sâu tư vấn đầu tư FDI, doanh nghiệp, bất động sản, hôn nhân gia đình, tranh tụng Tòa án và cung cấp tính năng AI pháp lý hàng đầu.",
   keywords: [
     "luật sư uy tín",
     "công ty luật đức tín",
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Công Ty Luật TNHH Đức Tín & Cộng Sự | DUC TIN & Partners",
     description:
-      "Tư vấn pháp lý chuyên nghiệp, tranh tụng Tòa án và ứng dụng công cụ AI pháp luật đột phá.",
+      "Tư vấn pháp lý chuyên nghiệp, tranh tụng Tòa án và ứng dụng tính năng AI pháp luật đột phá.",
     images: ["/img/herobanner.webp"],
   },
   robots: {

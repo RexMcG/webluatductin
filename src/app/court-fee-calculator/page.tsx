@@ -24,7 +24,7 @@ export default function CourtFeeCalculator() {
     <div className="max-w-7xl mx-auto px-4 md:px-8 pt-10 pb-16 min-h-screen">
       <div className="text-center mb-10 max-w-4xl mx-auto">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight uppercase mb-3 leading-tight">
-          Công Cụ Tính Án Phí Tòa Án
+          Tính Năng Tính Án Phí Tòa Án
         </h1>
         <div className="text-amber-600 flex items-center justify-center my-3">
           <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
