@@ -138,7 +138,7 @@ export default function NewsDetailPage() {
      ========================================================================= */
   if (layoutStyle === "word-navigation") {
     return (
-      <div className="max-w-[1720px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-[1720px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
         {/* Back Link */}
         <div className="mb-5">
           <Link
@@ -150,13 +150,13 @@ export default function NewsDetailPage() {
           </Link>
         </div>
 
-        {/* 3-Column Modern Flex Layout (Wide Sidebars + Ultra Expansive Center) */}
+        {/* 3-Column Modern Flex Layout (Desktop) / Linear Column (Mobile) */}
         <div className="flex flex-col lg:flex-row gap-6 xl:gap-8 items-start w-full">
           
           {/* =========================================================
-              LEFT COLUMN (300-320px): WORD NAVIGATION PANE (MỤC LỤC)
+              LEFT COLUMN (300-320px): WORD NAVIGATION PANE (DESKTOP ONLY)
              ========================================================= */}
-          <aside className="w-full lg:w-[300px] xl:w-[320px] shrink-0 sticky top-24 z-20">
+          <aside className="hidden lg:block lg:w-[300px] xl:w-[320px] shrink-0 sticky top-24 z-20">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col max-h-[calc(100vh-120px)]">
               {/* Word Navigation Top Title Bar */}
               <div className="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
@@ -251,24 +251,24 @@ export default function NewsDetailPage() {
           </aside>
 
           {/* =========================================================
-              CENTER COLUMN (FLEX-1 EXPANSIVE): CONTINUOUS CONTENT (10 MỤC)
+              CENTER COLUMN: ARTICLE CONTENT (APPEARS FIRST ON MOBILE)
              ========================================================= */}
-          <main className="flex-1 min-w-0 bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 xl:p-12 shadow-sm">
+          <main className="w-full flex-1 min-w-0 bg-white rounded-2xl md:rounded-3xl border border-slate-200 p-5 sm:p-8 xl:p-12 shadow-sm">
             {/* Category badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-900 text-xs font-bold mb-4 uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-900 text-xs font-bold mb-3 md:mb-4 uppercase tracking-wider">
               <span className="material-symbols-outlined text-[16px]">verified</span>
               {newsItem.category || "Pháp Luật 2026"}
             </div>
 
             {/* Article Title */}
-            <h1 className="text-2xl sm:text-4xl font-black text-slate-900 font-sans leading-tight tracking-tight mb-6">
+            <h1 className="text-xl sm:text-3xl md:text-4xl font-black text-slate-900 font-sans leading-tight tracking-tight mb-4 md:mb-6">
               {newsItem.title}
             </h1>
 
             {/* Author info bar */}
-            <div className="flex flex-wrap items-center justify-between gap-4 text-slate-600 text-xs font-semibold uppercase tracking-wide bg-slate-50 p-4 rounded-2xl border border-slate-200 mb-8">
+            <div className="flex flex-wrap items-center justify-between gap-3 text-slate-600 text-xs font-semibold uppercase tracking-wide bg-slate-50 p-3.5 md:p-4 rounded-2xl border border-slate-200 mb-6 md:mb-8">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-slate-200 border border-slate-300 overflow-hidden flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-slate-200 border border-slate-300 overflow-hidden flex items-center justify-center shrink-0">
                   <img src="/img/avatar1.png" alt="Ls. Phan Đức Tín" className="w-full h-full object-cover" />
                 </div>
                 <div>
@@ -276,7 +276,7 @@ export default function NewsDetailPage() {
                   <div className="text-slate-500 text-[11px] lowercase">Đoàn Luật sư TP. Hồ Chí Minh</div>
                 </div>
               </div>
-              <div className="flex items-center gap-4 text-slate-500">
+              <div className="flex items-center gap-4 text-slate-500 text-[11px] md:text-xs">
                 <span className="flex items-center gap-1">
                   <span className="material-symbols-outlined text-sm">calendar_today</span>
                   {new Date(newsItem.publishedAt || Date.now()).toLocaleDateString("vi-VN")}
@@ -290,7 +290,7 @@ export default function NewsDetailPage() {
 
             {/* Summary Box */}
             {newsItem.summary && (
-              <div className="border-l-4 border-[#641D06] bg-amber-50/40 p-5 rounded-r-2xl mb-8 text-slate-800 text-base leading-relaxed shadow-2xs">
+              <div className="border-l-4 border-[#641D06] bg-amber-50/40 p-4 md:p-5 rounded-r-2xl mb-6 md:mb-8 text-slate-800 text-sm md:text-base leading-relaxed shadow-2xs">
                 <div className="text-xs font-bold text-amber-800 uppercase tracking-widest mb-1 flex items-center gap-1">
                   <span className="material-symbols-outlined text-sm">auto_awesome</span>
                   Tóm lược cẩm nang:
@@ -299,21 +299,75 @@ export default function NewsDetailPage() {
               </div>
             )}
 
-            {/* Flowchart Overview Visual (for step-by-step procedural guides) */}
+            {/* MOBILE ONLY: COLLAPSIBLE TABLE OF CONTENTS */}
+            <div className="lg:hidden mb-6 border border-slate-200 rounded-2xl bg-slate-50/90 overflow-hidden shadow-2xs">
+              <details className="group">
+                <summary className="px-4 py-3.5 flex items-center justify-between cursor-pointer font-bold text-slate-900 text-xs sm:text-sm select-none">
+                  <div className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-base text-[#641D06]">toc</span>
+                    <span>Mục lục nội dung bài viết ({sections.length} mục)</span>
+                  </div>
+                  <span className="material-symbols-outlined text-slate-500 transition-transform duration-200 group-open:rotate-180">
+                    expand_more
+                  </span>
+                </summary>
+                <div className="px-3 pb-3 pt-1 border-t border-slate-200/80 space-y-1 text-xs">
+                  {newsItem.mindmap && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const el = document.getElementById("heading-mindmap");
+                        if (el) el.scrollIntoView({ behavior: "smooth" });
+                      }}
+                      className="w-full text-left px-3 py-2 rounded-xl flex items-center gap-2 bg-purple-50 text-purple-900 font-bold border border-purple-200 mb-1"
+                    >
+                      <span>🧠</span>
+                      <span>Sơ Đồ Tư Duy Mindmap</span>
+                    </button>
+                  )}
+                  {newsItem.flowchart && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const el = document.getElementById("heading-flowchart");
+                        if (el) el.scrollIntoView({ behavior: "smooth" });
+                      }}
+                      className="w-full text-left px-3 py-2 rounded-xl flex items-center gap-2 bg-amber-50 text-amber-900 font-bold border border-amber-200 mb-1"
+                    >
+                      <span>📊</span>
+                      <span>Sơ Đồ Quy Trình (Flowchart)</span>
+                    </button>
+                  )}
+                  {sections.map((sec: any) => (
+                    <button
+                      key={sec.id}
+                      type="button"
+                      onClick={() => scrollToHeading(sec.id)}
+                      className="w-full text-left px-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-slate-200 hover:text-slate-900 flex items-start gap-1.5"
+                    >
+                      <span className="material-symbols-outlined text-xs text-slate-400 mt-0.5 shrink-0">arrow_right</span>
+                      <span className="leading-snug">{sec.number}. {sec.title}</span>
+                    </button>
+                  ))}
+                </div>
+              </details>
+            </div>
+
+            {/* Flowchart Overview Visual */}
             {newsItem.flowchart && (
-              <section id="heading-flowchart" className="scroll-mt-28 mb-10">
+              <section id="heading-flowchart" className="scroll-mt-28 mb-8 md:mb-10">
                 <FlowchartVisual rawText={newsItem.flowchart} />
               </section>
             )}
 
-            {/* Mindmap Overview Visual (for comprehensive topic summaries) */}
+            {/* Mindmap Overview Visual */}
             {newsItem.mindmap && (
-              <section id="heading-mindmap" className="scroll-mt-28 mb-10">
+              <section id="heading-mindmap" className="scroll-mt-28 mb-8 md:mb-10">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-purple-100 text-purple-700 text-sm font-bold">
                     <span className="material-symbols-outlined text-sm">bubble_chart</span>
                   </span>
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-purple-900">
+                  <h3 className="text-xs md:text-sm font-bold uppercase tracking-wider text-purple-900">
                     Sơ Đồ Tư Duy Tổng Quan Bài Viết (Mindmap)
                   </h3>
                 </div>
@@ -322,23 +376,23 @@ export default function NewsDetailPage() {
             )}
 
             {/* Continuous Sections without collapsing */}
-            <div className="space-y-12">
+            <div className="space-y-10 md:space-y-12">
               {sections.map((section: any) => (
                 <section
                   key={section.id}
                   id={`heading-${section.id}`}
-                  className="scroll-mt-28 border-b border-slate-100 pb-10 last:border-b-0"
+                  className="scroll-mt-28 border-b border-slate-100 pb-8 md:pb-10 last:border-b-0"
                 >
                   {/* Section Title */}
                   <div className="mb-4">
-                    <h2 className="text-xl sm:text-2xl font-bold text-[#641D06] font-sans tracking-tight leading-snug">
+                    <h2 className="text-lg sm:text-2xl font-bold text-[#641D06] font-sans tracking-tight leading-snug">
                       {section.title.startsWith(section.number) || /^\d+\./.test(section.title) ? section.title : `${section.number}. ${section.title}`}
                     </h2>
                   </div>
 
                   {/* Section Full Body Content */}
                   <div
-                    className="prose prose-slate max-w-none text-slate-800 leading-relaxed text-base prose-p:my-3 prose-p:leading-relaxed prose-ul:my-3 prose-li:my-1.5 prose-strong:text-slate-900"
+                    className="prose prose-slate max-w-none text-slate-800 leading-relaxed text-sm md:text-base prose-p:my-3 prose-p:leading-relaxed prose-ul:my-3 prose-li:my-1.5 prose-strong:text-slate-900"
                     dangerouslySetInnerHTML={{ __html: section.content }}
                   />
                 </section>
@@ -346,7 +400,7 @@ export default function NewsDetailPage() {
             </div>
 
             {/* End of article notice */}
-            <div className="mt-12 pt-6 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+            <div className="mt-10 md:mt-12 pt-6 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
               <span>© 2026 Công ty Luật TNHH Đức Tín &amp; Cộng sự</span>
               <button
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -359,11 +413,11 @@ export default function NewsDetailPage() {
           </main>
 
           {/* =========================================================
-              RIGHT COLUMN (310-330px): ATTORNEY CARD (TOP) & RECOMMENDED ARTICLES (BOTTOM)
+              RIGHT COLUMN: ATTORNEY CARD & RECOMMENDED ARTICLES (BELOW ON MOBILE, SIDEBAR ON DESKTOP)
              ========================================================= */}
-          <aside className="w-full lg:w-[310px] xl:w-[330px] shrink-0 sticky top-24 z-20 space-y-6">
+          <aside className="w-full lg:w-[310px] xl:w-[330px] shrink-0 lg:sticky lg:top-24 z-20 space-y-6">
             
-            {/* Direct Lawyer Support Card (LÊN TRÊN CÙNG) */}
+            {/* Direct Lawyer Support Card */}
             <div className="bg-gradient-to-br from-[#641D06] to-[#381104] text-white rounded-3xl p-6 shadow-md text-center">
               <div className="w-16 h-16 rounded-2xl bg-white/10 p-1 mx-auto mb-3 border border-white/20">
                 <img src="/img/avatar1.png" alt="Ls. Phan Đức Tín" className="w-full h-full object-cover rounded-xl" />
@@ -401,7 +455,7 @@ export default function NewsDetailPage() {
               </div>
             </div>
 
-            {/* Recommended / Other Articles Box (XUỐNG DƯỚI) */}
+            {/* Recommended / Other Articles Box */}
             <div className="bg-white rounded-3xl border border-slate-200 p-5 shadow-sm">
               <div className="flex items-center gap-2 border-b border-slate-100 pb-3 mb-4">
                 <span className="material-symbols-outlined text-amber-600">recommend</span>
