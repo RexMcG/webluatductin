@@ -15,11 +15,16 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   metadataBase: new URL("https://webluatductin.vercel.app"),
   title: {
-    default: "Công Ty Luật TNHH Đức Tín & Cộng Sự | Hãng Luật Hàng Đầu TP.HCM",
+    default: "Luật Đức Tín & Cộng Sự | Hãng Luật Hàng Đầu TP.HCM",
     template: "%s | Luật Đức Tín (DUC TIN & Partners)",
   },
   description:
-    "Công ty Luật TNHH Đức Tín & Cộng Sự do Luật sư Phan Đức Tín trực tiếp điều hành. Chuyên sâu tư vấn đầu tư FDI, doanh nghiệp, bất động sản, hôn nhân gia đình, tranh tụng Tòa án và cung cấp tính năng AI pháp lý hàng đầu.",
+    "Hãng Luật Đức Tín & Cộng Sự tại TP.HCM. Chuyên tư vấn đầu tư FDI, doanh nghiệp, BĐS, tranh tụng Tòa án và ứng dụng AI pháp lý chuyên sâu.",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/img/Logo_website.png",
+  },
   keywords: [
     "luật sư uy tín",
     "công ty luật đức tín",
@@ -46,9 +51,9 @@ export const metadata: Metadata = {
     canonical: "https://webluatductin.vercel.app",
   },
   openGraph: {
-    title: "Công Ty Luật TNHH Đức Tín & Cộng Sự | DUC TIN & Partners",
+    title: "Luật Đức Tín & Cộng Sự | Hãng Luật Hàng Đầu TP.HCM",
     description:
-      "Đội ngũ luật sư giỏi giàu kinh nghiệm, kết hợp công nghệ AI tiên tiến, bảo vệ tối đa quyền lợi pháp lý cho cá nhân và doanh nghiệp.",
+      "Hãng Luật Đức Tín & Cộng Sự tại TP.HCM. Chuyên tư vấn đầu tư FDI, doanh nghiệp, BĐS, tranh tụng Tòa án và ứng dụng AI pháp lý chuyên sâu.",
     url: "https://webluatductin.vercel.app",
     siteName: "Luật Đức Tín",
     locale: "vi_VN",
@@ -64,9 +69,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Công Ty Luật TNHH Đức Tín & Cộng Sự | DUC TIN & Partners",
+    title: "Luật Đức Tín & Cộng Sự | Hãng Luật Hàng Đầu TP.HCM",
     description:
-      "Tư vấn pháp lý chuyên nghiệp, tranh tụng Tòa án và ứng dụng tính năng AI pháp luật đột phá.",
+      "Hãng Luật Đức Tín & Cộng Sự tại TP.HCM. Chuyên tư vấn đầu tư FDI, doanh nghiệp, BĐS, tranh tụng Tòa án và ứng dụng AI pháp lý chuyên sâu.",
     images: ["/img/herobanner.webp"],
   },
   robots: {
@@ -150,7 +155,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
         <link rel="preload" as="image" href="/img/herobanner.webp" type="image/webp" fetchPriority="high" />
-        <link rel="preload" as="image" href="/img/Logo_website.webp" type="image/webp" fetchPriority="high" />
+        <link rel="apple-touch-icon" href="/img/Logo_website.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

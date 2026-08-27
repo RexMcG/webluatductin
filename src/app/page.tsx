@@ -151,8 +151,8 @@ export default function Home() {
               Đoàn Luật Sư Thành Phố Hồ Chí Minh
             </div>
             <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-sans leading-[1.15] tracking-tight">
-              <span className="text-primary drop-shadow-sm">Công Ty Luật TNHH</span><br className="hidden sm:inline" />{" "}
-              <span className="text-accent drop-shadow-sm">Đức Tín &amp; Cộng Sự</span>
+              <span className="text-primary drop-shadow-sm">Công Ty Luật Đức Tín &amp; Cộng Sự</span><br className="hidden sm:inline" />{" "}
+              <span className="text-accent drop-shadow-sm text-2xl sm:text-4xl md:text-5xl block mt-1">Hãng Luật Hàng Đầu TP.HCM</span>
             </h1>
             <p className="font-body-md text-base md:text-xl text-primary font-semibold max-w-3xl leading-relaxed">
               Trực tiếp điều hành bởi **Luật sư Phan Đức Tín** cùng đội ngũ luật sư giỏi, kết hợp AI pháp lý tiên tiến, bảo vệ tối đa quyền lợi cho bạn và doanh nghiệp.
@@ -183,14 +183,14 @@ export default function Home() {
                 </button>
               </form>
 
-              {/* Live Interactive Route Suggestions Dropdown */}
-              {isSearchOpen && normalizedQuery.length > 0 && (
-                <div className="absolute top-full left-0 right-0 mt-3 bg-white rounded-3xl shadow-2xl border border-slate-200 p-3 z-50 text-left overflow-hidden max-h-[380px] overflow-y-auto divide-y divide-slate-100">
-                  <div className="px-4 py-2 text-[11px] font-black uppercase tracking-wider text-amber-900 bg-amber-50 rounded-xl mb-1 flex items-center justify-between">
-                    <span>Gợi ý điều hướng thông minh</span>
-                    <span className="font-semibold text-slate-500">Bấm Enter để chuyển ngay</span>
+              {/* Suggestions Dropdown */}
+              {isSearchOpen && (
+                <div className="absolute left-0 right-0 top-full mt-2 bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl border border-slate-200 overflow-hidden text-left p-2 max-h-[380px] overflow-y-auto animate-fadeIn z-50">
+                  <div className="px-4 py-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                    {matchingSuggestions.length > 0
+                      ? `Tìm thấy ${matchingSuggestions.length} tính năng & dịch vụ phù hợp:`
+                      : "Trợ lý AI sẵn sàng hỗ trợ:"}
                   </div>
-
                   {matchingSuggestions.length > 0 ? (
                     matchingSuggestions.map((item, idx) => (
                       <Link
@@ -363,11 +363,11 @@ export default function Home() {
                 Xây dựng quy chế hoạt động, cơ cấu quản trị nội bộ, giải quyết mâu thuẫn giữa các thành viên/cổ đông.
               </p>
               <div className="flex flex-col gap-3 mt-auto">
-                <Link href="/appointment" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
-                  Đặt lịch hẹn
+                <Link href="/appointment" aria-label="Đặt lịch hẹn tư vấn Doanh nghiệp" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                  Đặt lịch Doanh nghiệp
                 </Link>
-                <Link href="/ai-chatbot" className="flex w-full items-center justify-center bg-amber-50 hover:bg-amber-100 text-[#641D06] border border-amber-300/80 rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
-                  Hỏi ngay AI
+                <Link href="/ai-chatbot" aria-label="Hỏi Trợ lý AI về Doanh nghiệp" className="flex w-full items-center justify-center bg-amber-50 hover:bg-amber-100 text-[#641D06] border border-amber-300/80 rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                  Hỏi AI Doanh nghiệp
                 </Link>
               </div>
             </div>
@@ -396,11 +396,11 @@ export default function Home() {
                 Cố vấn chiến lược cho các nhà đầu tư trong và ngoài nước (FDI). Đánh giá tính pháp lý của dự án, tối ưu hóa cấu trúc vốn.
               </p>
               <div className="flex flex-col gap-3 mt-auto">
-                <Link href="/appointment" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
-                  Đặt lịch hẹn
+                <Link href="/appointment" aria-label="Đặt lịch hẹn tư vấn Đầu tư FDI" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                  Đặt lịch Đầu tư FDI
                 </Link>
-                <Link href="/ai-chatbot" className="flex w-full items-center justify-center bg-amber-50 hover:bg-amber-100 text-[#641D06] border border-amber-300/80 rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
-                  Hỏi ngay AI
+                <Link href="/ai-chatbot" aria-label="Hỏi Trợ lý AI về Đầu tư FDI" className="flex w-full items-center justify-center bg-amber-50 hover:bg-amber-100 text-[#641D06] border border-amber-300/80 rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                  Hỏi AI Đầu tư FDI
                 </Link>
               </div>
             </div>
@@ -429,11 +429,11 @@ export default function Home() {
                 Đại diện khách hàng tham gia tố tụng tại Tòa án và Trọng tài thương mại các cấp. Bào chữa, bảo vệ tối đa quyền lợi.
               </p>
               <div className="flex flex-col gap-3 mt-auto">
-                <Link href="/appointment" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
-                  Đặt lịch hẹn
+                <Link href="/appointment" aria-label="Đặt lịch hẹn tư vấn Tranh tụng" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                  Đặt lịch Tranh tụng
                 </Link>
-                <Link href="/ai-chatbot" className="flex w-full items-center justify-center bg-amber-50 hover:bg-amber-100 text-[#641D06] border border-amber-300/80 rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
-                  Hỏi ngay AI
+                <Link href="/ai-chatbot" aria-label="Hỏi Trợ lý AI về Tranh tụng Tòa án" className="flex w-full items-center justify-center bg-amber-50 hover:bg-amber-100 text-[#641D06] border border-amber-300/80 rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                  Hỏi AI Tranh tụng
                 </Link>
               </div>
             </div>
@@ -453,7 +453,7 @@ export default function Home() {
               <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Tool 1 */}
             <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
               <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-6 sm:p-8 h-full flex flex-col border border-border-neutral/50">
@@ -479,8 +479,8 @@ export default function Home() {
                   Tính năng tính lương, BHXH, BHYT và các khoản trích theo lương chuẩn xác theo quy định pháp luật 2026.
                 </p>
                 <div className="mt-auto">
-                  <Link href="/salary-calculator" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3.5 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
-                    Sử dụng ngay
+                  <Link href="/salary-calculator" aria-label="Tính Lương Gross-to-Net" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3.5 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                    Tính Lương Gross-Net
                   </Link>
                 </div>
               </div>
@@ -511,8 +511,8 @@ export default function Home() {
                   Tính toán nhanh tạm ứng án phí và án phí chính thức các vụ việc dân sự, kinh doanh thương mại và lệ phí tòa án.
                 </p>
                 <div className="mt-auto">
-                  <Link href="/court-fee-calculator" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3.5 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
-                    Sử dụng ngay
+                  <Link href="/court-fee-calculator" aria-label="Tính Án Phí Tòa Án" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3.5 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                    Tính Án Phí Tòa Án
                   </Link>
                 </div>
               </div>
@@ -543,8 +543,8 @@ export default function Home() {
                   Tìm kiếm thông minh ngữ nghĩa và tải về trọn bộ biểu mẫu pháp lý chuẩn xác (.doc) có thẩm định tức thì.
                 </p>
                 <div className="mt-auto">
-                  <Link href="/ai-form-library" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3.5 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
-                    Sử dụng ngay
+                  <Link href="/ai-form-library" aria-label="Khám phá Thư Viện Biểu Mẫu AI" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3.5 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                    Khám Phá Biểu Mẫu AI
                   </Link>
                 </div>
               </div>
