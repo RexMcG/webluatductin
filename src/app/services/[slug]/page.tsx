@@ -16,14 +16,22 @@ export default function ServiceDetailPage() {
 
   const handleTabChange = (tab: TabType) => {
     setActiveTab(tab);
-    const navEl = document.getElementById("tab-nav-bar");
-    if (navEl) {
-      const yOffset = -90;
-      const y = navEl.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      if (window.pageYOffset > y) {
-        window.scrollTo({ top: y, behavior: "smooth" });
+    
+    // Smoothly scroll to the tab bar so the user always sees the top of the new tab
+    setTimeout(() => {
+      const navEl = document.getElementById("tab-nav-bar");
+      if (navEl) {
+        // Compute position so tab bar sits right beneath the fixed header (80px)
+        const headerHeight = 80;
+        const targetPosition = navEl.offsetTop - headerHeight;
+        
+        // Always scroll if user is scrolled past or in the tab content
+        window.scrollTo({
+          top: Math.max(0, targetPosition),
+          behavior: "smooth",
+        });
       }
-    }
+    }, 10);
   };
 
   return (
