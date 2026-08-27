@@ -538,25 +538,22 @@ END:VCALENDAR`;
                       key={idx}
                       className={`p-3 rounded-2xl text-center border transition-all ${
                         isToday
-                          ? "bg-rose-600 border-rose-700 text-white shadow-md ring-2 ring-rose-300 scale-[1.02]"
-                          : idx === 5
-                          ? "bg-amber-50/70 border-amber-200 text-amber-900"
-                          : idx === 6
-                          ? "bg-purple-50/70 border-purple-200 text-purple-900"
+                          ? "bg-red-50/80 border-red-300 text-red-900 shadow-2xs"
+                          : idx >= 5
+                          ? "bg-slate-50/80 border-slate-200 text-slate-500"
                           : "bg-slate-100 border-slate-200 text-slate-800"
                       }`}
                     >
-                      <div className={`font-extrabold text-xs ${isToday ? "text-rose-100" : ""}`}>{wDay.weekdayLabel}</div>
-                      <div className="text-sm font-black mt-0.5">
+                      <div className={`font-bold text-xs ${isToday ? "text-red-700 font-extrabold" : ""}`}>{wDay.weekdayLabel}</div>
+                      <div className={`text-sm font-black mt-0.5 ${isToday ? "text-red-950" : ""}`}>
                         {wDay.dayNumber}/{wDay.monthNumber}
                       </div>
-                      {isToday && (
-                        <span className="inline-block mt-1 text-[9.5px] bg-white text-rose-700 font-black px-2 py-0.5 rounded-full shadow-xs">
-                          ★ HÔM NAY ★
-                        </span>
-                      )}
-                      {!isToday && dayAptsCount > 0 && (
-                        <span className="inline-block mt-1 text-[9.5px] bg-white text-slate-700 font-bold px-2 py-0.5 rounded-full border border-slate-200">
+                      {dayAptsCount > 0 && (
+                        <span className={`inline-block mt-1 text-[9.5px] font-bold px-2 py-0.5 rounded-full border ${
+                          isToday
+                            ? "bg-red-100 text-red-800 border-red-200"
+                            : "bg-white text-slate-700 border-slate-200"
+                        }`}>
                           {dayAptsCount} lịch
                         </span>
                       )}
@@ -604,7 +601,7 @@ END:VCALENDAR`;
                             slotApts.length > 0
                               ? "bg-white border-slate-300 shadow-2xs"
                               : isToday
-                              ? "bg-rose-50/40 border-rose-200/80 hover:bg-rose-50/70"
+                              ? "bg-red-50/25 border-red-100 hover:bg-red-50/50"
                               : "bg-slate-50/40 border-slate-100 hover:bg-slate-50/80"
                           }`}
                         >
@@ -725,8 +722,8 @@ END:VCALENDAR`;
                 <div className="py-2 bg-slate-100 rounded-xl">Thứ 4</div>
                 <div className="py-2 bg-slate-100 rounded-xl">Thứ 5</div>
                 <div className="py-2 bg-slate-100 rounded-xl">Thứ 6</div>
-                <div className="py-2 bg-amber-50 text-amber-900 rounded-xl">Thứ 7</div>
-                <div className="py-2 bg-purple-50 text-purple-900 rounded-xl">Chủ Nhật</div>
+                <div className="py-2 bg-slate-50 text-slate-600 rounded-xl">Thứ 7</div>
+                <div className="py-2 bg-slate-50 text-slate-600 rounded-xl">Chủ Nhật</div>
               </div>
 
               {/* Day cells grid */}
@@ -741,7 +738,7 @@ END:VCALENDAR`;
                       className={`min-h-[110px] p-2 rounded-2xl border transition-all flex flex-col justify-between ${
                         cell.isCurrentMonth
                           ? isToday
-                            ? "bg-rose-50/50 border-rose-500 ring-2 ring-rose-400/30"
+                            ? "bg-red-50/40 border-red-300 shadow-2xs"
                             : "bg-white border-slate-200 hover:border-slate-300"
                           : "bg-slate-50/60 border-slate-100 text-slate-300"
                       }`}
@@ -751,7 +748,7 @@ END:VCALENDAR`;
                         <span
                           className={`text-xs font-black w-6 h-6 rounded-full flex items-center justify-center ${
                             isToday
-                              ? "bg-rose-600 text-white shadow-xs"
+                              ? "bg-red-700 text-white shadow-2xs"
                               : cell.isCurrentMonth
                               ? "text-slate-800"
                               : "text-slate-300"
