@@ -149,6 +149,7 @@ export function extractMindmapAndCleanText(rawText: string): {
 
 export default function MindmapVisual({ rawText }: { rawText: string }) {
   const [isOpen, setIsOpen] = useState(true);
+  const [selectedBranch, setSelectedBranch] = useState<MindmapBranch | null>(null);
   const { data } = extractMindmapAndCleanText(rawText);
 
   if (!data) return null;
@@ -158,32 +159,26 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
   const leftBranches = data.branches.slice(0, half);
   const rightBranches = data.branches.slice(half);
 
-  // Dynamic canvas calculations based on number of branches
+  // Dynamic canvas calculations for clean main-branches-only layout
   const maxSide = Math.max(leftBranches.length, rightBranches.length);
-  const rowSpacing = maxSide >= 4 ? 85 : 100;
-  const canvasH = Math.max(380, (maxSide - 1) * rowSpacing + 160);
-  const canvasW = 1000;
+  const rowSpacing = maxSide >= 4 ? 80 : 95;
+  const canvasH = Math.max(340, (maxSide - 1) * rowSpacing + 150);
+  const canvasW = 860;
 
-  const cx = canvasW / 2; // 500
+  const cx = canvasW / 2; // 430
   const cy = canvasH / 2;
 
-  const centerBoxW = 170;
-  const centerBoxH = 85;
-  const centerL = cx - centerBoxW / 2; // 415
-  const centerR = cx + centerBoxW / 2; // 585
+  const centerBoxW = 180;
+  const centerBoxH = 80;
+  const centerL = cx - centerBoxW / 2; // 340
+  const centerR = cx + centerBoxW / 2; // 520
 
-  const branchBoxW = 145;
-  const branchBoxH = 54;
+  const branchBoxW = 190;
+  const branchBoxH = 56;
 
-  const subBoxW = 135;
-  const subBoxH = 44;
-
-  // X Coordinate Columns with clear gaps for smooth curves
-  const leftBranchX = 245; // [172.5 to 317.5]
-  const rightBranchX = 755; // [682.5 to 827.5]
-
-  const leftSubX = 68; // [0.5 to 135.5]
-  const rightSubX = 932; // [864.5 to 999.5]
+  // X Coordinate Columns for clean 2-side tree
+  const leftBranchX = 140; // [45 to 235]
+  const rightBranchX = 720; // [625 to 815]
 
   // Helper to compute Y coordinate for each branch
   const getBranchY = (bIdx: number, totalOnSide: number) => {
@@ -192,8 +187,16 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
     return startY + bIdx * rowSpacing;
   };
 
+  const handleBranchClick = (branch: MindmapBranch) => {
+    if (selectedBranch?.name === branch.name) {
+      setSelectedBranch(null); // toggle off if clicking active
+    } else {
+      setSelectedBranch(branch);
+    }
+  };
+
   return (
-    <div className="my-5 w-full rounded-3xl border border-slate-200 bg-[#fdfbf7] p-3 sm:p-5 shadow-sm">
+    <div className="my-5 w-full rounded-3xl border border-slate-200 bg-[#fdfbf7] p-3 sm:p-5 shadow-sm transition-all">
       {/* Header Bar */}
       <div className="flex items-center justify-between border-b border-slate-200/80 pb-2.5 mb-3">
         <div className="flex items-center gap-2">
@@ -202,9 +205,9 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
           </span>
           <div>
             <h4 className="font-bold text-slate-900 text-xs sm:text-sm">
-              Sơ Đồ Tư Duy Mindmap Toàn Cảnh ({data.branches.length} Mục Trọng Tâm)
+              Sơ Đồ Tư Duy Mindmap Trực Quan ({data.branches.length} Mục Trọng Tâm)
             </h4>
-            <p className="text-[10px] text-slate-500">Mũi tên tỏa ra từ tâm điểm hướng tới từng nhánh và nội dung chi tiết</p>
+            <p className="text-[10px] text-slate-500">Chạm vào từng mục để xem ngay bản ghi chú tóm tắt nội dung</p>
           </div>
         </div>
 
@@ -222,19 +225,18 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
 
       {isOpen && (
         <div className="w-full">
-          <div className="w-full relative select-none">
-            
-            {/* UNIFIED DYNAMIC SVG VECTOR CANVAS */}
+          {/* UNIFIED DYNAMIC SVG VECTOR CANVAS */}
+          <div className="w-full relative select-none overflow-x-auto">
             <svg
               viewBox={`0 0 ${canvasW} ${canvasH}`}
-              className="w-full h-auto drop-shadow-2xs overflow-visible"
+              className="w-full min-w-[500px] h-auto drop-shadow-2xs overflow-visible"
             >
               <defs>
-                {/* Dynamic Forward Arrowhead Markers for Center-to-Branch Connections */}
+                {/* Dynamic Forward Arrowhead Markers */}
                 {data.branches.map((b, idx) => (
                   <marker
                     key={`marker-main-${idx}`}
-                    id={`arrow-main-dyn-${idx}`}
+                    id={`arrow-main-clean-${idx}`}
                     viewBox="0 0 10 10"
                     refX="8"
                     refY="5"
@@ -245,168 +247,60 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                     <path d="M 0 0 L 10 5 L 0 10 z" fill={b.lineColor} />
                   </marker>
                 ))}
-
-                {/* Forward Arrowhead Markers for Branch to Sub-item Connections */}
-                {data.branches.map((b, idx) => (
-                  <marker
-                    key={`marker-sub-${idx}`}
-                    id={`arrow-sub-dyn-${idx}`}
-                    viewBox="0 0 10 10"
-                    refX="8"
-                    refY="5"
-                    markerWidth="5"
-                    markerHeight="5"
-                    orient="auto"
-                  >
-                    <path d="M 0 0 L 10 5 L 0 10 z" fill={b.lineColor} />
-                  </marker>
-                ))}
               </defs>
 
-              {/* =========================================================
-                  1. LEFT SIDE: FROM CENTER HUB (START) ---> TO LEFT BRANCH (END: ◀)
-                 ========================================================= */}
+              {/* 1. LEFT SIDE: CONNECTIONS FROM CENTER ---> TO LEFT BRANCH (◀) */}
               {leftBranches.map((b, idx) => {
                 const branchY = getBranchY(idx, leftBranches.length);
-                const startX = centerL; // Start at Left edge of Center Hub
-                const startY = cy + (idx - (leftBranches.length - 1) / 2) * 12;
+                const startX = centerL;
+                const startY = cy + (idx - (leftBranches.length - 1) / 2) * 14;
 
-                const endX = leftBranchX + branchBoxW / 2; // End at Right edge of Left Branch
+                const endX = leftBranchX + branchBoxW / 2;
                 const endY = branchY;
 
-                const cp1X = startX - 50;
-                const cp1Y = startY;
-                const cp2X = endX + 50;
-                const cp2Y = endY;
+                const isSelected = selectedBranch?.name === b.name;
 
                 return (
                   <path
-                    key={`l-main-dyn-${idx}`}
-                    d={`M ${startX} ${startY} C ${cp1X} ${cp1Y}, ${cp2X} ${cp2Y}, ${endX} ${endY}`}
+                    key={`l-conn-clean-${idx}`}
+                    d={`M ${startX} ${startY} C ${startX - 40} ${startY}, ${endX + 40} ${endY}, ${endX} ${endY}`}
                     fill="none"
                     stroke={b.lineColor}
-                    strokeWidth="2.8"
+                    strokeWidth={isSelected ? "4" : "2.6"}
+                    strokeDasharray={isSelected ? "none" : "none"}
                     strokeLinecap="round"
-                    markerEnd={`url(#arrow-main-dyn-${idx})`}
+                    markerEnd={`url(#arrow-main-clean-${idx})`}
+                    className="transition-all duration-300"
                   />
                 );
               })}
 
-              {/* =========================================================
-                  2. LEFT SIDE: FROM LEFT BRANCH (START) ---> TO LEFT SUB-ITEM (END: ◀)
-                 ========================================================= */}
-              {leftBranches.map((b, bIdx) => {
-                const branchY = getBranchY(bIdx, leftBranches.length);
-                const branchLeftBorderX = leftBranchX - branchBoxW / 2;
-
-                return b.subItems.map((sub, sIdx) => {
-                  const sCount = b.subItems.length;
-                  const subY =
-                    sCount === 1
-                      ? branchY
-                      : sIdx === 0
-                      ? branchY - 26
-                      : branchY + 26;
-
-                  const startX = branchLeftBorderX; // Start at Left edge of Branch
-                  const startY = branchY;
-
-                  const endX = leftSubX + subBoxW / 2; // End at Right edge of Sub-item
-                  const endY = subY;
-
-                  const cp1X = startX - 20;
-                  const cp1Y = startY;
-                  const cp2X = endX + 20;
-                  const cp2Y = endY;
-
-                  return (
-                    <path
-                      key={`l-sub-dyn-${bIdx}-${sIdx}`}
-                      d={`M ${startX} ${startY} C ${cp1X} ${cp1Y}, ${cp2X} ${cp2Y}, ${endX} ${endY}`}
-                      fill="none"
-                      stroke={b.lineColor}
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      markerEnd={`url(#arrow-sub-dyn-${bIdx})`}
-                    />
-                  );
-                });
-              })}
-
-              {/* =========================================================
-                  3. RIGHT SIDE: FROM CENTER HUB (START) ---> TO RIGHT BRANCH (END: ▶)
-                 ========================================================= */}
+              {/* 2. RIGHT SIDE: CONNECTIONS FROM CENTER ---> TO RIGHT BRANCH (▶) */}
               {rightBranches.map((b, idx) => {
                 const branchY = getBranchY(idx, rightBranches.length);
-                const startX = centerR; // Start at Right edge of Center Hub
-                const startY = cy + (idx - (rightBranches.length - 1) / 2) * 12;
+                const startX = centerR;
+                const startY = cy + (idx - (rightBranches.length - 1) / 2) * 14;
 
-                const endX = rightBranchX - branchBoxW / 2; // End at Left edge of Right Branch
+                const endX = rightBranchX - branchBoxW / 2;
                 const endY = branchY;
 
-                const cp1X = startX + 50;
-                const cp1Y = startY;
-                const cp2X = endX - 50;
-                const cp2Y = endY;
+                const isSelected = selectedBranch?.name === b.name;
 
                 return (
                   <path
-                    key={`r-main-dyn-${idx}`}
-                    d={`M ${startX} ${startY} C ${cp1X} ${cp1Y}, ${cp2X} ${cp2Y}, ${endX} ${endY}`}
+                    key={`r-conn-clean-${idx}`}
+                    d={`M ${startX} ${startY} C ${startX + 40} ${startY}, ${endX - 40} ${endY}, ${endX} ${endY}`}
                     fill="none"
                     stroke={b.lineColor}
-                    strokeWidth="2.8"
+                    strokeWidth={isSelected ? "4" : "2.6"}
                     strokeLinecap="round"
-                    markerEnd={`url(#arrow-main-dyn-${half + idx})`}
+                    markerEnd={`url(#arrow-main-clean-${half + idx})`}
+                    className="transition-all duration-300"
                   />
                 );
               })}
 
-              {/* =========================================================
-                  4. RIGHT SIDE: FROM RIGHT BRANCH (START) ---> TO RIGHT SUB-ITEM (END: ▶)
-                 ========================================================= */}
-              {rightBranches.map((b, bIdx) => {
-                const branchY = getBranchY(bIdx, rightBranches.length);
-                const branchRightBorderX = rightBranchX + branchBoxW / 2;
-                const actualIdx = half + bIdx;
-
-                return b.subItems.map((sub, sIdx) => {
-                  const sCount = b.subItems.length;
-                  const subY =
-                    sCount === 1
-                      ? branchY
-                      : sIdx === 0
-                      ? branchY - 26
-                      : branchY + 26;
-
-                  const startX = branchRightBorderX; // Start at Right edge of Branch
-                  const startY = branchY;
-
-                  const endX = rightSubX - subBoxW / 2; // End at Left edge of Sub-item
-                  const endY = subY;
-
-                  const cp1X = startX + 20;
-                  const cp1Y = startY;
-                  const cp2X = endX - 20;
-                  const cp2Y = endY;
-
-                  return (
-                    <path
-                      key={`r-sub-dyn-${bIdx}-${sIdx}`}
-                      d={`M ${startX} ${startY} C ${cp1X} ${cp1Y}, ${cp2X} ${cp2Y}, ${endX} ${endY}`}
-                      fill="none"
-                      stroke={b.lineColor}
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      markerEnd={`url(#arrow-sub-dyn-${actualIdx})`}
-                    />
-                  );
-                });
-              })}
-
-              {/* =========================================================
-                  5. CENTER HUB (TÂM TRUNG TÂM)
-                 ========================================================= */}
+              {/* 3. CENTER HUB */}
               <foreignObject
                 x={centerL}
                 y={cy - centerBoxH / 2}
@@ -414,153 +308,183 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 height={centerBoxH}
               >
                 <div className="w-full h-full flex items-center justify-center p-0.5">
-                  <div className="w-full h-full rounded-2xl bg-[#641D06] text-white p-2.5 shadow-md border-2 border-[#C0963B]/60 flex flex-col items-center justify-center text-center">
+                  <div className="w-full h-full rounded-2xl bg-[#641D06] text-white p-2 shadow-md border-2 border-[#C0963B]/70 flex flex-col items-center justify-center text-center">
                     <span className="material-symbols-outlined text-lg mb-0.5 text-amber-300">account_balance</span>
-                    <h3 className="font-black text-[11px] uppercase tracking-wide leading-snug line-clamp-3 text-amber-100">
+                    <h3 className="font-black text-[11px] uppercase tracking-wide leading-tight line-clamp-3 text-amber-100">
                       {data.center}
                     </h3>
                   </div>
                 </div>
               </foreignObject>
 
-              {/* =========================================================
-                  6. LEFT BRANCHES & SUB-ITEMS
-                 ========================================================= */}
+              {/* 4. LEFT BRANCHES (CLICKABLE INTERACTIVE BUTTONS) */}
               {leftBranches.map((b, bIdx) => {
                 const branchY = getBranchY(bIdx, leftBranches.length);
+                const isSelected = selectedBranch?.name === b.name;
 
                 return (
-                  <React.Fragment key={`l-node-dyn-${bIdx}`}>
-                    {/* Branch Node */}
-                    <foreignObject
-                      x={leftBranchX - branchBoxW / 2}
-                      y={branchY - branchBoxH / 2}
-                      width={branchBoxW}
-                      height={branchBoxH}
-                    >
-                      <div className="w-full h-full flex items-center justify-center p-0.5">
-                        <div
-                          className="w-full h-full px-2 py-1.5 rounded-xl text-[10.5px] font-bold shadow-xs border-2 text-center flex items-center justify-center leading-tight"
-                          style={{
-                            backgroundColor: b.colorBg,
-                            borderColor: b.colorBorder,
-                            color: b.textColor,
-                          }}
-                        >
+                  <foreignObject
+                    key={`l-node-clean-${bIdx}`}
+                    x={leftBranchX - branchBoxW / 2}
+                    y={branchY - branchBoxH / 2}
+                    width={branchBoxW}
+                    height={branchBoxH}
+                  >
+                    <div className="w-full h-full flex items-center justify-center p-0.5">
+                      <button
+                        type="button"
+                        onClick={() => handleBranchClick(b)}
+                        className={`w-full h-full px-3 py-2 rounded-xl text-[11px] font-bold shadow-sm border-2 text-center flex items-center justify-between gap-1.5 leading-tight transition-all duration-200 cursor-pointer active:scale-95 group ${
+                          isSelected
+                            ? "ring-4 ring-amber-300/80 scale-105 shadow-md"
+                            : "hover:scale-102 hover:shadow-md"
+                        }`}
+                        style={{
+                          backgroundColor: b.colorBg,
+                          borderColor: isSelected ? "#C0963B" : b.colorBorder,
+                          color: b.textColor,
+                        }}
+                      >
+                        <span className="text-left font-black leading-snug flex-1 line-clamp-2">
                           {b.name}
-                        </div>
-                      </div>
-                    </foreignObject>
-
-                    {/* Sub-item Cards */}
-                    {b.subItems.map((sub, sIdx) => {
-                      const sCount = b.subItems.length;
-                      const subY =
-                        sCount === 1
-                          ? branchY
-                          : sIdx === 0
-                          ? branchY - 26
-                          : branchY + 26;
-
-                      return (
-                        <foreignObject
-                          key={`l-sub-card-dyn-${sIdx}`}
-                          x={leftSubX - subBoxW / 2}
-                          y={subY - subBoxH / 2}
-                          width={subBoxW}
-                          height={subBoxH}
-                        >
-                          <div className="w-full h-full flex items-center justify-center p-0.5">
-                            <div
-                              className="w-full h-full px-2 py-0.5 rounded-lg text-[9.5px] font-semibold shadow-2xs border text-right flex items-center justify-end leading-tight"
-                              style={{
-                                backgroundColor: b.subBg,
-                                borderColor: b.subBorder,
-                                color: b.subTextColor,
-                              }}
-                            >
-                              {sub}
-                            </div>
-                          </div>
-                        </foreignObject>
-                      );
-                    })}
-                  </React.Fragment>
+                        </span>
+                        <span className="material-symbols-outlined text-sm text-amber-300 shrink-0 group-hover:translate-x-0.5 transition-transform">
+                          {isSelected ? "check_circle" : "touch_app"}
+                        </span>
+                      </button>
+                    </div>
+                  </foreignObject>
                 );
               })}
 
-              {/* =========================================================
-                  7. RIGHT BRANCHES & SUB-ITEMS
-                 ========================================================= */}
+              {/* 5. RIGHT BRANCHES (CLICKABLE INTERACTIVE BUTTONS) */}
               {rightBranches.map((b, bIdx) => {
                 const branchY = getBranchY(bIdx, rightBranches.length);
+                const isSelected = selectedBranch?.name === b.name;
 
                 return (
-                  <React.Fragment key={`r-node-dyn-${bIdx}`}>
-                    {/* Branch Node */}
-                    <foreignObject
-                      x={rightBranchX - branchBoxW / 2}
-                      y={branchY - branchBoxH / 2}
-                      width={branchBoxW}
-                      height={branchBoxH}
-                    >
-                      <div className="w-full h-full flex items-center justify-center p-0.5">
-                        <div
-                          className="w-full h-full px-2 py-1.5 rounded-xl text-[10.5px] font-bold shadow-xs border-2 text-center flex items-center justify-center leading-tight"
-                          style={{
-                            backgroundColor: b.colorBg,
-                            borderColor: b.colorBorder,
-                            color: b.textColor,
-                          }}
-                        >
+                  <foreignObject
+                    key={`r-node-clean-${bIdx}`}
+                    x={rightBranchX - branchBoxW / 2}
+                    y={branchY - branchBoxH / 2}
+                    width={branchBoxW}
+                    height={branchBoxH}
+                  >
+                    <div className="w-full h-full flex items-center justify-center p-0.5">
+                      <button
+                        type="button"
+                        onClick={() => handleBranchClick(b)}
+                        className={`w-full h-full px-3 py-2 rounded-xl text-[11px] font-bold shadow-sm border-2 text-center flex items-center justify-between gap-1.5 leading-tight transition-all duration-200 cursor-pointer active:scale-95 group ${
+                          isSelected
+                            ? "ring-4 ring-amber-300/80 scale-105 shadow-md"
+                            : "hover:scale-102 hover:shadow-md"
+                        }`}
+                        style={{
+                          backgroundColor: b.colorBg,
+                          borderColor: isSelected ? "#C0963B" : b.colorBorder,
+                          color: b.textColor,
+                        }}
+                      >
+                        <span className="material-symbols-outlined text-sm text-amber-300 shrink-0 group-hover:scale-110 transition-transform">
+                          {isSelected ? "check_circle" : "touch_app"}
+                        </span>
+                        <span className="text-right font-black leading-snug flex-1 line-clamp-2">
                           {b.name}
-                        </div>
-                      </div>
-                    </foreignObject>
-
-                    {/* Sub-item Cards */}
-                    {b.subItems.map((sub, sIdx) => {
-                      const sCount = b.subItems.length;
-                      const subY =
-                        sCount === 1
-                          ? branchY
-                          : sIdx === 0
-                          ? branchY - 26
-                          : branchY + 26;
-
-                      return (
-                        <foreignObject
-                          key={`r-sub-card-dyn-${sIdx}`}
-                          x={rightSubX - subBoxW / 2}
-                          y={subY - subBoxH / 2}
-                          width={subBoxW}
-                          height={subBoxH}
-                        >
-                          <div className="w-full h-full flex items-center justify-center p-0.5">
-                            <div
-                              className="w-full h-full px-2 py-0.5 rounded-lg text-[9.5px] font-semibold shadow-2xs border text-left flex items-center justify-start leading-tight"
-                              style={{
-                                backgroundColor: b.subBg,
-                                borderColor: b.subBorder,
-                                color: b.subTextColor,
-                              }}
-                            >
-                              {sub}
-                            </div>
-                          </div>
-                        </foreignObject>
-                      );
-                    })}
-                  </React.Fragment>
+                        </span>
+                      </button>
+                    </div>
+                  </foreignObject>
                 );
               })}
-
             </svg>
-
           </div>
 
+          {/* INTERACTIVE NOTE CARD: BẢN GHI CHÚ TÓM TẮT NỘI DUNG MỤC ĐƯỢC CHỌN */}
+          {selectedBranch ? (
+            <div
+              className="mt-4 p-4 sm:p-5 rounded-2xl border-2 transition-all duration-300 animate-fadeIn shadow-md"
+              style={{
+                backgroundColor: selectedBranch.subBg,
+                borderColor: selectedBranch.colorBorder,
+              }}
+            >
+              {/* Note Header */}
+              <div
+                className="flex items-start justify-between gap-3 border-b pb-3 mb-3"
+                style={{ borderColor: selectedBranch.subBorder }}
+              >
+                <div className="flex items-center gap-2.5">
+                  <div
+                    className="w-8 h-8 rounded-xl flex items-center justify-center font-black text-sm text-white shadow-xs shrink-0"
+                    style={{ backgroundColor: selectedBranch.colorBg }}
+                  >
+                    📝
+                  </div>
+                  <div>
+                    <span
+                      className="text-[10px] font-black uppercase tracking-wider block"
+                      style={{ color: selectedBranch.colorBg }}
+                    >
+                      Bản Ghi Chú Tóm Tắt Trọng Tâm
+                    </span>
+                    <h4
+                      className="text-sm sm:text-base font-black leading-snug"
+                      style={{ color: selectedBranch.colorBg }}
+                    >
+                      {selectedBranch.name}
+                    </h4>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSelectedBranch(null)}
+                  className="text-xs px-2.5 py-1 rounded-lg bg-white hover:bg-slate-100 text-slate-700 font-bold border border-slate-300 transition-colors cursor-pointer shadow-2xs shrink-0"
+                >
+                  ✕ Đóng ghi chú
+                </button>
+              </div>
+
+              {/* Note Sub-items / Points */}
+              {selectedBranch.subItems.length > 0 ? (
+                <div className="space-y-2">
+                  {selectedBranch.subItems.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-start gap-2.5 bg-white/95 p-3 rounded-xl border shadow-2xs"
+                      style={{ borderColor: selectedBranch.subBorder }}
+                    >
+                      <span
+                        className="w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-white font-bold text-[10px] mt-0.5 shadow-2xs"
+                        style={{ backgroundColor: selectedBranch.colorBg }}
+                      >
+                        {idx + 1}
+                      </span>
+                      <p
+                        className="text-xs sm:text-sm font-semibold leading-relaxed"
+                        style={{ color: selectedBranch.subTextColor }}
+                      >
+                        {item}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="p-3 bg-white/80 rounded-xl text-xs sm:text-sm text-slate-700 italic">
+                  Đang hiển thị mục trọng tâm. Cuộn xuống nội dung bài viết bên dưới để xem toàn văn quy định pháp lý chi tiết.
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="mt-3 py-2.5 px-4 bg-amber-50/70 border border-amber-200/80 rounded-xl flex items-center justify-center gap-2 text-center text-xs text-amber-950 font-medium">
+              <span className="text-sm">👆</span>
+              <span>
+                Chạm hoặc click vào bất kỳ <strong>nhánh mục</strong> nào ở trên để xem ngay <strong>bản ghi chú tóm tắt nội dung</strong>.
+              </span>
+            </div>
+          )}
+
           {/* Footer Note */}
-          <div className="flex items-center justify-between text-[10px] text-slate-500 pt-2 mt-2 border-t border-slate-200/70">
+          <div className="flex items-center justify-between text-[10px] text-slate-500 pt-2.5 mt-3 border-t border-slate-200/70">
             <span>⚖️ Công ty Luật TNHH Đức Tín &amp; Cộng sự</span>
             <span>📞 Hotline / Zalo: 093 786 32 63</span>
           </div>
