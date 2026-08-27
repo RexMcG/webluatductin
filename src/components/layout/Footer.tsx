@@ -102,14 +102,14 @@ export default function Footer() {
       </div>
 
       {/* ========== FOOTER ========== */}
-      <footer className="bg-[#521705] border-t-4 border-amber-600/60 w-full pb-24 md:pb-4 pt-6 md:pt-7 text-white">
+      <footer className="bg-[#521705] border-t-4 border-amber-600/60 w-full pb-24 md:pb-4 pt-7 md:pt-8 text-white">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           
-          {/* Main Footer Grid: Left (Brand, Map, Office) | Right (4 Flat Nav Columns) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+          {/* Main Footer Grid: 12 Columns Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-7 lg:gap-8 items-start">
             
-            {/* LEFT BLOCK: Logo, Compact Map & Address (4 cols) */}
-            <div className="lg:col-span-4 flex flex-col gap-2.5">
+            {/* CỘT 1: THƯƠNG HIỆU & GIỚI THIỆU (4 cols) */}
+            <div className="lg:col-span-4 flex flex-col gap-3">
               <Link href="/" className="inline-block">
                 <img
                   src="/img/Logo_website_footer.webp"
@@ -117,12 +117,154 @@ export default function Footer() {
                   width={240}
                   height={50}
                   loading="lazy"
-                  className="h-9 md:h-11 object-contain"
+                  className="h-10 md:h-12 object-contain"
                 />
               </Link>
 
-              {/* Compact Google Map (~100px) */}
-              <div className="w-full h-24 md:h-28 rounded-xl overflow-hidden shadow-xs border border-white/10 bg-slate-900/40 relative">
+              <p className="text-xs text-slate-200/90 leading-relaxed">
+                Công ty Luật TNHH Đức Tín &amp; Cộng Sự do Luật sư Phan Đức Tín trực tiếp điều hành. Chuyên sâu tư vấn đầu tư FDI, doanh nghiệp, bất động sản, hôn nhân gia đình, tranh tụng Tòa án và ứng dụng công nghệ AI pháp luật.
+              </p>
+
+              <div className="text-[11px] text-amber-200/90 font-medium space-y-1 pt-1 border-t border-white/10">
+                <p>⚖️ Đăng ký hoạt động: Đoàn Luật sư TP. Hồ Chí Minh</p>
+                <p>🛡️ Cam kết bảo mật tuyệt đối &amp; bảo vệ tối đa quyền lợi khách hàng</p>
+              </div>
+
+              {/* Mạng xã hội & Kênh kết nối */}
+              <div className="flex items-center gap-2.5 pt-1">
+                <a
+                  href="https://zalo.me/0937863263"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-full bg-blue-600/80 hover:bg-blue-600 text-white flex items-center justify-center transition-colors shadow-2xs"
+                  title="Chat Zalo OA"
+                >
+                  <img src="/img/zalo_icon.webp" alt="Zalo" width={18} height={18} className="w-4 h-4 object-contain" />
+                </a>
+                <a
+                  href="tel:0937863263"
+                  className="w-8 h-8 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center transition-colors shadow-2xs"
+                  title="Hotline 24/7"
+                >
+                  <span className="material-symbols-outlined text-base">call</span>
+                </a>
+                <a
+                  href="mailto:rexmcg12345678@gmail.com"
+                  className="w-8 h-8 rounded-full bg-amber-600 hover:bg-amber-500 text-white flex items-center justify-center transition-colors shadow-2xs"
+                  title="Gửi Email"
+                >
+                  <span className="material-symbols-outlined text-base">mail</span>
+                </a>
+              </div>
+            </div>
+
+            {/* CÁC CỘT ĐIỀU HƯỚNG TRUNG TÂM (4 cols: 3 cột nhỏ gọn) */}
+            <div className="lg:col-span-4 grid grid-cols-3 gap-3 sm:gap-4">
+              
+              {/* Col 2.1: Về chúng tôi */}
+              <div className="flex flex-col gap-2">
+                <p className="text-xs md:text-[13px] font-extrabold uppercase tracking-wider text-amber-300 pb-1.5 border-b border-amber-500/30">
+                  Về chúng tôi
+                </p>
+                <div className="flex flex-col gap-1.5 text-xs md:text-[12.5px]">
+                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/#about-us">
+                    Giới thiệu
+                  </Link>
+                  <Link className="text-slate-200 hover:text-amber-300 transition-colors font-medium" href="/#lawyer">
+                    Đội ngũ luật sư
+                  </Link>
+                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services">
+                    Lĩnh vực
+                  </Link>
+                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/news">
+                    Tin tức
+                  </Link>
+                </div>
+              </div>
+
+              {/* Col 2.2: Tính năng & AI */}
+              <div className="flex flex-col gap-2">
+                <p className="text-xs md:text-[13px] font-extrabold uppercase tracking-wider text-amber-300 pb-1.5 border-b border-amber-500/30">
+                  Tính năng
+                </p>
+                <div className="flex flex-col gap-1.5 text-xs md:text-[12.5px]">
+                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/court-fee-calculator">
+                    Tính án phí
+                  </Link>
+                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/salary-calculator">
+                    Lương Gross-Net
+                  </Link>
+                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/pit-calculator">
+                    Thuế TNCN
+                  </Link>
+                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/ai-form-library">
+                    Biểu mẫu AI
+                  </Link>
+                </div>
+              </div>
+
+              {/* Col 2.3: Tiện ích AI */}
+              <div className="flex flex-col gap-2">
+                <p className="text-xs md:text-[13px] font-extrabold uppercase tracking-wider text-amber-300 pb-1.5 border-b border-amber-500/30">
+                  Tiện ích AI
+                </p>
+                <div className="flex flex-col gap-1.5 text-xs md:text-[12.5px]">
+                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/ai-chatbot">
+                    Trợ lý AI 24/7
+                  </Link>
+                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/ai-form-checker">
+                    Thẩm định mẫu
+                  </Link>
+                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/news">
+                    Sơ đồ tư duy
+                  </Link>
+                </div>
+              </div>
+
+            </div>
+
+            {/* CỘT 3: GỘP TOÀN BỘ TRỤ SỞ, BẢN ĐỒ & LIÊN HỆ ĐẶT LỊCH (4 cols bên phải) */}
+            <div className="lg:col-span-4 flex flex-col gap-2.5 bg-black/20 p-4 rounded-2xl border border-white/10">
+              <div className="flex items-center justify-between border-b border-amber-500/30 pb-1.5">
+                <p className="text-xs md:text-sm font-extrabold uppercase tracking-wider text-amber-300">
+                  Liên Hệ &amp; Trụ Sở
+                </p>
+                <span className="text-[10px] text-emerald-300 font-bold flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  Hỗ trợ 24/7
+                </span>
+              </div>
+
+              {/* Conversion Action Button: Đặt Lịch Hẹn Tư Vấn */}
+              <Link
+                href="/appointment"
+                className="w-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5 uppercase tracking-wider transition-all shadow-md active:scale-98"
+              >
+                <span className="material-symbols-outlined text-base">calendar_month</span>
+                <span>Đặt Lịch Hẹn Luật Sư</span>
+              </Link>
+
+              {/* Thông tin liên lạc trực tiếp */}
+              <div className="space-y-1.5 text-xs text-slate-200">
+                <p>
+                  <strong className="text-amber-300">Hotline / Zalo:</strong>{" "}
+                  <a href="tel:0937863263" className="hover:text-amber-300 font-bold transition-colors">
+                    093 786 32 63
+                  </a>
+                </p>
+                <p>
+                  <strong className="text-amber-300">Email:</strong>{" "}
+                  <a href="mailto:rexmcg12345678@gmail.com" className="hover:text-amber-300 transition-colors break-all">
+                    rexmcg12345678@gmail.com
+                  </a>
+                </p>
+                <p className="text-[11.5px] leading-snug">
+                  <strong className="text-amber-300">Trụ sở chính:</strong> P. 1901, Tầng 19, Saigon Trade Center, 37 Tôn Đức Thắng, Q.1, TP. HCM.
+                </p>
+              </div>
+
+              {/* Compact Google Maps Iframe gộp chung dưới thông tin trụ sở */}
+              <div className="w-full h-24 rounded-xl overflow-hidden shadow-xs border border-white/15 bg-slate-900/50 mt-0.5">
                 <iframe
                   title="Văn phòng Công ty Luật TNHH Đức Tín & Cộng Sự trên Google Maps"
                   allowFullScreen={false}
@@ -135,106 +277,13 @@ export default function Footer() {
                   width="100%"
                 />
               </div>
-
-              {/* Minimal Address & Working Hours text */}
-              <div className="space-y-1 text-xs text-slate-200 leading-snug">
-                <p>
-                  <strong className="text-amber-300">Trụ sở chính:</strong> P. 1901, Tầng 19, Saigon Trade Center, 37 Tôn Đức Thắng, Q.1, Tp. HCM.
-                </p>
-                <p className="text-slate-300 text-[11px]">
-                  <strong className="text-amber-300">Giờ làm việc:</strong> T2 – T6: 08:00 – 17:30 | T7: 08:00 – 12:00
-                </p>
-              </div>
             </div>
 
-            {/* RIGHT BLOCK: 4 Sleek Flat Nav Columns (8 cols) - Aligned with Map */}
-            <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 lg:pt-11">
-              
-              {/* Col 1: Về chúng tôi */}
-              <div className="flex flex-col gap-2">
-                <p className="text-xs md:text-sm font-extrabold uppercase tracking-wider text-amber-300 pb-1.5 border-b border-amber-500/30">
-                  Về chúng tôi
-                </p>
-                <div className="flex flex-col gap-1.5 text-xs md:text-[13px]">
-                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/#about-us">
-                    Giới thiệu chung
-                  </Link>
-                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services">
-                    Lĩnh vực hoạt động
-                  </Link>
-                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/news">
-                    Bảng tin &amp; Án lệ
-                  </Link>
-                </div>
-              </div>
-
-              {/* Col 2: Tính năng & AI */}
-              <div className="flex flex-col gap-2">
-                <p className="text-xs md:text-sm font-extrabold uppercase tracking-wider text-amber-300 pb-1.5 border-b border-amber-500/30">
-                  Tính năng &amp; AI
-                </p>
-                <div className="flex flex-col gap-1.5 text-xs md:text-[13px]">
-                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/court-fee-calculator">
-                    Tính án phí tòa án
-                  </Link>
-                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/salary-calculator">
-                    Tính lương Gross-Net
-                  </Link>
-                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/pit-calculator">
-                    Tính thuế TNCN
-                  </Link>
-                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/ai-form-library">
-                    Biểu mẫu pháp lý AI
-                  </Link>
-                </div>
-              </div>
-
-              {/* Col 3: Hỗ trợ */}
-              <div className="flex flex-col gap-2">
-                <p className="text-xs md:text-sm font-extrabold uppercase tracking-wider text-amber-300 pb-1.5 border-b border-amber-500/30">
-                  Hỗ trợ
-                </p>
-                <div className="flex flex-col gap-1.5 text-xs md:text-[13px]">
-                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/appointment">
-                    Đặt lịch hẹn tư vấn
-                  </Link>
-                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/ai-chatbot">
-                    Hỏi đáp Luật sư AI 24/7
-                  </Link>
-                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/ai-form-checker">
-                    Thẩm định biểu mẫu
-                  </Link>
-                  <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/privacy-policy">
-                    Chính sách bảo mật
-                  </Link>
-                </div>
-              </div>
-
-              {/* Col 4: Liên hệ */}
-              <div className="flex flex-col gap-2">
-                <p className="text-xs md:text-sm font-extrabold uppercase tracking-wider text-amber-300 pb-1.5 border-b border-amber-500/30">
-                  Liên hệ
-                </p>
-                <div className="flex flex-col gap-1.5 text-xs md:text-[13px]">
-                  <a className="text-slate-100 hover:text-amber-300 transition-colors" href="tel:0937863263">
-                    <strong className="text-amber-300">Hotline / Zalo:</strong> 093 786 32 63
-                  </a>
-                  <a className="text-slate-100 hover:text-amber-300 transition-colors break-all" href="mailto:rexmcg12345678@gmail.com">
-                    <strong className="text-amber-300">Email:</strong> rexmcg12345678@gmail.com
-                  </a>
-                  <div className="text-[11px] text-amber-300 font-semibold flex items-center gap-1 mt-0.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-                    Hỗ trợ khẩn cấp: 24/7
-                  </div>
-                </div>
-              </div>
-
-            </div>
           </div>
 
-          {/* Bottom Area: 1-line Disclaimer + Copyright Row */}
-          <div className="mt-4 pt-3 border-t border-white/10 flex flex-col gap-2 text-slate-300/90 text-[11px]">
-            <p className="leading-relaxed">
+          {/* Bottom Area: 1-line Disclaimer + Copyright Row (Only 1 Privacy Link) */}
+          <div className="mt-6 pt-3 border-t border-white/10 flex flex-col gap-2 text-slate-300/90 text-[11px]">
+            <p className="leading-relaxed text-center sm:text-left">
               <strong className="text-amber-300 font-medium">⚖️ Miễn trừ trách nhiệm:</strong> Toàn bộ thông tin, bài viết và tính năng tính toán trên website mang tính chất tham khảo kiến thức pháp luật, không cấu thành ý kiến tư vấn pháp lý chính thức cho đến khi hợp đồng dịch vụ được ký kết bằng văn bản theo luật định.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-2 border-t border-white/5 text-xs text-slate-400">
