@@ -9,9 +9,9 @@ export default function AdminAppointmentsPage() {
   const queryClient = useQueryClient();
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  const [viewMode, setViewMode] = useState<"calendar" | "table">("calendar");
+  const [viewMode, setViewMode] = useState<"week" | "month" | "table">("week");
 
-  // Calendar State
+  // Calendar & Week State
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null);
   const [isExportOpen, setIsExportOpen] = useState(false);
@@ -136,8 +136,7 @@ export default function AdminAppointmentsPage() {
   const generateIcsContent = (apts: Appointment[]) => {
     const events = apts
       .map((apt) => {
-        // Parse date
-        const dateStr = apt.appointmentDate; // Expecting YYYY-MM-DD or DD/MM/YYYY
+        const dateStr = apt.appointmentDate;
         let year = "2026", month = "08", day = "27";
         if (dateStr.includes("-")) {
           const parts = dateStr.split("-");
@@ -151,7 +150,6 @@ export default function AdminAppointmentsPage() {
           year = parts[2];
         }
 
-        // Parse time (e.g. "09:00" or "09:00 - 10:00")
         let timePart = apt.appointmentTime.split("-")[0].trim();
         let hour = "09", min = "00";
         if (timePart.includes(":")) {
@@ -197,20 +195,17 @@ END:VCALENDAR`;
     setIsExportOpen(false);
   };
 
-  // --- Calendar Date Calculations ---
+  // --- Calendar Date Calculations (Month & Week) ---
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth(); // 0-indexed
 
+  // Month calculations
   const firstDayOfMonth = new Date(year, month, 1);
   const lastDayOfMonth = new Date(year, month + 1, 0);
-
-  // Day of week: 0 = Sun, 1 = Mon ...
-  // We want Monday as index 0, Sun as index 6
   const startDayIndex = (firstDayOfMonth.getDay() + 6) % 7;
   const daysInMonth = lastDayOfMonth.getDate();
-
-  // Previous month trailing days
   const prevMonthLastDay = new Date(year, month, 0).getDate();
+
   const prevDays = Array.from({ length: startDayIndex }, (_, i) => ({
     day: prevMonthLastDay - startDayIndex + i + 1,
     isCurrentMonth: false,
@@ -219,7 +214,6 @@ END:VCALENDAR`;
     ).padStart(2, "0")}`,
   }));
 
-  // Current month days
   const currentDays = Array.from({ length: daysInMonth }, (_, i) => {
     const d = i + 1;
     const dateString = `${year}-${String(month + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
@@ -230,7 +224,6 @@ END:VCALENDAR`;
     };
   });
 
-  // Next month leading days to complete grid (42 cells = 6 rows x 7 cols)
   const totalCells = prevDays.length + currentDays.length;
   const nextDaysCount = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
   const nextDays = Array.from({ length: nextDaysCount }, (_, i) => ({
@@ -243,11 +236,65 @@ END:VCALENDAR`;
 
   const allCalendarDays = [...prevDays, ...currentDays, ...nextDays];
 
+  // Week calculations (Monday to Sunday)
+  const currentDayOfWeek = (currentDate.getDay() + 6) % 7; // 0 for Mon, 6 for Sun
+  const weekStart = new Date(currentDate);
+  weekStart.setDate(currentDate.getDate() - currentDayOfWeek);
+
+  const weekDays = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(weekStart);
+    d.setDate(weekStart.getDate() + i);
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const dayNum = String(d.getDate()).padStart(2, "0");
+    return {
+      date: d,
+      dayNumber: d.getDate(),
+      monthNumber: d.getMonth() + 1,
+      yearNumber: y,
+      dateString: `${y}-${m}-${dayNum}`,
+      weekdayLabel: ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ Nhật"][i],
+    };
+  });
+
+  // Time Slots for Timetable
+  const timeSlots = [
+    { label: "08:00 - 09:30", key: "08", name: "Ca Sáng 1" },
+    { label: "09:30 - 11:00", key: "09", name: "Ca Sáng 2" },
+    { label: "11:00 - 12:30", key: "11", name: "Ca Trưa" },
+    { label: "13:30 - 15:00", key: "13", name: "Ca Chiều 1" },
+    { label: "15:00 - 16:30", key: "15", name: "Ca Chiều 2" },
+    { label: "16:30 - 18:00", key: "16", name: "Ca Chiều 3" },
+    { label: "18:00 - 20:00", key: "18", name: "Ca Tối" },
+  ];
+
+  // Navigation handlers
   const prevMonth = () => setCurrentDate(new Date(year, month - 1, 1));
   const nextMonth = () => setCurrentDate(new Date(year, month + 1, 1));
+
+  const prevWeek = () => {
+    const d = new Date(currentDate);
+    d.setDate(currentDate.getDate() - 7);
+    setCurrentDate(d);
+  };
+  const nextWeek = () => {
+    const d = new Date(currentDate);
+    d.setDate(currentDate.getDate() + 7);
+    setCurrentDate(d);
+  };
+
   const goToToday = () => setCurrentDate(new Date());
 
   const todayStr = new Date().toISOString().split("T")[0];
+
+  // Helper to match appointment date
+  const matchAptDate = (aptDate: string, targetDateStr: string) => {
+    if (aptDate === targetDateStr) return true;
+    const parts = targetDateStr.split("-");
+    const altStr = `${parts[2]}/${parts[1]}/${parts[0]}`;
+    const altStr2 = `${Number(parts[2])}/${Number(parts[1])}/${parts[0]}`;
+    return aptDate === altStr || aptDate === altStr2;
+  };
 
   return (
     <div className="space-y-6 max-w-[1600px] mx-auto">
@@ -271,22 +318,33 @@ END:VCALENDAR`;
 
         {/* Action Controls: View Switcher & Export Dropdown */}
         <div className="flex flex-wrap items-center gap-3">
-          {/* View Mode Toggle */}
+          {/* View Mode Toggle (3 Modes: Week Timetable, Month Calendar, Table List) */}
           <div className="flex items-center bg-slate-100 p-1 rounded-2xl border border-slate-200">
             <button
-              onClick={() => setViewMode("calendar")}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                viewMode === "calendar"
+              onClick={() => setViewMode("week")}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                viewMode === "week"
+                  ? "bg-[#641D06] text-white shadow-xs"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <span className="material-symbols-outlined text-base">view_week</span>
+              <span>Thời Khóa Biểu Tuần</span>
+            </button>
+            <button
+              onClick={() => setViewMode("month")}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                viewMode === "month"
                   ? "bg-[#641D06] text-white shadow-xs"
                   : "text-slate-600 hover:text-slate-900"
               }`}
             >
               <span className="material-symbols-outlined text-base">calendar_view_month</span>
-              <span>Thời Khóa Biểu</span>
+              <span>Lịch Tháng</span>
             </button>
             <button
               onClick={() => setViewMode("table")}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 viewMode === "table"
                   ? "bg-[#641D06] text-white shadow-xs"
                   : "text-slate-600 hover:text-slate-900"
@@ -392,8 +450,210 @@ END:VCALENDAR`;
         </div>
       </div>
 
-      {/* ================= CALENDAR TIMETABLE VIEW ================= */}
-      {viewMode === "calendar" && (
+      {/* ================= 1. WEEKLY TIMETABLE VIEW (THỜI KHÓA BIỂU TUẦN) ================= */}
+      {viewMode === "week" && (
+        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden p-4 sm:p-6 space-y-4">
+          {/* Week Navigation Header */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 border-b border-slate-100">
+            <div>
+              <div className="flex items-center gap-3">
+                <h2 className="text-lg sm:text-xl font-black text-slate-900">
+                  Thời Khóa Biểu Tuần: {weekDays[0].dayNumber}/{weekDays[0].monthNumber} – {weekDays[6].dayNumber}/{weekDays[6].monthNumber}/{weekDays[6].yearNumber}
+                </h2>
+                <span className="text-xs font-bold text-amber-900 bg-amber-50 px-3 py-1 rounded-xl border border-amber-200">
+                  {filtered.length} lịch hẹn
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 mt-1">
+                Lịch làm việc chi tiết theo từng ca trong ngày của Luật sư Phan Đức Tín
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={goToToday}
+                className="px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition-colors cursor-pointer"
+              >
+                Tuần Này
+              </button>
+              <div className="flex items-center bg-slate-100 rounded-xl p-1 border border-slate-200">
+                <button
+                  onClick={prevWeek}
+                  className="p-1 hover:bg-white rounded-lg text-slate-700 transition-colors cursor-pointer flex items-center gap-1 px-2 text-xs font-bold"
+                  title="Tuần trước"
+                >
+                  <span className="material-symbols-outlined text-base">chevron_left</span>
+                  <span>Tuần trước</span>
+                </button>
+                <div className="h-4 w-px bg-slate-300 mx-1"></div>
+                <button
+                  onClick={nextWeek}
+                  className="p-1 hover:bg-white rounded-lg text-slate-700 transition-colors cursor-pointer flex items-center gap-1 px-2 text-xs font-bold"
+                  title="Tuần sau"
+                >
+                  <span>Tuần sau</span>
+                  <span className="material-symbols-outlined text-base">chevron_right</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Status Legend Bar */}
+          <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-600 bg-slate-50 p-3 rounded-2xl">
+            <span className="text-[11px] font-bold uppercase text-slate-400">Chú thích:</span>
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+              <span>Chờ liên hệ</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+              <span>Đã xác nhận</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+              <span>Đã tư vấn xong</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-slate-400"></span>
+              <span>Đã hủy</span>
+            </div>
+          </div>
+
+          {/* Timetable Weekly Matrix */}
+          <div className="overflow-x-auto">
+            <div className="min-w-[1100px]">
+              {/* Grid Container */}
+              <div className="grid grid-cols-8 gap-2">
+                {/* Top-Left Corner Cell: Khung Giờ Header */}
+                <div className="p-3 bg-[#641D06] text-amber-300 rounded-2xl font-black text-xs uppercase tracking-wider flex items-center justify-center text-center shadow-xs">
+                  Ca / Khung Giờ
+                </div>
+
+                {/* 7 Day Column Headers */}
+                {weekDays.map((wDay, idx) => {
+                  const isToday = wDay.dateString === todayStr;
+                  const dayAptsCount = filtered.filter((apt) => matchAptDate(apt.appointmentDate, wDay.dateString)).length;
+                  return (
+                    <div
+                      key={idx}
+                      className={`p-3 rounded-2xl text-center border transition-all ${
+                        isToday
+                          ? "bg-amber-100/80 border-amber-400 text-amber-950 shadow-sm"
+                          : idx >= 5
+                          ? "bg-amber-50/50 border-amber-200/60 text-amber-900"
+                          : "bg-slate-100 border-slate-200 text-slate-800"
+                      }`}
+                    >
+                      <div className="font-extrabold text-xs">{wDay.weekdayLabel}</div>
+                      <div className="text-sm font-black mt-0.5">
+                        {wDay.dayNumber}/{wDay.monthNumber}
+                      </div>
+                      {isToday && (
+                        <span className="inline-block mt-1 text-[9.5px] bg-[#641D06] text-amber-300 font-bold px-2 py-0.5 rounded-full">
+                          Hôm Nay
+                        </span>
+                      )}
+                      {!isToday && dayAptsCount > 0 && (
+                        <span className="inline-block mt-1 text-[9.5px] bg-white text-slate-700 font-bold px-2 py-0.5 rounded-full border border-slate-200">
+                          {dayAptsCount} lịch
+                        </span>
+                      )}
+                    </div>
+                  );
+                })}
+
+                {/* Timetable Rows (Time Slots) */}
+                {timeSlots.map((slot, sIdx) => (
+                  <React.Fragment key={sIdx}>
+                    {/* Time Slot Label (Left column) */}
+                    <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200 flex flex-col items-center justify-center text-center">
+                      <span className="font-mono text-xs font-black text-slate-800">{slot.label}</span>
+                      <span className="text-[10px] text-amber-800 font-semibold mt-0.5">{slot.name}</span>
+                    </div>
+
+                    {/* 7 Day Slot Cells */}
+                    {weekDays.map((wDay, dIdx) => {
+                      // Find appointments matching this day and time slot
+                      const slotApts = filtered.filter((apt) => {
+                        const isSameDay = matchAptDate(apt.appointmentDate, wDay.dateString);
+                        if (!isSameDay) return false;
+
+                        // Match time slot
+                        const aptHour = apt.appointmentTime.split(":")[0].trim();
+                        return (
+                          aptHour === slot.key ||
+                          apt.appointmentTime.includes(slot.key) ||
+                          (slot.key === "08" && (aptHour === "08" || aptHour === "8")) ||
+                          (slot.key === "09" && (aptHour === "09" || aptHour === "9" || aptHour === "10")) ||
+                          (slot.key === "11" && (aptHour === "11" || aptHour === "12")) ||
+                          (slot.key === "13" && (aptHour === "13" || aptHour === "14")) ||
+                          (slot.key === "15" && (aptHour === "15" || aptHour === "16")) ||
+                          (slot.key === "16" && aptHour === "17") ||
+                          (slot.key === "18" && (aptHour === "18" || aptHour === "19" || aptHour === "20"))
+                        );
+                      });
+
+                      const isToday = wDay.dateString === todayStr;
+
+                      return (
+                        <div
+                          key={dIdx}
+                          className={`min-h-[105px] p-2 rounded-2xl border transition-all flex flex-col justify-between ${
+                            slotApts.length > 0
+                              ? "bg-white border-slate-300 shadow-2xs"
+                              : isToday
+                              ? "bg-amber-50/20 border-amber-200/50 hover:bg-amber-50/40"
+                              : "bg-slate-50/40 border-slate-100 hover:bg-slate-50/80"
+                          }`}
+                        >
+                          {slotApts.length === 0 ? (
+                            <div className="h-full flex items-center justify-center text-slate-300 text-[10px] font-medium">
+                              — Trống —
+                            </div>
+                          ) : (
+                            <div className="space-y-1.5">
+                              {slotApts.map((apt) => {
+                                const badge = getStatusBadge(apt.status);
+                                return (
+                                  <button
+                                    key={apt.id}
+                                    onClick={() => setSelectedAppointment(apt)}
+                                    className={`w-full text-left p-2 rounded-xl border text-[11px] font-bold transition-all shadow-xs block cursor-pointer ${badge.cardBg}`}
+                                  >
+                                    <div className="flex items-center justify-between gap-1 mb-1">
+                                      <span className="font-mono text-[10px] text-slate-900 bg-white/80 px-1.5 py-0.5 rounded-md border border-slate-200 font-bold">
+                                        {apt.appointmentTime}
+                                      </span>
+                                      <span className={`w-2 h-2 rounded-full ${badge.dot}`} title={badge.label}></span>
+                                    </div>
+                                    <div className="font-black text-slate-900 truncate">{apt.name}</div>
+                                    <div className="text-[10px] text-slate-600 font-semibold truncate flex items-center gap-1 mt-0.5">
+                                      <span className="material-symbols-outlined text-xs text-slate-500">call</span>
+                                      <span>{apt.phone}</span>
+                                    </div>
+                                    {apt.notes && (
+                                      <div className="text-[9.5px] text-slate-500 font-normal truncate mt-0.5 line-clamp-1">
+                                        {apt.notes}
+                                      </div>
+                                    )}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ================= 2. MONTHLY CALENDAR VIEW (LỊCH THÁNG) ================= */}
+      {viewMode === "month" && (
         <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden p-4 sm:p-6 space-y-4">
           {/* Calendar Header Navigation */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 border-b border-slate-100">
@@ -409,7 +669,7 @@ END:VCALENDAR`;
             <div className="flex items-center gap-2">
               <button
                 onClick={goToToday}
-                className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition-colors cursor-pointer"
+                className="px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition-colors cursor-pointer"
               >
                 Hôm Nay
               </button>
@@ -470,17 +730,7 @@ END:VCALENDAR`;
               {/* Day cells grid */}
               <div className="grid grid-cols-7 gap-2">
                 {allCalendarDays.map((cell, idx) => {
-                  // Find appointments on this cell date
-                  const cellApts = filtered.filter((apt) => {
-                    // Match YYYY-MM-DD or DD/MM/YYYY
-                    if (apt.appointmentDate === cell.dateString) return true;
-                    // Try DD/MM/YYYY format
-                    const parts = cell.dateString.split("-");
-                    const altStr = `${parts[2]}/${parts[1]}/${parts[0]}`;
-                    const altStr2 = `${Number(parts[2])}/${Number(parts[1])}/${parts[0]}`;
-                    return apt.appointmentDate === altStr || apt.appointmentDate === altStr2;
-                  });
-
+                  const cellApts = filtered.filter((apt) => matchAptDate(apt.appointmentDate, cell.dateString));
                   const isToday = cell.dateString === todayStr;
 
                   return (
