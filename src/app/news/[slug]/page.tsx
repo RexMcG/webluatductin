@@ -33,6 +33,7 @@ export default function NewsDetailPage() {
   // State for active heading in Word Navigation Pane (for Style 3)
   const [activeHeadingId, setActiveHeadingId] = useState<string>("sec-1");
   const [navSearch, setNavSearch] = useState<string>("");
+  const [isMobileTocOpen, setIsMobileTocOpen] = useState<boolean>(false);
 
   const toggleSection = (id: string) => {
     setOpenSections((prev) => ({
@@ -503,6 +504,151 @@ export default function NewsDetailPage() {
           </aside>
 
         </div>
+
+        {/* =========================================================
+            FLOATING QUICK-TOC BUTTON (MOBILE ONLY)
+           ========================================================= */}
+        <button
+          type="button"
+          onClick={() => setIsMobileTocOpen(true)}
+          className="lg:hidden fixed bottom-20 right-4 z-40 bg-[#641D06] hover:bg-black text-white px-3.5 py-2.5 rounded-full shadow-2xl flex items-center gap-2 border-2 border-amber-400 active:scale-95 transition-all text-xs font-bold"
+          aria-label="Mở mục lục bài viết"
+        >
+          <span className="material-symbols-outlined text-lg text-amber-300">toc</span>
+          <span>Mục Lục</span>
+          <span className="bg-amber-400 text-slate-950 text-[10px] font-black px-1.5 py-0.2 rounded-full">
+            {sections.length}
+          </span>
+        </button>
+
+        {/* =========================================================
+            MOBILE SLIDE-UP BOTTOM SHEET (MỤC LỤC TRƯỢT LÊN)
+           ========================================================= */}
+        {isMobileTocOpen && (
+          <div
+            className="lg:hidden fixed inset-0 z-50 flex items-end bg-black/60 backdrop-blur-xs animate-fadeIn"
+            onClick={() => setIsMobileTocOpen(false)}
+          >
+            <div
+              className="w-full max-h-[85vh] bg-white rounded-t-3xl shadow-2xl flex flex-col overflow-hidden animate-slideUp border-t-4 border-[#641D06]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+                <div className="flex items-center gap-2">
+                  <span className="material-symbols-outlined text-lg text-[#641D06]">toc</span>
+                  <h3 className="font-black text-slate-900 text-sm">Mục Lục Đề Mục</h3>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900">
+                    {sections.length} Mục
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsMobileTocOpen(false)}
+                  className="w-8 h-8 rounded-full bg-slate-200/80 hover:bg-slate-300 text-slate-700 flex items-center justify-center material-symbols-outlined text-base cursor-pointer"
+                >
+                  close
+                </button>
+              </div>
+
+              {/* Search Bar */}
+              <div className="p-3 border-b border-slate-100 bg-white">
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={navSearch}
+                    onChange={(e) => setNavSearch(e.target.value)}
+                    placeholder="Tìm nhanh đề mục..."
+                    className="w-full pl-3 pr-8 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-[#641D06] focus:bg-white text-slate-800"
+                  />
+                  <span className="material-symbols-outlined absolute right-2.5 top-2.5 text-sm text-slate-400">search</span>
+                </div>
+              </div>
+
+              {/* Headings List */}
+              <div className="p-3 overflow-y-auto space-y-1.5 flex-1 text-xs">
+                {newsItem.mindmap && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsMobileTocOpen(false);
+                      const el = document.getElementById("heading-mindmap");
+                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center gap-2 bg-purple-50 hover:bg-purple-100 text-purple-900 font-bold border border-purple-200 mb-2 shadow-2xs"
+                  >
+                    <span className="text-base">🧠</span>
+                    <span>Sơ Đồ Tư Duy Mindmap</span>
+                  </button>
+                )}
+
+                {newsItem.flowchart && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsMobileTocOpen(false);
+                      const el = document.getElementById("heading-flowchart");
+                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center gap-2 bg-amber-50 hover:bg-amber-100 text-amber-900 font-bold border border-amber-200 mb-2 shadow-2xs"
+                  >
+                    <span className="text-base">📊</span>
+                    <span>Sơ Đồ Quy Trình (Flowchart)</span>
+                  </button>
+                )}
+
+                {filteredSections.map((sec: any) => {
+                  const isActive = activeHeadingId === sec.id;
+                  return (
+                    <button
+                      key={sec.id}
+                      type="button"
+                      onClick={() => {
+                        setIsMobileTocOpen(false);
+                        scrollToHeading(sec.id);
+                      }}
+                      className={`w-full text-left px-3 py-2.5 rounded-xl transition-all flex items-start gap-2 ${
+                        isActive
+                          ? "bg-amber-50 text-[#641D06] font-black border border-amber-300 shadow-2xs"
+                          : "text-slate-700 hover:bg-slate-100 font-medium"
+                      }`}
+                    >
+                      <span className={`material-symbols-outlined text-sm shrink-0 mt-0.5 ${isActive ? "text-[#641D06]" : "text-slate-400"}`}>
+                        {isActive ? "radio_button_checked" : "arrow_right"}
+                      </span>
+                      <span className="leading-snug">
+                        {sec.number}. {sec.title}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Bottom Drawer Actions */}
+              <div className="p-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMobileTocOpen(false);
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                  className="text-[#641D06] font-bold flex items-center gap-1 hover:underline"
+                >
+                  <span className="material-symbols-outlined text-sm">arrow_upward</span>
+                  Về đầu trang
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsMobileTocOpen(false)}
+                  className="px-4 py-1.5 rounded-xl bg-slate-200 text-slate-800 font-bold hover:bg-slate-300"
+                >
+                  Đóng
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
     );
   }
