@@ -255,7 +255,7 @@ export default function Home() {
       </section>
 
       {/* About Us & Why Choose Us */}
-      <section id="about-us" className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-12 md:pt-16 pb-16">
+      <section id="about-us" className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-12 md:pt-16 pb-16 scroll-mt-24">
         <div className="flex flex-col gap-12">
           {/* About Us */}
           <div>
@@ -727,7 +727,7 @@ export default function Home() {
       </section>
 
       {/* Expert Attorneys */}
-      <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-14">
+      <section id="lawyers" className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-14 scroll-mt-24">
         <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
           <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
             Đội Ngũ Luật Sư Điều Hành

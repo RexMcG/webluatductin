@@ -1,6 +1,24 @@
+"use client";
+
 import Link from "next/link";
+import React from "react";
 
 export default function Footer() {
+  const handleScrollTo = (target: "top" | "lawyers", e: React.MouseEvent) => {
+    if (typeof window !== "undefined" && window.location.pathname === "/") {
+      e.preventDefault();
+      if (target === "top") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (target === "lawyers") {
+        const el = document.getElementById("lawyers");
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        } else {
+          window.location.hash = "lawyers";
+        }
+      }
+    }
+  };
   return (
     <>
       {/* Desktop Floating Contact Bubbles (Left) - Hidden on Mobile */}
@@ -132,11 +150,19 @@ export default function Footer() {
 
               {/* Các liên kết về công ty & Đội ngũ luật sư */}
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs pt-1">
-                <Link href="/#about-us" className="text-amber-300 hover:underline font-bold">
-                  Giới thiệu
+                <Link
+                  href="/#about-us"
+                  onClick={(e) => handleScrollTo("top", e)}
+                  className="text-amber-300 hover:underline font-bold cursor-pointer"
+                >
+                  Về chúng tôi
                 </Link>
                 <span className="text-white/30">•</span>
-                <Link href="/#lawyer" className="text-amber-300 hover:underline font-bold">
+                <Link
+                  href="/#lawyers"
+                  onClick={(e) => handleScrollTo("lawyers", e)}
+                  className="text-amber-300 hover:underline font-bold cursor-pointer"
+                >
                   Đội ngũ Luật sư
                 </Link>
                 <span className="text-white/30">•</span>
