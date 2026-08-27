@@ -1,12 +1,184 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  // Authentication State
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    // Check authentication in sessionStorage/localStorage
+    const authStatus =
+      sessionStorage.getItem("ductin_admin_auth") === "true" ||
+      localStorage.getItem("ductin_admin_auth") === "true";
+    setIsAuthenticated(authStatus);
+  }, []);
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setErrorMsg("");
+
+    const trimmedUser = username.trim().toLowerCase();
+    const trimmedPass = password.trim();
+
+    if (trimmedUser === "admin" && trimmedPass === "1234") {
+      sessionStorage.setItem("ductin_admin_auth", "true");
+      localStorage.setItem("ductin_admin_auth", "true");
+      setIsAuthenticated(true);
+      setErrorMsg("");
+    } else {
+      setErrorMsg("Tên đăng nhập hoặc mật khẩu không chính xác. Vui lòng kiểm tra lại!");
+    }
+    setIsSubmitting(false);
+  };
+
+  const handleLogout = () => {
+    if (confirm("Bạn có chắc chắn muốn đăng xuất khỏi trang quản trị?")) {
+      sessionStorage.removeItem("ductin_admin_auth");
+      localStorage.removeItem("ductin_admin_auth");
+      setIsAuthenticated(false);
+      setUsername("");
+      setPassword("");
+    }
+  };
+
+  // Loading state while checking auth
+  if (isAuthenticated === null) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-10 h-10 border-4 border-amber-400 border-t-transparent rounded-full animate-spin"></div>
+          <span className="text-amber-200 text-xs font-bold uppercase tracking-widest">
+            Đang xác thực hệ thống...
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  // Login Screen if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-[#3d1204] to-slate-950 flex items-center justify-center p-4">
+        <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden border border-amber-900/30 animate-fadeIn">
+          {/* Header */}
+          <div className="bg-[#641D06] p-8 text-center text-white relative">
+            <div className="w-16 h-16 rounded-2xl bg-amber-400 text-[#641D06] flex items-center justify-center font-black text-2xl mx-auto mb-3 shadow-lg border-2 border-amber-200">
+              ĐT
+            </div>
+            <h2 className="text-lg sm:text-xl font-black uppercase tracking-wider text-amber-100">
+              ĐỨC TÍN &amp; PARTNERS
+            </h2>
+            <p className="text-xs text-amber-200/90 mt-1 font-medium">
+              Cổng Quản Trị Hệ Thống &amp; CMS Pháp Lý
+            </p>
+            <div className="absolute top-4 right-4">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block animate-ping"></span>
+            </div>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleLogin} className="p-6 sm:p-8 space-y-5">
+            <div className="text-center pb-2">
+              <h3 className="text-base font-bold text-slate-800">Đăng Nhập Quản Trị Viên</h3>
+              <p className="text-xs text-slate-500 mt-0.5">Nhập tài khoản để tiếp tục vào bảng điều khiển</p>
+            </div>
+
+            {errorMsg && (
+              <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 flex items-center gap-2.5 text-xs text-rose-800 font-semibold animate-shake">
+                <span className="material-symbols-outlined text-base text-rose-600 shrink-0">
+                  error
+                </span>
+                <span>{errorMsg}</span>
+              </div>
+            )}
+
+            {/* Username Input */}
+            <div className="space-y-1.5">
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                Tên đăng nhập
+              </label>
+              <div className="relative">
+                <span className="material-symbols-outlined absolute left-3.5 top-3 text-slate-400 text-lg">
+                  person
+                </span>
+                <input
+                  type="text"
+                  required
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Nhập tên đăng nhập (admin)"
+                  autoFocus
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-[#641D06] focus:ring-2 focus:ring-[#641D06]/10 text-sm font-medium text-slate-900 bg-slate-50 focus:bg-white transition-all"
+                />
+              </div>
+            </div>
+
+            {/* Password Input */}
+            <div className="space-y-1.5">
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                Mật khẩu
+              </label>
+              <div className="relative">
+                <span className="material-symbols-outlined absolute left-3.5 top-3 text-slate-400 text-lg">
+                  lock
+                </span>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Nhập mật khẩu (1234)"
+                  className="w-full pl-10 pr-11 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-[#641D06] focus:ring-2 focus:ring-[#641D06]/10 text-sm font-medium text-slate-900 bg-slate-50 focus:bg-white transition-all"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 p-1 cursor-pointer"
+                >
+                  <span className="material-symbols-outlined text-base">
+                    {showPassword ? "visibility_off" : "visibility"}
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full py-3 bg-[#641D06] hover:bg-black text-white font-bold text-sm rounded-xl transition-all shadow-md active:scale-98 flex items-center justify-center gap-2 cursor-pointer mt-2"
+            >
+              <span className="material-symbols-outlined text-base">login</span>
+              <span>Đăng Nhập Quản Trị</span>
+            </button>
+
+            {/* Back link */}
+            <div className="pt-2 text-center border-t border-slate-100">
+              <Link
+                href="/"
+                className="text-xs text-slate-500 hover:text-[#641D06] font-semibold transition-colors flex items-center justify-center gap-1"
+              >
+                <span className="material-symbols-outlined text-sm">arrow_back</span>
+                <span>Quay lại trang chủ website</span>
+              </Link>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
+  }
 
   const navItems = [
     {
@@ -103,6 +275,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <div className="text-[10px] text-amber-300 font-semibold">Giám đốc - Quản trị viên</div>
             </div>
           </div>
+
+          {/* Logout Button */}
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-1 text-xs font-bold text-rose-200 hover:text-white bg-rose-950/60 hover:bg-rose-700 px-3 py-1.5 rounded-xl transition-colors border border-rose-400/30 cursor-pointer ml-1"
+            title="Đăng xuất"
+          >
+            <span className="material-symbols-outlined text-sm">logout</span>
+            <span className="hidden sm:inline">Đăng xuất</span>
+          </button>
         </div>
       </header>
 
