@@ -538,19 +538,21 @@ END:VCALENDAR`;
                       key={idx}
                       className={`p-3 rounded-2xl text-center border transition-all ${
                         isToday
-                          ? "bg-amber-100/80 border-amber-400 text-amber-950 shadow-sm"
-                          : idx >= 5
-                          ? "bg-amber-50/50 border-amber-200/60 text-amber-900"
+                          ? "bg-rose-600 border-rose-700 text-white shadow-md ring-2 ring-rose-300 scale-[1.02]"
+                          : idx === 5
+                          ? "bg-amber-50/70 border-amber-200 text-amber-900"
+                          : idx === 6
+                          ? "bg-purple-50/70 border-purple-200 text-purple-900"
                           : "bg-slate-100 border-slate-200 text-slate-800"
                       }`}
                     >
-                      <div className="font-extrabold text-xs">{wDay.weekdayLabel}</div>
+                      <div className={`font-extrabold text-xs ${isToday ? "text-rose-100" : ""}`}>{wDay.weekdayLabel}</div>
                       <div className="text-sm font-black mt-0.5">
                         {wDay.dayNumber}/{wDay.monthNumber}
                       </div>
                       {isToday && (
-                        <span className="inline-block mt-1 text-[9.5px] bg-[#641D06] text-amber-300 font-bold px-2 py-0.5 rounded-full">
-                          Hôm Nay
+                        <span className="inline-block mt-1 text-[9.5px] bg-white text-rose-700 font-black px-2 py-0.5 rounded-full shadow-xs">
+                          ★ HÔM NAY ★
                         </span>
                       )}
                       {!isToday && dayAptsCount > 0 && (
@@ -602,7 +604,7 @@ END:VCALENDAR`;
                             slotApts.length > 0
                               ? "bg-white border-slate-300 shadow-2xs"
                               : isToday
-                              ? "bg-amber-50/20 border-amber-200/50 hover:bg-amber-50/40"
+                              ? "bg-rose-50/40 border-rose-200/80 hover:bg-rose-50/70"
                               : "bg-slate-50/40 border-slate-100 hover:bg-slate-50/80"
                           }`}
                         >
@@ -724,7 +726,7 @@ END:VCALENDAR`;
                 <div className="py-2 bg-slate-100 rounded-xl">Thứ 5</div>
                 <div className="py-2 bg-slate-100 rounded-xl">Thứ 6</div>
                 <div className="py-2 bg-amber-50 text-amber-900 rounded-xl">Thứ 7</div>
-                <div className="py-2 bg-rose-50 text-rose-800 rounded-xl">Chủ Nhật</div>
+                <div className="py-2 bg-purple-50 text-purple-900 rounded-xl">Chủ Nhật</div>
               </div>
 
               {/* Day cells grid */}
@@ -739,7 +741,7 @@ END:VCALENDAR`;
                       className={`min-h-[110px] p-2 rounded-2xl border transition-all flex flex-col justify-between ${
                         cell.isCurrentMonth
                           ? isToday
-                            ? "bg-amber-50/40 border-amber-400 ring-2 ring-amber-400/20"
+                            ? "bg-rose-50/50 border-rose-500 ring-2 ring-rose-400/30"
                             : "bg-white border-slate-200 hover:border-slate-300"
                           : "bg-slate-50/60 border-slate-100 text-slate-300"
                       }`}
@@ -749,7 +751,7 @@ END:VCALENDAR`;
                         <span
                           className={`text-xs font-black w-6 h-6 rounded-full flex items-center justify-center ${
                             isToday
-                              ? "bg-[#641D06] text-white"
+                              ? "bg-rose-600 text-white shadow-xs"
                               : cell.isCurrentMonth
                               ? "text-slate-800"
                               : "text-slate-300"
