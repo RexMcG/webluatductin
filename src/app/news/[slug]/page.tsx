@@ -139,7 +139,7 @@ export default function NewsDetailPage() {
      ========================================================================= */
   if (layoutStyle === "word-navigation") {
     return (
-      <div className="max-w-[1720px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+      <div className="max-w-[1720px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 pb-36 md:pb-8">
         {/* Back Link */}
         <div className="mb-5">
           <Link
@@ -511,7 +511,7 @@ export default function NewsDetailPage() {
         <button
           type="button"
           onClick={() => setIsMobileTocOpen(true)}
-          className="lg:hidden fixed bottom-20 right-4 z-40 bg-[#641D06] hover:bg-black text-white px-3.5 py-2.5 rounded-full shadow-2xl flex items-center gap-2 border-2 border-amber-400 active:scale-95 transition-all text-xs font-bold"
+          className="lg:hidden fixed bottom-24 right-4 z-40 bg-[#641D06] hover:bg-black text-white px-3.5 py-2.5 rounded-full shadow-2xl flex items-center gap-2 border-2 border-amber-400 active:scale-95 transition-all text-xs font-bold"
           aria-label="Mở mục lục bài viết"
         >
           <span className="material-symbols-outlined text-lg text-amber-300">toc</span>
@@ -522,11 +522,11 @@ export default function NewsDetailPage() {
         </button>
 
         {/* =========================================================
-            MOBILE SLIDE-UP BOTTOM SHEET (MỤC LỤC TRƯỢT LÊN)
+            MOBILE SLIDE-UP BOTTOM SHEET (MỤC LỤC TRƯỢT LÊN - Z-INDEX 999 TRÊN HẾT)
            ========================================================= */}
         {isMobileTocOpen && (
           <div
-            className="lg:hidden fixed inset-0 z-50 flex items-end bg-black/60 backdrop-blur-xs animate-fadeIn"
+            className="lg:hidden fixed inset-0 z-[999] flex items-end bg-black/70 backdrop-blur-xs animate-fadeIn"
             onClick={() => setIsMobileTocOpen(false)}
           >
             <div
@@ -565,8 +565,8 @@ export default function NewsDetailPage() {
                 </div>
               </div>
 
-              {/* Headings List */}
-              <div className="p-3 overflow-y-auto space-y-1.5 flex-1 text-xs">
+              {/* Headings List with ample bottom padding */}
+              <div className="p-3 overflow-y-auto space-y-1.5 flex-1 text-xs pb-16">
                 {newsItem.mindmap && (
                   <button
                     type="button"
@@ -625,7 +625,7 @@ export default function NewsDetailPage() {
               </div>
 
               {/* Bottom Drawer Actions */}
-              <div className="p-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs">
+              <div className="p-3.5 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs pb-6">
                 <button
                   type="button"
                   onClick={() => {
@@ -640,7 +640,7 @@ export default function NewsDetailPage() {
                 <button
                   type="button"
                   onClick={() => setIsMobileTocOpen(false)}
-                  className="px-4 py-1.5 rounded-xl bg-slate-200 text-slate-800 font-bold hover:bg-slate-300"
+                  className="px-5 py-2 rounded-xl bg-[#641D06] text-white font-bold hover:bg-black transition-colors"
                 >
                   Đóng
                 </button>
@@ -659,7 +659,7 @@ export default function NewsDetailPage() {
   const isWordStyle = layoutStyle === "word-headings" || slug.includes("luat-dat-dai");
 
   return (
-    <article className="max-w-4xl mx-auto px-4 md:px-8 py-12">
+    <article className="max-w-4xl mx-auto px-4 md:px-8 py-12 pb-36 md:pb-12">
       {/* Back Button */}
       <Link
         href="/news"
