@@ -363,56 +363,77 @@ export default function AppointmentPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left Column: Form Steps */}
             <div className="lg:col-span-2">
-              {/* Progress Steps Header */}
-              <div className="flex items-center gap-0 mb-8 bg-white p-4 md:p-6 rounded-2xl border border-slate-200 shadow-xs">
-                {[
-                  { num: 1, label: "Lĩnh Vực & Thông Tin" },
-                  { num: 2, label: "Chọn Luật Sư" },
-                  { num: 3, label: "Thời Gian Hẹn" },
-                  { num: 4, label: "Xác Nhận & Gửi" },
-                ].map((s, index) => (
-                  <div key={s.num} className="flex-1 flex flex-col items-center relative">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (s.num < step) setStep(s.num);
-                      }}
-                      disabled={s.num > step}
-                      className={`w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm z-10 transition-all ${
-                        step === s.num
-                          ? "bg-[#641D06] text-white ring-4 ring-amber-100 shadow-md scale-105"
-                          : step > s.num
-                          ? "bg-emerald-600 text-white cursor-pointer"
-                          : "bg-slate-100 border border-slate-300 text-slate-400 cursor-not-allowed"
-                      }`}
-                    >
-                      {step > s.num ? (
-                        <span className="material-symbols-outlined text-xl">check</span>
-                      ) : (
-                        s.num
-                      )}
-                    </button>
-                    <span
-                      className={`text-xs md:text-sm mt-2 text-center font-semibold ${
-                        step === s.num
-                          ? "text-[#641D06] font-bold"
-                          : step > s.num
-                          ? "text-emerald-700 font-semibold"
-                          : "text-slate-400"
-                      }`}
-                    >
-                      {s.label}
-                    </span>
-                    {/* Progress Connector Line */}
-                    {index < 3 && (
-                      <div
-                        className={`absolute top-5.5 left-1/2 w-full h-[2px] -z-0 transition-colors ${
-                          step > s.num ? "bg-emerald-500" : "bg-slate-200"
-                        }`}
-                      />
-                    )}
-                  </div>
-                ))}
+              {/* Progress Steps Header (100% Responsive on all mobile devices) */}
+              <div className="mb-6 md:mb-8 bg-white p-3.5 sm:p-5 md:p-6 rounded-2xl border border-slate-200 shadow-xs">
+                {/* Mobile Step Badge */}
+                <div className="flex sm:hidden items-center justify-between pb-2.5 mb-3 border-b border-slate-100 text-xs">
+                  <span className="font-bold text-slate-700">Tiến trình đặt hẹn:</span>
+                  <span className="font-bold text-[#641D06] bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+                    Bước {step}/4
+                  </span>
+                </div>
+
+                <div className="flex items-start justify-between w-full">
+                  {[
+                    { num: 1, label: "Lĩnh Vực & Thông Tin", shortLabel: "Thông Tin" },
+                    { num: 2, label: "Chọn Luật Sư", shortLabel: "Luật Sư" },
+                    { num: 3, label: "Thời Gian Hẹn", shortLabel: "Thời Gian" },
+                    { num: 4, label: "Xác Nhận & Gửi", shortLabel: "Xác Nhận" },
+                  ].map((s, index) => {
+                    const isCurrent = step === s.num;
+                    const isCompleted = step > s.num;
+
+                    return (
+                      <div key={s.num} className="flex-1 flex flex-col items-center relative min-w-0">
+                        {/* Connector Line */}
+                        {index < 3 && (
+                          <div
+                            className={`absolute top-[18px] md:top-[22px] left-1/2 w-full h-[2px] transition-colors ${
+                              step > s.num ? "bg-emerald-500" : "bg-slate-200"
+                            }`}
+                            style={{ zIndex: 0 }}
+                          />
+                        )}
+
+                        {/* Step Circle */}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (s.num < step) setStep(s.num);
+                          }}
+                          disabled={s.num > step}
+                          className={`w-9 h-9 md:w-11 md:h-11 rounded-full flex items-center justify-center font-bold text-xs md:text-sm relative z-10 shrink-0 transition-all ${
+                            isCurrent
+                              ? "bg-[#641D06] text-white ring-4 ring-amber-100 shadow-md scale-105"
+                              : isCompleted
+                              ? "bg-emerald-600 text-white cursor-pointer hover:bg-emerald-700"
+                              : "bg-slate-100 border border-slate-300 text-slate-400 cursor-not-allowed"
+                          }`}
+                        >
+                          {isCompleted ? (
+                            <span className="material-symbols-outlined text-base md:text-xl">check</span>
+                          ) : (
+                            s.num
+                          )}
+                        </button>
+
+                        {/* Step Label (Clean & Balanced on all screen sizes) */}
+                        <span
+                          className={`text-[11px] sm:text-xs md:text-sm mt-1.5 md:mt-2 text-center font-medium leading-tight px-0.5 transition-colors ${
+                            isCurrent
+                              ? "text-[#641D06] font-bold"
+                              : isCompleted
+                              ? "text-emerald-700 font-semibold"
+                              : "text-slate-400"
+                          }`}
+                        >
+                          <span className="sm:hidden">{s.shortLabel}</span>
+                          <span className="hidden sm:inline">{s.label}</span>
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
 
               <form onSubmit={handleSubmit} noValidate>
