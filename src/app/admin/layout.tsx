@@ -118,7 +118,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   required
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Nhập tên đăng nhập (admin)"
+                  placeholder="Nhập tên đăng nhập..."
                   autoFocus
                   className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-[#641D06] focus:ring-2 focus:ring-[#641D06]/10 text-sm font-medium text-slate-900 bg-slate-50 focus:bg-white transition-all"
                 />
@@ -139,7 +139,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Nhập mật khẩu (1234)"
+                  placeholder="Nhập mật khẩu..."
                   className="w-full pl-10 pr-11 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-[#641D06] focus:ring-2 focus:ring-[#641D06]/10 text-sm font-medium text-slate-900 bg-slate-50 focus:bg-white transition-all"
                 />
                 <button
