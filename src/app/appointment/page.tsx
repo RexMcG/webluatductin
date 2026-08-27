@@ -101,7 +101,7 @@ export default function AppointmentPage() {
         return "";
       case "email":
         if (!value || !value.trim()) {
-          return "Email là bắt buộc để nhận thư xác nhận.";
+          return ""; // Email là không bắt buộc
         }
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value.trim())) {
@@ -306,7 +306,7 @@ export default function AppointmentPage() {
               </div>
               <div className="flex justify-between border-b border-slate-200 pb-2">
                 <span className="text-slate-500">Email:</span>
-                <span className="font-medium text-slate-900">{formData.email}</span>
+                <span className="font-medium text-slate-900">{formData.email || "Không cung cấp"}</span>
               </div>
               <div className="flex justify-between border-b border-slate-200 pb-2">
                 <span className="text-slate-500">Lĩnh vực:</span>
@@ -654,7 +654,7 @@ export default function AppointmentPage() {
 
                       <div>
                         <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider" htmlFor="email">
-                          Địa chỉ Email <span className="text-rose-600">*</span>
+                          Địa chỉ Email <span className="text-slate-400 font-normal">(Không bắt buộc)</span>
                         </label>
                         <input
                           className={`w-full border-2 rounded-xl p-3.5 bg-white text-slate-900 text-sm md:text-base outline-none transition-all ${
@@ -665,11 +665,10 @@ export default function AppointmentPage() {
                           id="email"
                           name="email"
                           type="email"
-                          placeholder="khachhang@gmail.com"
+                          placeholder="khachhang@gmail.com (tùy chọn)"
                           value={formData.email}
                           onChange={handleChange}
                           onBlur={() => handleBlur("email")}
-                          required
                         />
                         {errors.email && touched.email && (
                           <p className="text-rose-600 text-xs mt-1.5 flex items-center gap-1 font-semibold">
@@ -984,7 +983,8 @@ export default function AppointmentPage() {
                     <div className="flex flex-col sm:flex-row justify-between sm:items-center pb-3 border-b border-slate-200 gap-1 sm:gap-4">
                       <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Khách hàng &amp; SĐT:</span>
                       <span className="text-sm md:text-base font-bold text-slate-900">
-                        {formData.name} — <span className="text-emerald-700">{formData.phone}</span> ({formData.email})
+                        {formData.name} — <span className="text-emerald-700">{formData.phone}</span>
+                        {formData.email ? <span className="text-slate-500 font-normal"> ({formData.email})</span> : ""}
                       </span>
                     </div>
 
