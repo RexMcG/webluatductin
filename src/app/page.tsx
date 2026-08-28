@@ -558,14 +558,14 @@ export default function Home() {
           
           {/* Consultation Form (Left) */}
           <div className="bg-[#92400e] p-8 md:p-12 text-white h-full flex flex-col justify-center rounded-3xl shadow-xl">
-            <h2 className="text-2xl md:text-3xl font-black mb-3 uppercase leading-snug font-sans text-white">ĐẶT CÂU HỎI VỚI LUẬT SƯ PHAN ĐỨC TÍN</h2>
+            <h2 className="text-2xl md:text-3xl font-black mb-3 uppercase leading-snug font-sans text-white">ĐẶT CÂU HỎI VỚI LUẬT SƯ</h2>
             <p className="mb-8 text-amber-100 text-sm md:text-base font-medium">Điền thông tin vụ việc, chúng tôi sẽ liên hệ tư vấn trong thời gian sớm nhất.</p>
 
             {consultSent ? (
               <div className="bg-white/20 border border-white/40 p-6 rounded-2xl text-center">
                 <span className="material-symbols-outlined text-5xl mb-2">check_circle</span>
-                <h3 className="text-xl font-bold mb-2">Đã Gửi Yêu CẦU Thành Công!</h3>
-                <p className="text-sm text-white/90">Luật sư Phan Đức Tín sẽ liên hệ lại với bạn qua số điện thoại <strong>{consultForm.phone}</strong>.</p>
+                <h3 className="text-xl font-bold mb-2">Đã Gửi Yêu Cầu Thành Công!</h3>
+                <p className="text-sm text-white/90">Luật sư sẽ liên hệ lại với bạn qua số điện thoại <strong>{consultForm.phone}</strong> trong thời gian sớm nhất.</p>
               </div>
             ) : (
               <form className="space-y-4" onSubmit={handleConsultSubmit} noValidate>
