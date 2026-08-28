@@ -461,10 +461,11 @@ export default function NewsDetailPage() {
 
             {/* Continuous Sections without collapsing */}
             <div className="space-y-10 md:space-y-12">
-              {sections.map((section: any) => (
+              {sections.map((section: any, idx: number) => (
                 <section
                   key={section.id}
                   id={`heading-${section.id}`}
+                  data-section-index={idx}
                   className="scroll-mt-28 border-b border-slate-100 pb-8 md:pb-10 last:border-b-0"
                 >
                   {/* Section Title */}

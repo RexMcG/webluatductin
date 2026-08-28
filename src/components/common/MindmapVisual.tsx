@@ -192,31 +192,16 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
   /**
    * Smoothly jumps and scrolls to the corresponding section heading in the article
    */
-  const handleJumpToSection = (branch: MindmapBranch, bIdx: number) => {
-    const cleanBranchName = branch.name
-      .toLowerCase()
-      .replace(/^(nhánh|mục|phần|\d+[\.\:\-])\s*/i, "")
-      .trim();
+  const handleJumpToSection = (branch: MindmapBranch, globalIdx: number) => {
+    // 1. Direct deterministic 1-to-1 matching (Branch 1 -> Sec 1, Branch 2 -> Sec 2, Branch 3 -> Sec 3, Branch 4 -> Sec 4)
+    let targetEl = document.querySelector(`[data-section-index="${globalIdx}"]`) as HTMLElement | null;
 
-    const sectionElements = document.querySelectorAll('section[id^="heading-"]');
-    let targetEl: HTMLElement | null = null;
-
-    // Strategy 1: Match section title text
-    sectionElements.forEach((el) => {
-      const heading = el.querySelector("h2, h3, h4");
-      if (heading && cleanBranchName.length > 2) {
-        const text = heading.textContent?.toLowerCase() || "";
-        const words = cleanBranchName.split(/\s+/).filter((w) => w.length > 2);
-        const matchCount = words.filter((w) => text.includes(w)).length;
-        if (text.includes(cleanBranchName) || matchCount >= Math.min(2, words.length)) {
-          if (!targetEl) targetEl = el as HTMLElement;
-        }
+    // 2. Fallback to section element by sequence index in DOM
+    if (!targetEl) {
+      const sectionElements = document.querySelectorAll('section[id^="heading-"]');
+      if (sectionElements[globalIdx]) {
+        targetEl = sectionElements[globalIdx] as HTMLElement;
       }
-    });
-
-    // Strategy 2: Match by section index if not found
-    if (!targetEl && sectionElements[bIdx]) {
-      targetEl = sectionElements[bIdx] as HTMLElement;
     }
 
     if (targetEl) {
