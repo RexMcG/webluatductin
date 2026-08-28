@@ -154,8 +154,33 @@ body {
   outline-offset: 2px;
 }
 
+/* Section pulse highlight when jumped from Mindmap */
+@keyframes sectionPulse {
+  0% {
+    background-color: rgba(254, 243, 199, 0.9);
+    box-shadow: 0 0 0 6px rgba(192, 150, 59, 0.6), 0 10px 25px -5px rgba(100, 29, 6, 0.2);
+    border-radius: 1.25rem;
+    padding: 0.75rem;
+  }
+  60% {
+    background-color: rgba(254, 243, 199, 0.4);
+    box-shadow: 0 0 0 3px rgba(192, 150, 59, 0.3);
+    padding: 0.75rem;
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+}
+
+.highlight-section-pulse {
+  animation: sectionPulse 2.8s ease-out forwards;
+}
+
 /* Print styles */
 @media print {
   nav, footer, .fixed, .sticky { display: none !important; }
   body { padding-top: 0 !important; }
 }
+

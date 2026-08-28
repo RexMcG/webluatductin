@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 export interface MindmapBranch {
   name: string;
@@ -19,7 +19,7 @@ export interface MindmapData {
   branches: MindmapBranch[];
 }
 
-// BỘ MÀU CHUẨN ĐỒNG BỘ 100% VỚI SƠ ĐỒ FLOWCHART & BẢN SẮC THƯƠNG HIỆU LUẬT ĐỨC TÍN
+// BỘ MÀU CHUẨN ĐỒNG BỘ 100% VỚI BẢN SẮC THƯƠNG HIỆU LUẬT ĐỨC TÍN
 const CORPORATE_MINDMAP_THEMES = [
   // 1. NHÁNH 1: #641D06 (Đỏ Đô Thẫm - Deep Burgundy Red)
   {
@@ -149,8 +149,24 @@ export function extractMindmapAndCleanText(rawText: string): {
 
 export default function MindmapVisual({ rawText }: { rawText: string }) {
   const [isOpen, setIsOpen] = useState(true);
-  const [selectedBranch, setSelectedBranch] = useState<MindmapBranch | null>(null);
+  const [hoveredBranch, setHoveredBranch] = useState<MindmapBranch | null>(null);
+  const [activeTooltipBranch, setActiveTooltipBranch] = useState<MindmapBranch | null>(null);
+  const [popoverPos, setPopoverPos] = useState<{ x: number; y: number; side: "left" | "right" } | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const { data } = extractMindmapAndCleanText(rawText);
+
+  // Close tooltip on outside click
+  useEffect(() => {
+    const handleDocClick = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setActiveTooltipBranch(null);
+        setHoveredBranch(null);
+      }
+    };
+    document.addEventListener("click", handleDocClick);
+    return () => document.removeEventListener("click", handleDocClick);
+  }, []);
 
   if (!data) return null;
 
@@ -159,9 +175,9 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
   const leftBranches = data.branches.slice(0, half);
   const rightBranches = data.branches.slice(half);
 
-  // Dynamic canvas calculations for clean main-branches-only layout
+  // Dynamic canvas calculations
   const maxSide = Math.max(leftBranches.length, rightBranches.length);
-  const rowSpacing = maxSide >= 4 ? 80 : 95;
+  const rowSpacing = maxSide >= 4 ? 82 : 98;
   const canvasH = Math.max(340, (maxSide - 1) * rowSpacing + 150);
   const canvasW = 860;
 
@@ -173,12 +189,12 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
   const centerL = cx - centerBoxW / 2; // 340
   const centerR = cx + centerBoxW / 2; // 520
 
-  const branchBoxW = 190;
-  const branchBoxH = 56;
+  const branchBoxW = 195;
+  const branchBoxH = 58;
 
-  // X Coordinate Columns for clean 2-side tree
-  const leftBranchX = 140; // [45 to 235]
-  const rightBranchX = 720; // [625 to 815]
+  // X Coordinate Columns
+  const leftBranchX = 140; // [42.5 to 237.5]
+  const rightBranchX = 720; // [622.5 to 817.5]
 
   // Helper to compute Y coordinate for each branch
   const getBranchY = (bIdx: number, totalOnSide: number) => {
@@ -187,16 +203,55 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
     return startY + bIdx * rowSpacing;
   };
 
-  const handleBranchClick = (branch: MindmapBranch) => {
-    if (selectedBranch?.name === branch.name) {
-      setSelectedBranch(null); // toggle off if clicking active
-    } else {
-      setSelectedBranch(branch);
+  /**
+   * Smoothly jumps and scrolls to the corresponding section heading in the article
+   */
+  const handleJumpToSection = (branch: MindmapBranch, bIdx: number) => {
+    const cleanBranchName = branch.name
+      .toLowerCase()
+      .replace(/^(nhánh|mục|phần|\d+[\.\:\-])\s*/i, "")
+      .trim();
+
+    const sectionElements = document.querySelectorAll('section[id^="heading-"]');
+    let targetEl: HTMLElement | null = null;
+
+    // Strategy 1: Match section title text
+    sectionElements.forEach((el) => {
+      const heading = el.querySelector("h2, h3, h4");
+      if (heading && cleanBranchName.length > 2) {
+        const text = heading.textContent?.toLowerCase() || "";
+        const words = cleanBranchName.split(/\s+/).filter((w) => w.length > 2);
+        const matchCount = words.filter((w) => text.includes(w)).length;
+        if (text.includes(cleanBranchName) || matchCount >= Math.min(2, words.length)) {
+          if (!targetEl) targetEl = el as HTMLElement;
+        }
+      }
+    });
+
+    // Strategy 2: Match by section index if not found
+    if (!targetEl && sectionElements[bIdx]) {
+      targetEl = sectionElements[bIdx] as HTMLElement;
     }
+
+    if (targetEl) {
+      targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      targetEl.classList.remove("highlight-section-pulse");
+      void targetEl.offsetWidth; // force browser reflow
+      targetEl.classList.add("highlight-section-pulse");
+    }
+
+    // Dismiss active popup
+    setActiveTooltipBranch(null);
+    setHoveredBranch(null);
   };
 
+  const activeBranch = activeTooltipBranch || hoveredBranch;
+
   return (
-    <div className="my-5 w-full rounded-3xl border border-slate-200 bg-[#fdfbf7] p-3 sm:p-5 shadow-sm transition-all">
+    <div
+      ref={containerRef}
+      className="my-5 w-full rounded-3xl border border-slate-200 bg-[#fdfbf7] p-3 sm:p-5 shadow-sm transition-all relative select-none"
+    >
       {/* Header Bar */}
       <div className="flex items-center justify-between border-b border-slate-200/80 pb-2.5 mb-3">
         <div className="flex items-center gap-2">
@@ -207,7 +262,9 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
             <h4 className="font-bold text-slate-900 text-xs sm:text-sm">
               Sơ Đồ Tư Duy Mindmap Trực Quan ({data.branches.length} Mục Trọng Tâm)
             </h4>
-            <p className="text-[10px] text-slate-500">Chạm vào từng mục để xem ngay bản ghi chú tóm tắt nội dung</p>
+            <p className="text-[10px] text-slate-500">
+              Rê chuột vào <strong>[ⓘ]</strong> để xem popup giải thích tại chỗ • <strong>Click vào mục</strong> để nhảy tới bài viết
+            </p>
           </div>
         </div>
 
@@ -224,9 +281,9 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
       </div>
 
       {isOpen && (
-        <div className="w-full">
+        <div className="w-full relative">
           {/* UNIFIED DYNAMIC SVG VECTOR CANVAS */}
-          <div className="w-full relative select-none overflow-x-auto">
+          <div className="w-full relative overflow-x-auto">
             <svg
               viewBox={`0 0 ${canvasW} ${canvasH}`}
               className="w-full min-w-[500px] h-auto drop-shadow-2xs overflow-visible"
@@ -249,7 +306,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 ))}
               </defs>
 
-              {/* 1. LEFT SIDE: CONNECTIONS FROM CENTER ---> TO LEFT BRANCH (◀) */}
+              {/* 1. LEFT SIDE CONNECTIONS */}
               {leftBranches.map((b, idx) => {
                 const branchY = getBranchY(idx, leftBranches.length);
                 const startX = centerL;
@@ -258,7 +315,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 const endX = leftBranchX + branchBoxW / 2;
                 const endY = branchY;
 
-                const isSelected = selectedBranch?.name === b.name;
+                const isTarget = activeBranch?.name === b.name;
 
                 return (
                   <path
@@ -266,8 +323,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                     d={`M ${startX} ${startY} C ${startX - 40} ${startY}, ${endX + 40} ${endY}, ${endX} ${endY}`}
                     fill="none"
                     stroke={b.lineColor}
-                    strokeWidth={isSelected ? "4" : "2.6"}
-                    strokeDasharray={isSelected ? "none" : "none"}
+                    strokeWidth={isTarget ? "4" : "2.6"}
                     strokeLinecap="round"
                     markerEnd={`url(#arrow-main-clean-${idx})`}
                     className="transition-all duration-300"
@@ -275,7 +331,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 );
               })}
 
-              {/* 2. RIGHT SIDE: CONNECTIONS FROM CENTER ---> TO RIGHT BRANCH (▶) */}
+              {/* 2. RIGHT SIDE CONNECTIONS */}
               {rightBranches.map((b, idx) => {
                 const branchY = getBranchY(idx, rightBranches.length);
                 const startX = centerR;
@@ -284,7 +340,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 const endX = rightBranchX - branchBoxW / 2;
                 const endY = branchY;
 
-                const isSelected = selectedBranch?.name === b.name;
+                const isTarget = activeBranch?.name === b.name;
 
                 return (
                   <path
@@ -292,7 +348,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                     d={`M ${startX} ${startY} C ${startX + 40} ${startY}, ${endX - 40} ${endY}, ${endX} ${endY}`}
                     fill="none"
                     stroke={b.lineColor}
-                    strokeWidth={isSelected ? "4" : "2.6"}
+                    strokeWidth={isTarget ? "4" : "2.6"}
                     strokeLinecap="round"
                     markerEnd={`url(#arrow-main-clean-${half + idx})`}
                     className="transition-all duration-300"
@@ -317,10 +373,10 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 </div>
               </foreignObject>
 
-              {/* 4. LEFT BRANCHES (CLICKABLE INTERACTIVE BUTTONS) */}
+              {/* 4. LEFT BRANCHES */}
               {leftBranches.map((b, bIdx) => {
                 const branchY = getBranchY(bIdx, leftBranches.length);
-                const isSelected = selectedBranch?.name === b.name;
+                const isTarget = activeBranch?.name === b.name;
 
                 return (
                   <foreignObject
@@ -329,38 +385,61 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                     y={branchY - branchBoxH / 2}
                     width={branchBoxW}
                     height={branchBoxH}
+                    className="overflow-visible"
                   >
-                    <div className="w-full h-full flex items-center justify-center p-0.5">
+                    <div
+                      className="w-full h-full flex items-center justify-center p-0.5 relative group/node"
+                      onMouseEnter={() => {
+                        setHoveredBranch(b);
+                        setPopoverPos({ x: leftBranchX, y: branchY, side: "left" });
+                      }}
+                      onMouseLeave={() => setHoveredBranch(null)}
+                    >
                       <button
                         type="button"
-                        onClick={() => handleBranchClick(b)}
-                        className={`w-full h-full px-3 py-2 rounded-xl text-[11px] font-bold shadow-sm border-2 text-center flex items-center justify-between gap-1.5 leading-tight transition-all duration-200 cursor-pointer active:scale-95 group ${
-                          isSelected
-                            ? "ring-4 ring-amber-300/80 scale-105 shadow-md"
+                        onClick={() => handleJumpToSection(b, bIdx)}
+                        className={`w-full h-full px-2.5 py-1.5 rounded-xl text-[11px] font-bold shadow-sm border-2 text-left flex items-center justify-between gap-1.5 leading-tight transition-all duration-200 cursor-pointer active:scale-95 ${
+                          isTarget
+                            ? "ring-4 ring-amber-300/90 scale-105 shadow-lg"
                             : "hover:scale-102 hover:shadow-md"
                         }`}
                         style={{
                           backgroundColor: b.colorBg,
-                          borderColor: isSelected ? "#C0963B" : b.colorBorder,
+                          borderColor: isTarget ? "#C0963B" : b.colorBorder,
                           color: b.textColor,
                         }}
+                        title="Bấm để nhảy tới mục này trong bài viết"
                       >
-                        <span className="text-left font-black leading-snug flex-1 line-clamp-2">
+                        <span className="font-black leading-snug flex-1 line-clamp-2">
                           {b.name}
                         </span>
-                        <span className="material-symbols-outlined text-sm text-amber-300 shrink-0 group-hover:translate-x-0.5 transition-transform">
-                          {isSelected ? "check_circle" : "touch_app"}
-                        </span>
+
+                        {/* Tooltip ⓘ Badge */}
+                        <div
+                          className="flex items-center gap-0.5 shrink-0 bg-white/20 hover:bg-amber-300 hover:text-slate-900 rounded-lg px-1.5 py-1 transition-colors"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActiveTooltipBranch(activeTooltipBranch?.name === b.name ? null : b);
+                            setPopoverPos({ x: leftBranchX, y: branchY, side: "left" });
+                          }}
+                          title="Xem chú thích giải thích tại chỗ"
+                        >
+                          <span className="text-[10px] font-black">ⓘ</span>
+                          <span className="material-symbols-outlined text-[13px] opacity-80 group-hover/node:translate-x-0.5 transition-transform">
+                            arrow_downward
+                          </span>
+                        </div>
                       </button>
                     </div>
                   </foreignObject>
                 );
               })}
 
-              {/* 5. RIGHT BRANCHES (CLICKABLE INTERACTIVE BUTTONS) */}
+              {/* 5. RIGHT BRANCHES */}
               {rightBranches.map((b, bIdx) => {
                 const branchY = getBranchY(bIdx, rightBranches.length);
-                const isSelected = selectedBranch?.name === b.name;
+                const isTarget = activeBranch?.name === b.name;
+                const globalIdx = half + bIdx;
 
                 return (
                   <foreignObject
@@ -369,26 +448,48 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                     y={branchY - branchBoxH / 2}
                     width={branchBoxW}
                     height={branchBoxH}
+                    className="overflow-visible"
                   >
-                    <div className="w-full h-full flex items-center justify-center p-0.5">
+                    <div
+                      className="w-full h-full flex items-center justify-center p-0.5 relative group/node"
+                      onMouseEnter={() => {
+                        setHoveredBranch(b);
+                        setPopoverPos({ x: rightBranchX, y: branchY, side: "right" });
+                      }}
+                      onMouseLeave={() => setHoveredBranch(null)}
+                    >
                       <button
                         type="button"
-                        onClick={() => handleBranchClick(b)}
-                        className={`w-full h-full px-3 py-2 rounded-xl text-[11px] font-bold shadow-sm border-2 text-center flex items-center justify-between gap-1.5 leading-tight transition-all duration-200 cursor-pointer active:scale-95 group ${
-                          isSelected
-                            ? "ring-4 ring-amber-300/80 scale-105 shadow-md"
+                        onClick={() => handleJumpToSection(b, globalIdx)}
+                        className={`w-full h-full px-2.5 py-1.5 rounded-xl text-[11px] font-bold shadow-sm border-2 text-right flex items-center justify-between gap-1.5 leading-tight transition-all duration-200 cursor-pointer active:scale-95 ${
+                          isTarget
+                            ? "ring-4 ring-amber-300/90 scale-105 shadow-lg"
                             : "hover:scale-102 hover:shadow-md"
                         }`}
                         style={{
                           backgroundColor: b.colorBg,
-                          borderColor: isSelected ? "#C0963B" : b.colorBorder,
+                          borderColor: isTarget ? "#C0963B" : b.colorBorder,
                           color: b.textColor,
                         }}
+                        title="Bấm để nhảy tới mục này trong bài viết"
                       >
-                        <span className="material-symbols-outlined text-sm text-amber-300 shrink-0 group-hover:scale-110 transition-transform">
-                          {isSelected ? "check_circle" : "touch_app"}
-                        </span>
-                        <span className="text-right font-black leading-snug flex-1 line-clamp-2">
+                        {/* Tooltip ⓘ Badge */}
+                        <div
+                          className="flex items-center gap-0.5 shrink-0 bg-white/20 hover:bg-amber-300 hover:text-slate-900 rounded-lg px-1.5 py-1 transition-colors"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActiveTooltipBranch(activeTooltipBranch?.name === b.name ? null : b);
+                            setPopoverPos({ x: rightBranchX, y: branchY, side: "right" });
+                          }}
+                          title="Xem chú thích giải thích tại chỗ"
+                        >
+                          <span className="material-symbols-outlined text-[13px] opacity-80 group-hover/node:translate-x-0.5 transition-transform">
+                            arrow_downward
+                          </span>
+                          <span className="text-[10px] font-black">ⓘ</span>
+                        </div>
+
+                        <span className="font-black leading-snug flex-1 line-clamp-2">
                           {b.name}
                         </span>
                       </button>
@@ -399,69 +500,101 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
             </svg>
           </div>
 
-          {/* INTERACTIVE NOTE CARD: BẢN GHI CHÚ TÓM TẮT NỘI DUNG MỤC ĐƯỢC CHỌN */}
-          {selectedBranch ? (
+          {/* =========================================================
+              INSTANT POPUP / TOOLTIP ⓘ GIẢI THÍCH NGAY TẠI CHỖ
+             ========================================================= */}
+          {activeBranch && (
             <div
-              className="mt-4 p-4 sm:p-5 rounded-2xl border-2 transition-all duration-300 animate-fadeIn shadow-md"
+              className="mt-3 p-4 sm:p-5 rounded-2xl border-2 transition-all duration-300 animate-fadeIn shadow-xl bg-white/95 backdrop-blur-md relative z-30"
               style={{
-                backgroundColor: selectedBranch.subBg,
-                borderColor: selectedBranch.colorBorder,
+                borderColor: activeBranch.colorBorder,
+                boxShadow: `0 10px 30px -5px ${activeBranch.colorBg}30`,
               }}
+              onMouseEnter={() => setHoveredBranch(activeBranch)}
+              onMouseLeave={() => setHoveredBranch(null)}
             >
-              {/* Note Header */}
+              {/* Tooltip Header */}
               <div
                 className="flex items-start justify-between gap-3 border-b pb-3 mb-3"
-                style={{ borderColor: selectedBranch.subBorder }}
+                style={{ borderColor: activeBranch.subBorder }}
               >
                 <div className="flex items-center gap-2.5">
                   <div
                     className="w-8 h-8 rounded-xl flex items-center justify-center font-black text-sm text-white shadow-xs shrink-0"
-                    style={{ backgroundColor: selectedBranch.colorBg }}
+                    style={{ backgroundColor: activeBranch.colorBg }}
                   >
-                    📝
+                    ⓘ
                   </div>
                   <div>
-                    <span
-                      className="text-[10px] font-black uppercase tracking-wider block"
-                      style={{ color: selectedBranch.colorBg }}
-                    >
-                      Bản Ghi Chú Tóm Tắt Trọng Tâm
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span
+                        className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full"
+                        style={{
+                          backgroundColor: activeBranch.subBg,
+                          color: activeBranch.colorBg,
+                          border: `1px solid ${activeBranch.subBorder}`,
+                        }}
+                      >
+                        Tooltip ⓘ Giải Thích Trọng Tâm
+                      </span>
+                    </div>
                     <h4
-                      className="text-sm sm:text-base font-black leading-snug"
-                      style={{ color: selectedBranch.colorBg }}
+                      className="text-sm sm:text-base font-black leading-snug mt-0.5"
+                      style={{ color: activeBranch.colorBg }}
                     >
-                      {selectedBranch.name}
+                      {activeBranch.name}
                     </h4>
                   </div>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setSelectedBranch(null)}
-                  className="text-xs px-2.5 py-1 rounded-lg bg-white hover:bg-slate-100 text-slate-700 font-bold border border-slate-300 transition-colors cursor-pointer shadow-2xs shrink-0"
-                >
-                  ✕ Đóng ghi chú
-                </button>
+
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const idx = data.branches.findIndex((b) => b.name === activeBranch.name);
+                      handleJumpToSection(activeBranch, idx >= 0 ? idx : 0);
+                    }}
+                    className="flex items-center gap-1 text-[11px] sm:text-xs px-3 py-1.5 rounded-xl font-bold text-white shadow-sm transition-transform active:scale-95 cursor-pointer hover:brightness-110"
+                    style={{ backgroundColor: activeBranch.colorBg }}
+                  >
+                    <span>Xem mục này trong bài viết</span>
+                    <span className="material-symbols-outlined text-sm">arrow_downward</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveTooltipBranch(null);
+                      setHoveredBranch(null);
+                    }}
+                    className="text-slate-400 hover:text-slate-700 p-1 rounded-lg hover:bg-slate-100 transition-colors"
+                  >
+                    ✕
+                  </button>
+                </div>
               </div>
 
-              {/* Note Sub-items / Points */}
-              {selectedBranch.subItems.length > 0 ? (
-                <div className="space-y-2">
-                  {selectedBranch.subItems.map((item, idx) => (
+              {/* Sub-items list */}
+              {activeBranch.subItems.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {activeBranch.subItems.map((item, idx) => (
                     <div
                       key={idx}
-                      className="flex items-start gap-2.5 bg-white/95 p-3 rounded-xl border shadow-2xs"
-                      style={{ borderColor: selectedBranch.subBorder }}
+                      className="flex items-start gap-2.5 p-2.5 rounded-xl border shadow-2xs transition-all hover:bg-amber-50/40"
+                      style={{
+                        backgroundColor: activeBranch.subBg,
+                        borderColor: activeBranch.subBorder,
+                      }}
                     >
                       <span
                         className="w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-white font-bold text-[10px] mt-0.5 shadow-2xs"
-                        style={{ backgroundColor: selectedBranch.colorBg }}
+                        style={{ backgroundColor: activeBranch.colorBg }}
                       >
                         {idx + 1}
                       </span>
                       <p
-                        className="text-xs sm:text-sm font-semibold leading-relaxed"
-                        style={{ color: selectedBranch.subTextColor }}
+                        className="text-xs font-semibold leading-relaxed"
+                        style={{ color: activeBranch.subTextColor }}
                       >
                         {item}
                       </p>
@@ -469,25 +602,22 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                   ))}
                 </div>
               ) : (
-                <div className="p-3 bg-white/80 rounded-xl text-xs sm:text-sm text-slate-700 italic">
-                  Đang hiển thị mục trọng tâm. Cuộn xuống nội dung bài viết bên dưới để xem toàn văn quy định pháp lý chi tiết.
+                <div className="p-3 bg-slate-50 rounded-xl text-xs text-slate-700 italic">
+                  Nhấn vào nút bên trên để cuộn ngay tới toàn văn điều khoản pháp lý chi tiết trong bài viết.
                 </div>
               )}
             </div>
-          ) : (
-            <div className="mt-3 py-2.5 px-4 bg-amber-50/70 border border-amber-200/80 rounded-xl flex items-center justify-center gap-2 text-center text-xs text-amber-950 font-medium">
-              <span className="text-sm">👆</span>
+          )}
+
+          {/* Bottom helper tip */}
+          {!activeBranch && (
+            <div className="mt-2.5 py-2 px-3 bg-amber-50/70 border border-amber-200/80 rounded-xl flex items-center justify-center gap-2 text-center text-[11px] text-amber-950 font-medium">
+              <span className="text-sm">💡</span>
               <span>
-                Chạm hoặc click vào bất kỳ <strong>nhánh mục</strong> nào ở trên để xem ngay <strong>bản ghi chú tóm tắt nội dung</strong>.
+                <strong>Mẹo:</strong> Rê chuột vào từng nhánh để xem <strong>Tooltip ⓘ giải thích nhanh</strong>, hoặc <strong>Click trực tiếp</strong> để cuộn ngay tới mục đó trong bài viết.
               </span>
             </div>
           )}
-
-          {/* Footer Note */}
-          <div className="flex items-center justify-between text-[10px] text-slate-500 pt-2.5 mt-3 border-t border-slate-200/70">
-            <span>⚖️ Công ty Luật TNHH Đức Tín &amp; Cộng sự</span>
-            <span>📞 Hotline / Zalo: 093 786 32 63</span>
-          </div>
         </div>
       )}
     </div>
