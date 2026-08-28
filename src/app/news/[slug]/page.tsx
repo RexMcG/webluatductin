@@ -105,9 +105,92 @@ export default function NewsDetailPage() {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col justify-center items-center py-32">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#641D06]"></div>
-        <p className="mt-4 text-slate-500 font-semibold text-sm">Đang tải bài viết phân tích...</p>
+      <div className="max-w-[1720px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 animate-pulse">
+        {/* Back Link Skeleton */}
+        <div className="h-4 w-48 bg-slate-200 rounded-lg mb-6" />
+
+        {/* 3-Column Skeleton Grid */}
+        <div className="flex flex-col lg:flex-row gap-6 xl:gap-8 items-start w-full">
+          {/* Left Column: Navigation Pane Skeleton */}
+          <aside className="hidden lg:block lg:w-[300px] xl:w-[320px] shrink-0">
+            <div className="bg-white rounded-2xl border border-slate-200 p-4 space-y-3">
+              <div className="h-5 w-36 bg-slate-200 rounded-md mb-2" />
+              <div className="h-8 w-full bg-slate-100 rounded-lg" />
+              <div className="h-10 w-full bg-purple-50 rounded-xl" />
+              <div className="h-4 w-full bg-slate-100 rounded" />
+              <div className="h-4 w-4/5 bg-slate-100 rounded" />
+              <div className="h-4 w-full bg-slate-100 rounded" />
+              <div className="h-4 w-3/4 bg-slate-100 rounded" />
+              <div className="h-4 w-5/6 bg-slate-100 rounded" />
+            </div>
+          </aside>
+
+          {/* Center Column: Main Article Skeleton */}
+          <main className="flex-1 w-full min-w-0 bg-white rounded-3xl border border-slate-200 p-6 md:p-10 space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="h-6 w-32 bg-amber-100 rounded-full" />
+              <div className="h-4 w-24 bg-slate-200 rounded" />
+            </div>
+            
+            {/* Title Skeleton */}
+            <div className="space-y-3">
+              <div className="h-8 md:h-10 w-full bg-slate-300 rounded-xl" />
+              <div className="h-8 md:h-10 w-3/4 bg-slate-300 rounded-xl" />
+            </div>
+
+            {/* Author Meta */}
+            <div className="flex items-center gap-3 pb-6 border-b border-slate-100">
+              <div className="w-10 h-10 rounded-full bg-slate-200" />
+              <div className="space-y-1.5">
+                <div className="h-4 w-36 bg-slate-200 rounded" />
+                <div className="h-3 w-28 bg-slate-100 rounded" />
+              </div>
+            </div>
+
+            {/* Mindmap Box Skeleton */}
+            <div className="h-44 w-full bg-purple-50/70 border border-purple-100 rounded-2xl p-4 space-y-2">
+              <div className="h-5 w-40 bg-purple-200 rounded" />
+              <div className="h-4 w-full bg-purple-100/80 rounded" />
+              <div className="h-4 w-5/6 bg-purple-100/80 rounded" />
+              <div className="h-4 w-2/3 bg-purple-100/80 rounded" />
+            </div>
+
+            {/* Section Paragraphs */}
+            <div className="space-y-4 pt-4">
+              <div className="h-6 w-1/2 bg-slate-300 rounded-lg" />
+              <div className="h-4 w-full bg-slate-100 rounded" />
+              <div className="h-4 w-full bg-slate-100 rounded" />
+              <div className="h-4 w-4/5 bg-slate-100 rounded" />
+              <div className="h-4 w-full bg-slate-100 rounded" />
+
+              <div className="h-6 w-2/5 bg-slate-300 rounded-lg mt-6" />
+              <div className="h-4 w-full bg-slate-100 rounded" />
+              <div className="h-4 w-5/6 bg-slate-100 rounded" />
+            </div>
+          </main>
+
+          {/* Right Column: Sidebar Skeleton */}
+          <aside className="hidden xl:block xl:w-[320px] shrink-0 space-y-6">
+            <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-4">
+              <div className="h-5 w-40 bg-slate-200 rounded" />
+              <div className="h-20 w-full bg-amber-50 rounded-xl" />
+              <div className="h-10 w-full bg-[#641D06]/10 rounded-xl" />
+            </div>
+
+            <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-4">
+              <div className="h-5 w-36 bg-slate-200 rounded" />
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex gap-3">
+                  <div className="w-14 h-14 bg-slate-200 rounded-xl shrink-0" />
+                  <div className="flex-1 space-y-2">
+                    <div className="h-3.5 w-full bg-slate-200 rounded" />
+                    <div className="h-3 w-16 bg-slate-100 rounded" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </aside>
+        </div>
       </div>
     );
   }
