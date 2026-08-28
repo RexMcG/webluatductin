@@ -32,35 +32,35 @@ export default function Header() {
   return (
     <>
       <nav className="bg-white fixed top-0 w-full z-50 shadow-xs border-b-[7px] border-[#641D06]">
-        <div className="w-full max-w-[1728px] mx-auto px-6 md:px-12 lg:px-16 flex justify-between items-center h-20">
-          <Link href="/" className="shrink-0 mr-8 lg:mr-16">
+        <div className="w-full max-w-[1728px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 flex justify-between items-center h-20">
+          <Link href="/" className="shrink-0 mr-3 lg:mr-6 xl:mr-10">
             <img
               src="/img/Logo_website.webp"
               alt="Logo Công ty Luật Đức Tín"
               width={244}
               height={40}
               fetchPriority="high"
-              className="h-8 md:h-10 w-[195px] md:w-[244px] object-contain"
+              className="h-8 md:h-9 xl:h-10 w-auto object-contain"
             />
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-6 lg:gap-8 xl:gap-10">
+          <div className="hidden lg:flex items-center gap-3.5 xl:gap-6 2xl:gap-8">
             <Link
               href="/"
-              className={`${isActive("/")} uppercase text-[14px] lg:text-[15px] whitespace-nowrap`}
+              className={`${isActive("/")} uppercase text-[13px] xl:text-[14px] 2xl:text-[15px] whitespace-nowrap`}
             >
               Trang chủ
             </Link>
             <Link
               href="/services"
-              className={`${isActive("/services")} uppercase text-[14px] lg:text-[15px] whitespace-nowrap`}
+              className={`${isActive("/services")} uppercase text-[13px] xl:text-[14px] 2xl:text-[15px] whitespace-nowrap`}
             >
               Lĩnh vực
             </Link>
             <Link
               href="/news"
-              className={`${isActive("/news")} uppercase text-[14px] lg:text-[15px] whitespace-nowrap`}
+              className={`${isActive("/news")} uppercase text-[13px] xl:text-[14px] 2xl:text-[15px] whitespace-nowrap`}
             >
               Tin tức
             </Link>
@@ -68,7 +68,7 @@ export default function Header() {
             {/* Direct Link: Biểu mẫu AI */}
             <Link
               href="/ai-form-library"
-              className={`${isActive("/ai-form-library")} uppercase text-[14px] lg:text-[15px] whitespace-nowrap`}
+              className={`${isActive("/ai-form-library")} uppercase text-[13px] xl:text-[14px] 2xl:text-[15px] whitespace-nowrap`}
             >
               Biểu mẫu AI
             </Link>
@@ -77,7 +77,7 @@ export default function Header() {
             <div className="relative group">
               <a
                 href="#"
-                className="text-slate-800 hover:text-[#641D06] font-bold transition-colors duration-200 uppercase text-[14px] lg:text-[15px] flex items-center gap-1 whitespace-nowrap py-2"
+                className="text-slate-800 hover:text-[#641D06] font-bold transition-colors duration-200 uppercase text-[13px] xl:text-[14px] 2xl:text-[15px] flex items-center gap-0.5 whitespace-nowrap py-2"
                 onClick={(e) => e.preventDefault()}
               >
                 Tính năng <span className="material-symbols-outlined text-sm">expand_more</span>
@@ -109,30 +109,30 @@ export default function Header() {
 
             <Link
               href="/ai-chatbot"
-              className={`${isActive("/ai-chatbot")} uppercase text-[14px] lg:text-[15px] whitespace-nowrap`}
+              className={`${isActive("/ai-chatbot")} uppercase text-[13px] xl:text-[14px] 2xl:text-[15px] whitespace-nowrap`}
             >
               AI Chat
             </Link>
             <Link
               href="/appointment"
-              className={`${isActive("/appointment")} uppercase text-[14px] lg:text-[15px] whitespace-nowrap`}
+              className={`${isActive("/appointment")} uppercase text-[13px] xl:text-[14px] 2xl:text-[15px] whitespace-nowrap`}
             >
               Đặt lịch
             </Link>
           </div>
 
-          <div className="flex items-center gap-3 ml-8 lg:ml-16 shrink-0">
+          <div className="flex items-center gap-2 lg:gap-3 ml-2 lg:ml-4 xl:ml-8 shrink-0">
             <a
               href="tel:0937863263"
-              className="hidden md:flex items-center gap-2 text-[#641D06] bg-amber-50 hover:bg-amber-100 px-4 py-2 rounded-full border border-amber-300 transition-colors shrink-0 font-bold text-sm shadow-2xs"
+              className="hidden sm:flex items-center gap-1.5 text-[#641D06] bg-amber-50 hover:bg-amber-100 px-3 lg:px-4 py-2 rounded-full border border-amber-300 transition-colors shrink-0 font-bold text-xs lg:text-sm shadow-2xs whitespace-nowrap"
             >
-              <span className="material-symbols-outlined text-base text-[#641D06]">call</span>
-              <span className="whitespace-nowrap">Hotline: 093 786 32 63</span>
+              <span className="material-symbols-outlined text-sm lg:text-base text-[#641D06]">call</span>
+              <span>Hotline: 093 786 32 63</span>
             </a>
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden material-symbols-outlined cursor-pointer text-slate-900 p-2 rounded-lg hover:bg-slate-100 transition-colors"
+              className="lg:hidden material-symbols-outlined cursor-pointer text-slate-900 p-2 rounded-lg hover:bg-slate-100 transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? "Đóng menu điều hướng" : "Mở menu điều hướng"}
               aria-expanded={isMobileMenuOpen}
