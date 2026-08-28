@@ -195,20 +195,24 @@ export default function CalculatorGuide({ type }: CalculatorGuideProps) {
 
       {/* Article Preview Card */}
       <div className="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
-        {/* Left Column: Image with Badge */}
-        <div className="lg:col-span-4 relative rounded-2xl overflow-hidden shadow-sm group">
+        {/* Left Column: Image with Badge (Clickable Link to Article) */}
+        <Link
+          href={`/news/${article.slug}`}
+          className="block lg:col-span-4 relative rounded-2xl overflow-hidden shadow-sm group cursor-pointer"
+          title={`Xem bài viết: ${article.title}`}
+        >
           <img
             src={article.thumbnailUrl}
             alt={article.title}
             className="w-full h-56 sm:h-64 object-cover group-hover:scale-105 transition-transform duration-500"
           />
           <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-4">
-            <span className="inline-block bg-purple-600/90 backdrop-blur-xs text-white text-[11px] font-bold px-3 py-1 rounded-lg mb-1 shadow-xs">
+            <span className="inline-block bg-purple-600/90 backdrop-blur-xs text-white text-[11px] font-bold px-3 py-1 rounded-lg mb-1 shadow-xs w-fit">
               {article.badge}
             </span>
-            <span className="text-white text-xs font-medium">Bố cục Mindmap trực quan 4 đề mục</span>
+            <span className="text-white text-xs font-medium group-hover:underline">Bố cục Mindmap trực quan 4 đề mục →</span>
           </div>
-        </div>
+        </Link>
 
         {/* Right Column: Information & Key Points */}
         <div className="lg:col-span-8 flex flex-col justify-between space-y-4">
@@ -217,9 +221,11 @@ export default function CalculatorGuide({ type }: CalculatorGuideProps) {
               <span className="w-2 h-2 rounded-full bg-amber-500"></span>
               Bài viết phân tích bởi Luật sư Phan Đức Tín
             </div>
-            <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-snug">
-              {article.title}
-            </h3>
+            <Link href={`/news/${article.slug}`} className="block group/title">
+              <h3 className="text-xl sm:text-2xl font-black text-slate-900 group-hover/title:text-[#641D06] leading-snug transition-colors">
+                {article.title}
+              </h3>
+            </Link>
             <p className="text-slate-600 text-xs sm:text-sm mt-2 leading-relaxed">
               {article.summary}
             </p>
