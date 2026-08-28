@@ -239,9 +239,6 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
             <h4 className="font-extrabold text-slate-900 text-sm sm:text-base">
               Sơ Đồ Tư Duy Mindmap Trực Quan ({data.branches.length} Mục Trọng Tâm)
             </h4>
-            <p className="text-xs text-slate-500 font-medium mt-0.5">
-              Rê chuột vào để xem <strong>Tooltip ⓘ giải thích tại chỗ</strong> • Click để <strong>chạy tới mục trong bài viết</strong>
-            </p>
           </div>
         </div>
 
@@ -417,25 +414,25 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                             </span>
                           </div>
 
-                          {/* Tooltip Bullet Content (NỀN XANH ĐEN / ĐỎ ĐÔ NỔI BẬT CHỐNG CHÓI) */}
+                          {/* Tooltip Bullet Content (NỀN XANH NHẸ / SLATE DỊU MẮT) */}
                           {b.subItems && b.subItems.length > 0 ? (
                             <ul className="space-y-2">
                               {b.subItems.map((item, sIdx) => (
                                 <li
                                   key={sIdx}
-                                  className="flex items-start gap-2.5 bg-[#1e293b] text-white p-3 rounded-xl border border-slate-700 shadow-sm"
+                                  className="flex items-start gap-2.5 bg-[#f1f5f9] hover:bg-[#e2e8f0] text-slate-900 p-3 rounded-xl border border-slate-200/90 shadow-2xs transition-colors"
                                 >
-                                  <span className="w-5 h-5 rounded-full bg-[#C0963B] text-slate-950 font-black text-[11px] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                                  <span className="w-5 h-5 rounded-full bg-[#1D3540] text-white font-black text-[11px] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
                                     {sIdx + 1}
                                   </span>
-                                  <span className="font-semibold text-slate-100 leading-snug">
+                                  <span className="font-bold text-slate-800 leading-snug">
                                     {item}
                                   </span>
                                 </li>
                               ))}
                             </ul>
                           ) : (
-                            <div className="bg-[#1e293b] text-white p-3 rounded-xl border border-slate-700 font-medium">
+                            <div className="bg-[#f1f5f9] text-slate-800 p-3 rounded-xl border border-slate-200/90 font-medium">
                               Nhấp chuột để tự động cuộn xuống xem toàn văn điều khoản pháp lý chi tiết trong bài viết.
                             </div>
                           )}
@@ -517,25 +514,25 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                             </span>
                           </div>
 
-                          {/* Tooltip Bullet Content (NỀN XANH ĐEN / ĐỎ ĐÔ NỔI BẬT CHỐNG CHÓI) */}
+                          {/* Tooltip Bullet Content (NỀN XANH NHẸ / SLATE DỊU MẮT) */}
                           {b.subItems && b.subItems.length > 0 ? (
                             <ul className="space-y-2">
                               {b.subItems.map((item, sIdx) => (
                                 <li
                                   key={sIdx}
-                                  className="flex items-start gap-2.5 bg-[#1e293b] text-white p-3 rounded-xl border border-slate-700 shadow-sm"
+                                  className="flex items-start gap-2.5 bg-[#f1f5f9] hover:bg-[#e2e8f0] text-slate-900 p-3 rounded-xl border border-slate-200/90 shadow-2xs transition-colors"
                                 >
-                                  <span className="w-5 h-5 rounded-full bg-[#C0963B] text-slate-950 font-black text-[11px] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                                  <span className="w-5 h-5 rounded-full bg-[#1D3540] text-white font-black text-[11px] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
                                     {sIdx + 1}
                                   </span>
-                                  <span className="font-semibold text-slate-100 leading-snug">
+                                  <span className="font-bold text-slate-800 leading-snug">
                                     {item}
                                   </span>
                                 </li>
                               ))}
                             </ul>
                           ) : (
-                            <div className="bg-[#1e293b] text-white p-3 rounded-xl border border-slate-700 font-medium">
+                            <div className="bg-[#f1f5f9] text-slate-800 p-3 rounded-xl border border-slate-200/90 font-medium">
                               Nhấp chuột để tự động cuộn xuống xem toàn văn điều khoản pháp lý chi tiết trong bài viết.
                             </div>
                           )}
