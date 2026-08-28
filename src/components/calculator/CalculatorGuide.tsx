@@ -51,10 +51,10 @@ export function InfoTooltip({ title, content }: { title: string; content: string
 export default function CalculatorGuide({ type }: CalculatorGuideProps) {
   const articlesData: Record<string, ArticleLinkData> = {
     salary: {
-      title: "Sơ Đồ Tư Duy: Phân Biệt Lương Gross vs Lương Net & Trách Nhiệm Đóng Bảo Hiểm 2026",
+      title: "Phân Biệt Lương Gross vs Lương Net & Trách Nhiệm Đóng Bảo Hiểm 2026",
       slug: "so-do-tu-duy-phan-biet-luong-gross-luong-net-trach-nhiem-dong-bao-hiem-2026",
       category: "Lao Động & Tiền Lương",
-      badge: "🧠 Cẩm Nang Kèm Sơ Đồ Mindmap",
+      badge: "🧠 Cẩm Nang Pháp Lý Chuyên Sâu",
       summary:
         "Cẩm nang toàn diện phân tích sự khác biệt pháp lý giữa Lương Gross và Lương Net, bảng phân định nghĩa vụ đóng bảo hiểm 32% (NLĐ 10.5% vs Doanh nghiệp 21.5%) và lời khuyên đàm phán hợp đồng từ Luật sư.",
       keyPoints: [
@@ -66,10 +66,10 @@ export default function CalculatorGuide({ type }: CalculatorGuideProps) {
       thumbnailUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=800&auto=format&fit=crop",
     },
     pit: {
-      title: "Sơ Đồ Tư Duy: Hướng Dẫn Tính Thuế TNCN, Giảm Trừ Gia Cảnh & Người Phụ Thuộc 2026",
+      title: "Hướng Dẫn Tính Thuế TNCN, Giảm Trừ Gia Cảnh & Người Phụ Thuộc 2026",
       slug: "so-do-tu-duy-tinh-thue-tncn-giam-tru-gia-canh-nguoi-phu-thuoc-2026",
       category: "Thuế & Tài Chính Doanh Nghiệp",
-      badge: "🧠 Cẩm Nang Kèm Sơ Đồ Mindmap",
+      badge: "🧠 Cẩm Nang Pháp Lý Chuyên Sâu",
       summary:
         "Hướng dẫn chi tiết cách tính thuế TNCN theo biểu thuế lũy tiến từng phần 7 bậc, điều kiện và thủ tục đăng ký người phụ thuộc để giảm trừ 4.4 triệu/tháng hợp pháp.",
       keyPoints: [
@@ -81,10 +81,10 @@ export default function CalculatorGuide({ type }: CalculatorGuideProps) {
       thumbnailUrl: "https://images.unsplash.com/photo-1554224154-26032ffc0d07?q=80&w=800&auto=format&fit=crop",
     },
     "court-fee": {
-      title: "Sơ Đồ Tư Duy: Quy Định Mức Án Phí, Tạm Ứng Án Phí & Ai Phải Chịu Án Phí Tòa Án 2026",
+      title: "Quy Định Mức Án Phí, Tạm Ứng Án Phí & Ai Phải Chịu Án Phí Tòa Án 2026",
       slug: "so-do-tu-duy-muc-an-phi-tam-ung-an-phi-ai-phai-chiu-an-phi-toa-an-2026",
       category: "Tranh Tụng & Tố Tụng Tòa Án",
-      badge: "🧠 Cẩm Nang Kèm Sơ Đồ Mindmap",
+      badge: "🧠 Cẩm Nang Pháp Lý Chuyên Sâu",
       summary:
         "Cẩm nang tố tụng toàn diện: Phân biệt án phí có giá ngạch vs không giá ngạch, mức tiền tạm ứng án phí 50% và nguyên tắc bên thua kiện chịu án phí theo Nghị quyết 326/2016.",
       keyPoints: [
