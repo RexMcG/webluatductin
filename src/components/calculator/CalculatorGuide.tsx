@@ -52,7 +52,7 @@ export default function CalculatorGuide({ type }: CalculatorGuideProps) {
   const articlesData: Record<string, ArticleLinkData> = {
     salary: {
       title: "Phân Biệt Lương Gross vs Lương Net & Trách Nhiệm Đóng Bảo Hiểm 2026",
-      slug: "so-do-tu-duy-phan-biet-luong-gross-luong-net-trach-nhiem-dong-bao-hiem-2026",
+      slug: "phan-biet-luong-gross-vs-luong-net-trach-nhiem-dong-bao-hiem-2026",
       category: "Lao Động & Tiền Lương",
       badge: "🧠 Cẩm Nang Pháp Lý Chuyên Sâu",
       summary:
@@ -67,7 +67,7 @@ export default function CalculatorGuide({ type }: CalculatorGuideProps) {
     },
     pit: {
       title: "Hướng Dẫn Tính Thuế TNCN, Giảm Trừ Gia Cảnh & Người Phụ Thuộc 2026",
-      slug: "so-do-tu-duy-tinh-thue-tncn-giam-tru-gia-canh-nguoi-phu-thuoc-2026",
+      slug: "huong-dan-tinh-thue-tncn-giam-tru-gia-canh-dang-ky-nguoi-phu-thuoc-2026",
       category: "Thuế & Tài Chính Doanh Nghiệp",
       badge: "🧠 Cẩm Nang Pháp Lý Chuyên Sâu",
       summary:
@@ -82,7 +82,7 @@ export default function CalculatorGuide({ type }: CalculatorGuideProps) {
     },
     "court-fee": {
       title: "Quy Định Mức Án Phí, Tạm Ứng Án Phí & Ai Phải Chịu Án Phí Tòa Án 2026",
-      slug: "so-do-tu-duy-muc-an-phi-tam-ung-an-phi-ai-phai-chiu-an-phi-toa-an-2026",
+      slug: "quy-dinh-muc-an-phi-tam-ung-an-phi-ai-phai-chiu-an-phi-toa-an-2026",
       category: "Tranh Tụng & Tố Tụng Tòa Án",
       badge: "🧠 Cẩm Nang Pháp Lý Chuyên Sâu",
       summary:
