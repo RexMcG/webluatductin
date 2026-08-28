@@ -17,31 +17,110 @@ interface CalculatorGuideProps {
   type: "salary" | "pit" | "court-fee";
 }
 
-export function InfoTooltip({ title, content }: { title: string; content: string }) {
+export function InfoTooltip({
+  title,
+  content,
+  articleSlug,
+  sectionId,
+}: {
+  title: string;
+  content: string;
+  articleSlug?: string;
+  sectionId?: string;
+}) {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Auto-resolve article link if not explicitly provided
+  let targetSlug = articleSlug;
+  let targetHash = sectionId ? `#${sectionId}` : "";
+
+  if (!targetSlug) {
+    const t = title.toLowerCase();
+    if (
+      t.includes("gross") ||
+      t.includes("net") ||
+      t.includes("khu vực") ||
+      t.includes("vùng") ||
+      t.includes("khoản trừ bảo hiểm") ||
+      t.includes("bảo hiểm")
+    ) {
+      targetSlug = "phan-biet-luong-gross-vs-luong-net-trach-nhiem-dong-bao-hiem-2026";
+      targetHash = t.includes("khoản trừ") || t.includes("khu vực") || t.includes("vùng") ? "#heading-sec-2" : "#heading-sec-1";
+    } else if (
+      t.includes("thu nhập") ||
+      t.includes("phụ thuộc") ||
+      t.includes("giảm trừ") ||
+      t.includes("thuế tncn")
+    ) {
+      targetSlug = "huong-dan-tinh-thue-tncn-giam-tru-gia-canh-dang-ky-nguoi-phu-thuoc-2026";
+      targetHash = t.includes("phụ thuộc") ? "#heading-sec-3" : "#heading-sec-2";
+    } else if (
+      t.includes("tranh chấp") ||
+      t.includes("tòa án") ||
+      t.includes("án phí") ||
+      t.includes("giá ngạch") ||
+      t.includes("xét xử") ||
+      t.includes("miễn") ||
+      t.includes("giảm") ||
+      t.includes("tài sản")
+    ) {
+      targetSlug = "quy-dinh-muc-an-phi-tam-ung-an-phi-ai-phai-chiu-an-phi-toa-an-2026";
+      if (t.includes("tạm ứng") || t.includes("giá trị") || t.includes("tài sản")) targetHash = "#heading-sec-2";
+      else if (t.includes("ai chịu") || t.includes("thắng") || t.includes("thua")) targetHash = "#heading-sec-3";
+      else if (t.includes("miễn") || t.includes("giảm")) targetHash = "#heading-sec-4";
+      else targetHash = "#heading-sec-1";
+    }
+  }
+
+  const fullHref = targetSlug ? `/news/${targetSlug}${targetHash}` : null;
+
   return (
-    <div className="relative inline-block ml-1.5 align-middle">
+    <div
+      className="relative inline-block ml-1.5 align-middle group/tooltip"
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
       <button
         type="button"
-        onClick={() => setIsOpen(!isOpen)}
-        onMouseEnter={() => setIsOpen(true)}
-        onMouseLeave={() => setIsOpen(false)}
-        className="w-4 h-4 rounded-full bg-amber-100 hover:bg-amber-200 text-[#641D06] text-[10px] font-bold inline-flex items-center justify-center cursor-pointer transition-colors border border-amber-300"
-        title="Bấm xem chú thích pháp lý nhanh"
+        onClick={() => {
+          if (fullHref) {
+            window.location.href = fullHref;
+          } else {
+            setIsOpen(!isOpen);
+          }
+        }}
+        className="w-4 h-4 rounded-full bg-amber-100 hover:bg-amber-300 text-[#641D06] hover:text-slate-950 text-[10px] font-bold inline-flex items-center justify-center cursor-pointer transition-colors border border-amber-300 shadow-2xs"
+        title={fullHref ? "Bấm để chuyển tới bài viết giải thích chi tiết" : "Bấm xem chú thích pháp lý nhanh"}
         aria-label={`Chú thích: ${title}`}
       >
         i
       </button>
 
       {isOpen && (
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-64 sm:w-72 p-3 bg-slate-900 text-white rounded-2xl shadow-xl z-50 text-xs leading-relaxed animate-fadeIn pointer-events-none">
-          <div className="font-bold text-amber-300 mb-1 flex items-center gap-1">
-            <span className="material-symbols-outlined text-xs">gavel</span>
-            <span>{title}</span>
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2.5 w-72 sm:w-80 p-3.5 bg-[#0f172a] text-white rounded-2xl shadow-2xl z-50 text-xs leading-relaxed animate-fadeIn pointer-events-auto border border-slate-700">
+          <div className="font-bold text-amber-300 mb-1.5 flex items-center justify-between gap-1 border-b border-slate-800 pb-1.5">
+            <div className="flex items-center gap-1.5">
+              <span className="material-symbols-outlined text-xs text-amber-400">gavel</span>
+              <span className="font-black text-xs text-amber-300">{title}</span>
+            </div>
+            {fullHref && (
+              <span className="text-[9px] text-amber-200/80 font-normal">Click xem bài viết →</span>
+            )}
           </div>
-          <p className="text-slate-200 text-[11.5px]">{content}</p>
-          <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900"></div>
+
+          <p className="text-slate-200 text-[11.5px] leading-relaxed mb-2.5">{content}</p>
+
+          {fullHref && (
+            <Link
+              href={fullHref}
+              className="w-full py-1.5 px-3 bg-[#C0963B] hover:bg-amber-400 text-slate-950 rounded-xl font-bold text-[11px] flex items-center justify-center gap-1.5 transition-all shadow-sm hover:shadow-md cursor-pointer"
+            >
+              <span>Xem bài viết giải thích chi tiết</span>
+              <span className="material-symbols-outlined text-xs">arrow_forward</span>
+            </Link>
+          )}
+
+          <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#0f172a]"></div>
         </div>
       )}
     </div>
