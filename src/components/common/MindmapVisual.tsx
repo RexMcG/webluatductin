@@ -160,26 +160,27 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
   const leftBranches = data.branches.slice(0, half);
   const rightBranches = data.branches.slice(half);
 
-  // Dynamic canvas calculations
+  // Dynamic canvas calculations with spacious layout
   const maxSide = Math.max(leftBranches.length, rightBranches.length);
-  const rowSpacing = maxSide >= 4 ? 82 : 98;
-  const canvasH = Math.max(340, (maxSide - 1) * rowSpacing + 150);
-  const canvasW = 860;
+  const rowSpacing = maxSide >= 4 ? 92 : 108;
+  const canvasH = Math.max(380, (maxSide - 1) * rowSpacing + 170);
+  const canvasW = 920;
 
-  const cx = canvasW / 2; // 430
+  const cx = canvasW / 2; // 460
   const cy = canvasH / 2;
 
-  const centerBoxW = 180;
-  const centerBoxH = 80;
-  const centerL = cx - centerBoxW / 2; // 340
-  const centerR = cx + centerBoxW / 2; // 520
+  const centerBoxW = 205;
+  const centerBoxH = 88;
+  const centerL = cx - centerBoxW / 2;
+  const centerR = cx + centerBoxW / 2;
 
-  const branchBoxW = 195;
-  const branchBoxH = 58;
+  // Enlarged branch buttons for big, clear text
+  const branchBoxW = 220;
+  const branchBoxH = 68;
 
-  // X Coordinate Columns
-  const leftBranchX = 140; // [42.5 to 237.5]
-  const rightBranchX = 720; // [622.5 to 817.5]
+  // X Coordinates
+  const leftBranchX = 145;
+  const rightBranchX = 775;
 
   // Helper to compute Y coordinate for each branch
   const getBranchY = (bIdx: number, totalOnSide: number) => {
@@ -227,18 +228,18 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
   };
 
   return (
-    <div className="my-5 w-full rounded-3xl border border-slate-200 bg-[#fdfbf7] p-3 sm:p-5 shadow-sm transition-all select-none">
+    <div className="my-5 w-full rounded-3xl border border-slate-200 bg-[#fdfbf7] p-3 sm:p-6 shadow-sm transition-all select-none">
       {/* Header Bar */}
-      <div className="flex items-center justify-between border-b border-slate-200/80 pb-2.5 mb-3">
-        <div className="flex items-center gap-2">
-          <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-[#641D06]/10 text-[#641D06] font-bold text-base">
-            <span className="material-symbols-outlined text-base">hub</span>
+      <div className="flex items-center justify-between border-b border-slate-200/80 pb-3 mb-3">
+        <div className="flex items-center gap-2.5">
+          <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#641D06]/10 text-[#641D06] font-bold text-lg">
+            <span className="material-symbols-outlined text-lg">hub</span>
           </span>
           <div>
-            <h4 className="font-bold text-slate-900 text-xs sm:text-sm">
+            <h4 className="font-extrabold text-slate-900 text-sm sm:text-base">
               Sơ Đồ Tư Duy Mindmap Trực Quan ({data.branches.length} Mục Trọng Tâm)
             </h4>
-            <p className="text-[10px] text-slate-500">
+            <p className="text-xs text-slate-500 font-medium mt-0.5">
               Rê chuột vào để xem <strong>Tooltip ⓘ giải thích tại chỗ</strong> • Click để <strong>chạy tới mục trong bài viết</strong>
             </p>
           </div>
@@ -247,7 +248,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-1 text-[11px] font-bold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-xl transition-colors shadow-2xs cursor-pointer"
+          className="flex items-center gap-1.5 text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-xl transition-colors shadow-2xs cursor-pointer"
         >
           <span className="material-symbols-outlined text-sm">
             {isOpen ? "visibility_off" : "visibility"}
@@ -262,7 +263,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
           <div className="w-full relative overflow-visible">
             <svg
               viewBox={`0 0 ${canvasW} ${canvasH}`}
-              className="w-full min-w-[500px] h-auto drop-shadow-2xs overflow-visible"
+              className="w-full min-w-[550px] h-auto drop-shadow-2xs overflow-visible"
             >
               <defs>
                 {/* Dynamic Forward Arrowhead Markers */}
@@ -286,7 +287,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
               {leftBranches.map((b, idx) => {
                 const branchY = getBranchY(idx, leftBranches.length);
                 const startX = centerL;
-                const startY = cy + (idx - (leftBranches.length - 1) / 2) * 14;
+                const startY = cy + (idx - (leftBranches.length - 1) / 2) * 16;
 
                 const endX = leftBranchX + branchBoxW / 2;
                 const endY = branchY;
@@ -296,10 +297,10 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 return (
                   <path
                     key={`l-conn-clean-${idx}`}
-                    d={`M ${startX} ${startY} C ${startX - 40} ${startY}, ${endX + 40} ${endY}, ${endX} ${endY}`}
+                    d={`M ${startX} ${startY} C ${startX - 45} ${startY}, ${endX + 45} ${endY}, ${endX} ${endY}`}
                     fill="none"
                     stroke={b.lineColor}
-                    strokeWidth={isTarget ? "4" : "2.6"}
+                    strokeWidth={isTarget ? "4.5" : "3"}
                     strokeLinecap="round"
                     markerEnd={`url(#arrow-main-clean-${idx})`}
                     className="transition-all duration-300"
@@ -311,7 +312,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
               {rightBranches.map((b, idx) => {
                 const branchY = getBranchY(idx, rightBranches.length);
                 const startX = centerR;
-                const startY = cy + (idx - (rightBranches.length - 1) / 2) * 14;
+                const startY = cy + (idx - (rightBranches.length - 1) / 2) * 16;
 
                 const endX = rightBranchX - branchBoxW / 2;
                 const endY = branchY;
@@ -321,10 +322,10 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 return (
                   <path
                     key={`r-conn-clean-${idx}`}
-                    d={`M ${startX} ${startY} C ${startX + 40} ${startY}, ${endX - 40} ${endY}, ${endX} ${endY}`}
+                    d={`M ${startX} ${startY} C ${startX + 45} ${startY}, ${endX - 45} ${endY}, ${endX} ${endY}`}
                     fill="none"
                     stroke={b.lineColor}
-                    strokeWidth={isTarget ? "4" : "2.6"}
+                    strokeWidth={isTarget ? "4.5" : "3"}
                     strokeLinecap="round"
                     markerEnd={`url(#arrow-main-clean-${half + idx})`}
                     className="transition-all duration-300"
@@ -332,7 +333,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 );
               })}
 
-              {/* 3. CENTER HUB */}
+              {/* 3. CENTER HUB (CHỮ TO RÕ RÀNG) */}
               <foreignObject
                 x={centerL}
                 y={cy - centerBoxH / 2}
@@ -340,16 +341,16 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 height={centerBoxH}
               >
                 <div className="w-full h-full flex items-center justify-center p-0.5">
-                  <div className="w-full h-full rounded-2xl bg-[#641D06] text-white p-2 shadow-md border-2 border-[#C0963B]/70 flex flex-col items-center justify-center text-center">
-                    <span className="material-symbols-outlined text-lg mb-0.5 text-amber-300">account_balance</span>
-                    <h3 className="font-black text-[11px] uppercase tracking-wide leading-tight line-clamp-3 text-amber-100">
+                  <div className="w-full h-full rounded-2xl bg-[#641D06] text-white p-2.5 shadow-md border-2 border-[#C0963B] flex flex-col items-center justify-center text-center">
+                    <span className="material-symbols-outlined text-xl mb-0.5 text-amber-300">account_balance</span>
+                    <h3 className="font-black text-xs sm:text-[13px] uppercase tracking-wide leading-tight line-clamp-3 text-amber-100">
                       {data.center}
                     </h3>
                   </div>
                 </div>
               </foreignObject>
 
-              {/* 4. LEFT BRANCHES (WITH POPUP TOOLTIP ⓘ GIỐNG HÌNH SỐ 2) */}
+              {/* 4. LEFT BRANCHES (CHỮ TO + TOOLTIP SÁNG TO RÕ RÀNG) */}
               {leftBranches.map((b, bIdx) => {
                 const branchY = getBranchY(bIdx, leftBranches.length);
                 const isHovered = hoveredIdx === bIdx;
@@ -368,14 +369,14 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                       onMouseEnter={() => setHoveredIdx(bIdx)}
                       onMouseLeave={() => setHoveredIdx(null)}
                     >
-                      {/* Main Clickable Branch Button */}
+                      {/* Main Clickable Branch Button (Chữ to 13px - 14px) */}
                       <button
                         type="button"
                         onClick={() => handleJumpToSection(b, bIdx)}
-                        className={`w-full h-full px-3 py-2 rounded-xl text-[11px] font-bold shadow-sm border-2 text-left flex items-center justify-between gap-1.5 leading-tight transition-all duration-200 cursor-pointer active:scale-95 ${
+                        className={`w-full h-full px-3.5 py-2.5 rounded-2xl text-[13px] sm:text-[13.5px] font-black shadow-md border-2 text-left flex items-center justify-between gap-2 leading-snug transition-all duration-200 cursor-pointer active:scale-95 ${
                           isHovered
-                            ? "ring-4 ring-amber-300/90 scale-105 shadow-xl"
-                            : "hover:scale-102 hover:shadow-md"
+                            ? "ring-4 ring-amber-300 scale-105 shadow-xl"
+                            : "hover:scale-102 hover:shadow-lg"
                         }`}
                         style={{
                           backgroundColor: b.colorBg,
@@ -383,51 +384,53 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                           color: b.textColor,
                         }}
                       >
-                        <span className="font-black leading-snug flex-1 line-clamp-2">
+                        <span className="font-extrabold leading-tight flex-1 line-clamp-2">
                           {b.name}
                         </span>
 
-                        {/* Tooltip ⓘ Badge (Vàng Amber nhỏ gọn) */}
-                        <span className="w-5 h-5 rounded-full bg-amber-400/30 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/50 flex items-center justify-center text-[11px] font-black shrink-0 transition-colors shadow-2xs">
+                        {/* Tooltip ⓘ Badge */}
+                        <span className="w-6 h-6 rounded-full bg-amber-400/30 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/60 flex items-center justify-center text-xs font-black shrink-0 transition-colors shadow-xs">
                           ⓘ
                         </span>
                       </button>
 
                       {/* =========================================================
-                          SLEEK DARK TOOLTIP POPUP (GIỐNG HÌNH SỐ 2 100%)
+                          BRIGHT & SPACIOUS LUXURY TOOLTIP POPUP (NỀN SÁNG, CHỮ TO)
                          ========================================================= */}
                       {isHovered && (
                         <div
-                          className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-72 sm:w-80 p-3.5 bg-[#0f172a] text-white rounded-2xl shadow-2xl z-50 text-xs leading-relaxed animate-fadeIn border border-slate-700/80 pointer-events-auto"
+                          className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-80 sm:w-96 p-4 sm:p-5 bg-[#ffffff] text-slate-900 rounded-2xl shadow-[0_15px_40px_rgba(100,29,6,0.22)] z-50 text-xs sm:text-[13px] leading-relaxed animate-fadeIn border-2 border-amber-400 pointer-events-auto"
                           onClick={() => handleJumpToSection(b, bIdx)}
                         >
-                          {/* Tooltip Title with Gold Gavel / Icon */}
-                          <div className="font-bold text-amber-300 mb-1.5 flex items-center justify-between gap-1 border-b border-slate-800 pb-1.5">
-                            <div className="flex items-center gap-1.5">
-                              <span className="text-amber-400 text-sm">⚖️</span>
-                              <span className="text-xs font-black tracking-wide">{b.name}</span>
+                          {/* Tooltip Title with Burgundy Header & Gold Badge */}
+                          <div className="font-extrabold text-[#641D06] mb-2.5 flex items-center justify-between gap-1 border-b border-amber-100 pb-2">
+                            <div className="flex items-center gap-2">
+                              <span className="text-base">⚖️</span>
+                              <span className="text-sm sm:text-[14.5px] font-black tracking-tight text-[#641D06]">{b.name}</span>
                             </div>
-                            <span className="text-[10px] text-amber-300/80 font-normal">Click để nhảy tới mục ↓</span>
+                            <span className="text-[11px] text-amber-900 font-bold bg-amber-100/90 px-2 py-0.5 rounded-lg border border-amber-300/70 shrink-0">
+                              Click nhảy tới mục ↓
+                            </span>
                           </div>
 
-                          {/* Tooltip Bullet Content */}
+                          {/* Tooltip Bullet Content (Chữ to rõ ràng) */}
                           {b.subItems && b.subItems.length > 0 ? (
-                            <ul className="space-y-1.5 text-slate-300 text-[11.5px] leading-relaxed">
+                            <ul className="space-y-2 text-slate-800 text-xs sm:text-[13px] font-medium leading-relaxed">
                               {b.subItems.map((item, sIdx) => (
-                                <li key={sIdx} className="flex items-start gap-1.5">
-                                  <span className="text-amber-400 font-bold text-xs mt-0.5">•</span>
-                                  <span>{item}</span>
+                                <li key={sIdx} className="flex items-start gap-2 bg-amber-50/50 p-2 rounded-xl border border-amber-200/50">
+                                  <span className="text-amber-700 font-black text-sm mt-0.5">•</span>
+                                  <span className="font-semibold text-slate-900">{item}</span>
                                 </li>
                               ))}
                             </ul>
                           ) : (
-                            <p className="text-slate-300 text-[11.5px] leading-relaxed">
+                            <p className="text-slate-700 text-xs sm:text-[13px] font-medium leading-relaxed bg-amber-50/50 p-2.5 rounded-xl border border-amber-200/50">
                               Nhấp chuột để tự động cuộn xuống xem toàn văn điều khoản pháp lý chi tiết trong bài viết.
                             </p>
                           )}
 
-                          {/* Little Down Triangle Arrow */}
-                          <div className="absolute top-full left-1/2 -translate-x-1/2 border-[6px] border-transparent border-t-[#0f172a]"></div>
+                          {/* Down Triangle Arrow (Mũi tên nền sáng viền vàng) */}
+                          <div className="absolute top-full left-1/2 -translate-x-1/2 border-[8px] border-transparent border-t-amber-400"></div>
                         </div>
                       )}
                     </div>
@@ -435,7 +438,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 );
               })}
 
-              {/* 5. RIGHT BRANCHES (WITH POPUP TOOLTIP ⓘ GIỐNG HÌNH SỐ 2) */}
+              {/* 5. RIGHT BRANCHES (CHỮ TO + TOOLTIP SÁNG TO RÕ RÀNG) */}
               {rightBranches.map((b, bIdx) => {
                 const branchY = getBranchY(bIdx, rightBranches.length);
                 const globalIdx = half + bIdx;
@@ -455,14 +458,14 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                       onMouseEnter={() => setHoveredIdx(globalIdx)}
                       onMouseLeave={() => setHoveredIdx(null)}
                     >
-                      {/* Main Clickable Branch Button */}
+                      {/* Main Clickable Branch Button (Chữ to 13px - 14px) */}
                       <button
                         type="button"
                         onClick={() => handleJumpToSection(b, globalIdx)}
-                        className={`w-full h-full px-3 py-2 rounded-xl text-[11px] font-bold shadow-sm border-2 text-right flex items-center justify-between gap-1.5 leading-tight transition-all duration-200 cursor-pointer active:scale-95 ${
+                        className={`w-full h-full px-3.5 py-2.5 rounded-2xl text-[13px] sm:text-[13.5px] font-black shadow-md border-2 text-right flex items-center justify-between gap-2 leading-snug transition-all duration-200 cursor-pointer active:scale-95 ${
                           isHovered
-                            ? "ring-4 ring-amber-300/90 scale-105 shadow-xl"
-                            : "hover:scale-102 hover:shadow-md"
+                            ? "ring-4 ring-amber-300 scale-105 shadow-xl"
+                            : "hover:scale-102 hover:shadow-lg"
                         }`}
                         style={{
                           backgroundColor: b.colorBg,
@@ -470,51 +473,53 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                           color: b.textColor,
                         }}
                       >
-                        {/* Tooltip ⓘ Badge (Vàng Amber nhỏ gọn) */}
-                        <span className="w-5 h-5 rounded-full bg-amber-400/30 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/50 flex items-center justify-center text-[11px] font-black shrink-0 transition-colors shadow-2xs">
+                        {/* Tooltip ⓘ Badge */}
+                        <span className="w-6 h-6 rounded-full bg-amber-400/30 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/60 flex items-center justify-center text-xs font-black shrink-0 transition-colors shadow-xs">
                           ⓘ
                         </span>
 
-                        <span className="font-black leading-snug flex-1 line-clamp-2">
+                        <span className="font-extrabold leading-tight flex-1 line-clamp-2">
                           {b.name}
                         </span>
                       </button>
 
                       {/* =========================================================
-                          SLEEK DARK TOOLTIP POPUP (GIỐNG HÌNH SỐ 2 100%)
+                          BRIGHT & SPACIOUS LUXURY TOOLTIP POPUP (NỀN SÁNG, CHỮ TO)
                          ========================================================= */}
                       {isHovered && (
                         <div
-                          className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-72 sm:w-80 p-3.5 bg-[#0f172a] text-white rounded-2xl shadow-2xl z-50 text-xs leading-relaxed animate-fadeIn border border-slate-700/80 pointer-events-auto text-left"
+                          className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-80 sm:w-96 p-4 sm:p-5 bg-[#ffffff] text-slate-900 rounded-2xl shadow-[0_15px_40px_rgba(100,29,6,0.22)] z-50 text-xs sm:text-[13px] leading-relaxed animate-fadeIn border-2 border-amber-400 pointer-events-auto text-left"
                           onClick={() => handleJumpToSection(b, globalIdx)}
                         >
-                          {/* Tooltip Title with Gold Gavel / Icon */}
-                          <div className="font-bold text-amber-300 mb-1.5 flex items-center justify-between gap-1 border-b border-slate-800 pb-1.5">
-                            <div className="flex items-center gap-1.5">
-                              <span className="text-amber-400 text-sm">⚖️</span>
-                              <span className="text-xs font-black tracking-wide">{b.name}</span>
+                          {/* Tooltip Title with Burgundy Header & Gold Badge */}
+                          <div className="font-extrabold text-[#641D06] mb-2.5 flex items-center justify-between gap-1 border-b border-amber-100 pb-2">
+                            <div className="flex items-center gap-2">
+                              <span className="text-base">⚖️</span>
+                              <span className="text-sm sm:text-[14.5px] font-black tracking-tight text-[#641D06]">{b.name}</span>
                             </div>
-                            <span className="text-[10px] text-amber-300/80 font-normal">Click để nhảy tới mục ↓</span>
+                            <span className="text-[11px] text-amber-900 font-bold bg-amber-100/90 px-2 py-0.5 rounded-lg border border-amber-300/70 shrink-0">
+                              Click nhảy tới mục ↓
+                            </span>
                           </div>
 
-                          {/* Tooltip Bullet Content */}
+                          {/* Tooltip Bullet Content (Chữ to rõ ràng) */}
                           {b.subItems && b.subItems.length > 0 ? (
-                            <ul className="space-y-1.5 text-slate-300 text-[11.5px] leading-relaxed">
+                            <ul className="space-y-2 text-slate-800 text-xs sm:text-[13px] font-medium leading-relaxed">
                               {b.subItems.map((item, sIdx) => (
-                                <li key={sIdx} className="flex items-start gap-1.5">
-                                  <span className="text-amber-400 font-bold text-xs mt-0.5">•</span>
-                                  <span>{item}</span>
+                                <li key={sIdx} className="flex items-start gap-2 bg-amber-50/50 p-2 rounded-xl border border-amber-200/50">
+                                  <span className="text-amber-700 font-black text-sm mt-0.5">•</span>
+                                  <span className="font-semibold text-slate-900">{item}</span>
                                 </li>
                               ))}
                             </ul>
                           ) : (
-                            <p className="text-slate-300 text-[11.5px] leading-relaxed">
+                            <p className="text-slate-700 text-xs sm:text-[13px] font-medium leading-relaxed bg-amber-50/50 p-2.5 rounded-xl border border-amber-200/50">
                               Nhấp chuột để tự động cuộn xuống xem toàn văn điều khoản pháp lý chi tiết trong bài viết.
                             </p>
                           )}
 
-                          {/* Little Down Triangle Arrow */}
-                          <div className="absolute top-full left-1/2 -translate-x-1/2 border-[6px] border-transparent border-t-[#0f172a]"></div>
+                          {/* Down Triangle Arrow (Mũi tên nền sáng viền vàng) */}
+                          <div className="absolute top-full left-1/2 -translate-x-1/2 border-[8px] border-transparent border-t-amber-400"></div>
                         </div>
                       )}
                     </div>
