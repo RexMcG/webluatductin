@@ -160,27 +160,27 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
   const leftBranches = data.branches.slice(0, half);
   const rightBranches = data.branches.slice(half);
 
-  // Dynamic canvas calculations with spacious layout
+  // Balanced responsive canvas coordinates (Zero overflow on 14-inch screens)
   const maxSide = Math.max(leftBranches.length, rightBranches.length);
-  const rowSpacing = maxSide >= 4 ? 92 : 108;
-  const canvasH = Math.max(380, (maxSide - 1) * rowSpacing + 170);
-  const canvasW = 940;
+  const rowSpacing = maxSide >= 4 ? 88 : 102;
+  const canvasH = Math.max(360, (maxSide - 1) * rowSpacing + 160);
+  const canvasW = 960;
 
-  const cx = canvasW / 2; // 470
+  const cx = canvasW / 2; // 480
   const cy = canvasH / 2;
 
-  const centerBoxW = 205;
-  const centerBoxH = 88;
-  const centerL = cx - centerBoxW / 2;
-  const centerR = cx + centerBoxW / 2;
+  const centerBoxW = 190;
+  const centerBoxH = 84;
+  const centerL = cx - centerBoxW / 2; // 385
+  const centerR = cx + centerBoxW / 2; // 575
 
-  // Enlarged branch buttons with room for numbers
-  const branchBoxW = 230;
-  const branchBoxH = 70;
+  // Well-proportioned branch button sizes
+  const branchBoxW = 205;
+  const branchBoxH = 64;
 
-  // X Coordinates
-  const leftBranchX = 145;
-  const rightBranchX = 795;
+  // X Coordinates nicely inset from canvas edges (35px safe margin)
+  const leftBranchX = 135; // [32.5 to 237.5]
+  const rightBranchX = 825; // [722.5 to 927.5]
 
   // Helper to compute Y coordinate for each branch
   const getBranchY = (bIdx: number, totalOnSide: number) => {
@@ -217,11 +217,11 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
   };
 
   return (
-    <div className="my-5 w-full rounded-3xl border border-slate-200 bg-[#fdfbf7] p-3 sm:p-6 shadow-sm transition-all select-none">
+    <div className="my-5 w-full rounded-3xl border border-slate-200 bg-[#fdfbf7] p-3 sm:p-5 shadow-sm transition-all select-none overflow-hidden sm:overflow-visible">
       {/* Header Bar */}
       <div className="flex items-center justify-between border-b border-slate-200/80 pb-3 mb-3">
         <div className="flex items-center gap-2.5">
-          <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#641D06]/10 text-[#641D06] font-bold text-lg">
+          <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#641D06]/10 text-[#641D06] font-bold text-lg shrink-0">
             <span className="material-symbols-outlined text-lg">hub</span>
           </span>
           <div>
@@ -234,7 +234,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-1.5 text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-xl transition-colors shadow-2xs cursor-pointer"
+          className="flex items-center gap-1.5 text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-xl transition-colors shadow-2xs cursor-pointer shrink-0"
         >
           <span className="material-symbols-outlined text-sm">
             {isOpen ? "visibility_off" : "visibility"}
@@ -244,12 +244,12 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
       </div>
 
       {isOpen && (
-        <div className="w-full relative">
+        <div className="w-full relative overflow-x-auto sm:overflow-visible no-scrollbar">
           {/* UNIFIED DYNAMIC SVG VECTOR CANVAS */}
-          <div className="w-full relative overflow-visible">
+          <div className="w-full relative min-w-[500px] sm:min-w-0">
             <svg
               viewBox={`0 0 ${canvasW} ${canvasH}`}
-              className="w-full min-w-[550px] h-auto drop-shadow-2xs overflow-visible"
+              className="w-full h-auto drop-shadow-2xs overflow-visible"
             >
               <defs>
                 {/* Dynamic Forward Arrowhead Markers */}
@@ -273,7 +273,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
               {leftBranches.map((b, idx) => {
                 const branchY = getBranchY(idx, leftBranches.length);
                 const startX = centerL;
-                const startY = cy + (idx - (leftBranches.length - 1) / 2) * 16;
+                const startY = cy + (idx - (leftBranches.length - 1) / 2) * 15;
 
                 const endX = leftBranchX + branchBoxW / 2;
                 const endY = branchY;
@@ -283,7 +283,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 return (
                   <path
                     key={`l-conn-clean-${idx}`}
-                    d={`M ${startX} ${startY} C ${startX - 45} ${startY}, ${endX + 45} ${endY}, ${endX} ${endY}`}
+                    d={`M ${startX} ${startY} C ${startX - 40} ${startY}, ${endX + 40} ${endY}, ${endX} ${endY}`}
                     fill="none"
                     stroke={b.lineColor}
                     strokeWidth={isTarget ? "4.5" : "3"}
@@ -298,7 +298,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
               {rightBranches.map((b, idx) => {
                 const branchY = getBranchY(idx, rightBranches.length);
                 const startX = centerR;
-                const startY = cy + (idx - (rightBranches.length - 1) / 2) * 16;
+                const startY = cy + (idx - (rightBranches.length - 1) / 2) * 15;
 
                 const endX = rightBranchX - branchBoxW / 2;
                 const endY = branchY;
@@ -308,7 +308,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 return (
                   <path
                     key={`r-conn-clean-${idx}`}
-                    d={`M ${startX} ${startY} C ${startX + 45} ${startY}, ${endX - 45} ${endY}, ${endX} ${endY}`}
+                    d={`M ${startX} ${startY} C ${startX + 40} ${startY}, ${endX - 40} ${endY}, ${endX} ${endY}`}
                     fill="none"
                     stroke={b.lineColor}
                     strokeWidth={isTarget ? "4.5" : "3"}
@@ -327,16 +327,16 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 height={centerBoxH}
               >
                 <div className="w-full h-full flex items-center justify-center p-0.5">
-                  <div className="w-full h-full rounded-2xl bg-[#641D06] text-white p-2.5 shadow-md border-2 border-[#C0963B] flex flex-col items-center justify-center text-center">
-                    <span className="material-symbols-outlined text-xl mb-0.5 text-amber-300">account_balance</span>
-                    <h3 className="font-black text-xs sm:text-[13px] uppercase tracking-wide leading-tight line-clamp-3 text-amber-100">
+                  <div className="w-full h-full rounded-2xl bg-[#641D06] text-white p-2 shadow-md border-2 border-[#C0963B] flex flex-col items-center justify-center text-center">
+                    <span className="material-symbols-outlined text-lg mb-0.5 text-amber-300">account_balance</span>
+                    <h3 className="font-black text-xs uppercase tracking-wide leading-tight line-clamp-3 text-amber-100">
                       {data.center}
                     </h3>
                   </div>
                 </div>
               </foreignObject>
 
-              {/* 4. LEFT BRANCHES (CÓ SỐ THỨ TỰ RÕ RÀNG 1, 2,...) */}
+              {/* 4. LEFT BRANCHES */}
               {leftBranches.map((b, bIdx) => {
                 const branchY = getBranchY(bIdx, leftBranches.length);
                 const isHovered = hoveredIdx === bIdx;
@@ -361,7 +361,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                       <button
                         type="button"
                         onClick={() => handleJumpToSection(b, bIdx)}
-                        className={`w-full h-full px-3 py-2 rounded-2xl text-[13px] sm:text-[13.5px] font-black shadow-md border-2 text-left flex items-center justify-between gap-2 leading-snug transition-all duration-200 cursor-pointer active:scale-95 ${
+                        className={`w-full h-full px-2.5 py-1.5 rounded-xl text-xs font-black shadow-md border-2 text-left flex items-center justify-between gap-1.5 leading-snug transition-all duration-200 cursor-pointer active:scale-95 ${
                           isHovered
                             ? "ring-4 ring-amber-300 scale-105 shadow-xl"
                             : "hover:scale-102 hover:shadow-lg"
@@ -373,8 +373,8 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                         }}
                       >
                         {/* Number Badge [1], [2] */}
-                        <div className="flex items-center gap-2 flex-1 min-w-0">
-                          <span className="w-6 h-6 rounded-full bg-amber-400 text-slate-950 font-black text-xs flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
+                        <div className="flex items-center gap-1.5 flex-1 min-w-0">
+                          <span className="w-5 h-5 rounded-full bg-amber-400 text-slate-950 font-black text-[11px] flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
                             {itemNumber}
                           </span>
                           <span className="font-extrabold leading-tight line-clamp-2">
@@ -383,43 +383,41 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                         </div>
 
                         {/* Tooltip ⓘ Badge */}
-                        <span className="w-5 h-5 rounded-full bg-white/20 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/40 flex items-center justify-center text-[11px] font-black shrink-0 transition-colors shadow-xs">
+                        <span className="w-4.5 h-4.5 rounded-full bg-white/20 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/40 flex items-center justify-center text-[10px] font-black shrink-0 transition-colors shadow-xs">
                           ⓘ
                         </span>
                       </button>
 
-                      {/* =========================================================
-                          HIGH-CONTRAST DISTINCT TOOLTIP POPUP (NỀN XANH NHẠT DỊU MẮT)
-                         ========================================================= */}
+                      {/* Tooltip Popup (Anchored cleanly) */}
                       {isHovered && (
                         <div
-                          className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-80 sm:w-96 p-4 sm:p-5 bg-white text-slate-900 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.25)] z-50 text-xs sm:text-[13px] leading-relaxed animate-fadeIn border-2 border-slate-300 pointer-events-auto"
+                          className="absolute left-0 sm:left-1/2 sm:-translate-x-1/2 bottom-full mb-3 w-72 sm:w-80 p-3.5 sm:p-4 bg-white text-slate-900 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.25)] z-50 text-xs leading-relaxed animate-fadeIn border-2 border-slate-300 pointer-events-auto"
                           onClick={() => handleJumpToSection(b, bIdx)}
                         >
                           {/* Tooltip Title Header */}
-                          <div className="font-extrabold text-[#641D06] mb-3 flex items-center justify-between gap-1 border-b border-slate-200 pb-2">
-                            <div className="flex items-center gap-2">
-                              <span className="w-6 h-6 rounded-full bg-[#641D06] text-white font-black text-xs flex items-center justify-center shrink-0 shadow-xs">
+                          <div className="font-extrabold text-[#641D06] mb-2.5 flex items-center justify-between gap-1 border-b border-slate-200 pb-1.5">
+                            <div className="flex items-center gap-1.5">
+                              <span className="w-5 h-5 rounded-full bg-[#641D06] text-white font-black text-[11px] flex items-center justify-center shrink-0 shadow-xs">
                                 {itemNumber}
                               </span>
-                              <span className="text-sm sm:text-[14.5px] font-black tracking-tight text-[#641D06]">
+                              <span className="text-xs sm:text-sm font-black tracking-tight text-[#641D06]">
                                 {cleanTitle}
                               </span>
                             </div>
-                            <span className="text-[11px] text-white font-bold bg-[#641D06] hover:bg-[#842A16] px-2.5 py-1 rounded-lg shadow-xs shrink-0 transition-colors">
+                            <span className="text-[10px] text-white font-bold bg-[#641D06] hover:bg-[#842A16] px-2 py-0.5 rounded-lg shadow-xs shrink-0 transition-colors">
                               Click nhảy tới mục ↓
                             </span>
                           </div>
 
                           {/* Tooltip Bullet Content */}
                           {b.subItems && b.subItems.length > 0 ? (
-                            <ul className="space-y-2">
+                            <ul className="space-y-1.5">
                               {b.subItems.map((item, sIdx) => (
                                 <li
                                   key={sIdx}
-                                  className="flex items-start gap-2.5 bg-[#f1f5f9] hover:bg-[#e2e8f0] text-slate-900 p-3 rounded-xl border border-slate-200/90 shadow-2xs transition-colors"
+                                  className="flex items-start gap-2 bg-[#f1f5f9] hover:bg-[#e2e8f0] text-slate-900 p-2 rounded-lg border border-slate-200/90 shadow-2xs transition-colors text-[11.5px]"
                                 >
-                                  <span className="w-5 h-5 rounded-full bg-[#1D3540] text-white font-black text-[11px] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                                  <span className="w-4 h-4 rounded-full bg-[#1D3540] text-white font-black text-[10px] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
                                     {sIdx + 1}
                                   </span>
                                   <span className="font-bold text-slate-800 leading-snug">
@@ -429,13 +427,13 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                               ))}
                             </ul>
                           ) : (
-                            <div className="bg-[#f1f5f9] text-slate-800 p-3 rounded-xl border border-slate-200/90 font-medium">
+                            <div className="bg-[#f1f5f9] text-slate-800 p-2.5 rounded-lg border border-slate-200/90 text-xs font-medium">
                               Nhấp chuột để tự động cuộn xuống xem toàn văn điều khoản pháp lý chi tiết trong bài viết.
                             </div>
                           )}
 
                           {/* Down Triangle Arrow Pointer */}
-                          <div className="absolute top-full left-1/2 -translate-x-1/2 border-[8px] border-transparent border-t-white"></div>
+                          <div className="absolute top-full left-6 sm:left-1/2 sm:-translate-x-1/2 border-[7px] border-transparent border-t-white"></div>
                         </div>
                       )}
                     </div>
@@ -443,7 +441,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 );
               })}
 
-              {/* 5. RIGHT BRANCHES (CÓ SỐ THỨ TỰ RÕ RÀNG 3, 4,...) */}
+              {/* 5. RIGHT BRANCHES */}
               {rightBranches.map((b, bIdx) => {
                 const branchY = getBranchY(bIdx, rightBranches.length);
                 const globalIdx = half + bIdx;
@@ -469,7 +467,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                       <button
                         type="button"
                         onClick={() => handleJumpToSection(b, globalIdx)}
-                        className={`w-full h-full px-3 py-2 rounded-2xl text-[13px] sm:text-[13.5px] font-black shadow-md border-2 text-right flex items-center justify-between gap-2 leading-snug transition-all duration-200 cursor-pointer active:scale-95 ${
+                        className={`w-full h-full px-2.5 py-1.5 rounded-xl text-xs font-black shadow-md border-2 text-right flex items-center justify-between gap-1.5 leading-snug transition-all duration-200 cursor-pointer active:scale-95 ${
                           isHovered
                             ? "ring-4 ring-amber-300 scale-105 shadow-xl"
                             : "hover:scale-102 hover:shadow-lg"
@@ -481,53 +479,51 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                         }}
                       >
                         {/* Tooltip ⓘ Badge */}
-                        <span className="w-5 h-5 rounded-full bg-white/20 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/40 flex items-center justify-center text-[11px] font-black shrink-0 transition-colors shadow-xs">
+                        <span className="w-4.5 h-4.5 rounded-full bg-white/20 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/40 flex items-center justify-center text-[10px] font-black shrink-0 transition-colors shadow-xs">
                           ⓘ
                         </span>
 
                         {/* Number Badge [3], [4] */}
-                        <div className="flex items-center justify-end gap-2 flex-1 min-w-0">
+                        <div className="flex items-center justify-end gap-1.5 flex-1 min-w-0">
                           <span className="font-extrabold leading-tight line-clamp-2 text-right">
                             {cleanTitle}
                           </span>
-                          <span className="w-6 h-6 rounded-full bg-amber-400 text-slate-950 font-black text-xs flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
+                          <span className="w-5 h-5 rounded-full bg-amber-400 text-slate-950 font-black text-[11px] flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
                             {itemNumber}
                           </span>
                         </div>
                       </button>
 
-                      {/* =========================================================
-                          HIGH-CONTRAST DISTINCT TOOLTIP POPUP (NỀN XANH NHẠT DỊU MẮT)
-                         ========================================================= */}
+                      {/* Tooltip Popup (Anchored cleanly to right side) */}
                       {isHovered && (
                         <div
-                          className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-80 sm:w-96 p-4 sm:p-5 bg-white text-slate-900 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.25)] z-50 text-xs sm:text-[13px] leading-relaxed animate-fadeIn border-2 border-slate-300 pointer-events-auto text-left"
+                          className="absolute right-0 sm:left-1/2 sm:-translate-x-1/2 bottom-full mb-3 w-72 sm:w-80 p-3.5 sm:p-4 bg-white text-slate-900 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.25)] z-50 text-xs leading-relaxed animate-fadeIn border-2 border-slate-300 pointer-events-auto text-left"
                           onClick={() => handleJumpToSection(b, globalIdx)}
                         >
                           {/* Tooltip Title Header */}
-                          <div className="font-extrabold text-[#641D06] mb-3 flex items-center justify-between gap-1 border-b border-slate-200 pb-2">
-                            <div className="flex items-center gap-2">
-                              <span className="w-6 h-6 rounded-full bg-[#641D06] text-white font-black text-xs flex items-center justify-center shrink-0 shadow-xs">
+                          <div className="font-extrabold text-[#641D06] mb-2.5 flex items-center justify-between gap-1 border-b border-slate-200 pb-1.5">
+                            <div className="flex items-center gap-1.5">
+                              <span className="w-5 h-5 rounded-full bg-[#641D06] text-white font-black text-[11px] flex items-center justify-center shrink-0 shadow-xs">
                                 {itemNumber}
                               </span>
-                              <span className="text-sm sm:text-[14.5px] font-black tracking-tight text-[#641D06]">
+                              <span className="text-xs sm:text-sm font-black tracking-tight text-[#641D06]">
                                 {cleanTitle}
                               </span>
                             </div>
-                            <span className="text-[11px] text-white font-bold bg-[#641D06] hover:bg-[#842A16] px-2.5 py-1 rounded-lg shadow-xs shrink-0 transition-colors">
+                            <span className="text-[10px] text-white font-bold bg-[#641D06] hover:bg-[#842A16] px-2 py-0.5 rounded-lg shadow-xs shrink-0 transition-colors">
                               Click nhảy tới mục ↓
                             </span>
                           </div>
 
                           {/* Tooltip Bullet Content */}
                           {b.subItems && b.subItems.length > 0 ? (
-                            <ul className="space-y-2">
+                            <ul className="space-y-1.5">
                               {b.subItems.map((item, sIdx) => (
                                 <li
                                   key={sIdx}
-                                  className="flex items-start gap-2.5 bg-[#f1f5f9] hover:bg-[#e2e8f0] text-slate-900 p-3 rounded-xl border border-slate-200/90 shadow-2xs transition-colors"
+                                  className="flex items-start gap-2 bg-[#f1f5f9] hover:bg-[#e2e8f0] text-slate-900 p-2 rounded-lg border border-slate-200/90 shadow-2xs transition-colors text-[11.5px]"
                                 >
-                                  <span className="w-5 h-5 rounded-full bg-[#1D3540] text-white font-black text-[11px] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                                  <span className="w-4 h-4 rounded-full bg-[#1D3540] text-white font-black text-[10px] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
                                     {sIdx + 1}
                                   </span>
                                   <span className="font-bold text-slate-800 leading-snug">
@@ -537,13 +533,13 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                               ))}
                             </ul>
                           ) : (
-                            <div className="bg-[#f1f5f9] text-slate-800 p-3 rounded-xl border border-slate-200/90 font-medium">
+                            <div className="bg-[#f1f5f9] text-slate-800 p-2.5 rounded-lg border border-slate-200/90 text-xs font-medium">
                               Nhấp chuột để tự động cuộn xuống xem toàn văn điều khoản pháp lý chi tiết trong bài viết.
                             </div>
                           )}
 
                           {/* Down Triangle Arrow Pointer */}
-                          <div className="absolute top-full left-1/2 -translate-x-1/2 border-[8px] border-transparent border-t-white"></div>
+                          <div className="absolute top-full right-6 sm:left-1/2 sm:-translate-x-1/2 border-[7px] border-transparent border-t-white"></div>
                         </div>
                       )}
                     </div>
