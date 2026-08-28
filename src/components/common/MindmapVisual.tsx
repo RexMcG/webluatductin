@@ -164,9 +164,9 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
   const maxSide = Math.max(leftBranches.length, rightBranches.length);
   const rowSpacing = maxSide >= 4 ? 92 : 108;
   const canvasH = Math.max(380, (maxSide - 1) * rowSpacing + 170);
-  const canvasW = 920;
+  const canvasW = 940;
 
-  const cx = canvasW / 2; // 460
+  const cx = canvasW / 2; // 470
   const cy = canvasH / 2;
 
   const centerBoxW = 205;
@@ -174,13 +174,13 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
   const centerL = cx - centerBoxW / 2;
   const centerR = cx + centerBoxW / 2;
 
-  // Enlarged branch buttons for big, clear text
-  const branchBoxW = 220;
-  const branchBoxH = 68;
+  // Enlarged branch buttons with room for numbers
+  const branchBoxW = 230;
+  const branchBoxH = 70;
 
   // X Coordinates
   const leftBranchX = 145;
-  const rightBranchX = 775;
+  const rightBranchX = 795;
 
   // Helper to compute Y coordinate for each branch
   const getBranchY = (bIdx: number, totalOnSide: number) => {
@@ -225,6 +225,10 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
       void targetEl.offsetWidth; // force browser reflow
       targetEl.classList.add("highlight-section-pulse");
     }
+  };
+
+  const getCleanTitle = (name: string) => {
+    return name.replace(/^(\d+[\.\:\-]\s*)/, "").trim();
   };
 
   return (
@@ -330,7 +334,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 );
               })}
 
-              {/* 3. CENTER HUB (CHỮ TO RÕ RÀNG) */}
+              {/* 3. CENTER HUB */}
               <foreignObject
                 x={centerL}
                 y={cy - centerBoxH / 2}
@@ -347,10 +351,12 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 </div>
               </foreignObject>
 
-              {/* 4. LEFT BRANCHES (CHỮ TO + TOOLTIP SÁNG TO RÕ RÀNG) */}
+              {/* 4. LEFT BRANCHES (CÓ SỐ THỨ TỰ RÕ RÀNG 1, 2,...) */}
               {leftBranches.map((b, bIdx) => {
                 const branchY = getBranchY(bIdx, leftBranches.length);
                 const isHovered = hoveredIdx === bIdx;
+                const itemNumber = bIdx + 1;
+                const cleanTitle = getCleanTitle(b.name);
 
                 return (
                   <foreignObject
@@ -366,11 +372,11 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                       onMouseEnter={() => setHoveredIdx(bIdx)}
                       onMouseLeave={() => setHoveredIdx(null)}
                     >
-                      {/* Main Clickable Branch Button (Chữ to 13px - 14px) */}
+                      {/* Main Clickable Branch Button */}
                       <button
                         type="button"
                         onClick={() => handleJumpToSection(b, bIdx)}
-                        className={`w-full h-full px-3.5 py-2.5 rounded-2xl text-[13px] sm:text-[13.5px] font-black shadow-md border-2 text-left flex items-center justify-between gap-2 leading-snug transition-all duration-200 cursor-pointer active:scale-95 ${
+                        className={`w-full h-full px-3 py-2 rounded-2xl text-[13px] sm:text-[13.5px] font-black shadow-md border-2 text-left flex items-center justify-between gap-2 leading-snug transition-all duration-200 cursor-pointer active:scale-95 ${
                           isHovered
                             ? "ring-4 ring-amber-300 scale-105 shadow-xl"
                             : "hover:scale-102 hover:shadow-lg"
@@ -381,18 +387,24 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                           color: b.textColor,
                         }}
                       >
-                        <span className="font-extrabold leading-tight flex-1 line-clamp-2">
-                          {b.name}
-                        </span>
+                        {/* Number Badge [1], [2] */}
+                        <div className="flex items-center gap-2 flex-1 min-w-0">
+                          <span className="w-6 h-6 rounded-full bg-amber-400 text-slate-950 font-black text-xs flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
+                            {itemNumber}
+                          </span>
+                          <span className="font-extrabold leading-tight line-clamp-2">
+                            {cleanTitle}
+                          </span>
+                        </div>
 
                         {/* Tooltip ⓘ Badge */}
-                        <span className="w-6 h-6 rounded-full bg-amber-400/30 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/60 flex items-center justify-center text-xs font-black shrink-0 transition-colors shadow-xs">
+                        <span className="w-5 h-5 rounded-full bg-white/20 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/40 flex items-center justify-center text-[11px] font-black shrink-0 transition-colors shadow-xs">
                           ⓘ
                         </span>
                       </button>
 
                       {/* =========================================================
-                          HIGH-CONTRAST DISTINCT TOOLTIP POPUP (NỀN Ý XANH ĐEN / ĐỎ ĐÔ)
+                          HIGH-CONTRAST DISTINCT TOOLTIP POPUP (NỀN XANH NHẠT DỊU MẮT)
                          ========================================================= */}
                       {isHovered && (
                         <div
@@ -402,11 +414,11 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                           {/* Tooltip Title Header */}
                           <div className="font-extrabold text-[#641D06] mb-3 flex items-center justify-between gap-1 border-b border-slate-200 pb-2">
                             <div className="flex items-center gap-2">
-                              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#641D06] text-white text-sm shadow-xs shrink-0">
-                                ⚖️
+                              <span className="w-6 h-6 rounded-full bg-[#641D06] text-white font-black text-xs flex items-center justify-center shrink-0 shadow-xs">
+                                {itemNumber}
                               </span>
                               <span className="text-sm sm:text-[14.5px] font-black tracking-tight text-[#641D06]">
-                                {b.name}
+                                {cleanTitle}
                               </span>
                             </div>
                             <span className="text-[11px] text-white font-bold bg-[#641D06] hover:bg-[#842A16] px-2.5 py-1 rounded-lg shadow-xs shrink-0 transition-colors">
@@ -414,7 +426,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                             </span>
                           </div>
 
-                          {/* Tooltip Bullet Content (NỀN XANH NHẸ / SLATE DỊU MẮT) */}
+                          {/* Tooltip Bullet Content */}
                           {b.subItems && b.subItems.length > 0 ? (
                             <ul className="space-y-2">
                               {b.subItems.map((item, sIdx) => (
@@ -446,11 +458,13 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 );
               })}
 
-              {/* 5. RIGHT BRANCHES (CHỮ TO + TOOLTIP SÁNG TO RÕ RÀNG) */}
+              {/* 5. RIGHT BRANCHES (CÓ SỐ THỨ TỰ RÕ RÀNG 3, 4,...) */}
               {rightBranches.map((b, bIdx) => {
                 const branchY = getBranchY(bIdx, rightBranches.length);
                 const globalIdx = half + bIdx;
                 const isHovered = hoveredIdx === globalIdx;
+                const itemNumber = globalIdx + 1;
+                const cleanTitle = getCleanTitle(b.name);
 
                 return (
                   <foreignObject
@@ -466,11 +480,11 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                       onMouseEnter={() => setHoveredIdx(globalIdx)}
                       onMouseLeave={() => setHoveredIdx(null)}
                     >
-                      {/* Main Clickable Branch Button (Chữ to 13px - 14px) */}
+                      {/* Main Clickable Branch Button */}
                       <button
                         type="button"
                         onClick={() => handleJumpToSection(b, globalIdx)}
-                        className={`w-full h-full px-3.5 py-2.5 rounded-2xl text-[13px] sm:text-[13.5px] font-black shadow-md border-2 text-right flex items-center justify-between gap-2 leading-snug transition-all duration-200 cursor-pointer active:scale-95 ${
+                        className={`w-full h-full px-3 py-2 rounded-2xl text-[13px] sm:text-[13.5px] font-black shadow-md border-2 text-right flex items-center justify-between gap-2 leading-snug transition-all duration-200 cursor-pointer active:scale-95 ${
                           isHovered
                             ? "ring-4 ring-amber-300 scale-105 shadow-xl"
                             : "hover:scale-102 hover:shadow-lg"
@@ -482,17 +496,23 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                         }}
                       >
                         {/* Tooltip ⓘ Badge */}
-                        <span className="w-6 h-6 rounded-full bg-amber-400/30 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/60 flex items-center justify-center text-xs font-black shrink-0 transition-colors shadow-xs">
+                        <span className="w-5 h-5 rounded-full bg-white/20 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/40 flex items-center justify-center text-[11px] font-black shrink-0 transition-colors shadow-xs">
                           ⓘ
                         </span>
 
-                        <span className="font-extrabold leading-tight flex-1 line-clamp-2">
-                          {b.name}
-                        </span>
+                        {/* Number Badge [3], [4] */}
+                        <div className="flex items-center justify-end gap-2 flex-1 min-w-0">
+                          <span className="font-extrabold leading-tight line-clamp-2 text-right">
+                            {cleanTitle}
+                          </span>
+                          <span className="w-6 h-6 rounded-full bg-amber-400 text-slate-950 font-black text-xs flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
+                            {itemNumber}
+                          </span>
+                        </div>
                       </button>
 
                       {/* =========================================================
-                          HIGH-CONTRAST DISTINCT TOOLTIP POPUP (NỀN Ý XANH ĐEN / ĐỎ ĐÔ)
+                          HIGH-CONTRAST DISTINCT TOOLTIP POPUP (NỀN XANH NHẠT DỊU MẮT)
                          ========================================================= */}
                       {isHovered && (
                         <div
@@ -502,11 +522,11 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                           {/* Tooltip Title Header */}
                           <div className="font-extrabold text-[#641D06] mb-3 flex items-center justify-between gap-1 border-b border-slate-200 pb-2">
                             <div className="flex items-center gap-2">
-                              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#641D06] text-white text-sm shadow-xs shrink-0">
-                                ⚖️
+                              <span className="w-6 h-6 rounded-full bg-[#641D06] text-white font-black text-xs flex items-center justify-center shrink-0 shadow-xs">
+                                {itemNumber}
                               </span>
                               <span className="text-sm sm:text-[14.5px] font-black tracking-tight text-[#641D06]">
-                                {b.name}
+                                {cleanTitle}
                               </span>
                             </div>
                             <span className="text-[11px] text-white font-bold bg-[#641D06] hover:bg-[#842A16] px-2.5 py-1 rounded-lg shadow-xs shrink-0 transition-colors">
@@ -514,7 +534,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                             </span>
                           </div>
 
-                          {/* Tooltip Bullet Content (NỀN XANH NHẸ / SLATE DỊU MẮT) */}
+                          {/* Tooltip Bullet Content */}
                           {b.subItems && b.subItems.length > 0 ? (
                             <ul className="space-y-2">
                               {b.subItems.map((item, sIdx) => (
