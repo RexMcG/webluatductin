@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { calcCourtFee } from "@/utils/calculator";
+import { calcCourtFee, getLegalParams } from "@/utils/calculator";
 import CalculatorGuide, { InfoTooltip } from "@/components/calculator/CalculatorGuide";
+import { LegalParams, DEFAULT_LEGAL_PARAMS } from "@/services/legal-params.service";
 
 export default function CourtFeeCalculator() {
+  const [params, setParams] = useState<LegalParams>(DEFAULT_LEGAL_PARAMS);
   const [caseType, setCaseType] = useState("dan-su");
   const [courtLevel, setCourtLevel] = useState("so-tham");
   const [claimType, setClaimType] = useState("ngach");
@@ -13,6 +15,13 @@ export default function CourtFeeCalculator() {
   const [isExempt, setIsExempt] = useState(false);
   
   const [result, setResult] = useState<{ fee: number; deposit: number } | null>(null);
+
+  useEffect(() => {
+    setParams(getLegalParams());
+    const handleUpdate = () => setParams(getLegalParams());
+    window.addEventListener("legal_params_updated", handleUpdate);
+    return () => window.removeEventListener("legal_params_updated", handleUpdate);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,9 +39,15 @@ export default function CourtFeeCalculator() {
         <div className="text-amber-600 flex items-center justify-center my-3">
           <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
         </div>
-        <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+        <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed mb-4">
           Tính toán nhanh mức tạm ứng án phí và án phí chính thức theo quy định hiện hành mới nhất.
         </p>
+
+        {/* Live Legal Status Badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-semibold">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Áp dụng theo: <strong>Nghị quyết 326/2016/UBTVQH14</strong> (Không giá ngạch: {params.courtFeeNoValue.toLocaleString("vi-VN")}đ)</span>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8">

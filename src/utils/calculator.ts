@@ -1,16 +1,16 @@
-// LAW CONSTANTS — CẬP NHẬT 31/07/2026
-// NĐ 293/2025/NĐ-CP: Lương tối thiểu vùng 2026 (hiệu lực 01/01/2026)
-// NĐ 161/2026/NĐ-CP: Lương cơ sở từ 01/07/2026 = 2.530.000đ
-// Luật BHXH 2024: Trần BHXH = 20 × lương cơ sở (hiệu lực 01/07/2025)
-// NQ 954/2020 + NQ mới 2026: Giảm trừ gia cảnh
-// NQ 326/2016/UBTVQH14: Án phí (hiệu lực đến nay)
+// LAW CONSTANTS & DYNAMIC PARAMETER GETTER
+import { legalParamsService, DEFAULT_LEGAL_PARAMS } from "@/services/legal-params.service";
 
-export const MIN_WAGE: Record<number, number> = { 1: 5310000, 2: 4730000, 3: 4140000, 4: 3700000 };
-export const BASE_SALARY = 2530000; // Lương cơ sở từ 01/07/2026
-export const BHXH_CAP = BASE_SALARY * 20; // 50.600.000 — trần BHXH/BHYT
-export const RATES = { bhxh: 0.08, bhyt: 0.015, bhtn: 0.01 };
-export const DEDUCTION_SELF = 15500000; // Giảm trừ bản thân 2026
-export const DEDUCTION_DEP = 6200000;  // Giảm trừ người phụ thuộc 2026
+export const MIN_WAGE: Record<number, number> = DEFAULT_LEGAL_PARAMS.minWages;
+export const BASE_SALARY = DEFAULT_LEGAL_PARAMS.baseSalary;
+export const BHXH_CAP = DEFAULT_LEGAL_PARAMS.bhxhCap;
+export const RATES = DEFAULT_LEGAL_PARAMS.rates;
+export const DEDUCTION_SELF = DEFAULT_LEGAL_PARAMS.deductionSelf;
+export const DEDUCTION_DEP = DEFAULT_LEGAL_PARAMS.deductionDep;
+
+export function getLegalParams() {
+  return legalParamsService.getParams();
+}
 
 export const PIT_BRACKETS = [
   { limit: 5000000, rate: 0.05, cumTax: 0 },
@@ -37,14 +37,15 @@ export function calcPIT(taxableIncome: number): number {
 export function calcCourtFee(value: number, caseType: string, isExempt: boolean): { fee: number, deposit: number } {
   if (isExempt) return { fee: 0, deposit: 0 };
 
+  const params = getLegalParams();
   // Án phí không có giá ngạch
-  const noValueFee = (caseType === 'kinh-doanh') ? 3000000 : 300000;
+  const noValueFee = (caseType === 'kinh-doanh') ? params.courtFeeBusinessNoValue : params.courtFeeNoValue;
   if (value <= 0) return { fee: noValueFee, deposit: noValueFee };
 
   // Bậc thang án phí có giá ngạch (NQ 326 Điều 24)
   let fee = 0;
   if (value <= 6000000) {
-    fee = 300000;
+    fee = params.courtFeeNoValue;
   } else if (value <= 400000000) {
     fee = value * 0.05;
   } else if (value <= 800000000) {

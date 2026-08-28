@@ -1,14 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { calcPIT, DEDUCTION_SELF, DEDUCTION_DEP } from "@/utils/calculator";
+import { calcPIT, getLegalParams } from "@/utils/calculator";
 import CalculatorGuide, { InfoTooltip } from "@/components/calculator/CalculatorGuide";
+import { LegalParams, DEFAULT_LEGAL_PARAMS } from "@/services/legal-params.service";
 
 export default function PITCalculator() {
+  const [params, setParams] = useState<LegalParams>(DEFAULT_LEGAL_PARAMS);
   const [gross, setGross] = useState<string>("");
   const [insurance, setInsurance] = useState<string>("0");
   const [dependents, setDependents] = useState<number>(0);
+
+  useEffect(() => {
+    setParams(getLegalParams());
+    const handleUpdate = () => setParams(getLegalParams());
+    window.addEventListener("legal_params_updated", handleUpdate);
+    return () => window.removeEventListener("legal_params_updated", handleUpdate);
+  }, []);
 
   const [result, setResult] = useState<{
     gross: number;
@@ -23,13 +32,13 @@ export default function PITCalculator() {
     const grossVal = parseFloat(gross) || 0;
     const insuranceVal = parseFloat(insurance) || 0;
     
-    const taxableIncome = Math.max(0, grossVal - insuranceVal - DEDUCTION_SELF - dependents * DEDUCTION_DEP);
+    const taxableIncome = Math.max(0, grossVal - insuranceVal - params.deductionSelf - dependents * params.deductionDep);
     const pit = calcPIT(taxableIncome);
 
     setResult({
       gross: grossVal,
       insurance: insuranceVal,
-      dependentsDeduction: dependents * DEDUCTION_DEP,
+      dependentsDeduction: dependents * params.deductionDep,
       taxableIncome,
       pit,
     });
@@ -52,9 +61,15 @@ export default function PITCalculator() {
         <div className="text-amber-600 flex items-center justify-center my-3">
           <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
         </div>
-        <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+        <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed mb-4">
           Tính toán nhanh và chuẩn xác số thuế Thu nhập cá nhân phải nộp theo biểu thuế lũy tiến từng phần và giảm trừ gia cảnh mới nhất.
         </p>
+
+        {/* Live Legal Status Badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-semibold">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Áp dụng theo: <strong>{params.legalBasis}</strong> (Bản thân: {(params.deductionSelf / 1000000).toFixed(1)} tr, Phụ thuộc: {(params.deductionDep / 1000000).toFixed(1)} tr)</span>
+        </div>
       </div>
 
       {/* Two-Column Layout */}
@@ -134,7 +149,7 @@ export default function PITCalculator() {
                   onChange={(e) => setDependents(parseInt(e.target.value) || 0)}
                 />
                 <p className="font-body-md text-body-md text-text-secondary text-xs mt-2">
-                  Mỗi người phụ thuộc được giảm trừ {(DEDUCTION_DEP / 1000000).toLocaleString('vi-VN')} triệu VNĐ/tháng.
+                  Mỗi người phụ thuộc được giảm trừ {(params.deductionDep / 1000000).toLocaleString('vi-VN')} triệu VNĐ/tháng.
                 </p>
               </div>
 
@@ -169,7 +184,7 @@ export default function PITCalculator() {
                     </tr>
                     <tr className="border-b border-border-neutral">
                       <td className="py-4 px-2 text-text-secondary">- Giảm trừ gia cảnh (Bản thân)</td>
-                      <td className="py-4 px-2 text-right text-error">- {DEDUCTION_SELF.toLocaleString('vi-VN')}</td>
+                      <td className="py-4 px-2 text-right text-error">- {params.deductionSelf.toLocaleString('vi-VN')}</td>
                     </tr>
                     <tr className="border-b border-border-neutral">
                       <td className="py-4 px-2 text-text-secondary">- Giảm trừ người phụ thuộc</td>
@@ -224,7 +239,7 @@ export default function PITCalculator() {
             <ul className="space-y-3 font-body-md text-body-md text-text-secondary">
               <li className="flex items-start gap-2">
                 <span className="material-symbols-outlined text-sm mt-0.5 text-primary">info</span>
-                <span>Mức giảm trừ gia cảnh: <strong>{(DEDUCTION_SELF / 1000000).toLocaleString('vi-VN')} triệu VNĐ/tháng</strong> cho bản thân và <strong>{(DEDUCTION_DEP / 1000000).toLocaleString('vi-VN')} triệu VNĐ/tháng</strong> cho mỗi người phụ thuộc.</span>
+                <span>Mức giảm trừ gia cảnh hiện hành: <strong>{(params.deductionSelf / 1000000).toLocaleString('vi-VN')} triệu VNĐ/tháng</strong> cho bản thân và <strong>{(params.deductionDep / 1000000).toLocaleString('vi-VN')} triệu VNĐ/tháng</strong> cho mỗi người phụ thuộc.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="material-symbols-outlined text-sm mt-0.5 text-primary">info</span>

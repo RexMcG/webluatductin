@@ -1,15 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { calcPIT, BHXH_CAP, MIN_WAGE, RATES, DEDUCTION_SELF, DEDUCTION_DEP } from "@/utils/calculator";
+import { calcPIT, getLegalParams } from "@/utils/calculator";
 import CalculatorGuide, { InfoTooltip } from "@/components/calculator/CalculatorGuide";
+import { LegalParams, DEFAULT_LEGAL_PARAMS } from "@/services/legal-params.service";
 
 export default function SalaryCalculator() {
+  const [params, setParams] = useState<LegalParams>(DEFAULT_LEGAL_PARAMS);
   const [gross, setGross] = useState<string>("");
   const [dependents, setDependents] = useState<number>(0);
   const [region, setRegion] = useState<number>(1);
   const [includeInsurance, setIncludeInsurance] = useState<boolean>(true);
+
+  useEffect(() => {
+    setParams(getLegalParams());
+    const handleUpdate = () => setParams(getLegalParams());
+    window.addEventListener("legal_params_updated", handleUpdate);
+    return () => window.removeEventListener("legal_params_updated", handleUpdate);
+  }, []);
 
   const [result, setResult] = useState<{
     gross: number;
@@ -26,14 +35,14 @@ export default function SalaryCalculator() {
     
     let bhxh = 0, bhyt = 0, bhtn = 0;
     if (includeInsurance) {
-      const bhxCap = Math.min(grossVal, BHXH_CAP);
-      const bhtnCap = MIN_WAGE[region] ? MIN_WAGE[region] * 20 : MIN_WAGE[1] * 20;
-      bhxh = bhxCap * RATES.bhxh;      // 8%
-      bhyt = bhxCap * RATES.bhyt;      // 1.5%
-      bhtn = Math.min(grossVal, bhtnCap) * RATES.bhtn; // 1%
+      const bhxCap = Math.min(grossVal, params.bhxhCap);
+      const bhtnCap = params.minWages[region] ? params.minWages[region] * 20 : params.minWages[1] * 20;
+      bhxh = bhxCap * params.rates.bhxh;      // 8%
+      bhyt = bhxCap * params.rates.bhyt;      // 1.5%
+      bhtn = Math.min(grossVal, bhtnCap) * params.rates.bhtn; // 1%
     }
 
-    const taxableIncome = Math.max(0, grossVal - bhxh - bhyt - bhtn - DEDUCTION_SELF - dependents * DEDUCTION_DEP);
+    const taxableIncome = Math.max(0, grossVal - bhxh - bhyt - bhtn - params.deductionSelf - dependents * params.deductionDep);
     const pit = calcPIT(taxableIncome);
     const net = grossVal - bhxh - bhyt - bhtn - pit;
 
@@ -65,9 +74,15 @@ export default function SalaryCalculator() {
         <div className="text-amber-600 flex items-center justify-center my-3">
           <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
         </div>
-        <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+        <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed mb-4">
           Tính toán chính xác lương thực nhận (Net) từ lương tổng (Gross), các khoản trích nộp BHXH, BHYT, BHTN và thuế TNCN theo quy định mới nhất.
         </p>
+
+        {/* Live Legal Status Badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-semibold">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Áp dụng theo: <strong>{params.legalBasis}</strong> (Hiệu lực: {params.effectiveDate})</span>
+        </div>
       </div>
 
       {/* Two-Column Layout */}
@@ -123,7 +138,7 @@ export default function SalaryCalculator() {
                   onChange={(e) => setDependents(parseInt(e.target.value) || 0)}
                 />
                 <p className="font-body-md text-body-md text-text-secondary text-xs mt-2">
-                  Mỗi người phụ thuộc được giảm trừ {(DEDUCTION_DEP / 1000000).toLocaleString('vi-VN')} triệu VNĐ/tháng.
+                  Mỗi người phụ thuộc được giảm trừ {(params.deductionDep / 1000000).toLocaleString('vi-VN')} triệu VNĐ/tháng.
                 </p>
               </div>
 
@@ -253,7 +268,7 @@ export default function SalaryCalculator() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="material-symbols-outlined text-sm mt-0.5 text-primary">info</span>
-                <span>Mức giảm trừ gia cảnh hiện hành: <strong>{(DEDUCTION_SELF / 1000000).toLocaleString('vi-VN')} triệu VNĐ/tháng</strong> cho bản thân và <strong>{(DEDUCTION_DEP / 1000000).toLocaleString('vi-VN')} triệu VNĐ/tháng</strong> cho mỗi người phụ thuộc.</span>
+                <span>Mức giảm trừ gia cảnh hiện hành: <strong>{(params.deductionSelf / 1000000).toLocaleString('vi-VN')} triệu VNĐ/tháng</strong> cho bản thân và <strong>{(params.deductionDep / 1000000).toLocaleString('vi-VN')} triệu VNĐ/tháng</strong> cho mỗi người phụ thuộc.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="material-symbols-outlined text-sm mt-0.5 text-primary">info</span>
