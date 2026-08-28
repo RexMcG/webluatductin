@@ -222,12 +222,12 @@ export default function NewsDetailPage() {
      ========================================================================= */
   if (layoutStyle === "word-navigation") {
     return (
-      <div className="max-w-[1720px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 pb-36 md:pb-8">
+      <div className="max-w-[1780px] w-full mx-auto px-3 sm:px-5 lg:px-6 xl:px-8 py-5 md:py-8 pb-36 md:pb-8">
         {/* Back Link */}
-        <div className="mb-5">
+        <div className="mb-4">
           <Link
             href="/news"
-            className="inline-flex items-center gap-2 text-slate-500 hover:text-[#641D06] transition-colors font-semibold text-sm"
+            className="inline-flex items-center gap-2 text-slate-500 hover:text-[#641D06] transition-colors font-semibold text-xs sm:text-sm"
           >
             <span className="material-symbols-outlined text-base">arrow_back</span>
             Bảng tin &amp; Sự kiện pháp luật
@@ -235,20 +235,20 @@ export default function NewsDetailPage() {
         </div>
 
         {/* 3-Column Modern Flex Layout (Desktop) / Linear Column (Mobile) */}
-        <div className="flex flex-col lg:flex-row gap-6 xl:gap-8 items-start w-full">
+        <div className="flex flex-col lg:flex-row gap-4 xl:gap-6 2xl:gap-8 items-start w-full">
           
           {/* =========================================================
-              LEFT COLUMN (300-320px): WORD NAVIGATION PANE (DESKTOP ONLY)
+              LEFT COLUMN (COMPACT ON 14-INCH: 220px - 260px): WORD NAVIGATION PANE
              ========================================================= */}
-          <aside className="hidden lg:block lg:w-[300px] xl:w-[320px] shrink-0 sticky top-24 z-20">
+          <aside className="hidden lg:block lg:w-[220px] xl:w-[250px] 2xl:w-[270px] shrink-0 sticky top-24 z-20">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col max-h-[calc(100vh-120px)]">
               {/* Word Navigation Top Title Bar */}
-              <div className="px-4 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-lg text-[#641D06]">toc</span>
-                  <span className="font-bold text-slate-900 text-sm">Mục Lục Đề Mục (Headings)</span>
+              <div className="px-3.5 py-2.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-base text-[#641D06]">toc</span>
+                  <span className="font-bold text-slate-900 text-xs sm:text-sm">Mục Lục</span>
                 </div>
-                <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-200 text-slate-700">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 text-slate-700">
                   {sections.length} Mục
                 </span>
               </div>
@@ -498,9 +498,9 @@ export default function NewsDetailPage() {
           </main>
 
           {/* =========================================================
-              RIGHT COLUMN: ATTORNEY CARD & RECOMMENDED ARTICLES (BELOW ON MOBILE, SIDEBAR ON DESKTOP)
+              RIGHT COLUMN: ATTORNEY CARD & RECOMMENDED ARTICLES (COMPACT ON LAPTOPS)
              ========================================================= */}
-          <aside className="w-full lg:w-[310px] xl:w-[330px] shrink-0 lg:sticky lg:top-24 z-20 space-y-6">
+          <aside className="w-full lg:w-[240px] xl:w-[270px] 2xl:w-[300px] shrink-0 lg:sticky lg:top-24 z-20 space-y-4 xl:space-y-6">
             
             {/* Direct Lawyer Support Card */}
             <div className="bg-gradient-to-br from-[#641D06] to-[#381104] text-white rounded-3xl p-6 shadow-md text-center">
