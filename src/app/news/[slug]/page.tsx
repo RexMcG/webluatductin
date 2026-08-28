@@ -238,17 +238,17 @@ export default function NewsDetailPage() {
         <div className="flex flex-col lg:flex-row gap-4 xl:gap-6 2xl:gap-8 items-start w-full">
           
           {/* =========================================================
-              LEFT COLUMN (COMPACT ON 14-INCH: 220px - 260px): WORD NAVIGATION PANE
+              LEFT COLUMN (COMPACT ON 14-INCH: 190px - 230px): WORD NAVIGATION PANE
              ========================================================= */}
-          <aside className="hidden lg:block lg:w-[220px] xl:w-[250px] 2xl:w-[270px] shrink-0 sticky top-24 z-20">
+          <aside className="hidden lg:block lg:w-[190px] xl:w-[220px] 2xl:w-[250px] shrink-0 sticky top-24 z-20">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col max-h-[calc(100vh-120px)]">
               {/* Word Navigation Top Title Bar */}
-              <div className="px-3.5 py-2.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+              <div className="px-3 py-2 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
                   <span className="material-symbols-outlined text-base text-[#641D06]">toc</span>
-                  <span className="font-bold text-slate-900 text-xs sm:text-sm">Mục Lục</span>
+                  <span className="font-bold text-slate-900 text-xs">Mục Lục</span>
                 </div>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 text-slate-700">
+                <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-slate-200 text-slate-700">
                   {sections.length} Mục
                 </span>
               </div>
@@ -498,90 +498,87 @@ export default function NewsDetailPage() {
           </main>
 
           {/* =========================================================
-              RIGHT COLUMN: ATTORNEY CARD & RECOMMENDED ARTICLES (COMPACT ON LAPTOPS)
+              RIGHT COLUMN: ATTORNEY CARD & RECOMMENDED ARTICLES (COMPACT 210px ON LAPTOPS)
              ========================================================= */}
-          <aside className="w-full lg:w-[240px] xl:w-[270px] 2xl:w-[300px] shrink-0 lg:sticky lg:top-24 z-20 space-y-4 xl:space-y-6">
+          <aside className="w-full lg:w-[210px] xl:w-[240px] 2xl:w-[270px] shrink-0 lg:sticky lg:top-24 z-20 space-y-3.5 xl:space-y-5">
             
             {/* Direct Lawyer Support Card */}
-            <div className="bg-gradient-to-br from-[#641D06] to-[#381104] text-white rounded-3xl p-6 shadow-md text-center">
-              <div className="w-16 h-16 rounded-2xl bg-white/10 p-1 mx-auto mb-3 border border-white/20">
-                <img src="/img/avatar1.png" alt="Ls. Phan Đức Tín" className="w-full h-full object-cover rounded-xl" />
+            <div className="bg-gradient-to-br from-[#641D06] to-[#381104] text-white rounded-2xl p-4 shadow-md text-center">
+              <div className="w-12 h-12 rounded-xl bg-white/10 p-0.5 mx-auto mb-2.5 border border-white/20">
+                <img src="/img/avatar1.png" alt="Ls. Phan Đức Tín" className="w-full h-full object-cover rounded-lg" />
               </div>
-              <h4 className="font-bold text-sm text-white">Ls. PHAN ĐỨC TÍN</h4>
-              <p className="text-[11px] text-amber-300 font-semibold uppercase mt-0.5">Giám Đốc Điều Hành</p>
-              <p className="text-xs text-slate-200 mt-2 leading-relaxed text-justify">
+              <h4 className="font-bold text-xs sm:text-sm text-white">Ls. PHAN ĐỨC TÍN</h4>
+              <p className="text-[10px] text-amber-300 font-semibold uppercase mt-0.5">Giám Đốc Điều Hành</p>
+              <p className="text-[11px] text-slate-200 mt-1.5 leading-relaxed text-justify">
                 Trực tiếp tư vấn các thương vụ M&amp;A, cơ cấu vốn và giải quyết tranh chấp kinh tế phức tạp.
               </p>
 
-              <div className="mt-4 space-y-2">
+              <div className="mt-3 space-y-1.5">
                 <a
                   href="tel:0937863263"
-                  className="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 h-9 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-sm"
+                  className="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 h-8 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1 transition-colors shadow-2xs"
                 >
-                  <span className="material-symbols-outlined text-base">call</span>
+                  <span className="material-symbols-outlined text-sm">call</span>
                   Hotline: 093 786 32 63
                 </a>
                 <a
                   href="https://zalo.me/0937863263"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-white/20 hover:bg-white/30 text-white h-9 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-colors border border-white/30"
+                  className="w-full bg-white/20 hover:bg-white/30 text-white h-8 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1 transition-colors border border-white/30"
                 >
-                  <span className="material-symbols-outlined text-base">chat</span>
+                  <span className="material-symbols-outlined text-sm">chat</span>
                   Chat Zalo Luật Sư
                 </a>
                 <Link
                   href="/appointment"
-                  className="w-full bg-amber-400 hover:bg-amber-500 text-slate-900 h-9 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-sm"
+                  className="w-full bg-amber-400 hover:bg-amber-500 text-slate-900 h-8 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1 transition-colors shadow-2xs"
                 >
-                  <span className="material-symbols-outlined text-base">calendar_month</span>
+                  <span className="material-symbols-outlined text-sm">calendar_month</span>
                   Đặt Lịch Tư Vấn 1:1
                 </Link>
               </div>
             </div>
 
             {/* Recommended / Other Articles Box */}
-            <div className="bg-white rounded-3xl border border-slate-200 p-5 shadow-sm">
-              <div className="flex items-center gap-2 border-b border-slate-100 pb-3 mb-4">
-                <span className="material-symbols-outlined text-amber-600">recommend</span>
-                <h3 className="font-bold text-slate-900 text-sm uppercase tracking-wide">
-                  Bài Viết Đề Xuất Thêm
+            <div className="bg-white rounded-2xl border border-slate-200 p-3.5 sm:p-4 shadow-sm">
+              <div className="flex items-center gap-1.5 border-b border-slate-100 pb-2.5 mb-3">
+                <span className="material-symbols-outlined text-amber-600 text-base">recommend</span>
+                <h3 className="font-bold text-slate-900 text-xs uppercase tracking-wide">
+                  Bài Viết Đề Xuất
                 </h3>
               </div>
 
               {otherNews.length > 0 ? (
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {otherNews.map((art: any) => (
                     <Link
                       key={art.id}
                       href={`/news/${art.slug}`}
-                      className="group flex gap-3 items-start p-2.5 rounded-2xl hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-all"
+                      className="group flex gap-2.5 items-start p-1.5 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-all"
                     >
-                      <div className="w-16 h-16 rounded-xl bg-slate-100 overflow-hidden shrink-0 border border-slate-200">
+                      <div className="w-12 h-12 rounded-lg bg-slate-100 overflow-hidden shrink-0 border border-slate-200">
                         {art.thumbnailUrl ? (
                           <img src={art.thumbnailUrl} alt={art.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-slate-400">
-                            <span className="material-symbols-outlined text-lg">newspaper</span>
+                            <span className="material-symbols-outlined text-base">newspaper</span>
                           </div>
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <span className="text-[10px] uppercase font-bold text-amber-700">
+                        <span className="text-[9px] uppercase font-bold text-amber-700">
                           {art.category || "Pháp Luật"}
                         </span>
-                        <h4 className="text-xs font-bold text-slate-900 line-clamp-2 group-hover:text-[#641D06] transition-colors leading-snug mt-0.5">
+                        <h4 className="text-[11px] font-bold text-slate-900 line-clamp-2 group-hover:text-[#641D06] transition-colors leading-snug mt-0.5">
                           {art.title}
                         </h4>
-                        <span className="text-[10px] text-slate-400 mt-1 block">
-                          📅 {new Date(art.publishedAt || Date.now()).toLocaleDateString("vi-VN")}
-                        </span>
                       </div>
                     </Link>
                   ))}
                 </div>
               ) : (
-                <p className="text-xs text-slate-500">Đang cập nhật thêm bài viết mới...</p>
+                <p className="text-[11px] text-slate-500">Đang cập nhật thêm...</p>
               )}
             </div>
 
