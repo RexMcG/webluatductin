@@ -395,42 +395,53 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                       </button>
 
                       {/* =========================================================
-                          BRIGHT & SPACIOUS LUXURY TOOLTIP POPUP (NỀN SÁNG, CHỮ TO)
+                          HIGH-CONTRAST DISTINCT TOOLTIP POPUP (NỀN Ý XANH ĐEN / ĐỎ ĐÔ)
                          ========================================================= */}
                       {isHovered && (
                         <div
-                          className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-80 sm:w-96 p-4 sm:p-5 bg-[#ffffff] text-slate-900 rounded-2xl shadow-[0_15px_40px_rgba(100,29,6,0.22)] z-50 text-xs sm:text-[13px] leading-relaxed animate-fadeIn border-2 border-amber-400 pointer-events-auto"
+                          className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-80 sm:w-96 p-4 sm:p-5 bg-white text-slate-900 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.25)] z-50 text-xs sm:text-[13px] leading-relaxed animate-fadeIn border-2 border-slate-300 pointer-events-auto"
                           onClick={() => handleJumpToSection(b, bIdx)}
                         >
-                          {/* Tooltip Title with Burgundy Header & Gold Badge */}
-                          <div className="font-extrabold text-[#641D06] mb-2.5 flex items-center justify-between gap-1 border-b border-amber-100 pb-2">
+                          {/* Tooltip Title Header */}
+                          <div className="font-extrabold text-[#641D06] mb-3 flex items-center justify-between gap-1 border-b border-slate-200 pb-2">
                             <div className="flex items-center gap-2">
-                              <span className="text-base">⚖️</span>
-                              <span className="text-sm sm:text-[14.5px] font-black tracking-tight text-[#641D06]">{b.name}</span>
+                              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#641D06] text-white text-sm shadow-xs shrink-0">
+                                ⚖️
+                              </span>
+                              <span className="text-sm sm:text-[14.5px] font-black tracking-tight text-[#641D06]">
+                                {b.name}
+                              </span>
                             </div>
-                            <span className="text-[11px] text-amber-900 font-bold bg-amber-100/90 px-2 py-0.5 rounded-lg border border-amber-300/70 shrink-0">
+                            <span className="text-[11px] text-white font-bold bg-[#641D06] hover:bg-[#842A16] px-2.5 py-1 rounded-lg shadow-xs shrink-0 transition-colors">
                               Click nhảy tới mục ↓
                             </span>
                           </div>
 
-                          {/* Tooltip Bullet Content (Chữ to rõ ràng) */}
+                          {/* Tooltip Bullet Content (NỀN XANH ĐEN / ĐỎ ĐÔ NỔI BẬT CHỐNG CHÓI) */}
                           {b.subItems && b.subItems.length > 0 ? (
-                            <ul className="space-y-2 text-slate-800 text-xs sm:text-[13px] font-medium leading-relaxed">
+                            <ul className="space-y-2">
                               {b.subItems.map((item, sIdx) => (
-                                <li key={sIdx} className="flex items-start gap-2 bg-amber-50/50 p-2 rounded-xl border border-amber-200/50">
-                                  <span className="text-amber-700 font-black text-sm mt-0.5">•</span>
-                                  <span className="font-semibold text-slate-900">{item}</span>
+                                <li
+                                  key={sIdx}
+                                  className="flex items-start gap-2.5 bg-[#1e293b] text-white p-3 rounded-xl border border-slate-700 shadow-sm"
+                                >
+                                  <span className="w-5 h-5 rounded-full bg-[#C0963B] text-slate-950 font-black text-[11px] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                                    {sIdx + 1}
+                                  </span>
+                                  <span className="font-semibold text-slate-100 leading-snug">
+                                    {item}
+                                  </span>
                                 </li>
                               ))}
                             </ul>
                           ) : (
-                            <p className="text-slate-700 text-xs sm:text-[13px] font-medium leading-relaxed bg-amber-50/50 p-2.5 rounded-xl border border-amber-200/50">
+                            <div className="bg-[#1e293b] text-white p-3 rounded-xl border border-slate-700 font-medium">
                               Nhấp chuột để tự động cuộn xuống xem toàn văn điều khoản pháp lý chi tiết trong bài viết.
-                            </p>
+                            </div>
                           )}
 
-                          {/* Down Triangle Arrow (Mũi tên nền sáng viền vàng) */}
-                          <div className="absolute top-full left-1/2 -translate-x-1/2 border-[8px] border-transparent border-t-amber-400"></div>
+                          {/* Down Triangle Arrow Pointer */}
+                          <div className="absolute top-full left-1/2 -translate-x-1/2 border-[8px] border-transparent border-t-white"></div>
                         </div>
                       )}
                     </div>
@@ -484,42 +495,53 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                       </button>
 
                       {/* =========================================================
-                          BRIGHT & SPACIOUS LUXURY TOOLTIP POPUP (NỀN SÁNG, CHỮ TO)
+                          HIGH-CONTRAST DISTINCT TOOLTIP POPUP (NỀN Ý XANH ĐEN / ĐỎ ĐÔ)
                          ========================================================= */}
                       {isHovered && (
                         <div
-                          className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-80 sm:w-96 p-4 sm:p-5 bg-[#ffffff] text-slate-900 rounded-2xl shadow-[0_15px_40px_rgba(100,29,6,0.22)] z-50 text-xs sm:text-[13px] leading-relaxed animate-fadeIn border-2 border-amber-400 pointer-events-auto text-left"
+                          className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-80 sm:w-96 p-4 sm:p-5 bg-white text-slate-900 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.25)] z-50 text-xs sm:text-[13px] leading-relaxed animate-fadeIn border-2 border-slate-300 pointer-events-auto text-left"
                           onClick={() => handleJumpToSection(b, globalIdx)}
                         >
-                          {/* Tooltip Title with Burgundy Header & Gold Badge */}
-                          <div className="font-extrabold text-[#641D06] mb-2.5 flex items-center justify-between gap-1 border-b border-amber-100 pb-2">
+                          {/* Tooltip Title Header */}
+                          <div className="font-extrabold text-[#641D06] mb-3 flex items-center justify-between gap-1 border-b border-slate-200 pb-2">
                             <div className="flex items-center gap-2">
-                              <span className="text-base">⚖️</span>
-                              <span className="text-sm sm:text-[14.5px] font-black tracking-tight text-[#641D06]">{b.name}</span>
+                              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#641D06] text-white text-sm shadow-xs shrink-0">
+                                ⚖️
+                              </span>
+                              <span className="text-sm sm:text-[14.5px] font-black tracking-tight text-[#641D06]">
+                                {b.name}
+                              </span>
                             </div>
-                            <span className="text-[11px] text-amber-900 font-bold bg-amber-100/90 px-2 py-0.5 rounded-lg border border-amber-300/70 shrink-0">
+                            <span className="text-[11px] text-white font-bold bg-[#641D06] hover:bg-[#842A16] px-2.5 py-1 rounded-lg shadow-xs shrink-0 transition-colors">
                               Click nhảy tới mục ↓
                             </span>
                           </div>
 
-                          {/* Tooltip Bullet Content (Chữ to rõ ràng) */}
+                          {/* Tooltip Bullet Content (NỀN XANH ĐEN / ĐỎ ĐÔ NỔI BẬT CHỐNG CHÓI) */}
                           {b.subItems && b.subItems.length > 0 ? (
-                            <ul className="space-y-2 text-slate-800 text-xs sm:text-[13px] font-medium leading-relaxed">
+                            <ul className="space-y-2">
                               {b.subItems.map((item, sIdx) => (
-                                <li key={sIdx} className="flex items-start gap-2 bg-amber-50/50 p-2 rounded-xl border border-amber-200/50">
-                                  <span className="text-amber-700 font-black text-sm mt-0.5">•</span>
-                                  <span className="font-semibold text-slate-900">{item}</span>
+                                <li
+                                  key={sIdx}
+                                  className="flex items-start gap-2.5 bg-[#1e293b] text-white p-3 rounded-xl border border-slate-700 shadow-sm"
+                                >
+                                  <span className="w-5 h-5 rounded-full bg-[#C0963B] text-slate-950 font-black text-[11px] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                                    {sIdx + 1}
+                                  </span>
+                                  <span className="font-semibold text-slate-100 leading-snug">
+                                    {item}
+                                  </span>
                                 </li>
                               ))}
                             </ul>
                           ) : (
-                            <p className="text-slate-700 text-xs sm:text-[13px] font-medium leading-relaxed bg-amber-50/50 p-2.5 rounded-xl border border-amber-200/50">
+                            <div className="bg-[#1e293b] text-white p-3 rounded-xl border border-slate-700 font-medium">
                               Nhấp chuột để tự động cuộn xuống xem toàn văn điều khoản pháp lý chi tiết trong bài viết.
-                            </p>
+                            </div>
                           )}
 
-                          {/* Down Triangle Arrow (Mũi tên nền sáng viền vàng) */}
-                          <div className="absolute top-full left-1/2 -translate-x-1/2 border-[8px] border-transparent border-t-amber-400"></div>
+                          {/* Down Triangle Arrow Pointer */}
+                          <div className="absolute top-full left-1/2 -translate-x-1/2 border-[8px] border-transparent border-t-white"></div>
                         </div>
                       )}
                     </div>
