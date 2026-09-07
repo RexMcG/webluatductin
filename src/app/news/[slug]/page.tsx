@@ -595,37 +595,46 @@ export default function NewsDetailPage() {
               </div>
             </div>
 
-            {/* Recommended / Other Articles Box */}
+            {/* Recommended / Other Articles Box (Tối đa 5 bài, kích thước to rõ, dễ đọc) */}
             <div className="bg-white rounded-2xl border border-slate-200 p-3.5 sm:p-4 shadow-sm">
-              <div className="flex items-center gap-1.5 border-b border-slate-100 pb-2.5 mb-3">
-                <span className="material-symbols-outlined text-amber-600 text-base">recommend</span>
-                <h3 className="font-bold text-slate-900 text-xs uppercase tracking-wide">
-                  Bài Viết Đề Xuất
-                </h3>
+              <div className="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-3">
+                <div className="flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-amber-600 text-base">recommend</span>
+                  <h3 className="font-bold text-slate-900 text-xs uppercase tracking-wide">
+                    Bài Viết Đề Xuất
+                  </h3>
+                </div>
+                <span className="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
+                  Top 5
+                </span>
               </div>
 
               {otherNews.length > 0 ? (
                 <div className="space-y-3">
-                  {otherNews.map((art: any) => (
+                  {otherNews.slice(0, 5).map((art: any, aIdx: number) => (
                     <Link
-                      key={art.id}
+                      key={art.id || aIdx}
                       href={`/news/${art.slug}`}
-                      className="group flex gap-2.5 items-start p-1.5 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-all"
+                      className="group flex gap-3 items-start p-2 rounded-xl hover:bg-slate-50 border border-slate-100 hover:border-amber-200 transition-all shadow-2xs hover:shadow-xs"
                     >
-                      <div className="w-12 h-12 rounded-lg bg-slate-100 overflow-hidden shrink-0 border border-slate-200">
+                      <div className="w-16 h-16 xl:w-[70px] xl:h-[70px] rounded-xl bg-slate-100 overflow-hidden shrink-0 border border-slate-200 shadow-2xs">
                         {art.thumbnailUrl ? (
-                          <img src={art.thumbnailUrl} alt={art.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                          <img
+                            src={art.thumbnailUrl}
+                            alt={art.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-slate-400">
-                            <span className="material-symbols-outlined text-base">newspaper</span>
+                            <span className="material-symbols-outlined text-xl">newspaper</span>
                           </div>
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <span className="text-[9px] uppercase font-bold text-amber-700">
-                          {art.category || "Pháp Luật"}
+                        <span className="text-[10px] xl:text-[11px] uppercase font-extrabold text-amber-800 tracking-wider line-clamp-1 mb-0.5">
+                          {art.category || "Pháp Luật 2026"}
                         </span>
-                        <h4 className="text-[11px] font-bold text-slate-900 line-clamp-2 group-hover:text-[#641D06] transition-colors leading-snug mt-0.5">
+                        <h4 className="text-xs xl:text-[13px] font-bold text-slate-900 line-clamp-2 group-hover:text-[#641D06] transition-colors leading-snug">
                           {art.title}
                         </h4>
                       </div>
@@ -633,7 +642,7 @@ export default function NewsDetailPage() {
                   ))}
                 </div>
               ) : (
-                <p className="text-[11px] text-slate-500">Đang cập nhật thêm...</p>
+                <p className="text-xs text-slate-500 py-2">Đang cập nhật thêm...</p>
               )}
             </div>
 
