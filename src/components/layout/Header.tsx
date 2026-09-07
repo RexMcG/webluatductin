@@ -56,13 +56,13 @@ export default function Header() {
               href="/services"
               className={`${isActive("/services")} uppercase text-[13px] xl:text-[14px] 2xl:text-[15px] whitespace-nowrap`}
             >
-              Lĩnh vực
+              Lĩnh vực pháp lý
             </Link>
             <Link
               href="/news"
               className={`${isActive("/news")} uppercase text-[13px] xl:text-[14px] 2xl:text-[15px] whitespace-nowrap`}
             >
-              Tin tức
+              Tin tức &amp; Án lệ
             </Link>
 
             {/* Direct Link: Biểu mẫu AI */}
@@ -70,17 +70,17 @@ export default function Header() {
               href="/ai-form-library"
               className={`${isActive("/ai-form-library")} uppercase text-[13px] xl:text-[14px] 2xl:text-[15px] whitespace-nowrap`}
             >
-              Biểu mẫu AI
+              Biểu mẫu Pháp luật
             </Link>
 
-            {/* Dropdown: Tính năng */}
+            {/* Dropdown: Công cụ Pháp lý */}
             <div className="relative group">
               <a
                 href="#"
                 className="text-slate-800 hover:text-[#641D06] font-bold transition-colors duration-200 uppercase text-[13px] xl:text-[14px] 2xl:text-[15px] flex items-center gap-0.5 whitespace-nowrap py-2"
                 onClick={(e) => e.preventDefault()}
               >
-                Tính năng <span className="material-symbols-outlined text-sm">expand_more</span>
+                Công cụ tiện ích <span className="material-symbols-outlined text-sm">expand_more</span>
               </a>
               <div className="absolute top-full left-0 mt-1 w-64 bg-white rounded-2xl shadow-xl border border-slate-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col z-50 overflow-hidden">
                 <Link
@@ -88,21 +88,21 @@ export default function Header() {
                   className="px-4 py-3 text-slate-800 hover:bg-amber-50 hover:text-[#641D06] text-sm font-semibold border-b border-slate-100 flex items-center gap-2.5 group/item transition-colors"
                 >
                   <span className="text-amber-800 font-bold text-base leading-none">•</span>
-                  <span>Tính án phí tòa án</span>
+                  <span>Ước tính Án phí Tòa án</span>
                 </Link>
                 <Link
                   href="/salary-calculator"
                   className="px-4 py-3 text-slate-800 hover:bg-amber-50 hover:text-[#641D06] text-sm font-semibold border-b border-slate-100 flex items-center gap-2.5 group/item transition-colors"
                 >
                   <span className="text-amber-800 font-bold text-base leading-none">•</span>
-                  <span>Tính lương Gross-to-Net</span>
+                  <span>Quy đổi Lương Gross &amp; Net</span>
                 </Link>
                 <Link
                   href="/pit-calculator"
                   className="px-4 py-3 text-slate-800 hover:bg-amber-50 hover:text-[#641D06] text-sm font-semibold flex items-center gap-2.5 group/item transition-colors"
                 >
                   <span className="text-amber-800 font-bold text-base leading-none">•</span>
-                  <span>Tính thuế TNCN</span>
+                  <span>Tính Thuế Thu Nhập Cá Nhân</span>
                 </Link>
               </div>
             </div>
@@ -111,13 +111,13 @@ export default function Header() {
               href="/ai-chatbot"
               className={`${isActive("/ai-chatbot")} uppercase text-[13px] xl:text-[14px] 2xl:text-[15px] whitespace-nowrap`}
             >
-              AI Chat
+              Trợ lý AI
             </Link>
             <Link
               href="/appointment"
               className={`${isActive("/appointment")} uppercase text-[13px] xl:text-[14px] 2xl:text-[15px] whitespace-nowrap`}
             >
-              Đặt lịch
+              Đặt lịch tư vấn
             </Link>
           </div>
 
@@ -173,18 +173,18 @@ export default function Header() {
               onClick={() => setIsMobileMenuOpen(false)}
               className={isMobileActive("/ai-form-library")}
             >
-              Biểu mẫu AI
+              Biểu mẫu Pháp luật
             </Link>
             <Link 
               href="/ai-chatbot" 
               onClick={() => setIsMobileMenuOpen(false)}
               className={isMobileActive("/ai-chatbot")}
             >
-              Trợ lý AI 24/7
+              Trợ lý AI Pháp lý 24/7
             </Link>
 
             <div className="text-[11px] font-black uppercase tracking-wider text-slate-400 mt-2 pt-2 border-t border-slate-100 px-4">
-              Tính năng tính toán
+              Công cụ Tiện ích Pháp lý
             </div>
             <Link 
               href="/court-fee-calculator" 
@@ -192,7 +192,7 @@ export default function Header() {
               className={isSubItemActive("/court-fee-calculator")}
             >
               <span className="text-amber-800 font-bold">•</span>
-              <span>Tính án phí tòa án</span>
+              <span>Ước tính Án phí Tòa án</span>
             </Link>
             <Link 
               href="/salary-calculator" 
@@ -200,7 +200,7 @@ export default function Header() {
               className={isSubItemActive("/salary-calculator")}
             >
               <span className="text-amber-800 font-bold">•</span>
-              <span>Tính lương Gross-to-Net</span>
+              <span>Quy đổi Lương Gross &amp; Net</span>
             </Link>
             <Link 
               href="/pit-calculator" 
@@ -208,7 +208,7 @@ export default function Header() {
               className={isSubItemActive("/pit-calculator")}
             >
               <span className="text-amber-800 font-bold">•</span>
-              <span>Tính thuế TNCN</span>
+              <span>Tính Thuế Thu Nhập Cá Nhân</span>
             </Link>
 
             <div className="pt-3 mt-2 border-t border-slate-100 flex flex-col gap-2.5">
@@ -217,7 +217,7 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="w-full bg-[#641D06] hover:bg-black text-white text-center py-3 rounded-xl uppercase text-[14px] font-bold shadow-md flex items-center justify-center gap-2"
               >
-                <span className="material-symbols-outlined text-lg">calendar_month</span> Đặt Lịch Hẹn Tư Vấn
+                <span className="material-symbols-outlined text-lg">calendar_month</span> Đặt Lịch Tư Vấn Luật Sư
               </Link>
               <a 
                 href="tel:0937863263" 

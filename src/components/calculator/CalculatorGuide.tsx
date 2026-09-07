@@ -138,9 +138,9 @@ export default function CalculatorGuide({ type }: CalculatorGuideProps) {
         "Cẩm nang toàn diện phân tích sự khác biệt pháp lý giữa Lương Gross và Lương Net, bảng phân định nghĩa vụ đóng bảo hiểm 32% (NLĐ 10.5% vs Doanh nghiệp 21.5%) và lời khuyên đàm phán hợp đồng từ Luật sư.",
       keyPoints: [
         "Định nghĩa chuẩn và công thức chuyển đổi chính xác giữa Lương Gross & Net.",
-        "Bảng phân định tỷ lệ đóng BHXH, BHYT, BHTN 32% giữa Người lao động & Doanh nghiệp.",
-        "Vì sao người lao động nên ưu tiên đàm phán Lương Gross để tối đa quyền lợi thai sản, ốm đau?",
-        "Chế tài xử phạt hành chính và trách nhiệm hình sự (Điều 216 BLHS) khi trốn đóng BHXH.",
+        "Bảng phân định nghĩa vụ trích nộp BHXH, BHYT, BHTN 32% giữa Người lao động & Người sử dụng lao động.",
+        "Chiến lược đàm phán hợp đồng để tối ưu chế độ thai sản, ốm đau và bảo hộ an sinh xã hội dài hạn.",
+        "Chế tài xử phạt vi phạm hành chính và trách nhiệm hình sự (Điều 216 BLHS) đối với hành vi trốn đóng BHXH.",
       ],
       thumbnailUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=800&auto=format&fit=crop",
     },
@@ -150,12 +150,12 @@ export default function CalculatorGuide({ type }: CalculatorGuideProps) {
       category: "Thuế & Tài Chính Doanh Nghiệp",
       badge: "🧠 Cẩm Nang Pháp Lý Chuyên Sâu",
       summary:
-        "Hướng dẫn chi tiết cách tính thuế TNCN theo biểu thuế lũy tiến từng phần 7 bậc, điều kiện và thủ tục đăng ký người phụ thuộc để giảm trừ 4.4 triệu/tháng hợp pháp.",
+        "Hướng dẫn chi tiết cách tính thuế TNCN theo biểu thuế lũy tiến từng phần 7 bậc, điều kiện và thủ tục đăng ký người phụ thuộc để giảm trừ gia cảnh hợp pháp.",
       keyPoints: [
-        "Căn cứ xác định cá nhân cư trú và đối tượng bắt buộc phải nộp thuế TNCN.",
-        "Mức giảm trừ gia cảnh: 11 triệu/tháng (bản thân) và 4.4 triệu/tháng (người phụ thuộc).",
+        "Căn cứ pháp lý xác định cá nhân cư trú và đối tượng bắt buộc thực hiện nghĩa vụ thuế TNCN.",
+        "Mức giảm trừ gia cảnh: 11 triệu đồng/tháng (bản thân) và 4.4 triệu đồng/tháng (người phụ thuộc).",
         "Công thức và minh họa biểu thuế lũy tiến từng phần 7 bậc (từ 5% đến 35%).",
-        "Hồ sơ, thủ tục đăng ký người phụ thuộc và quy trình quyết toán thuế cuối năm.",
+        "Hồ sơ, thủ tục đăng ký người phụ thuộc và quy trình ủy quyền quyết toán thuế cuối năm.",
       ],
       thumbnailUrl: "https://images.unsplash.com/photo-1554224154-26032ffc0d07?q=80&w=800&auto=format&fit=crop",
     },
@@ -165,12 +165,12 @@ export default function CalculatorGuide({ type }: CalculatorGuideProps) {
       category: "Tranh Tụng & Tố Tụng Tòa Án",
       badge: "🧠 Cẩm Nang Pháp Lý Chuyên Sâu",
       summary:
-        "Cẩm nang tố tụng toàn diện: Phân biệt án phí có giá ngạch vs không giá ngạch, mức tiền tạm ứng án phí 50% và nguyên tắc bên thua kiện chịu án phí theo Nghị quyết 326/2016.",
+        "Cẩm nang tố tụng toàn diện: Phân biệt vụ án có giá ngạch vs không giá ngạch, nghĩa vụ nộp tiền tạm ứng án phí 50% và nguyên tắc phân định nghĩa vụ chịu án phí theo Nghị quyết 326/2016.",
       keyPoints: [
-        "Phân biệt vụ án không có giá ngạch (300.000đ) vs vụ án có giá ngạch theo tài sản tranh chấp.",
-        "Mức tạm ứng án phí (50%) và địa điểm nộp tại Chi cục Thi hành án dân sự.",
-        "Nguyên tắc 'Bên thua kiện chịu án phí' và mức giảm 50% khi hai bên hòa giải thành công.",
-        "Danh mục các trường hợp được miễn 100% án phí (người nghèo, người có công, đòi nợ lương...).",
+        "Phân biệt vụ án không có giá ngạch (mức chuẩn 300.000đ) vs vụ án có giá ngạch theo giá trị tài sản tranh chấp.",
+        "Nghĩa vụ nộp tiền tạm ứng án phí (50%) và địa điểm nộp tại Cơ quan Thi hành án dân sự có thẩm quyền.",
+        "Nguyên tắc 'Đương sự có yêu cầu không được chấp nhận phải chịu án phí' và giảm 50% khi hòa giải thành.",
+        "Danh mục các trường hợp được miễn 100% án phí (người nghèo, người có công, yêu cầu đòi tiền lương, trợ cấp lao động...).",
       ],
       thumbnailUrl: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=800&auto=format&fit=crop",
     },
@@ -264,7 +264,7 @@ export default function CalculatorGuide({ type }: CalculatorGuideProps) {
               className="inline-flex items-center gap-2 bg-amber-50 hover:bg-amber-100 text-[#641D06] font-bold px-5 py-3 rounded-2xl text-xs sm:text-sm border border-amber-200 transition-colors"
             >
               <span className="material-symbols-outlined text-base">calendar_month</span>
-              <span>Đặt lịch tư vấn Luật sư</span>
+              <span>Đặt Lịch Tham Vấn Luật Sư</span>
             </Link>
 
             <Link
@@ -272,7 +272,7 @@ export default function CalculatorGuide({ type }: CalculatorGuideProps) {
               className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 text-xs font-bold px-3 py-2 transition-colors ml-auto"
             >
               <span className="material-symbols-outlined text-base">smart_toy</span>
-              <span>Hỏi AI 24/7</span>
+              <span>Trợ Lý Pháp Lý AI 24/7</span>
             </Link>
           </div>
         </div>

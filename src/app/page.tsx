@@ -155,7 +155,7 @@ export default function Home() {
               <span className="text-accent drop-shadow-sm text-2xl sm:text-4xl md:text-5xl block mt-1">Hãng Luật Hàng Đầu TP.HCM</span>
             </h1>
             <p className="font-body-md text-base md:text-xl text-primary font-semibold max-w-3xl leading-relaxed">
-              Trực tiếp điều hành bởi **Luật sư Phan Đức Tín** cùng đội ngũ luật sư giỏi, kết hợp AI pháp lý tiên tiến, bảo vệ tối đa quyền lợi cho bạn và doanh nghiệp.
+              Sáng lập và trực tiếp điều hành bởi <strong>Luật sư Phan Đức Tín</strong> cùng đội ngũ Luật sư cộng sự chuyên sâu, ứng dụng công nghệ Trợ lý AI Pháp lý tiên phong nhằm bảo vệ tối đa quyền và lợi ích hợp pháp của thân chủ và doanh nghiệp.
             </p>
 
             {/* Smart Navigation Search Bar */}
@@ -164,7 +164,7 @@ export default function Home() {
                 <input
                   className="w-full h-16 md:h-20 pl-8 pr-20 border-[3px] border-accent rounded-full focus:ring-4 focus:ring-accent/30 focus:border-accent bg-white text-slate-900 placeholder:text-slate-400 outline-none text-base sm:text-lg md:text-xl font-medium shadow-inner"
                   id="hero-search"
-                  placeholder="Nhập nhu cầu (VD: tính lương, tính án phí, ly hôn, rà soát hợp đồng...)"
+                  placeholder="Nhập nhu cầu (VD: tranh chấp đất đai, tính án phí, ly hôn, rà soát hợp đồng M&amp;A...)"
                   type="text"
                   value={searchQuery}
                   onChange={(e) => {
@@ -240,14 +240,14 @@ export default function Home() {
                 href="/appointment"
               >
                 <span className="material-symbols-outlined">calendar_month</span>
-                Đặt Lịch Hẹn Với Luật Sư
+                Đặt Lịch Tham Vấn Luật Sư
               </Link>
               <Link
                 className="bg-accent hover:opacity-90 text-white h-14 px-8 rounded-full font-label-sm text-base md:text-lg font-bold transition-all inline-flex items-center shadow-lg gap-2"
                 href="/ai-chatbot"
               >
                 <span className="material-symbols-outlined">smart_toy</span>
-                Tư Vấn AI 24/7
+                Trợ Lý Pháp Lý AI 24/7
               </Link>
             </div>
           </div>
@@ -269,10 +269,10 @@ export default function Home() {
             </div>
             <div className="prose prose-xl md:prose-2xl text-text-secondary leading-relaxed space-y-4 text-justify text-lg md:text-xl">
               <p>
-                <strong>Luật sư Phan Đức Tín</strong> là người sáng lập kiêm Giám đốc Điều hành <strong>Công ty Luật TNHH Đức Tín và Cộng sự</strong>. Hãng luật đã tham gia tư vấn, giải quyết thành công hàng trăm vụ việc chuyên về các lĩnh vực như: đầu tư FDI, lập dự án và xin giấy chứng nhận đầu tư cho các doanh nhân đến từ Nhật Bản, Hàn Quốc, Mỹ, Singapore, Đức...
+                <strong>Luật sư Phan Đức Tín</strong> là người sáng lập kiêm Giám đốc Điều hành <strong>Công ty Luật TNHH Đức Tín và Cộng sự</strong> (Đoàn Luật sư TP.HCM). Hãng luật đã tham gia tư vấn, giải quyết thành công hàng trăm vụ việc chuyên sâu về các lĩnh vực: đầu tư nước ngoài (FDI), lập dự án và thẩm định hồ sơ cấp Giấy chứng nhận đăng ký đầu tư cho các tập đoàn, doanh nhân đến từ Nhật Bản, Hàn Quốc, Mỹ, Singapore, Đức...
               </p>
               <p>
-                Đồng thời đại diện tranh tụng tại Tòa án và Trọng tài thương mại; tư vấn và thẩm định hợp đồng mua bán doanh nghiệp, sáp nhập, chuyển nhượng vốn, xử lý tranh chấp đất đai, nhà ở, thừa kế và hôn nhân gia đình.
+                Đồng thời, chúng tôi trực tiếp đại diện tranh tụng tại Tòa án các cấp và Trọng tài thương mại quốc tế (VIAC); tư vấn và thẩm định pháp lý hợp đồng mua bán doanh nghiệp (M&amp;A), cơ cấu nguồn vốn, giải quyết dứt điểm các tranh chấp phức tạp về đất đai, nhà ở, thừa kế và hôn nhân gia đình.
               </p>
             </div>
           </div>
@@ -281,7 +281,7 @@ export default function Home() {
           <div>
             <div className="text-center mb-10 w-full flex flex-col items-center justify-center">
               <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
-                Tại Sao Lại Chọn Chúng Tôi
+                Tôn Chỉ Hoạt Động &amp; Năng Lực Vượt Trội
               </h2>
               <div className="text-accent flex items-center justify-center mt-1">
                 <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
@@ -290,28 +290,28 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
                 {
-                  title: "1. Đội ngũ luật sư vững chuyên môn",
-                  desc: "Đội ngũ Luật sư của DucTin & Partners năng động, giàu kinh nghiệm, vững chuyên môn, am hiểu về công nghệ, tận tâm và luôn tuân thủ pháp luật, đạo đức nghề nghiệp."
+                  title: "1. Đội ngũ Luật sư chuyên sâu & giàu kinh nghiệm",
+                  desc: "Đội ngũ Luật sư của DucTin & Partners năng động, sắc bén trong tranh tụng, vững chuyên môn nghiệp vụ, tiên phong ứng dụng công nghệ pháp lý và tuân thủ nghiêm ngặt Quy tắc Đạo đức nghề nghiệp."
                 },
                 {
-                  title: "2. Giải quyết vấn đề triệt để",
-                  desc: "Giúp giải quyết vấn đề của khách hàng nhanh chóng, hiệu quả với chi phí hợp lý. \"Chất lượng dịch vụ là Danh dự của Luật sư\"."
+                  title: "2. Giải pháp pháp lý toàn diện & dứt điểm",
+                  desc: "Trực tiếp tháo gỡ các nút thắt pháp lý của thân chủ nhanh chóng, triệt để với lộ trình tối ưu chi phí. \"Chất lượng dịch vụ là Danh dự của Luật sư\"."
                 },
                 {
-                  title: "3. Đảm bảo bí mật tuyệt đối",
-                  desc: "Giữ bí mật tuyệt đối thông tin, tài liệu của khách hàng. Chúng tôi cam kết bảo vệ quyền lợi tối đa cho bạn."
+                  title: "3. Bảo mật thông tin thân chủ tuyệt đối",
+                  desc: "Tuân thủ chặt chẽ nghĩa vụ giữ bí mật nghề nghiệp theo Điều 25 Luật Luật sư. Toàn bộ hồ sơ, thông tin vụ việc của thân chủ được bảo hộ an toàn tuyệt đối."
                 },
                 {
-                  title: "4. Tư vấn chính xác",
-                  desc: "Nhận định, đánh giá đúng bản chất vấn đề, đưa ra giải pháp toàn diện và tối ưu nhất cho từng trường hợp cụ thể."
+                  title: "4. Đánh giá đúng bản chất & tính khả thi",
+                  desc: "Phân tích khách quan các rủi ro pháp lý, cung cấp phương án hành động có tính khả thi cao nhất, không cam kết khống hoặc gây ngộ nhận cho thân chủ."
                 },
                 {
-                  title: "5. Chi phí hợp lý",
-                  desc: "Cung cấp dịch vụ pháp lý với mức chi phí hợp lý, rõ ràng và minh bạch, phù hợp với tính chất của từng vụ việc."
+                  title: "5. Chi phí minh bạch theo hợp đồng dịch vụ pháp lý",
+                  desc: "Mọi khoản thù lao và chi phí tố tụng đều được thỏa thuận rõ ràng, minh bạch trong Hợp đồng dịch vụ pháp lý, phù hợp với tính chất phức tạp của từng vụ việc."
                 },
                 {
-                  title: "6. Tận tâm, chuyên nghiệp",
-                  desc: "Luôn đặt quyền lợi của khách hàng lên hàng đầu, chăm sóc và hỗ trợ tận tâm trong mọi giai đoạn của vụ việc."
+                  title: "6. Tận tâm đồng hành bảo vệ thân chủ",
+                  desc: "Luôn đặt quyền và lợi ích hợp pháp của thân chủ lên hàng đầu, chủ động cập nhật tiến độ giải quyết và sát cánh cùng thân chủ trong mọi giai đoạn tố tụng."
                 }
               ].map((item, idx) => (
                 <div key={idx} className="bg-surface-main p-4 border border-border-neutral rounded-lg shadow-sm hover:shadow-md transition-shadow">
