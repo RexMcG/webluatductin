@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 export interface MindmapBranch {
   name: string;
@@ -150,6 +150,24 @@ export function extractMindmapAndCleanText(rawText: string): {
 export default function MindmapVisual({ rawText }: { rawText: string }) {
   const [isOpen, setIsOpen] = useState(true);
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleBranchMouseEnter = (idx: number) => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
+    setHoveredIdx(idx);
+  };
+
+  const handleBranchMouseLeave = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    hoverTimeoutRef.current = setTimeout(() => {
+      setHoveredIdx(null);
+    }, 150);
+  };
 
   const { data } = extractMindmapAndCleanText(rawText);
 
@@ -160,10 +178,10 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
   const leftBranches = data.branches.slice(0, half);
   const rightBranches = data.branches.slice(half);
 
-  // Balanced responsive canvas coordinates (Zero overflow on 14-inch screens)
+  // Balanced responsive canvas coordinates with ample headroom for hover popups above nodes
   const maxSide = Math.max(leftBranches.length, rightBranches.length);
-  const rowSpacing = maxSide >= 4 ? 88 : 102;
-  const canvasH = Math.max(360, (maxSide - 1) * rowSpacing + 160);
+  const rowSpacing = maxSide >= 4 ? 92 : 108;
+  const canvasH = Math.max(440, (maxSide - 1) * rowSpacing + 260);
   const canvasW = 960;
 
   const cx = canvasW / 2; // 480
@@ -354,8 +372,8 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                   >
                     <div
                       className="w-full h-full flex items-center justify-center p-0.5 relative group"
-                      onMouseEnter={() => setHoveredIdx(bIdx)}
-                      onMouseLeave={() => setHoveredIdx(null)}
+                      onMouseEnter={() => handleBranchMouseEnter(bIdx)}
+                      onMouseLeave={handleBranchMouseLeave}
                     >
                       {/* Main Clickable Branch Button */}
                       <button
@@ -411,8 +429,8 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                   >
                     <div
                       className="w-full h-full flex items-center justify-center p-0.5 relative group"
-                      onMouseEnter={() => setHoveredIdx(globalIdx)}
-                      onMouseLeave={() => setHoveredIdx(null)}
+                      onMouseEnter={() => handleBranchMouseEnter(globalIdx)}
+                      onMouseLeave={handleBranchMouseLeave}
                     >
                       {/* Main Clickable Branch Button */}
                       <button
@@ -457,24 +475,38 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
               const sideIdx = isRight ? hoveredIdx - half : hoveredIdx;
               const totalOnSide = isRight ? rightBranches.length : leftBranches.length;
               const branchY = getBranchY(sideIdx, totalOnSide);
-              const topPercent = (branchY / canvasH) * 100;
+              const branchTopY = branchY - branchBoxH / 2;
+              const branchTopPercent = (branchTopY / canvasH) * 100;
+              const bottomOffsetPercent = 100 - branchTopPercent;
               const itemNumber = hoveredIdx + 1;
               const cleanTitle = getCleanTitle(b.name);
 
               return (
                 <div
-                  className={`absolute z-40 w-72 sm:w-80 p-3.5 sm:p-4 bg-white text-slate-900 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.28)] text-xs leading-relaxed animate-fadeIn border-2 border-slate-300 pointer-events-auto transition-all cursor-pointer ${
-                    isRight ? "right-2 sm:right-8" : "left-2 sm:left-8"
+                  className={`absolute z-40 w-72 sm:w-80 p-3 sm:p-3.5 bg-white text-slate-900 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.28)] text-xs leading-relaxed animate-fadeIn border-2 border-slate-300 pointer-events-auto transition-all cursor-pointer ${
+                    isRight ? "right-2 sm:right-6" : "left-2 sm:left-6"
                   }`}
                   style={{
-                    top: `clamp(12px, calc(${topPercent}% - 60px), calc(100% - 220px))`
+                    bottom: `calc(${bottomOffsetPercent}% + 14px)`
                   }}
-                  onMouseEnter={() => setHoveredIdx(hoveredIdx)}
-                  onMouseLeave={() => setHoveredIdx(null)}
+                  onMouseEnter={() => {
+                    if (hoverTimeoutRef.current) {
+                      clearTimeout(hoverTimeoutRef.current);
+                      hoverTimeoutRef.current = null;
+                    }
+                  }}
+                  onMouseLeave={handleBranchMouseLeave}
                   onClick={() => handleJumpToSection(b, hoveredIdx)}
                 >
+                  {/* Downward Pointer Arrow pointing directly to the hovered branch node */}
+                  <div
+                    className={`absolute -bottom-2 ${
+                      isRight ? "right-14 sm:right-16" : "left-14 sm:left-16"
+                    } w-0 h-0 border-x-8 border-x-transparent border-t-8 border-t-white drop-shadow-xs pointer-events-none`}
+                  />
+
                   {/* Tooltip Title Header */}
-                  <div className="font-extrabold text-[#641D06] mb-2.5 flex items-center justify-between gap-1 border-b border-slate-200 pb-1.5">
+                  <div className="font-extrabold text-[#641D06] mb-2 flex items-center justify-between gap-1 border-b border-slate-200 pb-1.5">
                     <div className="flex items-center gap-1.5 min-w-0">
                       <span className="w-5 h-5 rounded-full bg-[#641D06] text-white font-black text-[10px] flex items-center justify-center shrink-0 shadow-xs">
                         {itemNumber}
@@ -490,7 +522,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
 
                   {/* Tooltip Bullet Content */}
                   {b.subItems && b.subItems.length > 0 ? (
-                    <ul className="space-y-1.5 max-h-48 overflow-y-auto no-scrollbar">
+                    <ul className="space-y-1.5 max-h-40 overflow-y-auto no-scrollbar">
                       {b.subItems.map((item, sIdx) => (
                         <li
                           key={sIdx}
