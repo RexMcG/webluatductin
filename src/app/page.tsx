@@ -154,8 +154,8 @@ export default function Home() {
               <span className="text-primary drop-shadow-sm">Công Ty Luật Đức Tín &amp; Cộng Sự</span><br className="hidden sm:inline" />{" "}
               <span className="text-accent drop-shadow-sm text-2xl sm:text-4xl md:text-5xl block mt-1">Hãng Luật Hàng Đầu TP.HCM</span>
             </h1>
-            <p className="font-body-md text-base md:text-xl text-primary font-semibold max-w-3xl leading-relaxed">
-              Sáng lập và trực tiếp điều hành bởi <strong>Luật sư Phan Đức Tín</strong> cùng đội ngũ Luật sư cộng sự chuyên sâu, ứng dụng công nghệ Trợ lý AI Pháp lý tiên phong nhằm bảo vệ tối đa quyền và lợi ích hợp pháp của thân chủ và doanh nghiệp.
+            <p className="font-body-md text-base md:text-xl text-primary font-semibold max-w-2xl leading-relaxed">
+              Điểm tựa pháp lý vững chắc — Bảo vệ tối đa quyền và lợi ích hợp pháp của thân chủ.
             </p>
 
             {/* Smart Navigation Search Bar */}
