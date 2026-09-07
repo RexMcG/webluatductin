@@ -25,12 +25,12 @@ export default function Footer() {
       <div className="hidden md:flex fixed bottom-6 left-6 z-50 flex-col gap-3.5">
         {/* Call Hotline Bubble */}
         <a
-          className="bg-[#22c55e] hover:bg-[#16a34a] text-white rounded-full h-14 w-14 lg:h-16 lg:w-16 border-2 border-white shadow-[0_0_20px_rgba(34,197,94,0.6)] hover:scale-110 active:scale-95 transition-transform flex items-center justify-center relative group cursor-pointer"
+          className="bg-gradient-to-br from-emerald-500 to-emerald-700 text-white rounded-full h-14 w-14 lg:h-16 lg:w-16 border-2 border-white shadow-[0_0_15px_rgba(16,185,129,0.5)] hover:scale-110 active:scale-95 transition-transform flex items-center justify-center relative group cursor-pointer"
           href="tel:0937863263"
           aria-label="Gọi ngay Hotline tư vấn pháp luật"
         >
           <span className="material-symbols-outlined text-2xl lg:text-3xl">call</span>
-          <span className="absolute left-full ml-3 bg-[#16a34a] text-white text-xs lg:text-sm font-bold whitespace-nowrap px-3 py-1.5 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg pointer-events-none">
+          <span className="absolute left-full ml-3 bg-emerald-700 text-white text-xs lg:text-sm font-bold whitespace-nowrap px-3 py-1.5 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg pointer-events-none">
             Hotline: 093 786 32 63
           </span>
         </a>
@@ -73,10 +73,10 @@ export default function Footer() {
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-amber-200/70 shadow-[0_-4px_25px_rgba(0,0,0,0.12)] px-2 py-2 flex items-center justify-around">
         <a 
           href="tel:0937863263" 
-          className="flex flex-col items-center gap-1 text-[#16a34a] active:scale-95 transition-transform py-1 px-2"
+          className="flex flex-col items-center gap-1 text-emerald-700 active:scale-95 transition-transform py-1 px-2"
           aria-label="Gọi điện Hotline"
         >
-          <div className="w-10 h-10 rounded-full bg-[#22c55e] text-white flex items-center justify-center shadow-md">
+          <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shadow-xs">
             <span className="material-symbols-outlined text-xl">call</span>
           </div>
           <span className="text-[11px] font-bold text-slate-800">Gọi Hotline</span>
@@ -184,7 +184,7 @@ export default function Footer() {
                 </a>
                 <a
                   href="tel:0937863263"
-                  className="w-8 h-8 rounded-full bg-[#22c55e] hover:bg-[#16a34a] text-white flex items-center justify-center transition-colors shadow-xs"
+                  className="w-8 h-8 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center transition-colors shadow-2xs"
                   title="Hotline 24/7"
                 >
                   <span className="material-symbols-outlined text-base">call</span>
@@ -227,12 +227,11 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* CỘT 3: TIỆN ÍCH & TRỢ LÝ AI (2.5 cols) */}
-            <div className="md:col-span-2 lg:col-span-3">
-              <h4 className="text-[#C0963B] font-bold text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#C0963B]"></span>
-                Tiện Ích &amp; AI
-              </h4>
+            {/* CỘT 3: TÍNH NĂNG & TIỆN ÍCH AI (2.5 cols) */}
+            <div className="lg:col-span-2 flex flex-col gap-2">
+              <p className="text-xs md:text-sm font-extrabold uppercase tracking-wider text-amber-300 pb-1.5 border-b border-amber-500/30">
+                Tính Năng &amp; AI
+              </p>
               <div className="flex flex-col gap-1.5 text-xs md:text-[13px]">
                 <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/court-fee-calculator">
                   Tính án phí tòa án
@@ -316,7 +315,7 @@ export default function Footer() {
           {/* Bottom Area: 1-line Disclaimer + Copyright Row (1 Privacy Link Only) */}
           <div className="mt-6 pt-3 border-t border-white/10 flex flex-col gap-2 text-slate-300/90 text-[11px]">
             <p className="leading-relaxed text-center sm:text-left">
-              <strong className="text-amber-300 font-medium">⚖️ Miễn trừ trách nhiệm:</strong> Toàn bộ thông tin, bài viết và tiện ích tra cứu, tính toán trên website mang tính chất tham khảo kiến thức pháp luật, không cấu thành ý kiến tư vấn pháp lý chính thức cho đến khi hợp đồng dịch vụ được ký kết bằng văn bản theo luật định.
+              <strong className="text-amber-300 font-medium">⚖️ Miễn trừ trách nhiệm:</strong> Toàn bộ thông tin, bài viết và tính năng tính toán trên website mang tính chất tham khảo kiến thức pháp luật, không cấu thành ý kiến tư vấn pháp lý chính thức cho đến khi hợp đồng dịch vụ được ký kết bằng văn bản theo luật định.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-2 border-t border-white/5 text-xs text-slate-400">
               <p>© 2026 CÔNG TY LUẬT TNHH ĐỨC TÍN VÀ CỘNG SỰ (DUC TIN &amp; PARTNERS). All Rights Reserved.</p>
