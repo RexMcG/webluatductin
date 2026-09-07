@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { newsService, NewsArticle } from '@/services/news.service';
 import Link from 'next/link';
+import DOMPurify from 'isomorphic-dompurify';
 
 export default function NewsPage() {
   const { data: newsList, isLoading, error } = useQuery({
@@ -66,7 +67,7 @@ export default function NewsPage() {
                 </h3>
                 <div 
                   className="text-text-secondary line-clamp-3 text-sm flex-grow"
-                  dangerouslySetInnerHTML={{ __html: news.content }}
+                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(news.content || '') }}
                 />
                 <div className="mt-4 text-primary text-sm font-semibold flex items-center gap-1 group-hover:text-accent transition-colors">
                   Đọc tiếp <span className="material-symbols-outlined text-sm">arrow_forward</span>

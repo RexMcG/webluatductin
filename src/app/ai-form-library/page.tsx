@@ -246,11 +246,11 @@ export default function AIFormLibrary() {
     }
 
     const cleanPhone = leadForm.phone.replace(/[\s.-]/g, "");
-    const phoneRegex = /^(0|\+84)[0-9]{9,10}$/;
+    const phoneRegex = /^(0|\+84)(3|5|7|8|9)[0-9]{8}$/;
     if (!cleanPhone) {
       errors.phone = "Vui lòng nhập số điện thoại để nhận file.";
     } else if (!phoneRegex.test(cleanPhone)) {
-      errors.phone = "Số điện thoại không hợp lệ (gồm 10 chữ số, ví dụ: 0912345678).";
+      errors.phone = "Số điện thoại không hợp lệ (10 chữ số, ví dụ: 0912345678).";
     }
 
     setFormErrors(errors);

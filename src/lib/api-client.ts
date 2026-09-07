@@ -18,10 +18,32 @@ export const apiClient = axios.create({
   },
 });
 
+// Request Interceptor: Auto-attach Bearer token for admin routes
+apiClient.interceptors.request.use(
+  (config) => {
+    if (typeof window !== 'undefined') {
+      const token =
+        sessionStorage.getItem('ductin_admin_token') ||
+        localStorage.getItem('ductin_admin_token');
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 apiClient.interceptors.response.use(
   (response) => response.data,
   (error) => {
-    // Global error handler for API responses
+    // If 401 Unauthorized on admin page, clear invalid token
+    if (typeof window !== 'undefined' && error.response?.status === 401) {
+      if (window.location.pathname.startsWith('/admin')) {
+        sessionStorage.removeItem('ductin_admin_token');
+        localStorage.removeItem('ductin_admin_token');
+      }
+    }
     console.error('API Error:', error.response?.data || error.message);
     return Promise.reject(error.response?.data || error);
   }

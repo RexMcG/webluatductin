@@ -7,6 +7,7 @@ import MindmapVisual from "@/components/common/MindmapVisual";
 import FlowchartVisual from "@/components/common/FlowchartVisual";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import DOMPurify from "isomorphic-dompurify";
 
 export default function NewsDetailPage() {
   const params = useParams();
@@ -476,10 +477,10 @@ export default function NewsDetailPage() {
                   </div>
 
                   {/* Section Full Body Content */}
-                  <div
-                    className="prose prose-slate max-w-none text-slate-800 leading-relaxed text-sm md:text-base prose-p:my-3 prose-p:leading-relaxed prose-ul:my-3 prose-li:my-1.5 prose-strong:text-slate-900"
-                    dangerouslySetInnerHTML={{ __html: section.content }}
-                  />
+                    <div
+                      className="prose prose-slate max-w-none text-slate-800 leading-relaxed text-sm md:text-base prose-p:my-3 prose-p:leading-relaxed prose-ul:my-3 prose-li:my-1.5 prose-strong:text-slate-900"
+                      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(section.content || '') }}
+                    />
                 </section>
               ))}
             </div>
@@ -840,7 +841,7 @@ export default function NewsDetailPage() {
                     <div className="pl-8 sm:pl-9 mt-3 text-slate-800 text-base md:text-[17px] leading-relaxed">
                       <div
                         className="prose prose-slate max-w-none prose-p:my-3 prose-ul:my-3 prose-li:my-1 prose-strong:text-slate-900"
-                        dangerouslySetInnerHTML={{ __html: section.content }}
+                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(section.content || '') }}
                       />
                     </div>
                   )}
@@ -893,7 +894,7 @@ export default function NewsDetailPage() {
                     <div className="px-5 md:px-6 pb-6 pt-2 border-t border-slate-100 text-slate-800 leading-relaxed text-base">
                       <div
                         className="prose prose-slate max-w-none prose-p:my-3 prose-headings:font-bold prose-headings:text-slate-900 prose-ul:my-3 prose-li:my-1"
-                        dangerouslySetInnerHTML={{ __html: section.content }}
+                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(section.content || '') }}
                       />
                     </div>
                   )}
@@ -905,7 +906,7 @@ export default function NewsDetailPage() {
       ) : (
         <div
           className="prose prose-lg max-w-none text-slate-800 leading-relaxed mb-12"
-          dangerouslySetInnerHTML={{ __html: newsItem.content }}
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(newsItem.content || '') }}
         />
       )}
 

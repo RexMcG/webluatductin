@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { apiClient } from "@/lib/api-client";
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -17,36 +19,66 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    // Check authentication in sessionStorage/localStorage
-    const authStatus =
-      sessionStorage.getItem("ductin_admin_auth") === "true" ||
-      localStorage.getItem("ductin_admin_auth") === "true";
-    setIsAuthenticated(authStatus);
+    // Check authentication token in sessionStorage/localStorage
+    const token =
+      sessionStorage.getItem("ductin_admin_token") ||
+      localStorage.getItem("ductin_admin_token");
+
+    if (!token) {
+      setIsAuthenticated(false);
+      return;
+    }
+
+    // Verify token with backend
+    apiClient
+      .get("/auth/me")
+      .then(() => {
+        setIsAuthenticated(true);
+      })
+      .catch(() => {
+        sessionStorage.removeItem("ductin_admin_token");
+        localStorage.removeItem("ductin_admin_token");
+        setIsAuthenticated(false);
+      });
   }, []);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setErrorMsg("");
 
-    const trimmedUser = username.trim().toLowerCase();
+    const trimmedUser = username.trim();
     const trimmedPass = password.trim();
 
-    if (trimmedUser === "admin" && trimmedPass === "1234") {
-      sessionStorage.setItem("ductin_admin_auth", "true");
-      localStorage.setItem("ductin_admin_auth", "true");
-      setIsAuthenticated(true);
-      setErrorMsg("");
-    } else {
-      setErrorMsg("Tên đăng nhập hoặc mật khẩu không chính xác. Vui lòng kiểm tra lại!");
+    try {
+      const res: any = await apiClient.post("/auth/login", {
+        username: trimmedUser,
+        password: trimmedPass,
+      });
+
+      if (res?.accessToken) {
+        sessionStorage.setItem("ductin_admin_token", res.accessToken);
+        localStorage.setItem("ductin_admin_token", res.accessToken);
+        setIsAuthenticated(true);
+        setErrorMsg("");
+      } else {
+        setErrorMsg("Không nhận được token xác thực. Vui lòng thử lại!");
+      }
+    } catch (err: any) {
+      setErrorMsg(
+        err?.message ||
+        err?.response?.data?.message ||
+        "Tên đăng nhập hoặc mật khẩu không chính xác. Vui lòng thử lại!"
+      );
+    } finally {
+      setIsSubmitting(false);
     }
-    setIsSubmitting(false);
   };
 
   const handleLogout = () => {
     if (confirm("Bạn có chắc chắn muốn đăng xuất khỏi trang quản trị?")) {
-      sessionStorage.removeItem("ductin_admin_auth");
-      localStorage.removeItem("ductin_admin_auth");
+      sessionStorage.removeItem("ductin_admin_token");
+      localStorage.removeItem("ductin_admin_token");
       setIsAuthenticated(false);
       setUsername("");
       setPassword("");
