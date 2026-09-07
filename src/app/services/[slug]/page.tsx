@@ -205,7 +205,7 @@ export default function ServiceDetailPage() {
                   <span className="material-symbols-outlined text-sm">calendar_month</span>
                   Đặt Hẹn Tư Vấn
                 </Link>
-                <a href="tel:0937863263" className="bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-3 rounded-xl font-bold text-sm transition-colors shadow-sm flex items-center gap-2">
+                <a href="tel:0937863263" className="bg-[#22c55e] hover:bg-[#16a34a] text-white px-6 py-3 rounded-xl font-bold text-sm transition-colors shadow-sm flex items-center gap-2">
                   <span className="material-symbols-outlined text-sm">call</span>
                   093 786 32 63
                 </a>
@@ -366,7 +366,7 @@ export default function ServiceDetailPage() {
             </a>
             <a
               href="tel:0937863263"
-              className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold px-8 py-3.5 rounded-xl uppercase text-sm shadow-lg transition-colors flex items-center gap-2"
+              className="bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold px-8 py-3.5 rounded-xl uppercase text-sm shadow-lg transition-colors flex items-center gap-2"
             >
               <span className="material-symbols-outlined">call</span>
               Hotline: 093 786 32 63

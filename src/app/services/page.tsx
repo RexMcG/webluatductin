@@ -125,7 +125,7 @@ export default function ServicesPage() {
           <div className="flex flex-wrap gap-3 shrink-0">
             <a
               href="tel:0937863263"
-              className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold px-6 py-3.5 rounded-xl uppercase text-sm shadow-md transition-colors flex items-center gap-2"
+              className="bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold px-6 py-3.5 rounded-xl uppercase text-sm shadow-md transition-colors flex items-center gap-2"
             >
               <span className="material-symbols-outlined">call</span>
               093 786 32 63

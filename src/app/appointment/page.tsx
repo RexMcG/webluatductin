@@ -336,7 +336,7 @@ export default function AppointmentPage() {
             <div className="flex flex-wrap justify-center gap-4">
               <a
                 href="tel:0937863263"
-                className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3.5 rounded-xl shadow-sm transition-all inline-flex items-center gap-2"
+                className="bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold px-6 py-3.5 rounded-xl shadow-sm transition-all inline-flex items-center gap-2"
               >
                 <span className="material-symbols-outlined text-xl">call</span>
                 Hotline: 093 786 32 63

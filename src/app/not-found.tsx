@@ -65,8 +65,10 @@ export default function NotFound() {
         {/* Hotline Support Note */}
         <div className="mt-10 pt-6 border-t border-slate-100 text-xs text-slate-500 flex items-center justify-center gap-2">
           <span>Cần hỗ trợ gấp?</span>
-          <a href="tel:0937863263" className="text-emerald-700 font-bold hover:underline inline-flex items-center gap-1">
-            <span className="material-symbols-outlined text-sm">call</span>
+          <a href="tel:0937863263" className="text-[#16a34a] font-bold hover:underline inline-flex items-center gap-1.5">
+            <span className="flex h-4.5 w-4.5 items-center justify-center rounded-full bg-[#22c55e] text-white shadow-2xs">
+              <span className="material-symbols-outlined text-xs">call</span>
+            </span>
             Hotline: 093 786 32 63 (Ls. Phan Đức Tín)
           </a>
         </div>

@@ -290,7 +290,7 @@ function AIChatbotContent() {
               <div className="mt-4 pt-3 border-t border-slate-100 space-y-2">
                 <a
                   href="tel:0937863263"
-                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white h-9 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-xs"
+                  className="w-full bg-[#22c55e] hover:bg-[#16a34a] text-white h-9 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-colors shadow-xs"
                 >
                   <span className="material-symbols-outlined text-base">call</span>
                   Hotline: 093 786 32 63
@@ -461,9 +461,13 @@ function AIChatbotContent() {
                             <button
                               key={idx}
                               onClick={() => handleQuickAction(action)}
-                              className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-emerald-50 hover:border-emerald-400 hover:text-emerald-700 text-slate-700 transition-all shadow-2xs cursor-pointer"
+                              className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg transition-all shadow-2xs cursor-pointer ${
+                                action.type === "call"
+                                  ? "bg-[#22c55e] hover:bg-[#16a34a] text-white border border-[#16a34a] shadow-xs"
+                                  : "border border-slate-200 bg-white hover:bg-emerald-50 hover:border-emerald-400 hover:text-emerald-700 text-slate-700"
+                              }`}
                             >
-                              <span className="material-symbols-outlined text-[16px] text-emerald-600">{action.icon}</span>
+                              <span className={`material-symbols-outlined text-[16px] ${action.type === "call" ? "text-white" : "text-emerald-600"}`}>{action.icon}</span>
                               {action.label}
                             </button>
                           ))}

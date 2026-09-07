@@ -124,9 +124,11 @@ export default function Header() {
           <div className="flex items-center gap-2 lg:gap-3 ml-2 lg:ml-3 xl:ml-6 shrink-0 pr-1 sm:pr-2">
             <a
               href="tel:0937863263"
-              className="hidden sm:flex items-center gap-1.5 text-[#641D06] bg-amber-50 hover:bg-amber-100 px-3 lg:px-3.5 xl:px-4 py-2 rounded-full border border-amber-300 transition-colors shrink-0 font-bold text-xs lg:text-[13px] xl:text-sm shadow-2xs whitespace-nowrap"
+              className="hidden sm:flex items-center gap-2 text-white bg-[#22c55e] hover:bg-[#16a34a] px-3.5 lg:px-4 py-1.5 lg:py-2 rounded-full border border-emerald-600/30 transition-all shrink-0 font-bold text-xs lg:text-[13px] xl:text-sm shadow-sm whitespace-nowrap active:scale-95 group"
             >
-              <span className="material-symbols-outlined text-sm lg:text-base text-[#641D06]">call</span>
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-[#16a34a] shadow-xs group-hover:scale-110 transition-transform">
+                <span className="material-symbols-outlined text-[13px] lg:text-[14px]">call</span>
+              </span>
               <span>Hotline: 093 786 32 63</span>
             </a>
 
@@ -221,7 +223,7 @@ export default function Header() {
               </Link>
               <a 
                 href="tel:0937863263" 
-                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center py-3 rounded-xl uppercase text-[14px] font-bold shadow-md flex items-center justify-center gap-2"
+                className="w-full bg-[#22c55e] hover:bg-[#16a34a] text-white text-center py-3 rounded-xl uppercase text-[14px] font-bold shadow-md flex items-center justify-center gap-2"
               >
                 <span className="material-symbols-outlined text-lg">call</span> Hotline: 093 786 32 63
               </a>

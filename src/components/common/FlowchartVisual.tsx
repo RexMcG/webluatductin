@@ -354,10 +354,12 @@ export default function FlowchartVisual({ rawText }: { rawText?: string }) {
               <span className="material-symbols-outlined text-xs text-[#641D06]">gavel</span>
               Công ty Luật TNHH Đức Tín &amp; Cộng sự
             </span>
-            <span className="flex items-center gap-1 font-bold text-[#641D06]">
-              <span className="material-symbols-outlined text-xs">call</span>
+            <a href="tel:0937863263" className="flex items-center gap-1.5 font-bold text-[#16a34a] hover:underline">
+              <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#22c55e] text-white shadow-2xs">
+                <span className="material-symbols-outlined text-[10px]">call</span>
+              </span>
               093 786 32 63 (Ls. Phan Đức Tín)
-            </span>
+            </a>
           </div>
         </div>
       )}
