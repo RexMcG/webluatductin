@@ -56,7 +56,7 @@ export default function PITCalculator() {
       {/* Page Title */}
       <div className="text-center mb-10 max-w-4xl mx-auto">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight uppercase mb-3 leading-tight">
-          Tính Năng Tính Thuế TNCN (PIT)
+          Tính Thuế Thu Nhập Cá Nhân (PIT)
         </h1>
         <div className="text-amber-600 flex items-center justify-center my-3">
           <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
@@ -252,7 +252,7 @@ export default function PITCalculator() {
         {/* ===== RIGHT SIDEBAR ===== */}
         <div className="lg:col-span-1 space-y-6">
           <div className="bg-surface-alt border border-border-neutral p-6 rounded-lg shadow-sm sticky top-24">
-            <h3 className="font-headline-md text-headline-md text-primary mb-6">Tính Năng Liên Quan</h3>
+            <h3 className="font-headline-md text-headline-md text-primary mb-6">Tiện Ích Liên Quan</h3>
             <div className="space-y-4">
               <Link className="flex items-center gap-4 p-4 bg-surface-main border border-border-neutral rounded hover:border-primary transition-colors" href="/salary-calculator">
                 <span className="material-symbols-outlined text-text-secondary">calculate</span>

@@ -298,14 +298,14 @@ export default function FlowchartVisual({ rawText }: { rawText?: string }) {
 
                       {/* HÀNG CÁC Ô BƯỚC PHỤ THẺ TRẮNG */}
                       <div
-                        className={`w-full grid gap-2.5 px-1 items-stretch mt-0.5 ${
+                        className={`w-full grid gap-3 px-1 items-stretch mt-0.5 ${
                           subCount === 1
                             ? "grid-cols-1 max-w-md"
                             : subCount === 2
-                            ? "grid-cols-1 sm:grid-cols-2 max-w-xl"
+                            ? "grid-cols-1 sm:grid-cols-2 max-w-2xl"
                             : subCount === 3
-                            ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-w-3xl"
-                            : "grid-cols-1 sm:grid-cols-2 md:grid-cols-4 max-w-4xl"
+                            ? "grid-cols-1 sm:grid-cols-3 max-w-3xl"
+                            : "grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 max-w-4xl"
                         }`}
                       >
                         {phaseRow.subSteps.map((sub, sIdx) => (
@@ -314,7 +314,7 @@ export default function FlowchartVisual({ rawText }: { rawText?: string }) {
                             <div className={`w-0.5 h-2.5 ${phaseRow.theme.lineColor}`} />
 
                             <div
-                              className={`w-full p-3 rounded-xl bg-white border border-slate-200 ${phaseRow.theme.hoverBorder} hover:shadow-xs transition-all flex flex-col justify-between`}
+                              className={`w-full min-h-[76px] p-3 rounded-xl bg-white border border-slate-200 ${phaseRow.theme.hoverBorder} hover:shadow-xs transition-all flex flex-col justify-between`}
                             >
                               <span
                                 className={`text-[9.5px] font-extrabold uppercase tracking-wider px-1.5 py-0.5 rounded inline-block mb-1.5 self-start ${phaseRow.theme.tagBg}`}

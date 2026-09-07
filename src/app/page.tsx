@@ -36,7 +36,7 @@ export default function Home() {
   }, []);
 
   const SEARCH_NAV_ROUTES = [
-    { keywords: ["lương", "tính lương", "gross", "net", "lương gross", "lương net", "thu nhập"], title: "Tính Lương Gross-to-Net", href: "/salary-calculator", icon: "payments", desc: "Tính năng chuyển đổi lương Gross sang Net & bảo hiểm" },
+    { keywords: ["lương", "tính lương", "gross", "net", "lương gross", "lương net", "thu nhập"], title: "Tính Lương Gross-to-Net", href: "/salary-calculator", icon: "payments", desc: "Chuyển đổi lương Gross sang Net & bảo hiểm chuẩn xác" },
     { keywords: ["thuế", "thuế tncn", "tính thuế", "thuế thu nhập cá nhân", "giảm trừ gia cảnh"], title: "Tính Thuế TNCN Khấu Trừ", href: "/pit-calculator", icon: "account_balance", desc: "Tính chính xác mức thuế TNCN phải nộp & giảm trừ" },
     { keywords: ["án phí", "tính án phí", "lệ phí tòa", "tòa án", "án phí dân sự", "án phí đất đai"], title: "Tính Án Phí Tòa Án", href: "/court-fee-calculator", icon: "calculate", desc: "Tra cứu & tính án phí sơ thẩm, phúc thẩm nhanh chóng" },
     { keywords: ["hợp đồng", "thẩm định", "soát hợp đồng", "check hợp đồng", "rủi ro hợp đồng"], title: "Tư Vấn Hợp Đồng Với Luật Sư AI", href: "/ai-chatbot", icon: "smart_toy", desc: "Hỏi Luật sư AI để rà soát rủi ro pháp lý hợp đồng" },
@@ -188,7 +188,7 @@ export default function Home() {
                 <div className="absolute left-0 right-0 top-full mt-2 bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl border border-slate-200 overflow-hidden text-left p-2 max-h-[380px] overflow-y-auto animate-fadeIn z-50">
                   <div className="px-4 py-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
                     {matchingSuggestions.length > 0
-                      ? `Tìm thấy ${matchingSuggestions.length} tính năng & dịch vụ phù hợp:`
+                      ? `Tìm thấy ${matchingSuggestions.length} tiện ích & dịch vụ phù hợp:`
                       : "Trợ lý AI sẵn sàng hỗ trợ:"}
                   </div>
                   {matchingSuggestions.length > 0 ? (
@@ -447,7 +447,7 @@ export default function Home() {
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
           <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
-              Tính Năng
+              Tiện Ích Pháp Lý
             </h2>
             <div className="text-amber-800 flex items-center justify-center mt-1">
               <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
@@ -476,7 +476,7 @@ export default function Home() {
                   Tính Lương Gross-to-Net
                 </h3>
                 <p className="font-body-md text-text-secondary leading-relaxed mb-8 flex-grow text-sm sm:text-base">
-                  Tính năng tính lương, BHXH, BHYT và các khoản trích theo lương chuẩn xác theo quy định pháp luật 2026.
+                  Chuyển đổi lương Gross-to-Net, tính BHXH, BHYT và các khoản trích theo lương chuẩn xác theo quy định pháp luật 2026.
                 </p>
                 <div className="mt-auto">
                   <Link href="/salary-calculator" aria-label="Tính Lương Gross-to-Net" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3.5 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">

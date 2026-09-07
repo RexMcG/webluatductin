@@ -236,7 +236,7 @@ export default function AIFormChecker() {
               <div className="h-full flex flex-col items-center justify-center text-center opacity-70 page-fade-in">
                 <span className="material-symbols-outlined text-6xl text-text-secondary mb-4">school</span>
                 <h3 className="font-headline-md text-primary mb-2">Chưa có hướng dẫn</h3>
-                <p className="font-body-md text-sm">Tính năng hướng dẫn điền đang được phát triển thêm cho loại đơn này.</p>
+                <p className="font-body-md text-sm">Hướng dẫn điền mẫu đang được cập nhật thêm cho loại văn bản này.</p>
               </div>
             )}
           </div>

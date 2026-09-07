@@ -239,10 +239,10 @@ export default function NewsDetailPage() {
         <div className="flex flex-col lg:flex-row gap-4 xl:gap-6 2xl:gap-8 items-start w-full">
           
           {/* =========================================================
-              LEFT COLUMN (COMPACT ON 14-INCH: 190px - 230px): WORD NAVIGATION PANE
+              LEFT COLUMN (COMPACT ON 14-INCH: 190px - 230px): WORD NAVIGATION PANE (HOLD CỐ ĐỊNH 1 CHỖ)
              ========================================================= */}
-          <aside className="hidden lg:block lg:w-[190px] xl:w-[220px] 2xl:w-[250px] shrink-0 sticky top-24 z-20">
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col max-h-[calc(100vh-120px)]">
+          <aside className="hidden lg:block lg:w-[190px] xl:w-[220px] 2xl:w-[250px] shrink-0 self-start z-10">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
               {/* Word Navigation Top Title Bar */}
               <div className="px-3 py-2 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
@@ -361,15 +361,69 @@ export default function NewsDetailPage() {
                   <div className="text-slate-500 text-[11px] lowercase">Đoàn Luật sư TP. Hồ Chí Minh</div>
                 </div>
               </div>
-              <div className="flex items-center gap-4 text-slate-500 text-[11px] md:text-xs">
+              <div className="flex items-center gap-3 text-slate-500 text-[11px] md:text-xs">
                 <span className="flex items-center gap-1">
                   <span className="material-symbols-outlined text-sm">calendar_today</span>
                   {new Date(newsItem.publishedAt || Date.now()).toLocaleDateString("vi-VN")}
                 </span>
-                <span className="flex items-center gap-1">
-                  <span className="material-symbols-outlined text-sm">format_list_bulleted</span>
-                  {sections.length} Giai đoạn
-                </span>
+
+                {/* Interactive Stages Hover Pill & Popup */}
+                <div className="relative group/stages inline-block">
+                  <button
+                    type="button"
+                    className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 hover:bg-amber-100 text-[#641D06] font-bold text-[11px] md:text-xs border border-amber-300 shadow-2xs transition-all cursor-pointer"
+                  >
+                    <span className="material-symbols-outlined text-sm text-[#641D06]">format_list_bulleted</span>
+                    <span>{sections.length} Giai đoạn</span>
+                    <span className="material-symbols-outlined text-xs text-amber-700 transition-transform duration-200 group-hover/stages:rotate-180">expand_more</span>
+                  </button>
+
+                  {/* Hover Popup: Danh sách chi tiết các Giai đoạn */}
+                  <div className="absolute left-0 sm:left-auto sm:right-0 top-full mt-2 w-[290px] sm:w-[350px] bg-white rounded-2xl shadow-2xl border-2 border-amber-400 p-3.5 z-50 opacity-0 invisible group-hover/stages:opacity-100 group-hover/stages:visible transition-all duration-200 pointer-events-auto">
+                    <div className="flex items-center justify-between border-b border-amber-100 pb-2 mb-2.5">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-base">📊</span>
+                        <span className="font-extrabold text-[#641D06] text-xs uppercase tracking-wide">
+                          Quy trình {sections.length} Giai đoạn
+                        </span>
+                      </div>
+                      <span className="text-[10px] font-semibold text-slate-500">Nhấp để xem ↓</span>
+                    </div>
+
+                    <div className="space-y-1.5 max-h-[300px] overflow-y-auto pr-1">
+                      {sections.map((sec: any, sIdx: number) => (
+                        <button
+                          key={sec.id || sIdx}
+                          type="button"
+                          onClick={() => scrollToHeading(sec.id)}
+                          className="w-full text-left p-2 rounded-xl bg-slate-50 hover:bg-amber-50 border border-slate-200/80 hover:border-amber-300 transition-all flex items-start gap-2.5 cursor-pointer group/item"
+                        >
+                          <span className="w-5 h-5 rounded-md bg-[#641D06] text-amber-300 font-black text-[10.5px] flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                            {sec.number || sIdx + 1}
+                          </span>
+                          <div className="flex-1 min-w-0">
+                            <h6 className="text-xs font-bold text-slate-900 group-hover/item:text-[#641D06] leading-snug line-clamp-2">
+                              {sec.title}
+                            </h6>
+                            {sec.summary && (
+                              <p className="text-[11px] text-slate-500 line-clamp-1 mt-0.5">
+                                {sec.summary}
+                              </p>
+                            )}
+                          </div>
+                          <span className="material-symbols-outlined text-xs text-slate-400 group-hover/item:text-[#641D06] shrink-0 mt-1">
+                            arrow_forward
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+
+                    <div className="mt-2.5 pt-2 border-t border-slate-100 text-[10px] text-slate-500 flex items-center justify-between">
+                      <span>💡 Rà soát bởi Ls. Phan Đức Tín</span>
+                      <span className="font-bold text-[#641D06]">Luật Đức Tín</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -499,9 +553,9 @@ export default function NewsDetailPage() {
           </main>
 
           {/* =========================================================
-              RIGHT COLUMN: ATTORNEY CARD & RECOMMENDED ARTICLES (COMPACT 210px ON LAPTOPS)
+              RIGHT COLUMN: ATTORNEY CARD & RECOMMENDED ARTICLES (HOLD CỐ ĐỊNH 1 CHỖ)
              ========================================================= */}
-          <aside className="w-full lg:w-[210px] xl:w-[240px] 2xl:w-[270px] shrink-0 lg:sticky lg:top-24 z-20 space-y-3.5 xl:space-y-5">
+          <aside className="w-full lg:w-[210px] xl:w-[240px] 2xl:w-[270px] shrink-0 self-start z-10 space-y-3.5 xl:space-y-5">
             
             {/* Direct Lawyer Support Card */}
             <div className="bg-gradient-to-br from-[#641D06] to-[#381104] text-white rounded-2xl p-4 shadow-md text-center">

@@ -175,12 +175,12 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
   const centerR = cx + centerBoxW / 2; // 575
 
   // Well-proportioned branch button sizes
-  const branchBoxW = 205;
-  const branchBoxH = 64;
+  const branchBoxW = 215;
+  const branchBoxH = 66;
 
-  // X Coordinates nicely inset from canvas edges (35px safe margin)
-  const leftBranchX = 135; // [32.5 to 237.5]
-  const rightBranchX = 825; // [722.5 to 927.5]
+  // X Coordinates nicely inset from canvas edges (30px safe margin)
+  const leftBranchX = 138;
+  const rightBranchX = 822;
 
   // Helper to compute Y coordinate for each branch
   const getBranchY = (bIdx: number, totalOnSide: number) => {
@@ -374,10 +374,10 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                       >
                         {/* Number Badge [1], [2] */}
                         <div className="flex items-center gap-1.5 flex-1 min-w-0">
-                          <span className="w-5 h-5 rounded-full bg-amber-400 text-slate-950 font-black text-[11px] flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
+                          <span className="w-5 h-5 rounded-full bg-amber-400 text-slate-950 font-black text-[10px] flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
                             {itemNumber}
                           </span>
-                          <span className="font-extrabold leading-tight line-clamp-2">
+                          <span className="font-extrabold leading-tight line-clamp-2 text-[11px] tracking-tight">
                             {cleanTitle}
                           </span>
                         </div>
@@ -387,55 +387,6 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                           ⓘ
                         </span>
                       </button>
-
-                      {/* Tooltip Popup (Anchored cleanly) */}
-                      {isHovered && (
-                        <div
-                          className="absolute left-0 sm:left-1/2 sm:-translate-x-1/2 bottom-full mb-3 w-72 sm:w-80 p-3.5 sm:p-4 bg-white text-slate-900 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.25)] z-50 text-xs leading-relaxed animate-fadeIn border-2 border-slate-300 pointer-events-auto"
-                          onClick={() => handleJumpToSection(b, bIdx)}
-                        >
-                          {/* Tooltip Title Header */}
-                          <div className="font-extrabold text-[#641D06] mb-2.5 flex items-center justify-between gap-1 border-b border-slate-200 pb-1.5">
-                            <div className="flex items-center gap-1.5">
-                              <span className="w-5 h-5 rounded-full bg-[#641D06] text-white font-black text-[11px] flex items-center justify-center shrink-0 shadow-xs">
-                                {itemNumber}
-                              </span>
-                              <span className="text-xs sm:text-sm font-black tracking-tight text-[#641D06]">
-                                {cleanTitle}
-                              </span>
-                            </div>
-                            <span className="text-[10px] text-white font-bold bg-[#641D06] hover:bg-[#842A16] px-2 py-0.5 rounded-lg shadow-xs shrink-0 transition-colors">
-                              Click nhảy tới mục ↓
-                            </span>
-                          </div>
-
-                          {/* Tooltip Bullet Content */}
-                          {b.subItems && b.subItems.length > 0 ? (
-                            <ul className="space-y-1.5">
-                              {b.subItems.map((item, sIdx) => (
-                                <li
-                                  key={sIdx}
-                                  className="flex items-start gap-2 bg-[#f1f5f9] hover:bg-[#e2e8f0] text-slate-900 p-2 rounded-lg border border-slate-200/90 shadow-2xs transition-colors text-[11.5px]"
-                                >
-                                  <span className="w-4 h-4 rounded-full bg-[#1D3540] text-white font-black text-[10px] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
-                                    {sIdx + 1}
-                                  </span>
-                                  <span className="font-bold text-slate-800 leading-snug">
-                                    {item}
-                                  </span>
-                                </li>
-                              ))}
-                            </ul>
-                          ) : (
-                            <div className="bg-[#f1f5f9] text-slate-800 p-2.5 rounded-lg border border-slate-200/90 text-xs font-medium">
-                              Nhấp chuột để tự động cuộn xuống xem toàn văn điều khoản pháp lý chi tiết trong bài viết.
-                            </div>
-                          )}
-
-                          {/* Down Triangle Arrow Pointer */}
-                          <div className="absolute top-full left-6 sm:left-1/2 sm:-translate-x-1/2 border-[7px] border-transparent border-t-white"></div>
-                        </div>
-                      )}
                     </div>
                   </foreignObject>
                 );
@@ -485,68 +436,92 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
 
                         {/* Number Badge [3], [4] */}
                         <div className="flex items-center justify-end gap-1.5 flex-1 min-w-0">
-                          <span className="font-extrabold leading-tight line-clamp-2 text-right">
+                          <span className="font-extrabold leading-tight line-clamp-2 text-right text-[11px] tracking-tight">
                             {cleanTitle}
                           </span>
-                          <span className="w-5 h-5 rounded-full bg-amber-400 text-slate-950 font-black text-[11px] flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
+                          <span className="w-5 h-5 rounded-full bg-amber-400 text-slate-950 font-black text-[10px] flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
                             {itemNumber}
                           </span>
                         </div>
                       </button>
-
-                      {/* Tooltip Popup (Anchored cleanly to right side) */}
-                      {isHovered && (
-                        <div
-                          className="absolute right-0 sm:left-1/2 sm:-translate-x-1/2 bottom-full mb-3 w-72 sm:w-80 p-3.5 sm:p-4 bg-white text-slate-900 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.25)] z-50 text-xs leading-relaxed animate-fadeIn border-2 border-slate-300 pointer-events-auto text-left"
-                          onClick={() => handleJumpToSection(b, globalIdx)}
-                        >
-                          {/* Tooltip Title Header */}
-                          <div className="font-extrabold text-[#641D06] mb-2.5 flex items-center justify-between gap-1 border-b border-slate-200 pb-1.5">
-                            <div className="flex items-center gap-1.5">
-                              <span className="w-5 h-5 rounded-full bg-[#641D06] text-white font-black text-[11px] flex items-center justify-center shrink-0 shadow-xs">
-                                {itemNumber}
-                              </span>
-                              <span className="text-xs sm:text-sm font-black tracking-tight text-[#641D06]">
-                                {cleanTitle}
-                              </span>
-                            </div>
-                            <span className="text-[10px] text-white font-bold bg-[#641D06] hover:bg-[#842A16] px-2 py-0.5 rounded-lg shadow-xs shrink-0 transition-colors">
-                              Click nhảy tới mục ↓
-                            </span>
-                          </div>
-
-                          {/* Tooltip Bullet Content */}
-                          {b.subItems && b.subItems.length > 0 ? (
-                            <ul className="space-y-1.5">
-                              {b.subItems.map((item, sIdx) => (
-                                <li
-                                  key={sIdx}
-                                  className="flex items-start gap-2 bg-[#f1f5f9] hover:bg-[#e2e8f0] text-slate-900 p-2 rounded-lg border border-slate-200/90 shadow-2xs transition-colors text-[11.5px]"
-                                >
-                                  <span className="w-4 h-4 rounded-full bg-[#1D3540] text-white font-black text-[10px] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
-                                    {sIdx + 1}
-                                  </span>
-                                  <span className="font-bold text-slate-800 leading-snug">
-                                    {item}
-                                  </span>
-                                </li>
-                              ))}
-                            </ul>
-                          ) : (
-                            <div className="bg-[#f1f5f9] text-slate-800 p-2.5 rounded-lg border border-slate-200/90 text-xs font-medium">
-                              Nhấp chuột để tự động cuộn xuống xem toàn văn điều khoản pháp lý chi tiết trong bài viết.
-                            </div>
-                          )}
-
-                          {/* Down Triangle Arrow Pointer */}
-                          <div className="absolute top-full right-6 sm:left-1/2 sm:-translate-x-1/2 border-[7px] border-transparent border-t-white"></div>
-                        </div>
-                      )}
                     </div>
                   </foreignObject>
                 );
               })}
             </svg>
+
+            {/* SAFARI/MACBOOK IMMUNE FLOATING PREVIEW POPUP (OUTSIDE FOREIGN OBJECT) */}
+            {hoveredIdx !== null && data.branches[hoveredIdx] && (() => {
+              const b = data.branches[hoveredIdx];
+              const isRight = hoveredIdx >= half;
+              const sideIdx = isRight ? hoveredIdx - half : hoveredIdx;
+              const totalOnSide = isRight ? rightBranches.length : leftBranches.length;
+              const branchY = getBranchY(sideIdx, totalOnSide);
+              const topPercent = (branchY / canvasH) * 100;
+              const itemNumber = hoveredIdx + 1;
+              const cleanTitle = getCleanTitle(b.name);
+
+              return (
+                <div
+                  className={`absolute z-40 w-72 sm:w-80 p-3.5 sm:p-4 bg-white text-slate-900 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.28)] text-xs leading-relaxed animate-fadeIn border-2 border-slate-300 pointer-events-auto transition-all cursor-pointer ${
+                    isRight ? "right-2 sm:right-8" : "left-2 sm:left-8"
+                  }`}
+                  style={{
+                    top: `clamp(12px, calc(${topPercent}% - 60px), calc(100% - 220px))`
+                  }}
+                  onMouseEnter={() => setHoveredIdx(hoveredIdx)}
+                  onMouseLeave={() => setHoveredIdx(null)}
+                  onClick={() => handleJumpToSection(b, hoveredIdx)}
+                >
+                  {/* Tooltip Title Header */}
+                  <div className="font-extrabold text-[#641D06] mb-2.5 flex items-center justify-between gap-1 border-b border-slate-200 pb-1.5">
+                    <div className="flex items-center gap-1.5 min-w-0">
+                      <span className="w-5 h-5 rounded-full bg-[#641D06] text-white font-black text-[10px] flex items-center justify-center shrink-0 shadow-xs">
+                        {itemNumber}
+                      </span>
+                      <span className="text-xs sm:text-sm font-black tracking-tight text-[#641D06] truncate">
+                        {cleanTitle}
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-white font-bold bg-[#641D06] hover:bg-[#842A16] px-2 py-0.5 rounded-lg shadow-xs shrink-0 transition-colors">
+                      Xem mục ↓
+                    </span>
+                  </div>
+
+                  {/* Tooltip Bullet Content */}
+                  {b.subItems && b.subItems.length > 0 ? (
+                    <ul className="space-y-1.5 max-h-48 overflow-y-auto no-scrollbar">
+                      {b.subItems.map((item, sIdx) => (
+                        <li
+                          key={sIdx}
+                          className="flex items-start gap-2 bg-[#f8fafc] hover:bg-[#f1f5f9] text-slate-900 p-2 rounded-lg border border-slate-200/90 shadow-2xs transition-colors text-[11.5px]"
+                        >
+                          <span className="w-4 h-4 rounded-full bg-[#1D3540] text-white font-black text-[10px] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                            {sIdx + 1}
+                          </span>
+                          <span className="font-bold text-slate-800 leading-snug">
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <div className="bg-[#f8fafc] text-slate-800 p-2.5 rounded-lg border border-slate-200/90 text-xs font-medium">
+                      Nhấp chuột để tự động cuộn xuống xem toàn văn điều khoản pháp lý chi tiết trong bài viết.
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
+          </div>
+
+          {/* Quick Interactive Guide Footer */}
+          <div className="mt-2.5 pt-2 border-t border-slate-200/80 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500 font-medium">
+            <span className="flex items-center gap-1 text-[#641D06] font-semibold">
+              <span className="material-symbols-outlined text-xs">touch_app</span>
+              <span>Nhấp chuột vào nhánh để cuộn ngay tới mục tương ứng</span>
+            </span>
+            <span className="text-slate-400">Rê chuột để xem tóm tắt điều khoản</span>
           </div>
         </div>
       )}

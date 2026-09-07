@@ -227,11 +227,12 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* CỘT 3: TÍNH NĂNG & TIỆN ÍCH AI (2.5 cols) */}
-            <div className="lg:col-span-2 flex flex-col gap-2">
-              <p className="text-xs md:text-sm font-extrabold uppercase tracking-wider text-amber-300 pb-1.5 border-b border-amber-500/30">
-                Tính Năng &amp; AI
-              </p>
+            {/* CỘT 3: TIỆN ÍCH & TRỢ LÝ AI (2.5 cols) */}
+            <div className="md:col-span-2 lg:col-span-3">
+              <h4 className="text-[#C0963B] font-bold text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#C0963B]"></span>
+                Tiện Ích &amp; AI
+              </h4>
               <div className="flex flex-col gap-1.5 text-xs md:text-[13px]">
                 <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/court-fee-calculator">
                   Tính án phí tòa án
@@ -315,7 +316,7 @@ export default function Footer() {
           {/* Bottom Area: 1-line Disclaimer + Copyright Row (1 Privacy Link Only) */}
           <div className="mt-6 pt-3 border-t border-white/10 flex flex-col gap-2 text-slate-300/90 text-[11px]">
             <p className="leading-relaxed text-center sm:text-left">
-              <strong className="text-amber-300 font-medium">⚖️ Miễn trừ trách nhiệm:</strong> Toàn bộ thông tin, bài viết và tính năng tính toán trên website mang tính chất tham khảo kiến thức pháp luật, không cấu thành ý kiến tư vấn pháp lý chính thức cho đến khi hợp đồng dịch vụ được ký kết bằng văn bản theo luật định.
+              <strong className="text-amber-300 font-medium">⚖️ Miễn trừ trách nhiệm:</strong> Toàn bộ thông tin, bài viết và tiện ích tra cứu, tính toán trên website mang tính chất tham khảo kiến thức pháp luật, không cấu thành ý kiến tư vấn pháp lý chính thức cho đến khi hợp đồng dịch vụ được ký kết bằng văn bản theo luật định.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-2 border-t border-white/5 text-xs text-slate-400">
               <p>© 2026 CÔNG TY LUẬT TNHH ĐỨC TÍN VÀ CỘNG SỰ (DUC TIN &amp; PARTNERS). All Rights Reserved.</p>
