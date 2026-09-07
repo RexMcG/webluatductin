@@ -549,171 +549,175 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 my-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 items-start">
+      <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 items-stretch">
           
-          {/* Consultation Form (Left) */}
-          <div className="bg-[#92400e] p-8 md:p-12 text-white h-full flex flex-col justify-center rounded-3xl shadow-xl">
-            <h2 className="text-2xl md:text-3xl font-black mb-3 uppercase leading-snug font-sans text-white">ĐẶT CÂU HỎI VỚI LUẬT SƯ</h2>
-            <p className="mb-8 text-amber-100 text-sm md:text-base font-medium">Điền thông tin vụ việc, chúng tôi sẽ liên hệ tư vấn trong thời gian sớm nhất.</p>
+          {/* Consultation Form (Left) - Cằm và đầu được thu gọn đều tắp với cột phải */}
+          <div className="bg-[#92400e] px-6 py-6 sm:px-8 sm:py-7 md:px-9 md:py-7 text-white rounded-3xl shadow-xl flex flex-col justify-between">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-black mb-1.5 uppercase leading-snug font-sans text-white">ĐẶT CÂU HỎI VỚI LUẬT SƯ</h2>
+              <p className="mb-4 text-amber-100 text-xs sm:text-sm font-medium">Điền thông tin vụ việc, chúng tôi sẽ liên hệ tư vấn trong thời gian sớm nhất.</p>
 
-            {consultSent ? (
-              <div className="bg-white/20 border border-white/40 p-6 rounded-2xl text-center">
-                <span className="material-symbols-outlined text-5xl mb-2">check_circle</span>
-                <h3 className="text-xl font-bold mb-2">Đã Gửi Yêu Cầu Thành Công!</h3>
-                <p className="text-sm text-white/90">Luật sư sẽ liên hệ lại với bạn qua số điện thoại <strong>{consultForm.phone}</strong> trong thời gian sớm nhất.</p>
-              </div>
-            ) : (
-              <form className="space-y-4" onSubmit={handleConsultSubmit} noValidate>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {consultSent ? (
+                <div className="bg-white/20 border border-white/40 p-6 rounded-2xl text-center">
+                  <span className="material-symbols-outlined text-5xl mb-2">check_circle</span>
+                  <h3 className="text-xl font-bold mb-2">Đã Gửi Yêu Cầu Thành Công!</h3>
+                  <p className="text-sm text-white/90">Luật sư sẽ liên hệ lại với bạn qua số điện thoại <strong>{consultForm.phone}</strong> trong thời gian sớm nhất.</p>
+                </div>
+              ) : (
+                <form className="space-y-3" onSubmit={handleConsultSubmit} noValidate>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                      <input 
+                        type="text" 
+                        placeholder="Họ và tên *" 
+                        aria-label="Họ và tên khách hàng"
+                        value={consultForm.name} 
+                        onChange={e => {
+                          setConsultForm({...consultForm, name: e.target.value});
+                          if (consultErrors.name) setConsultErrors({...consultErrors, name: ""});
+                        }} 
+                        className={`w-full px-3.5 py-2.5 sm:py-3 bg-white text-gray-800 rounded-xl outline-none text-xs sm:text-sm border-2 font-medium ${
+                          consultErrors.name ? 'border-red-400 bg-red-50/20 ring-2 ring-red-400' : 'border-transparent focus:ring-2 focus:ring-amber-300'
+                        }`}
+                        required 
+                      />
+                      {consultErrors.name && (
+                        <span className="text-amber-200 text-[11px] mt-1 block font-medium">⚠️ {consultErrors.name}</span>
+                      )}
+                    </div>
+                    <div>
+                      <input 
+                        type="email" 
+                        placeholder="Địa chỉ Email" 
+                        aria-label="Địa chỉ Email khách hàng"
+                        value={consultForm.email} 
+                        onChange={e => {
+                          setConsultForm({...consultForm, email: e.target.value});
+                          if (consultErrors.email) setConsultErrors({...consultErrors, email: ""});
+                        }} 
+                        className={`w-full px-3.5 py-2.5 sm:py-3 bg-white text-gray-800 rounded-xl outline-none text-xs sm:text-sm border-2 font-medium ${
+                          consultErrors.email ? 'border-red-400 bg-red-50/20 ring-2 ring-red-400' : 'border-transparent focus:ring-2 focus:ring-amber-300'
+                        }`}
+                      />
+                      {consultErrors.email && (
+                        <span className="text-amber-200 text-[11px] mt-1 block font-medium">⚠️ {consultErrors.email}</span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                      <input 
+                        type="tel" 
+                        placeholder="Số điện thoại (VD: 0937863263) *" 
+                        aria-label="Số điện thoại liên hệ"
+                        value={consultForm.phone} 
+                        onChange={e => {
+                          setConsultForm({...consultForm, phone: e.target.value});
+                          if (consultErrors.phone) setConsultErrors({...consultErrors, phone: ""});
+                        }} 
+                        className={`w-full px-3.5 py-2.5 sm:py-3 bg-white text-gray-800 rounded-xl outline-none text-xs sm:text-sm border-2 font-medium ${
+                          consultErrors.phone ? 'border-red-400 bg-red-50/20 ring-2 ring-red-400' : 'border-transparent focus:ring-2 focus:ring-amber-300'
+                        }`}
+                        required 
+                      />
+                      {consultErrors.phone && (
+                        <span className="text-amber-200 text-[11px] mt-1 block font-medium">⚠️ {consultErrors.phone}</span>
+                      )}
+                    </div>
+                    <div className="relative">
+                      <select 
+                        id="consult-service-select"
+                        aria-label="Lĩnh vực tư vấn pháp lý"
+                        value={consultForm.category} 
+                        onChange={e => setConsultForm({...consultForm, category: e.target.value})} 
+                        className="w-full px-3.5 py-2.5 sm:py-3 bg-white text-gray-800 rounded-xl border-none focus:ring-2 focus:ring-amber-300 outline-none text-xs sm:text-sm cursor-pointer font-medium"
+                      >
+                        <option value="Dân sự & Thương mại">Dân sự & Thương mại</option>
+                        <option value="Hình sự & Bào chữa">Hình sự & Bào chữa</option>
+                        <option value="Doanh nghiệp & Đầu tư">Doanh nghiệp & Đầu tư</option>
+                        <option value="Đất đai & Nhà ở">Đất đai & Nhà ở</option>
+                        <option value="Hôn nhân & Gia đình">Hôn nhân & Gia đình</option>
+                        <option value="Sở hữu trí tuệ">Sở hữu trí tuệ</option>
+                        <option value="Lao động & Tiền lương">Lao động & Tiền lương</option>
+                      </select>
+                    </div>
+                  </div>
                   <div>
-                    <input 
-                      type="text" 
-                      placeholder="Họ và tên *" 
-                      aria-label="Họ và tên khách hàng"
-                      value={consultForm.name} 
+                    <textarea 
+                      placeholder="Mô tả tóm tắt câu hỏi hoặc vụ việc của bạn (tối thiểu 10 ký tự)... *" 
+                      aria-label="Mô tả tóm tắt nội dung vụ việc"
+                      rows={3} 
+                      value={consultForm.message} 
                       onChange={e => {
-                        setConsultForm({...consultForm, name: e.target.value});
-                        if (consultErrors.name) setConsultErrors({...consultErrors, name: ""});
+                        setConsultForm({...consultForm, message: e.target.value});
+                        if (consultErrors.message) setConsultErrors({...consultErrors, message: ""});
                       }} 
-                      className={`w-full px-4 py-3.5 bg-white text-gray-800 rounded-xl outline-none text-sm border-2 ${
-                        consultErrors.name ? 'border-red-400 bg-red-50/20 ring-2 ring-red-400' : 'border-transparent focus:ring-2 focus:ring-amber-300'
+                      className={`w-full px-3.5 py-2.5 sm:py-3 bg-white text-gray-800 rounded-xl outline-none resize-none text-xs sm:text-sm font-medium border-2 ${
+                        consultErrors.message ? 'border-red-400 bg-red-50/20 ring-2 ring-red-400' : 'border-transparent focus:ring-2 focus:ring-amber-300'
                       }`}
-                      required 
-                    />
-                    {consultErrors.name && (
-                      <span className="text-amber-200 text-xs mt-1 block font-medium">⚠️ {consultErrors.name}</span>
+                    ></textarea>
+                    {consultErrors.message && (
+                      <span className="text-amber-200 text-[11px] mt-1 block font-medium">⚠️ {consultErrors.message}</span>
                     )}
                   </div>
-                  <div>
-                    <input 
-                      type="email" 
-                      placeholder="Địa chỉ Email" 
-                      aria-label="Địa chỉ Email khách hàng"
-                      value={consultForm.email} 
-                      onChange={e => {
-                        setConsultForm({...consultForm, email: e.target.value});
-                        if (consultErrors.email) setConsultErrors({...consultErrors, email: ""});
-                      }} 
-                      className={`w-full px-4 py-3.5 bg-white text-gray-800 rounded-xl outline-none text-sm border-2 ${
-                        consultErrors.email ? 'border-red-400 bg-red-50/20 ring-2 ring-red-400' : 'border-transparent focus:ring-2 focus:ring-amber-300'
-                      }`}
-                    />
-                    {consultErrors.email && (
-                      <span className="text-amber-200 text-xs mt-1 block font-medium">⚠️ {consultErrors.email}</span>
-                    )}
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <input 
-                      type="tel" 
-                      placeholder="Số điện thoại (VD: 0937863263) *" 
-                      aria-label="Số điện thoại liên hệ"
-                      value={consultForm.phone} 
-                      onChange={e => {
-                        setConsultForm({...consultForm, phone: e.target.value});
-                        if (consultErrors.phone) setConsultErrors({...consultErrors, phone: ""});
-                      }} 
-                      className={`w-full px-4 py-3.5 bg-white text-gray-800 rounded-xl outline-none text-sm border-2 ${
-                        consultErrors.phone ? 'border-red-400 bg-red-50/20 ring-2 ring-red-400' : 'border-transparent focus:ring-2 focus:ring-amber-300'
-                      }`}
-                      required 
-                    />
-                    {consultErrors.phone && (
-                      <span className="text-amber-200 text-xs mt-1 block font-medium">⚠️ {consultErrors.phone}</span>
-                    )}
-                  </div>
-                  <div className="relative">
-                    <select 
-                      id="consult-service-select"
-                      aria-label="Lĩnh vực tư vấn pháp lý"
-                      value={consultForm.category} 
-                      onChange={e => setConsultForm({...consultForm, category: e.target.value})} 
-                      className="w-full px-4 py-3.5 bg-white text-gray-800 rounded-xl border-none focus:ring-2 focus:ring-amber-300 outline-none text-sm cursor-pointer font-medium"
-                    >
-                      <option value="Dân sự & Thương mại">Dân sự & Thương mại</option>
-                      <option value="Hình sự & Bào chữa">Hình sự & Bào chữa</option>
-                      <option value="Doanh nghiệp & Đầu tư">Doanh nghiệp & Đầu tư</option>
-                      <option value="Đất đai & Nhà ở">Đất đai & Nhà ở</option>
-                      <option value="Hôn nhân & Gia đình">Hôn nhân & Gia đình</option>
-                      <option value="Sở hữu trí tuệ">Sở hữu trí tuệ</option>
-                      <option value="Lao động & Tiền lương">Lao động & Tiền lương</option>
-                    </select>
-                  </div>
-                </div>
-                <div>
-                  <textarea 
-                    placeholder="Mô tả tóm tắt câu hỏi hoặc vụ việc của bạn (tối thiểu 10 ký tự)... *" 
-                    aria-label="Mô tả tóm tắt nội dung vụ việc"
-                    rows={4} 
-                    value={consultForm.message} 
-                    onChange={e => {
-                      setConsultForm({...consultForm, message: e.target.value});
-                      if (consultErrors.message) setConsultErrors({...consultErrors, message: ""});
-                    }} 
-                    className={`w-full px-4 py-3.5 bg-white text-gray-800 rounded-xl outline-none resize-none text-sm font-medium border-2 ${
-                      consultErrors.message ? 'border-red-400 bg-red-50/20 ring-2 ring-red-400' : 'border-transparent focus:ring-2 focus:ring-amber-300'
-                    }`}
-                  ></textarea>
-                  {consultErrors.message && (
-                    <span className="text-amber-200 text-xs mt-1 block font-medium">⚠️ {consultErrors.message}</span>
-                  )}
-                </div>
-                <button 
-                  type="submit" 
-                  disabled={consultSending}
-                  className="bg-slate-900 text-white font-bold uppercase px-8 py-3.5 rounded-xl hover:bg-black transition-colors shadow-md text-sm cursor-pointer disabled:opacity-50 flex items-center justify-center gap-2"
-                >
-                  {consultSending ? "ĐANG GỬI YÊU CẦU..." : "GỬI YÊU CẦU CHO LUẬT SƯ"}
-                </button>
-              </form>
-            )}
+                  <button 
+                    type="submit" 
+                    disabled={consultSending}
+                    className="bg-slate-900 text-white font-bold uppercase px-7 py-3 rounded-xl hover:bg-black transition-colors shadow-md text-xs sm:text-sm cursor-pointer disabled:opacity-50 flex items-center justify-center gap-2 mt-1"
+                  >
+                    {consultSending ? "ĐANG GỬI YÊU CẦU..." : "GỬI YÊU CẦU CHO LUẬT SƯ"}
+                  </button>
+                </form>
+              )}
+            </div>
           </div>
 
-          {/* FAQ Accordion (Right) */}
-          <div className="p-4 md:p-8">
-            <h2 className="text-[#92400e] font-black text-2xl md:text-3xl uppercase mb-2 font-sans">CÂU HỎI &amp; GIẢI ĐÁP PHÁP LUẬT</h2>
-            <div className="text-amber-800 mb-8 flex items-center">
-              <span className="tracking-widest font-bold">— ⚖️ —</span>
+          {/* FAQ Accordion (Right) - Căn chỉnh đồng đều đầu & cằm với ô đặt câu hỏi */}
+          <div className="flex flex-col justify-between py-1">
+            <div>
+              <h2 className="text-[#92400e] font-black text-2xl md:text-3xl uppercase mb-1.5 font-sans leading-snug">CÂU HỎI &amp; GIẢI ĐÁP PHÁP LUẬT</h2>
+              <div className="text-amber-800 mb-4 flex items-center">
+                <span className="tracking-widest font-bold">— ⚖️ —</span>
+              </div>
+
+              <div className="space-y-3">
+                {[
+                  {
+                    q: "Khi Giấy chứng nhận quyền sử dụng đất hết thời hạn phải làm sao?",
+                    a: "Theo Luật Đất đai mới nhất, hộ gia đình, cá nhân trực tiếp sản xuất nông nghiệp khi hết thời hạn sử dụng đất nếu có nhu cầu thì được tiếp tục sử dụng mà không phải làm thủ tục gia hạn. Đối với đất thương mại dịch vụ hoặc tổ chức, cần nộp hồ sơ xin gia hạn trước khi hết hạn ít nhất 06 tháng."
+                  },
+                  {
+                    q: "Thủ tục ly hôn thuận tình cần chuẩn bị những hồ sơ gì?",
+                    a: "Hồ sơ gồm: Đơn yêu cầu công nhận thuận tình ly hôn (theo mẫu của Tòa án); Giấy chứng nhận kết hôn (bản chính); Bản sao CCCD/Hộ chiếu của vợ và chồng; Giấy khai sinh của các con chung; Giấy tờ chứng minh tài sản chung và nợ chung (nếu có yêu cầu Tòa án công nhận)."
+                  },
+                  {
+                    q: "Doanh nghiệp nước ngoài đầu tư vào Việt Nam cần những điều kiện gì?",
+                    a: "Cần đáp ứng điều kiện về tiếp cận thị trường theo ngành nghề đăng ký, có dự án đầu tư hợp pháp, địa điểm thực hiện dự án phù hợp quy hoạch, năng lực tài chính và làm thủ tục xin cấp Giấy chứng nhận đăng ký đầu tư (IRC) và Giấy chứng nhận đăng ký doanh nghiệp (ERC)."
+                  }
+                ].map((faq, idx) => (
+                  <div key={idx} className="border border-slate-200 rounded-2xl overflow-hidden shadow-2xs">
+                    <button
+                      onClick={() => toggleFaq(idx)}
+                      className="w-full text-left p-3.5 sm:p-4 bg-white hover:bg-slate-50 flex items-center justify-between gap-4 font-bold text-slate-900 text-xs sm:text-sm transition-colors cursor-pointer"
+                    >
+                      <span>{faq.q}</span>
+                      <span className="material-symbols-outlined text-slate-400 text-lg sm:text-xl flex-shrink-0">
+                        {openFaq === idx ? "expand_less" : "expand_more"}
+                      </span>
+                    </button>
+                    {openFaq === idx && (
+                      <div className="p-3.5 sm:p-4 bg-slate-50 border-t border-slate-100 text-slate-600 text-xs sm:text-sm leading-relaxed">
+                        {faq.a}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div className="space-y-4">
-              {[
-                {
-                  q: "Khi Giấy chứng nhận quyền sử dụng đất hết thời hạn phải làm sao?",
-                  a: "Theo Luật Đất đai mới nhất, hộ gia đình, cá nhân trực tiếp sản xuất nông nghiệp khi hết thời hạn sử dụng đất nếu có nhu cầu thì được tiếp tục sử dụng mà không phải làm thủ tục gia hạn. Đối với đất thương mại dịch vụ hoặc tổ chức, cần nộp hồ sơ xin gia hạn trước khi hết hạn ít nhất 06 tháng."
-                },
-                {
-                  q: "Thủ tục ly hôn thuận tình cần chuẩn bị những hồ sơ gì?",
-                  a: "Hồ sơ gồm: Đơn yêu cầu công nhận thuận tình ly hôn (theo mẫu của Tòa án); Giấy chứng nhận kết hôn (bản chính); Bản sao CCCD/Hộ chiếu của vợ và chồng; Giấy khai sinh của các con chung; Giấy tờ chứng minh tài sản chung và nợ chung (nếu có yêu cầu Tòa án công nhận)."
-                },
-                {
-                  q: "Doanh nghiệp nước ngoài đầu tư vào Việt Nam cần những điều kiện gì?",
-                  a: "Cần đáp ứng điều kiện về tiếp cận thị trường theo ngành nghề đăng ký, có dự án đầu tư hợp pháp, địa điểm thực hiện dự án phù hợp quy hoạch, năng lực tài chính và làm thủ tục xin cấp Giấy chứng nhận đăng ký đầu tư (IRC) và Giấy chứng nhận đăng ký doanh nghiệp (ERC)."
-                }
-              ].map((faq, idx) => (
-                <div key={idx} className="border border-slate-200 rounded-2xl overflow-hidden shadow-2xs">
-                  <button
-                    onClick={() => toggleFaq(idx)}
-                    className="w-full text-left p-4 sm:p-5 bg-white hover:bg-slate-50 flex items-center justify-between gap-4 font-bold text-slate-900 text-sm transition-colors cursor-pointer"
-                  >
-                    <span>{faq.q}</span>
-                    <span className="material-symbols-outlined text-slate-400 text-xl flex-shrink-0">
-                      {openFaq === idx ? "expand_less" : "expand_more"}
-                    </span>
-                  </button>
-                  {openFaq === idx && (
-                    <div className="p-4 sm:p-5 bg-slate-50 border-t border-slate-100 text-slate-600 text-sm leading-relaxed">
-                      {faq.a}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-8">
-              <Link href="/news" className="inline-block bg-[#92400e] text-white font-bold uppercase px-8 py-3.5 rounded-xl hover:bg-[#78350f] transition-colors shadow-sm text-sm">
+            <div className="mt-4">
+              <Link href="/news" className="inline-block bg-[#92400e] text-white font-bold uppercase px-7 py-3 rounded-xl hover:bg-[#78350f] transition-colors shadow-sm text-xs sm:text-sm">
                 XEM THÊM BÀI VIẾT
               </Link>
             </div>
@@ -723,7 +727,7 @@ export default function Home() {
       </section>
 
       {/* Expert Attorneys */}
-      <section id="lawyers" className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-14 scroll-mt-24">
+      <section id="lawyers" className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 scroll-mt-24">
         <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
           <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
             Đội Ngũ Luật Sư Điều Hành
@@ -778,7 +782,7 @@ export default function Home() {
       </section>
 
       {/* Client Marquee */}
-      <section className="border-y border-border-neutral py-12 md:py-16 bg-surface-main overflow-hidden">
+      <section className="border-y border-border-neutral py-16 bg-surface-main overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 md:px-8 mb-8 text-center">
           <h3 className="font-sans text-slate-800 uppercase tracking-widest text-sm md:text-base font-black">
             Đối Tác &amp; Khách Hàng Tiêu Biểu
