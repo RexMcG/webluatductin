@@ -487,15 +487,15 @@ export default function AIFormLibrary() {
     return () => clearTimeout(timer);
   }, [searchTerm]);
 
-  // Fetch search results from backend API if available
+  // Fetch search results from backend API if available (tối đa 4 kết quả)
   const { data: searchResults, isLoading } = useQuery({
     queryKey: ["forms", debouncedSearchTerm],
-    queryFn: () => formLibraryService.searchForms(debouncedSearchTerm, 10),
+    queryFn: () => formLibraryService.searchForms(debouncedSearchTerm, 4),
     enabled: debouncedSearchTerm.trim().length > 0,
     retry: 1,
   });
 
-  // ĐỀ XUẤT THÔNG MINH LUÔN ĐẠT TỐI THIỂU 3-4 BIỂU MẪU CHUẨN XÁC & LIÊN QUAN
+  // ĐỀ XUẤT THÔNG MINH GỌN GÀNG: ĐÚNG 4 BIỂU MẪU CHUẨN XÁC & LIÊN QUAN NHẤT
   const displayForms = useMemo(() => {
     if (!debouncedSearchTerm.trim()) {
       return POPULAR_FORMS.slice(0, 4);
@@ -507,9 +507,9 @@ export default function AIFormLibrary() {
     const results: FormItem[] = [];
     const seenIds = new Set<number>();
 
-    // 1. Nạp kết quả trực tiếp từ Backend API (nếu có)
+    // 1. Nạp kết quả trực tiếp từ Backend API (tối đa 4)
     if (searchResults && searchResults.length > 0) {
-      searchResults.forEach((item) => {
+      searchResults.slice(0, 4).forEach((item) => {
         results.push(item);
         seenIds.add(item.id);
       });
@@ -537,18 +537,20 @@ export default function AIFormLibrary() {
       return { form, score };
     });
 
-    // Thêm các kết quả khớp có điểm số cao
+    // Thêm các kết quả khớp có điểm số cao (giới hạn tối đa 4)
     const directMatches = scoredLocal
       .filter(({ score, form }) => score >= 1.5 && !seenIds.has(form.id))
       .sort((a, b) => b.score - a.score);
 
-    directMatches.forEach(({ form, score }, idx) => {
+    for (const { form } of directMatches) {
+      if (results.length >= 4) break;
+      const idx = results.length;
       const matchPct = Math.min(98, Math.max(88, 98 - idx * 2));
       results.push({ ...form, matchPercent: form.matchPercent || matchPct });
       seenIds.add(form.id);
-    });
+    }
 
-    // 3. ĐẢM BẢO ĐỀ XUẤT ĐỦ 3-4 BIỂU MẪU:
+    // 3. ĐẢM BẢO ĐỀ XUẤT ĐỦ 4 BIỂU MẪU:
     // Nếu kết quả ít hơn 4 cái, tự động bổ sung biểu mẫu cùng chuyên mục hoặc liên quan
     if (results.length > 0 && results.length < 4) {
       const primaryCat = results[0].category;
@@ -586,7 +588,7 @@ export default function AIFormLibrary() {
       }
     }
 
-    return results;
+    return results.slice(0, 4);
   }, [debouncedSearchTerm, searchResults]);
 
   const handleDownloadClick = (form: FormItem) => {
