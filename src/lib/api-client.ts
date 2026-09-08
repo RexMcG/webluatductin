@@ -1,7 +1,16 @@
 import axios from 'axios';
 
 const getBaseUrl = () => {
-  let url = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+  let url = process.env.NEXT_PUBLIC_API_URL;
+  if (!url) {
+    if (typeof window !== 'undefined' && (window.location.hostname.includes('vercel.app') || window.location.hostname.includes('ductin'))) {
+      url = 'https://webluat-backend.onrender.com';
+    } else if (process.env.NODE_ENV === 'production') {
+      url = 'https://webluat-backend.onrender.com';
+    } else {
+      url = 'http://localhost:3001';
+    }
+  }
   // Clean trailing slashes
   url = url.trim().replace(/\/+$/, '');
   // Auto-append /api/v1 if not present
