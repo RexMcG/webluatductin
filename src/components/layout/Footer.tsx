@@ -22,14 +22,14 @@ export default function Footer() {
   return (
     <>
       {/* Desktop Floating Contact Bubbles (Left) - Hidden on Mobile */}
-      <div className="hidden md:flex fixed bottom-6 left-6 z-50 flex-col gap-3.5">
+      <div className="hidden md:flex fixed bottom-5 md:bottom-6 left-3 md:left-4 lg:left-6 z-50 flex-col gap-2.5 lg:gap-3">
         {/* Call Hotline Bubble */}
         <a
-          className="bg-gradient-to-br from-emerald-500 to-emerald-700 text-white rounded-full h-14 w-14 lg:h-16 lg:w-16 border-2 border-white shadow-[0_0_15px_rgba(16,185,129,0.5)] hover:scale-110 active:scale-95 transition-transform flex items-center justify-center relative group cursor-pointer"
+          className="bg-gradient-to-br from-emerald-500 to-emerald-700 text-white rounded-full w-11 h-11 md:w-12 md:h-12 lg:w-14 lg:h-14 border-2 border-white shadow-[0_0_12px_rgba(16,185,129,0.5)] hover:scale-110 active:scale-95 transition-transform flex items-center justify-center relative group cursor-pointer shrink-0"
           href="tel:0937863263"
           aria-label="Gọi ngay Hotline tư vấn pháp luật"
         >
-          <span className="material-symbols-outlined text-2xl lg:text-3xl">call</span>
+          <span className="material-symbols-outlined text-xl md:text-2xl">call</span>
           <span className="absolute left-full ml-3 bg-emerald-700 text-white text-xs lg:text-sm font-bold whitespace-nowrap px-3 py-1.5 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg pointer-events-none">
             Hotline: 093 786 32 63
           </span>
@@ -37,12 +37,12 @@ export default function Footer() {
 
         {/* Booking Bubble */}
         <Link
-          className="bg-gradient-to-br from-red-500 to-primary text-white rounded-full h-14 w-14 lg:h-16 lg:w-16 border-2 border-white shadow-[0_0_15px_rgba(220,38,38,0.5)] hover:scale-110 active:scale-95 transition-transform flex items-center justify-center relative group animate-bounce cursor-pointer"
+          className="bg-gradient-to-br from-red-500 to-primary text-white rounded-full w-11 h-11 md:w-12 md:h-12 lg:w-14 lg:h-14 border-2 border-white shadow-[0_0_12px_rgba(220,38,38,0.5)] hover:scale-110 active:scale-95 transition-transform flex items-center justify-center relative group animate-bounce cursor-pointer shrink-0"
           style={{ animationDuration: '3s' }}
           href="/appointment"
           aria-label="Đặt lịch hẹn tư vấn luật sư"
         >
-          <span className="material-symbols-outlined text-2xl lg:text-3xl">calendar_month</span>
+          <span className="material-symbols-outlined text-xl md:text-2xl">calendar_month</span>
           <span className="absolute left-full ml-3 bg-primary text-white text-xs lg:text-sm font-bold whitespace-nowrap px-3 py-1.5 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg pointer-events-none">
             Đặt lịch hẹn
           </span>
@@ -50,7 +50,7 @@ export default function Footer() {
 
         {/* Zalo Bubble */}
         <a
-          className="bg-gradient-to-br from-blue-400 to-[#0068FF] text-white rounded-full h-14 w-14 lg:h-16 lg:w-16 border-2 border-white shadow-[0_0_15px_rgba(0,104,255,0.5)] hover:scale-110 active:scale-95 transition-transform flex items-center justify-center relative group cursor-pointer"
+          className="bg-gradient-to-br from-blue-400 to-[#0068FF] text-white rounded-full w-11 h-11 md:w-12 md:h-12 lg:w-14 lg:h-14 border-2 border-white shadow-[0_0_12px_rgba(0,104,255,0.5)] hover:scale-110 active:scale-95 transition-transform flex items-center justify-center relative group cursor-pointer shrink-0"
           href="https://zalo.me/0937863263"
           target="_blank"
           rel="noopener noreferrer"
@@ -59,9 +59,9 @@ export default function Footer() {
           <img
             src="/img/zalo_icon.webp"
             alt="Zalo"
-            width={28}
-            height={28}
-            className="w-7 h-7 lg:w-8 lg:h-8 object-contain"
+            width={24}
+            height={24}
+            className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 object-contain"
           />
           <span className="absolute left-full ml-3 bg-[#0068FF] text-white text-xs lg:text-sm font-bold whitespace-nowrap px-3 py-1.5 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg pointer-events-none">
             Chat Zalo
@@ -120,8 +120,8 @@ export default function Footer() {
       </div>
 
       {/* ========== FOOTER ========== */}
-      <footer className="bg-[#521705] border-t-4 border-amber-600/60 w-full pb-24 md:pb-4 pt-8 text-white">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
+      <footer className="bg-[#521705] border-t-4 border-amber-600/60 w-full pb-24 md:pb-6 pt-8 text-white">
+        <div className="max-w-7xl mx-auto px-4 md:pl-20 md:pr-6 lg:pl-24 lg:pr-8 xl:pl-24 xl:pr-8 2xl:px-8">
           
           {/* Main Footer Grid: 4 Structured Semantic Columns */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-7 lg:gap-8 items-start">
