@@ -135,11 +135,21 @@ function AIChatbotContent() {
       setMessages((prev) => [...prev, aiMessage]);
     } catch (error) {
       console.error("Chat error:", error);
+      const lowerQuery = queryText.toLowerCase().trim();
+      const isGreeting = /^(hello|hi|chào|xin chào|chao|alo|hé lô|he lo)/i.test(lowerQuery);
+
+      let replyText = "Chào bạn, hệ thống AI đang xử lý nhiều lượt tư vấn cùng lúc. Để được tư vấn trực tiếp và bảo vệ quyền lợi tối ưu, bạn vui lòng liên hệ ngay với **Luật sư Phan Đức Tín** qua Hotline/Zalo: **093 786 32 63**.";
+      
+      if (isGreeting) {
+        replyText = "Chào bạn! Tôi là **Trợ lý Pháp lý AI** của Công ty Luật TNHH Đức Tín & Cộng Sự. Tôi có thể hỗ trợ giải đáp các quy định pháp luật về Đất đai, Hôn nhân gia đình, Lao động, Hợp đồng, Doanh nghiệp và Khởi kiện. Bạn đang gặp vướng mắc hoặc cần tư vấn vụ việc gì?";
+      }
+
       const fallbackMessage: Message = {
         id: Date.now() + 1,
         sender: "ai",
-        text: "Chào bạn, hệ thống AI đang xử lý nhiều lượt tư vấn cùng lúc. Để được tư vấn trực tiếp và bảo vệ quyền lợi tối ưu, bạn vui lòng liên hệ ngay với **Luật sư Phan Đức Tín** qua Hotline/Zalo: **093 786 32 63**.",
+        text: replyText,
         quickActions: [
+          { label: "Đặt Lịch Tư Vấn", action: "appointment", icon: "calendar_month", type: "appointment" },
           { label: "Gọi Hotline Ls. Tín", action: "tel:0937863263", icon: "call", type: "call" },
           { label: "Chat Zalo Luật sư", action: "https://zalo.me/0937863263", icon: "chat", type: "zalo" }
         ]
