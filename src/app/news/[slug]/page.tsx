@@ -518,16 +518,16 @@ export default function NewsDetailPage() {
             )}
 
             {/* Continuous Sections without collapsing */}
-            <div className="space-y-10 md:space-y-12">
+            <div className="space-y-6 md:space-y-7">
               {sections.map((section: any, idx: number) => (
                 <section
                   key={section.id}
                   id={`heading-${section.id}`}
                   data-section-index={idx}
-                  className="scroll-mt-28 border-b border-slate-100 pb-8 md:pb-10 last:border-b-0"
+                  className="scroll-mt-24 border-b border-slate-100 pb-5 md:pb-6 last:border-b-0"
                 >
                   {/* Section Title */}
-                  <div className="mb-4">
+                  <div className="mb-2 md:mb-2.5">
                     <h2 className="text-lg sm:text-2xl font-bold text-[#641D06] font-sans tracking-tight leading-snug">
                       {section.title.startsWith(section.number) || /^\d+\./.test(section.title) ? section.title : `${section.number}. ${section.title}`}
                     </h2>
@@ -535,7 +535,7 @@ export default function NewsDetailPage() {
 
                   {/* Section Full Body Content */}
                     <div
-                      className="prose prose-slate max-w-none text-slate-800 leading-relaxed text-sm md:text-base prose-p:my-3 prose-p:leading-relaxed prose-ul:my-3 prose-li:my-1.5 prose-strong:text-slate-900"
+                      className="prose prose-slate max-w-none text-slate-800 leading-relaxed text-sm md:text-base prose-p:my-2 prose-p:leading-relaxed prose-ul:my-2 prose-li:my-1 prose-strong:text-slate-900 [&>*:last-child]:!mb-0 [&>*:first-child]:!mt-0"
                       dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(section.content || '') }}
                     />
                 </section>
@@ -914,7 +914,7 @@ export default function NewsDetailPage() {
                   {isOpen && (
                     <div className="pl-8 sm:pl-9 mt-3 text-slate-800 text-base md:text-[17px] leading-relaxed">
                       <div
-                        className="prose prose-slate max-w-none prose-p:my-3 prose-ul:my-3 prose-li:my-1 prose-strong:text-slate-900"
+                        className="prose prose-slate max-w-none prose-p:my-2 prose-ul:my-2 prose-li:my-1 prose-strong:text-slate-900 [&>*:last-child]:!mb-0 [&>*:first-child]:!mt-0"
                         dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(section.content || '') }}
                       />
                     </div>
@@ -967,7 +967,7 @@ export default function NewsDetailPage() {
                   {isOpen && (
                     <div className="px-5 md:px-6 pb-6 pt-2 border-t border-slate-100 text-slate-800 leading-relaxed text-base">
                       <div
-                        className="prose prose-slate max-w-none prose-p:my-3 prose-headings:font-bold prose-headings:text-slate-900 prose-ul:my-3 prose-li:my-1"
+                        className="prose prose-slate max-w-none prose-p:my-2 prose-headings:font-bold prose-headings:text-slate-900 prose-ul:my-2 prose-li:my-1 [&>*:last-child]:!mb-0 [&>*:first-child]:!mt-0"
                         dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(section.content || '') }}
                       />
                     </div>
