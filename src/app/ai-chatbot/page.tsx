@@ -275,8 +275,8 @@ function AIChatbotContent() {
         </div>
       )}
 
-      {/* Main Expansive 2-Column Interface (Spacious Width) */}
-      <div className="max-w-[1728px] w-full mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 flex-1 flex flex-col">
+      {/* Main Expansive 2-Column Interface (Standard max-w-7xl Width) */}
+      <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex flex-col">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-1 items-stretch">
           
           {/* ===== LEFT SIDEBAR: Lawyer Card & Quick Shortcuts ===== */}
