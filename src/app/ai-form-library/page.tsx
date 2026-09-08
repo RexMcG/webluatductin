@@ -902,19 +902,6 @@ export default function AIFormLibrary() {
               </h3>
               <div className="space-y-3">
                 <Link
-                  href="/ai-form-checker"
-                  className="flex items-center gap-3 p-3.5 bg-slate-50 border border-slate-200 rounded-2xl hover:border-emerald-500 hover:bg-emerald-50/40 transition-all"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
-                    <span className="material-symbols-outlined text-xl">fact_check</span>
-                  </div>
-                  <div>
-                    <div className="text-xs md:text-sm font-bold text-slate-900">Thẩm Định Biểu Mẫu AI</div>
-                    <div className="text-[11px] text-slate-500 mt-0.5">Quét rủi ro và soát lỗi hợp đồng</div>
-                  </div>
-                </Link>
-
-                <Link
                   href="/ai-chatbot"
                   className="flex items-center gap-3 p-3.5 bg-slate-50 border border-slate-200 rounded-2xl hover:border-amber-500 hover:bg-amber-50/40 transition-all"
                 >

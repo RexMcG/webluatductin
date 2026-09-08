@@ -245,9 +245,6 @@ export default function Footer() {
                 <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/ai-form-library">
                   Thư viện Biểu mẫu AI
                 </Link>
-                <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/ai-form-checker">
-                  Thẩm định biểu mẫu AI
-                </Link>
                 <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/ai-chatbot">
                   Trợ lý Luật sư AI 24/7
                 </Link>
