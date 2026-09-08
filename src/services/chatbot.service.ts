@@ -68,7 +68,22 @@ export interface ChatSessionDetailResponse {
 }
 
 export const chatbotService = {
-  sendMessage: (data: ChatMessageRequest): Promise<ChatMessageResponse> => {
+  sendMessage: async (data: ChatMessageRequest): Promise<ChatMessageResponse> => {
+    // 1. Call internal Next.js API route first (Zero-downtime, direct Gemini fallback)
+    try {
+      const res = await fetch('/api/chatbot/message', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        return await res.json();
+      }
+    } catch (e) {
+      console.warn('Internal API route error, falling back to backend client:', e);
+    }
+
+    // 2. Fallback to direct backend API client
     return apiClient.post('/chatbot/message', data);
   },
   getSessions: (page = 1, limit = 50): Promise<{ success: boolean; data: { sessions: ChatSessionSummary[]; total: number; page: number; totalPages: number } }> => {
