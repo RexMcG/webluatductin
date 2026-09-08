@@ -223,7 +223,7 @@ export default function NewsDetailPage() {
      ========================================================================= */
   if (layoutStyle === "word-navigation") {
     return (
-      <div className="max-w-[1780px] w-full mx-auto px-3 sm:px-5 lg:px-6 xl:px-8 py-5 md:py-8 pb-36 md:pb-8">
+      <div className="w-full max-w-[1728px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-5 md:py-8 pb-36 md:pb-8">
         {/* Back Link */}
         <div className="mb-4">
           <Link

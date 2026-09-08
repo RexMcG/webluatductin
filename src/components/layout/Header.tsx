@@ -32,7 +32,7 @@ export default function Header() {
   return (
     <>
       <nav className="bg-white fixed top-0 w-full z-50 shadow-xs border-b-[7px] border-[#641D06]">
-        <div className="w-full max-w-[1728px] mx-auto px-3 sm:px-5 lg:px-6 xl:px-10 flex justify-between items-center h-20">
+        <div className="w-full max-w-[1728px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 flex justify-between items-center h-20">
           <Link href="/" className="shrink-0 mr-2 lg:mr-4 xl:mr-8">
             <img
               src="/img/Logo_website.webp"
