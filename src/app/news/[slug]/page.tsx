@@ -564,39 +564,44 @@ export default function NewsDetailPage() {
           >
             
             {/* Direct Lawyer Support Card */}
-            <div className="bg-gradient-to-br from-[#641D06] to-[#381104] text-white rounded-2xl p-4 shadow-md text-center">
-              <div className="w-12 h-12 rounded-xl bg-white/10 p-0.5 mx-auto mb-2.5 border border-white/20">
-                <img src="/img/avatar1.png" alt="Ls. Phan Đức Tín" className="w-full h-full object-cover rounded-lg" />
+            <div className="bg-white text-slate-900 rounded-2xl p-4 sm:p-4.5 shadow-sm border border-slate-200 text-center relative overflow-hidden group hover:shadow-md transition-shadow">
+              {/* Top Accent Gradient Line */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#641D06] via-[#C0963B] to-[#641D06]" />
+
+              <div className="w-14 h-14 rounded-2xl bg-amber-50 p-1 mx-auto mb-2 border-2 border-amber-300/80 shadow-2xs overflow-hidden">
+                <img src="/img/avatar1.png" alt="Ls. Phan Đức Tín" className="w-full h-full object-cover rounded-xl" />
               </div>
-              <h4 className="font-bold text-xs sm:text-sm text-white">Ls. PHAN ĐỨC TÍN</h4>
-              <p className="text-[10px] text-amber-300 font-semibold uppercase mt-0.5">Giám Đốc Điều Hành</p>
-              <p className="text-[11px] text-slate-200 mt-1.5 leading-relaxed text-justify">
+              <h4 className="font-extrabold text-xs sm:text-sm text-slate-900 tracking-tight">Ls. PHAN ĐỨC TÍN</h4>
+              <span className="inline-block text-[9.5px] font-extrabold text-[#641D06] bg-amber-50 border border-amber-200/80 px-2 py-0.5 rounded-full uppercase tracking-wider mt-1">
+                Giám Đốc Điều Hành
+              </span>
+              <p className="text-[11px] text-slate-500 mt-2 leading-relaxed text-center">
                 Trực tiếp tư vấn các thương vụ M&amp;A, cơ cấu vốn và giải quyết tranh chấp kinh tế phức tạp.
               </p>
 
-              <div className="mt-3 space-y-1.5">
+              <div className="mt-3.5 space-y-2">
                 <a
                   href="tel:0937863263"
-                  className="w-full bg-[#22c55e] hover:bg-[#16a34a] text-white h-8.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 transition-colors shadow-sm"
+                  className="w-full bg-[#16a34a] hover:bg-[#15803d] text-white h-9 rounded-xl text-[11.5px] font-bold flex items-center justify-center gap-1.5 transition-all shadow-2xs active:scale-98"
                 >
-                  <span className="material-symbols-outlined text-sm">call</span>
-                  Hotline: 093 786 32 63
+                  <span className="material-symbols-outlined text-base">call</span>
+                  <span>Hotline: 093 786 32 63</span>
                 </a>
                 <a
                   href="https://zalo.me/0937863263"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-white/20 hover:bg-white/30 text-white h-8 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1 transition-colors border border-white/30"
+                  className="w-full bg-[#0068FF] hover:bg-[#0054cc] text-white h-9 rounded-xl text-[11.5px] font-bold flex items-center justify-center gap-1.5 transition-all shadow-2xs active:scale-98"
                 >
-                  <span className="material-symbols-outlined text-sm">chat</span>
-                  Chat Zalo Luật Sư
+                  <img src="/img/zalo_icon.webp" alt="Zalo" className="w-4 h-4 object-contain brightness-0 invert" />
+                  <span>Chat Zalo Luật Sư</span>
                 </a>
                 <Link
                   href="/appointment"
-                  className="w-full bg-amber-400 hover:bg-amber-500 text-slate-900 h-8 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1 transition-colors shadow-2xs"
+                  className="w-full bg-[#641D06] hover:bg-black text-white h-9 rounded-xl text-[11.5px] font-bold flex items-center justify-center gap-1.5 transition-all shadow-2xs active:scale-98 border border-[#641D06]"
                 >
-                  <span className="material-symbols-outlined text-sm">calendar_month</span>
-                  Đặt Lịch Tư Vấn 1:1
+                  <span className="material-symbols-outlined text-base text-amber-300">calendar_month</span>
+                  <span>Đặt Lịch Hẹn 1:1</span>
                 </Link>
               </div>
             </div>
