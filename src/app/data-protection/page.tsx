@@ -125,7 +125,7 @@ export default function DataProtectionPage() {
               <li>Thực hiện các nghĩa vụ báo cáo theo yêu cầu của cơ quan quản lý nhà nước có thẩm quyền theo quy định của pháp luật.</li>
             </ul>
             <p className="font-semibold text-slate-900">
-              🛡️ Cam kết tuyệt đối: Chúng tôi không bao giờ bán, cho thuê hoặc chuyển nhượng dữ liệu cá nhân của Quý khách cho bất kỳ bên thứ ba nào vì mục đích quảng cáo thương mại.
+              Cam kết tuyệt đối: Chúng tôi không bao giờ bán, cho thuê hoặc chuyển nhượng dữ liệu cá nhân của Quý khách cho bất kỳ bên thứ ba nào vì mục đích quảng cáo thương mại.
             </p>
           </section>
 
