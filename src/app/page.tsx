@@ -325,16 +325,17 @@ export default function Home() {
       </section>
 
       {/* Practice Areas Grid */}
-      <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16">
-        <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
-          <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
-            Lĩnh Vực Hoạt Động Mũi Nhọn
-          </h2>
-          <div className="text-accent flex items-center justify-center mt-1">
-            <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
+      <section className="border-t border-border-neutral py-16">
+        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+          <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
+              Lĩnh Vực Hoạt Động Mũi Nhọn
+            </h2>
+            <div className="text-accent flex items-center justify-center mt-1">
+              <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
+            </div>
           </div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
           
           {/* 1. Nội bộ doanh nghiệp */}
           <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-xs hover:shadow-2xl hover:border-amber-500 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group overflow-hidden relative cursor-pointer">
@@ -460,7 +461,8 @@ export default function Home() {
           </div>
 
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Featured Tools */}
       <section className="bg-surface-alt border-y border-border-neutral py-16">
@@ -751,16 +753,17 @@ export default function Home() {
       </section>
 
       {/* Expert Attorneys */}
-      <section id="lawyers" className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 scroll-mt-24">
-        <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
-          <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
-            Đội Ngũ Luật Sư Điều Hành
-          </h2>
-          <div className="text-amber-800 flex items-center justify-center mt-1">
-            <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
+      <section id="lawyers" className="border-t border-border-neutral py-16 scroll-mt-24">
+        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+          <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
+              Đội Ngũ Luật Sư Điều Hành
+            </h2>
+            <div className="text-amber-800 flex items-center justify-center mt-1">
+              <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
+            </div>
           </div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {[
             {
               name: "Ls. Phan Đức Tín",
@@ -803,7 +806,8 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Client Marquee */}
       <section className="border-y border-border-neutral py-16 bg-surface-main overflow-hidden">
