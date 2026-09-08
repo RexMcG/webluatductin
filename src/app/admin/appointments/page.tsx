@@ -190,10 +190,6 @@ ${events}
 END:VCALENDAR`;
   };
 
-  const handlePrint = () => {
-    window.print();
-    setIsExportOpen(false);
-  };
 
   // --- Calendar Date Calculations (Month & Week) ---
   const year = currentDate.getFullYear();
@@ -394,21 +390,6 @@ END:VCALENDAR`;
                   <div>
                     <div>Đồng bộ Lịch iCal (.ics)</div>
                     <div className="text-[10px] text-slate-400 font-normal">Nạp vào Lịch iPhone / Google</div>
-                  </div>
-                </button>
-
-                <div className="my-1 border-t border-slate-100"></div>
-
-                <button
-                  onClick={handlePrint}
-                  className="w-full px-3 py-2 text-left text-xs font-bold text-slate-700 hover:bg-slate-50 flex items-center gap-2.5 transition-colors cursor-pointer"
-                >
-                  <span className="w-7 h-7 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center">
-                    <span className="material-symbols-outlined text-base">print</span>
-                  </span>
-                  <div>
-                    <div>In thời khóa biểu / PDF</div>
-                    <div className="text-[10px] text-slate-400 font-normal">In ra giấy A4 hoặc lưu PDF</div>
                   </div>
                 </button>
               </div>
