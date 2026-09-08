@@ -126,8 +126,8 @@ export default function Header() {
               href="tel:0937863263"
               className="hidden sm:flex items-center gap-2 text-white bg-[#22c55e] hover:bg-[#16a34a] px-3.5 lg:px-4 py-1.5 lg:py-2 rounded-full border border-emerald-600/30 transition-all shrink-0 font-bold text-xs lg:text-[13px] xl:text-sm shadow-sm whitespace-nowrap active:scale-95 group"
             >
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-[#16a34a] shadow-xs group-hover:scale-110 transition-transform">
-                <span className="material-symbols-outlined text-[13px] lg:text-[14px]">call</span>
+              <span className="w-5 h-5 lg:w-5.5 lg:h-5.5 rounded-full bg-white text-[#16a34a] flex items-center justify-center shrink-0 shadow-xs group-hover:scale-110 transition-transform overflow-hidden">
+                <span className="material-symbols-outlined leading-none" style={{ fontSize: '12px', lineHeight: 1 }}>call</span>
               </span>
               <span>Hotline: 093 786 32 63</span>
             </a>
