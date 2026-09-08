@@ -92,19 +92,14 @@ export default function ServicesPage() {
                 </p>
               </Link>
 
-              {/* Quick Action Footer: 2 clean buttons without icons, larger text */}
-              <div className="pt-4 border-t border-slate-100 grid grid-cols-2 gap-2.5 mt-auto">
+              {/* Quick Action Footer: Nút Đặt Lịch Hẹn Tư Vấn */}
+              <div className="pt-4 border-t border-slate-100 mt-auto">
                 <Link
                   href="/appointment"
-                  className="flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-200/90 rounded-xl py-2.5 text-sm sm:text-[15px] font-bold transition-all active:scale-95 shadow-2xs text-center"
+                  className="w-full flex items-center justify-center gap-2 bg-[#641D06] hover:bg-black text-white rounded-xl py-2.5 sm:py-3 text-sm sm:text-[15px] font-bold transition-all active:scale-98 shadow-sm hover:shadow-md text-center"
                 >
-                  Đặt Hẹn
-                </Link>
-                <Link
-                  href="/ai-chatbot"
-                  className="flex items-center justify-center bg-amber-50 hover:bg-amber-100 text-[#641D06] border border-amber-300/80 rounded-xl py-2.5 text-sm sm:text-[15px] font-bold transition-all active:scale-95 shadow-2xs text-center"
-                >
-                  Hỏi AI
+                  <span className="material-symbols-outlined text-base text-amber-300">calendar_month</span>
+                  <span>Đặt Lịch Hẹn</span>
                 </Link>
               </div>
             </div>
