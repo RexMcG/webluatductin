@@ -271,111 +271,50 @@ function AIChatbotContent() {
           
           {/* ===== LEFT SIDEBAR: Lawyer Card & Quick Shortcuts ===== */}
           <aside className="lg:col-span-3 xl:col-span-3 flex flex-col gap-4">
-            {/* Lawyer Profile Card - Luxurious Executive Dark Brand Edition */}
-            <div className="relative overflow-hidden rounded-3xl p-5 text-center shadow-xl border-2 border-amber-400/40 bg-gradient-to-b from-[#2e0b04] via-[#481206] to-[#1e0602] text-white">
-              {/* Ambient Glow & Decorative Elements */}
-              <div className="absolute -top-10 -right-10 w-32 h-32 bg-amber-500/15 rounded-full blur-2xl pointer-events-none" />
-              <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-red-600/15 rounded-full blur-2xl pointer-events-none" />
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 via-amber-200 to-amber-500" />
+            {/* Lawyer Profile Card - Elegant Professional Brand Edition */}
+            <div className="bg-white border border-[#641D06]/15 rounded-2xl p-5 text-center shadow-md relative overflow-hidden">
+              {/* Subtle Brand Accent Bar */}
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#641D06]" />
 
-              {/* Verified Badge */}
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-300 text-[10px] font-extrabold uppercase tracking-wider mb-3 shadow-xs">
-                <span className="material-symbols-outlined text-xs text-amber-300">verified</span>
-                Luật Sư Điều Hành Trực Tiếp
+              <div className="w-20 h-20 bg-slate-100 rounded-2xl mx-auto mb-3 overflow-hidden relative border border-slate-200 shadow-2xs mt-1">
+                <Image 
+                  src="/img/avatar1.png" 
+                  alt="Luật sư Phan Đức Tín" 
+                  fill 
+                  className="object-cover" 
+                />
               </div>
-
-              {/* Avatar with Gold Ring & Live Pulse Indicator */}
-              <div className="w-20 h-20 mx-auto mb-3 relative">
-                <div className="w-full h-full p-1 rounded-2xl bg-gradient-to-tr from-amber-400 via-amber-200 to-amber-500 shadow-md shadow-amber-950/50">
-                  <div className="w-full h-full rounded-[14px] overflow-hidden relative bg-[#1e0602]">
-                    <Image 
-                      src="/img/avatar1.png" 
-                      alt="Luật sư Phan Đức Tín" 
-                      fill 
-                      className="object-cover" 
-                    />
-                  </div>
-                </div>
-                {/* Live Online Indicator */}
-                <div className="absolute -bottom-1 -right-1 flex items-center gap-1 bg-emerald-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full border border-white shadow-xs">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-ping"></span>
-                  Online
-                </div>
-              </div>
-
-              {/* Lawyer Name & Title */}
-              <h2 className="text-base sm:text-lg font-black text-white tracking-wide uppercase font-serif">
-                Ls. PHAN ĐỨC TÍN
-              </h2>
-              <p className="text-[11px] font-bold text-amber-300 uppercase tracking-wide mt-0.5">
+              <h2 className="text-base font-bold text-slate-900 tracking-tight">Ls. PHAN ĐỨC TÍN</h2>
+              <p className="text-xs font-bold text-[#641D06] uppercase mt-0.5 tracking-wide">
                 Luật sư Trưởng - Giám đốc Điều hành
               </p>
-
-              {/* Key Trust Highlights */}
-              <div className="flex items-center justify-center gap-1.5 my-3 flex-wrap">
-                <span className="bg-white/10 backdrop-blur-xs border border-white/15 text-amber-100 text-[10px] font-semibold px-2 py-0.5 rounded-md">
-                  ⚖️ 15+ Năm KN
-                </span>
-                <span className="bg-white/10 backdrop-blur-xs border border-white/15 text-amber-100 text-[10px] font-semibold px-2 py-0.5 rounded-md">
-                  ⭐ Đoàn LS TP.HCM
-                </span>
-              </div>
-
-              {/* Short Bio */}
-              <p className="text-xs text-amber-100/85 leading-relaxed text-center px-1 font-normal">
-                Chuyên sâu tranh tụng &amp; giải quyết tranh chấp phức tạp về Đất đai, Hôn nhân gia đình, Kinh doanh thương mại &amp; Hình sự.
+              <p className="text-xs text-slate-600 mt-2 leading-relaxed text-justify">
+                Hơn 15 năm kinh nghiệm tranh tụng tại Tòa án và tư vấn pháp lý chuyên sâu về Đất đai, Hôn nhân gia đình, Doanh nghiệp &amp; Hình sự.
               </p>
 
-              {/* Premium Interactive Action Buttons */}
-              <div className="mt-4 pt-3 border-t border-amber-400/20 space-y-2.5">
-                {/* Button 1: Hotline */}
+              <div className="mt-4 pt-3 border-t border-slate-100 space-y-2">
                 <a
                   href="tel:0937863263"
-                  className="w-full h-11 px-3 bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold flex items-center justify-between transition-all duration-200 shadow-md shadow-emerald-950/40 border border-emerald-300/40 hover:-translate-y-0.5 active:scale-98 group"
+                  className="w-full bg-[#15803d] hover:bg-[#166534] text-white h-10 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-xs active:scale-98"
                 >
-                  <div className="flex items-center gap-2">
-                    <span className="w-7 h-7 rounded-lg bg-white/20 flex items-center justify-center text-white group-hover:rotate-12 transition-transform">
-                      <span className="material-symbols-outlined text-base">call</span>
-                    </span>
-                    <span className="tracking-tight text-[12px] sm:text-[13px] font-bold">Hotline: 093 786 32 63</span>
-                  </div>
-                  <span className="bg-emerald-900/60 text-emerald-200 text-[10px] font-bold px-1.5 py-0.5 rounded-md uppercase tracking-wider">
-                    24/7
-                  </span>
+                  <span className="material-symbols-outlined text-base">call</span>
+                  Hotline: 093 786 32 63
                 </a>
-
-                {/* Button 2: Zalo */}
                 <a
                   href="https://zalo.me/0937863263"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full h-11 px-3 bg-gradient-to-r from-[#0068FF] to-[#0089FF] hover:from-[#005cd6] hover:to-[#007be6] text-white rounded-xl text-xs font-bold flex items-center justify-between transition-all duration-200 shadow-md shadow-blue-950/40 border border-blue-300/40 hover:-translate-y-0.5 active:scale-98 group"
+                  className="w-full bg-[#0068FF] hover:bg-[#0058db] text-white h-10 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-xs active:scale-98"
                 >
-                  <div className="flex items-center gap-2">
-                    <span className="w-7 h-7 rounded-lg bg-white/20 flex items-center justify-center text-white group-hover:scale-110 transition-transform">
-                      <span className="material-symbols-outlined text-base">chat</span>
-                    </span>
-                    <span className="tracking-tight text-[12px] sm:text-[13px] font-bold">Chat Zalo Trực Tiếp</span>
-                  </div>
-                  <span className="bg-blue-900/60 text-blue-200 text-[10px] font-bold px-1.5 py-0.5 rounded-md">
-                    Miễn phí
-                  </span>
+                  <span className="material-symbols-outlined text-base">chat</span>
+                  Chat Zalo Trực Tiếp
                 </a>
-
-                {/* Button 3: Hero Consultation CTA (Shimmer Gold) */}
                 <button
                   onClick={() => setShowConsultModal(true)}
-                  className="w-full h-11 px-3 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-[#3B1004] rounded-xl text-xs sm:text-sm font-black flex items-center justify-between transition-all duration-200 shadow-lg shadow-amber-500/25 border border-amber-200 hover:-translate-y-0.5 active:scale-98 cursor-pointer group"
+                  className="w-full bg-[#641D06] hover:bg-[#7d2408] text-white h-10 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-xs active:scale-98 cursor-pointer"
                 >
-                  <div className="flex items-center gap-2">
-                    <span className="w-7 h-7 rounded-lg bg-[#3B1004]/10 flex items-center justify-center text-[#3B1004] group-hover:scale-110 transition-transform">
-                      <span className="material-symbols-outlined text-base">calendar_month</span>
-                    </span>
-                    <span className="tracking-wide">Đặt Lịch Tư Vấn 1:1</span>
-                  </div>
-                  <span className="bg-[#3B1004] text-amber-300 text-[9px] font-black px-1.5 py-0.5 rounded-md uppercase tracking-wider">
-                    Ưu tiên
-                  </span>
+                  <span className="material-symbols-outlined text-base">calendar_month</span>
+                  Đặt Lịch Tư Vấn 1:1
                 </button>
               </div>
             </div>
