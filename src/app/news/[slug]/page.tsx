@@ -241,7 +241,10 @@ export default function NewsDetailPage() {
           {/* =========================================================
               LEFT COLUMN (COMPACT ON 14-INCH: 190px - 230px): WORD NAVIGATION PANE (HOLD CỐ ĐỊNH 1 CHỖ)
              ========================================================= */}
-          <aside className="hidden lg:block lg:w-[190px] xl:w-[220px] 2xl:w-[250px] shrink-0 self-start z-10 sticky top-24">
+          <aside 
+            className="hidden lg:block lg:w-[190px] xl:w-[220px] 2xl:w-[250px] shrink-0 self-start z-20 sticky top-24"
+            style={{ position: 'sticky', top: '5.5rem' }}
+          >
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col max-h-[calc(100vh-7rem)]">
               {/* Word Navigation Top Title Bar */}
               <div className="px-3 py-2 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
@@ -555,7 +558,10 @@ export default function NewsDetailPage() {
           {/* =========================================================
               RIGHT COLUMN: ATTORNEY CARD & RECOMMENDED ARTICLES (HOLD CỐ ĐỊNH 1 CHỖ)
              ========================================================= */}
-          <aside className="w-full lg:w-[210px] xl:w-[240px] 2xl:w-[270px] shrink-0 self-start z-10 space-y-3.5 xl:space-y-5 sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto no-scrollbar">
+          <aside 
+            className="w-full lg:w-[210px] xl:w-[240px] 2xl:w-[270px] shrink-0 self-start z-20 space-y-3.5 xl:space-y-5 sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto no-scrollbar"
+            style={{ position: 'sticky', top: '5.5rem' }}
+          >
             
             {/* Direct Lawyer Support Card */}
             <div className="bg-gradient-to-br from-[#641D06] to-[#381104] text-white rounded-2xl p-4 shadow-md text-center">

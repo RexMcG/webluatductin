@@ -142,7 +142,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="vi" className={`overflow-y-scroll ${roboto.className}`}>
+    <html lang="vi" className={roboto.className}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
