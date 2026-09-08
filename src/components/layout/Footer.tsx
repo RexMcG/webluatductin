@@ -312,16 +312,35 @@ export default function Footer() {
 
           </div>
 
-          {/* Bottom Area: 1-line Disclaimer + Copyright Row (1 Privacy Link Only) */}
-          <div className="mt-6 pt-3 border-t border-white/10 flex flex-col gap-2 text-slate-300/90 text-[11px]">
+          {/* Bottom Area: 1-line Disclaimer + 4 Core Legal Policies Row */}
+          <div className="mt-6 pt-3 border-t border-white/10 flex flex-col gap-3 text-slate-300/90 text-[11px]">
             <p className="leading-relaxed text-center sm:text-left">
-              <strong className="text-amber-300 font-medium">⚖️ Miễn trừ trách nhiệm:</strong> Toàn bộ thông tin, bài viết và tính năng tính toán trên website mang tính chất tham khảo kiến thức pháp luật, không cấu thành ý kiến tư vấn pháp lý chính thức cho đến khi hợp đồng dịch vụ được ký kết bằng văn bản theo luật định.
+              <strong className="text-amber-300 font-medium">⚖️ Miễn trừ trách nhiệm:</strong> Toàn bộ thông tin, bài viết và tính năng tính toán trên website mang tính chất tham khảo kiến thức pháp luật, không cấu thành ý kiến tư vấn pháp lý chính thức cho đến khi hợp đồng dịch vụ được ký kết bằng văn bản theo luật định. Xem chi tiết tại{" "}
+              <Link href="/disclaimer" className="text-amber-300 hover:underline">Tuyên bố từ chối trách nhiệm</Link>.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-2 border-t border-white/5 text-xs text-slate-400">
-              <p>© 2026 CÔNG TY LUẬT TNHH ĐỨC TÍN VÀ CỘNG SỰ (DUC TIN &amp; PARTNERS). All Rights Reserved.</p>
-              <Link href="/privacy-policy" className="hover:text-amber-300 transition-colors underline shrink-0">
-                Chính Sách Bảo Mật &amp; Quyền Riêng Tư
-              </Link>
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-3 pt-2.5 border-t border-white/5 text-xs text-slate-300">
+              {/* 4 Core Legal Policies separated by | */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-3.5 gap-y-1.5 font-medium text-slate-300">
+                <Link href="/privacy-policy" className="hover:text-amber-300 transition-colors">
+                  Chính sách bảo mật
+                </Link>
+                <span className="text-white/25">|</span>
+                <Link href="/terms-of-use" className="hover:text-amber-300 transition-colors">
+                  Điều khoản sử dụng
+                </Link>
+                <span className="text-white/25">|</span>
+                <Link href="/disclaimer" className="hover:text-amber-300 transition-colors">
+                  Tuyên bố từ chối trách nhiệm
+                </Link>
+                <span className="text-white/25">|</span>
+                <Link href="/data-protection" className="hover:text-amber-300 transition-colors">
+                  Chính sách bảo vệ Dữ liệu cá nhân
+                </Link>
+              </div>
+
+              <p className="text-[11px] text-slate-400 text-center lg:text-right shrink-0">
+                © 2026 CÔNG TY LUẬT TNHH ĐỨC TÍN VÀ CỘNG SỰ (DUC TIN &amp; PARTNERS). All Rights Reserved.
+              </p>
             </div>
           </div>
 
