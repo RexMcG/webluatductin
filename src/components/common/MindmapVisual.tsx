@@ -180,25 +180,25 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
 
   // Balanced responsive canvas coordinates with ample headroom for hover popups above nodes
   const maxSide = Math.max(leftBranches.length, rightBranches.length);
-  const rowSpacing = maxSide >= 4 ? 92 : 108;
-  const canvasH = Math.max(440, (maxSide - 1) * rowSpacing + 260);
+  const rowSpacing = maxSide >= 4 ? 98 : 112;
+  const canvasH = Math.max(450, (maxSide - 1) * rowSpacing + 260);
   const canvasW = 960;
 
   const cx = canvasW / 2; // 480
   const cy = canvasH / 2;
 
-  const centerBoxW = 190;
-  const centerBoxH = 84;
-  const centerL = cx - centerBoxW / 2; // 385
-  const centerR = cx + centerBoxW / 2; // 575
+  const centerBoxW = 200;
+  const centerBoxH = 88;
+  const centerL = cx - centerBoxW / 2; // 380
+  const centerR = cx + centerBoxW / 2; // 580
 
-  // Well-proportioned branch button sizes
-  const branchBoxW = 215;
-  const branchBoxH = 66;
+  // Well-proportioned branch button sizes - expanded to give ample room for Vietnamese text
+  const branchBoxW = 250;
+  const branchBoxH = 72;
 
-  // X Coordinates nicely inset from canvas edges (30px safe margin)
-  const leftBranchX = 138;
-  const rightBranchX = 822;
+  // X Coordinates nicely inset from canvas edges
+  const leftBranchX = 145;
+  const rightBranchX = 815;
 
   // Helper to compute Y coordinate for each branch
   const getBranchY = (bIdx: number, totalOnSide: number) => {
@@ -345,9 +345,9 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 height={centerBoxH}
               >
                 <div className="w-full h-full flex items-center justify-center p-0.5">
-                  <div className="w-full h-full rounded-2xl bg-[#641D06] text-white p-2 shadow-md border-2 border-[#C0963B] flex flex-col items-center justify-center text-center">
-                    <span className="material-symbols-outlined text-lg mb-0.5 text-amber-300">account_balance</span>
-                    <h3 className="font-black text-xs uppercase tracking-wide leading-tight line-clamp-3 text-amber-100">
+                  <div className="w-full h-full rounded-2xl bg-[#641D06] text-white p-2.5 shadow-md border-2 border-[#C0963B] flex flex-col items-center justify-center text-center">
+                    <span className="material-symbols-outlined text-xl mb-0.5 text-amber-300">account_balance</span>
+                    <h3 className="font-extrabold text-[13px] sm:text-sm uppercase tracking-wide leading-tight line-clamp-2 text-amber-100">
                       {data.center}
                     </h3>
                   </div>
@@ -379,7 +379,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                       <button
                         type="button"
                         onClick={() => handleJumpToSection(b, bIdx)}
-                        className={`w-full h-full px-2.5 py-1.5 rounded-xl text-xs font-black shadow-md border-2 text-left flex items-center justify-between gap-1.5 leading-snug transition-all duration-200 cursor-pointer active:scale-95 ${
+                        className={`w-full h-full px-3.5 py-2 rounded-2xl shadow-md border-2 text-left flex items-center justify-between gap-2.5 leading-snug transition-all duration-200 cursor-pointer active:scale-95 ${
                           isHovered
                             ? "ring-4 ring-amber-300 scale-105 shadow-xl"
                             : "hover:scale-102 hover:shadow-lg"
@@ -391,17 +391,17 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                         }}
                       >
                         {/* Number Badge [1], [2] */}
-                        <div className="flex items-center gap-1.5 flex-1 min-w-0">
-                          <span className="w-5 h-5 rounded-full bg-amber-400 text-slate-950 font-black text-[10px] flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
+                        <div className="flex items-center gap-2.5 flex-1 min-w-0">
+                          <span className="w-6 h-6 rounded-full bg-amber-400 text-slate-950 font-black text-xs flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
                             {itemNumber}
                           </span>
-                          <span className="font-extrabold leading-tight line-clamp-2 text-[11px] tracking-tight">
+                          <span className="font-semibold text-white leading-snug line-clamp-2 text-[13px] sm:text-[13.5px] tracking-normal">
                             {cleanTitle}
                           </span>
                         </div>
 
                         {/* Tooltip ⓘ Badge */}
-                        <span className="w-4.5 h-4.5 rounded-full bg-white/20 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/40 flex items-center justify-center text-[10px] font-black shrink-0 transition-colors shadow-xs">
+                        <span className="w-5 h-5 rounded-full bg-white/20 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/40 flex items-center justify-center text-[11px] font-bold shrink-0 transition-colors shadow-xs" title="Xem chi tiết mục">
                           ⓘ
                         </span>
                       </button>
@@ -436,7 +436,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                       <button
                         type="button"
                         onClick={() => handleJumpToSection(b, globalIdx)}
-                        className={`w-full h-full px-2.5 py-1.5 rounded-xl text-xs font-black shadow-md border-2 text-right flex items-center justify-between gap-1.5 leading-snug transition-all duration-200 cursor-pointer active:scale-95 ${
+                        className={`w-full h-full px-3.5 py-2 rounded-2xl shadow-md border-2 text-right flex items-center justify-between gap-2.5 leading-snug transition-all duration-200 cursor-pointer active:scale-95 ${
                           isHovered
                             ? "ring-4 ring-amber-300 scale-105 shadow-xl"
                             : "hover:scale-102 hover:shadow-lg"
@@ -448,16 +448,16 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                         }}
                       >
                         {/* Tooltip ⓘ Badge */}
-                        <span className="w-4.5 h-4.5 rounded-full bg-white/20 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/40 flex items-center justify-center text-[10px] font-black shrink-0 transition-colors shadow-xs">
+                        <span className="w-5 h-5 rounded-full bg-white/20 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/40 flex items-center justify-center text-[11px] font-bold shrink-0 transition-colors shadow-xs" title="Xem chi tiết mục">
                           ⓘ
                         </span>
 
                         {/* Number Badge [3], [4] */}
-                        <div className="flex items-center justify-end gap-1.5 flex-1 min-w-0">
-                          <span className="font-extrabold leading-tight line-clamp-2 text-right text-[11px] tracking-tight">
+                        <div className="flex items-center justify-end gap-2.5 flex-1 min-w-0">
+                          <span className="font-semibold text-white leading-snug line-clamp-2 text-right text-[13px] sm:text-[13.5px] tracking-normal">
                             {cleanTitle}
                           </span>
-                          <span className="w-5 h-5 rounded-full bg-amber-400 text-slate-950 font-black text-[10px] flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
+                          <span className="w-6 h-6 rounded-full bg-amber-400 text-slate-950 font-black text-xs flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
                             {itemNumber}
                           </span>
                         </div>
