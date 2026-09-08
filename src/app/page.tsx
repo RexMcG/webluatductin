@@ -334,12 +334,12 @@ export default function Home() {
             <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
           
           {/* 1. Nội bộ doanh nghiệp */}
-          <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
-            <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-6 sm:p-8 h-full flex flex-col border border-border-neutral/50">
-              <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-6 border border-slate-100 bg-slate-100 shadow-2xs">
+          <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-xs hover:shadow-2xl hover:border-amber-500 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group overflow-hidden relative cursor-pointer">
+            <Link href="/services/hop-tac-doanh-nghiep" className="block flex-1 flex flex-col">
+              <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-5 border border-slate-100 bg-slate-100 shadow-2xs">
                 <img
                   src="/img/card_business.webp"
                   alt="Nội bộ doanh nghiệp"
@@ -349,30 +349,38 @@ export default function Home() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-3 left-3">
-                  <span className="rounded-full px-3 py-1 bg-white/95 backdrop-blur-xs text-[10px] uppercase tracking-[0.2em] font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
+                  <span className="rounded-full px-3.5 py-1 bg-white/95 backdrop-blur-xs text-[11px] uppercase tracking-wider font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
                     Doanh nghiệp
                   </span>
                 </div>
+                <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-xs text-slate-700 group-hover:bg-[#641D06] group-hover:text-white flex items-center justify-center shadow-xs transition-colors">
+                  <span className="material-symbols-outlined text-base group-hover:translate-x-0.5 transition-transform">
+                    arrow_forward
+                  </span>
+                </div>
               </div>
-              <h3 className="font-headline-lg text-[26px] sm:text-[28px] text-primary mb-3 leading-tight font-bold">Nội bộ doanh nghiệp</h3>
-              <p className="font-body-md text-text-secondary leading-relaxed mb-8 flex-grow text-sm sm:text-base">
-                Xây dựng quy chế hoạt động, cơ cấu quản trị nội bộ, giải quyết mâu thuẫn giữa các thành viên/cổ đông.
+              <h3 className="text-xl font-bold text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug">
+                Hợp Tác Doanh Nghiệp &amp; Luật Sư Nội Bộ
+              </h3>
+              <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3 flex-1">
+                Xây dựng quy chế hoạt động, cơ cấu quản trị nội bộ, giải quyết mâu thuẫn giữa các thành viên/cổ đông và tư vấn hợp đồng kinh thương.
               </p>
-              <div className="flex flex-col gap-3 mt-auto">
-                <Link href="/appointment" aria-label="Đặt lịch hẹn tư vấn Doanh nghiệp" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
-                  Đặt lịch Doanh nghiệp
-                </Link>
-                <Link href="/ai-chatbot" aria-label="Hỏi Trợ lý AI về Doanh nghiệp" className="flex w-full items-center justify-center bg-amber-50 hover:bg-amber-100 text-[#641D06] border border-amber-300/80 rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
-                  Hỏi AI Doanh nghiệp
-                </Link>
-              </div>
+            </Link>
+            <div className="pt-4 border-t border-slate-100 mt-auto">
+              <Link
+                href="/appointment"
+                className="w-full flex items-center justify-center gap-2 bg-[#641D06] hover:bg-black text-white rounded-xl py-2.5 sm:py-3 text-sm sm:text-[15px] font-bold transition-all active:scale-98 shadow-sm hover:shadow-md text-center"
+              >
+                <span className="material-symbols-outlined text-base text-amber-300">calendar_month</span>
+                <span>Đặt Lịch Hẹn</span>
+              </Link>
             </div>
           </div>
 
-          {/* 2. Tư vấn đầu tư */}
-          <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
-            <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-6 sm:p-8 h-full flex flex-col border border-border-neutral/50">
-              <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-6 border border-slate-100 bg-slate-100 shadow-2xs">
+          {/* 2. Tư vấn đầu tư FDI */}
+          <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-xs hover:shadow-2xl hover:border-amber-500 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group overflow-hidden relative cursor-pointer">
+            <Link href="/services/dau-tu-nuoc-ngoai-fdi" className="block flex-1 flex flex-col">
+              <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-5 border border-slate-100 bg-slate-100 shadow-2xs">
                 <img
                   src="/img/card_fdi.webp"
                   alt="Tư vấn đầu tư FDI"
@@ -382,30 +390,38 @@ export default function Home() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-3 left-3">
-                  <span className="rounded-full px-3 py-1 bg-white/95 backdrop-blur-xs text-[10px] uppercase tracking-[0.2em] font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
-                    Thương mại
+                  <span className="rounded-full px-3.5 py-1 bg-white/95 backdrop-blur-xs text-[11px] uppercase tracking-wider font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
+                    Đầu tư
+                  </span>
+                </div>
+                <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-xs text-slate-700 group-hover:bg-[#641D06] group-hover:text-white flex items-center justify-center shadow-xs transition-colors">
+                  <span className="material-symbols-outlined text-base group-hover:translate-x-0.5 transition-transform">
+                    arrow_forward
                   </span>
                 </div>
               </div>
-              <h3 className="font-headline-lg text-[26px] sm:text-[28px] text-primary mb-3 leading-tight font-bold">Tư vấn đầu tư FDI</h3>
-              <p className="font-body-md text-text-secondary leading-relaxed mb-8 flex-grow text-sm sm:text-base">
-                Cố vấn chiến lược cho các nhà đầu tư trong và ngoài nước (FDI). Đánh giá tính pháp lý của dự án, tối ưu hóa cấu trúc vốn.
+              <h3 className="text-xl font-bold text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug">
+                Tư Vấn Đầu Tư FDI &amp; Dự Án
+              </h3>
+              <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3 flex-1">
+                Cố vấn chiến lược cho các nhà đầu tư trong và ngoài nước (FDI). Đánh giá tính pháp lý của dự án, tối ưu hóa cấu trúc vốn và thủ tục IRC/ERC.
               </p>
-              <div className="flex flex-col gap-3 mt-auto">
-                <Link href="/appointment" aria-label="Đặt lịch hẹn tư vấn Đầu tư FDI" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
-                  Đặt lịch Đầu tư FDI
-                </Link>
-                <Link href="/ai-chatbot" aria-label="Hỏi Trợ lý AI về Đầu tư FDI" className="flex w-full items-center justify-center bg-amber-50 hover:bg-amber-100 text-[#641D06] border border-amber-300/80 rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
-                  Hỏi AI Đầu tư FDI
-                </Link>
-              </div>
+            </Link>
+            <div className="pt-4 border-t border-slate-100 mt-auto">
+              <Link
+                href="/appointment"
+                className="w-full flex items-center justify-center gap-2 bg-[#641D06] hover:bg-black text-white rounded-xl py-2.5 sm:py-3 text-sm sm:text-[15px] font-bold transition-all active:scale-98 shadow-sm hover:shadow-md text-center"
+              >
+                <span className="material-symbols-outlined text-base text-amber-300">calendar_month</span>
+                <span>Đặt Lịch Hẹn</span>
+              </Link>
             </div>
           </div>
 
-          {/* 3. Tranh tụng */}
-          <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
-            <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-6 sm:p-8 h-full flex flex-col border border-border-neutral/50">
-              <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-6 border border-slate-100 bg-slate-100 shadow-2xs">
+          {/* 3. Tranh tụng Tòa án */}
+          <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-xs hover:shadow-2xl hover:border-amber-500 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group overflow-hidden relative cursor-pointer">
+            <Link href="/services/tranh-tung-tai-toa" className="block flex-1 flex flex-col">
+              <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-5 border border-slate-100 bg-slate-100 shadow-2xs">
                 <img
                   src="/img/card_court.webp"
                   alt="Tranh tụng Tòa án"
@@ -415,23 +431,31 @@ export default function Home() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute top-3 left-3">
-                  <span className="rounded-full px-3 py-1 bg-white/95 backdrop-blur-xs text-[10px] uppercase tracking-[0.2em] font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
-                    Cốt lõi
+                  <span className="rounded-full px-3.5 py-1 bg-white/95 backdrop-blur-xs text-[11px] uppercase tracking-wider font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
+                    Tố tụng
+                  </span>
+                </div>
+                <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-xs text-slate-700 group-hover:bg-[#641D06] group-hover:text-white flex items-center justify-center shadow-xs transition-colors">
+                  <span className="material-symbols-outlined text-base group-hover:translate-x-0.5 transition-transform">
+                    arrow_forward
                   </span>
                 </div>
               </div>
-              <h3 className="font-headline-lg text-[26px] sm:text-[28px] text-primary mb-3 leading-tight font-bold">Tranh tụng Tòa án</h3>
-              <p className="font-body-md text-text-secondary leading-relaxed mb-8 flex-grow text-sm sm:text-base">
-                Đại diện khách hàng tham gia tố tụng tại Tòa án và Trọng tài thương mại các cấp. Bào chữa, bảo vệ tối đa quyền lợi.
+              <h3 className="text-xl font-bold text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug">
+                Giải Quyết Tranh Chấp &amp; Tranh Tụng Tòa Án
+              </h3>
+              <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3 flex-1">
+                Đại diện khách hàng tham gia tố tụng tại Tòa án và Trọng tài thương mại các cấp. Bào chữa, bảo vệ tối đa quyền và lợi ích hợp pháp.
               </p>
-              <div className="flex flex-col gap-3 mt-auto">
-                <Link href="/appointment" aria-label="Đặt lịch hẹn tư vấn Tranh tụng" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
-                  Đặt lịch Tranh tụng
-                </Link>
-                <Link href="/ai-chatbot" aria-label="Hỏi Trợ lý AI về Tranh tụng Tòa án" className="flex w-full items-center justify-center bg-amber-50 hover:bg-amber-100 text-[#641D06] border border-amber-300/80 rounded-full px-6 py-3 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
-                  Hỏi AI Tranh tụng
-                </Link>
-              </div>
+            </Link>
+            <div className="pt-4 border-t border-slate-100 mt-auto">
+              <Link
+                href="/appointment"
+                className="w-full flex items-center justify-center gap-2 bg-[#641D06] hover:bg-black text-white rounded-xl py-2.5 sm:py-3 text-sm sm:text-[15px] font-bold transition-all active:scale-98 shadow-sm hover:shadow-md text-center"
+              >
+                <span className="material-symbols-outlined text-base text-amber-300">calendar_month</span>
+                <span>Đặt Lịch Hẹn</span>
+              </Link>
             </div>
           </div>
 
