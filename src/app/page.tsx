@@ -673,11 +673,11 @@ export default function Home() {
             </div>
           </div>
 
-          {/* FAQ Accordion (Right) - Căn chỉnh đồng đều đầu & cằm với ô đặt câu hỏi */}
-          <div className="flex flex-col justify-between py-1">
+          {/* FAQ Accordion (Right) - Căn chỉnh đồng đều tuyệt đối 100% đầu & cằm với ô đặt câu hỏi */}
+          <div className="flex flex-col justify-between h-full">
             <div>
-              <h2 className="text-[#92400e] font-black text-2xl md:text-3xl uppercase mb-1.5 font-sans leading-snug">CÂU HỎI &amp; GIẢI ĐÁP PHÁP LUẬT</h2>
-              <div className="text-amber-800 mb-4 flex items-center">
+              <h2 className="text-[#92400e] font-black text-2xl md:text-3xl uppercase mb-1.5 font-sans leading-none tracking-tight">CÂU HỎI &amp; GIẢI ĐÁP PHÁP LUẬT</h2>
+              <div className="text-amber-800 mb-4 mt-2 flex items-center">
                 <span className="tracking-widest font-bold">— ⚖️ —</span>
               </div>
 
@@ -716,8 +716,8 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="mt-4">
-              <Link href="/news" className="inline-block bg-[#92400e] text-white font-bold uppercase px-7 py-3 rounded-xl hover:bg-[#78350f] transition-colors shadow-sm text-xs sm:text-sm">
+            <div className="mt-auto flex items-end">
+              <Link href="/news" className="inline-flex items-center justify-center bg-[#92400e] text-white font-bold uppercase px-7 py-3 rounded-xl hover:bg-[#78350f] transition-colors shadow-sm text-xs sm:text-sm">
                 XEM THÊM BÀI VIẾT
               </Link>
             </div>
