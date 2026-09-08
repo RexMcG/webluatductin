@@ -286,12 +286,12 @@ function AIChatbotContent() {
               {/* Subtle Brand Accent Bar */}
               <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#641D06]" />
 
-              <div className="w-20 h-20 bg-white rounded-2xl mx-auto mb-3 overflow-hidden relative border-2 border-[#641D06]/20 shadow-xs mt-1">
+              <div className="w-24 h-24 bg-white rounded-2xl mx-auto mb-3 overflow-hidden relative border-2 border-[#641D06]/20 shadow-md mt-1">
                 <Image 
                   src="/img/avatar1.png" 
                   alt="Luật sư Phan Đức Tín" 
                   fill 
-                  className="object-cover" 
+                  className="object-cover object-top" 
                 />
               </div>
               <h2 className="text-base font-bold text-slate-900 tracking-tight">Ls. PHAN ĐỨC TÍN</h2>

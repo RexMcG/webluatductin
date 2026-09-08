@@ -568,8 +568,8 @@ export default function NewsDetailPage() {
               {/* Subtle Brand Accent Bar */}
               <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#641D06]" />
 
-              <div className="w-16 h-16 rounded-2xl bg-white p-1 mx-auto mb-2.5 border-2 border-[#641D06]/20 shadow-xs overflow-hidden mt-1">
-                <img src="/img/avatar1.png" alt="Ls. Phan Đức Tín" className="w-full h-full object-cover rounded-xl" />
+              <div className="w-24 h-24 rounded-2xl bg-white p-1 mx-auto mb-3 border-2 border-[#641D06]/20 shadow-md overflow-hidden mt-1">
+                <img src="/img/avatar1.png" alt="Ls. Phan Đức Tín" className="w-full h-full object-cover object-top rounded-xl" />
               </div>
               <h4 className="font-black text-sm sm:text-[15px] text-slate-900 tracking-tight">Ls. PHAN ĐỨC TÍN</h4>
               <span className="inline-block text-[10px] font-extrabold text-[#641D06] bg-amber-200/70 border border-amber-400/60 px-2.5 py-0.5 rounded-full uppercase tracking-wider mt-1 shadow-2xs">
