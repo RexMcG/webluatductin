@@ -271,12 +271,12 @@ function AIChatbotContent() {
           
           {/* ===== LEFT SIDEBAR: Lawyer Card & Quick Shortcuts ===== */}
           <aside className="lg:col-span-3 xl:col-span-3 flex flex-col gap-4">
-            {/* Lawyer Profile Card - Elegant Professional Brand Edition */}
-            <div className="bg-white border border-[#641D06]/15 rounded-2xl p-5 text-center shadow-md relative overflow-hidden">
+            {/* Lawyer Profile Card - Warm Royal Champagne Edition (Distinct from white, elegant & not gaudy) */}
+            <div className="bg-gradient-to-b from-[#FFFDF8] via-[#FAF3E5] to-[#F5EAD4] border-2 border-amber-300/80 rounded-2xl p-5 text-center shadow-lg shadow-amber-900/5 relative overflow-hidden">
               {/* Subtle Brand Accent Bar */}
               <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#641D06]" />
 
-              <div className="w-20 h-20 bg-slate-100 rounded-2xl mx-auto mb-3 overflow-hidden relative border border-slate-200 shadow-2xs mt-1">
+              <div className="w-20 h-20 bg-white rounded-2xl mx-auto mb-3 overflow-hidden relative border-2 border-[#641D06]/20 shadow-xs mt-1">
                 <Image 
                   src="/img/avatar1.png" 
                   alt="Luật sư Phan Đức Tín" 
@@ -288,11 +288,11 @@ function AIChatbotContent() {
               <p className="text-xs font-bold text-[#641D06] uppercase mt-0.5 tracking-wide">
                 Luật sư Trưởng - Giám đốc Điều hành
               </p>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed text-justify">
+              <p className="text-xs text-slate-700 mt-2 leading-relaxed text-justify">
                 Hơn 15 năm kinh nghiệm tranh tụng tại Tòa án và tư vấn pháp lý chuyên sâu về Đất đai, Hôn nhân gia đình, Doanh nghiệp &amp; Hình sự.
               </p>
 
-              <div className="mt-4 pt-3 border-t border-slate-100 space-y-2">
+              <div className="mt-4 pt-3.5 border-t border-amber-900/15 space-y-2">
                 <a
                   href="tel:0937863263"
                   className="w-full bg-[#15803d] hover:bg-[#166534] text-white h-10 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-xs active:scale-98"
@@ -311,7 +311,7 @@ function AIChatbotContent() {
                 </a>
                 <button
                   onClick={() => setShowConsultModal(true)}
-                  className="w-full bg-[#641D06] hover:bg-[#7d2408] text-white h-10 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-xs active:scale-98 cursor-pointer"
+                  className="w-full bg-[#641D06] hover:bg-[#7d2408] text-white h-10 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-md shadow-[#641D06]/20 active:scale-98 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-base">calendar_month</span>
                   Đặt Lịch Tư Vấn 1:1
