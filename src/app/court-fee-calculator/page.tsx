@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { calcCourtFee, getLegalParams } from "@/utils/calculator";
-import CalculatorGuide, { InfoTooltip } from "@/components/calculator/CalculatorGuide";
+import { InfoTooltip } from "@/components/calculator/CalculatorGuide";
 import { LegalParams, DEFAULT_LEGAL_PARAMS } from "@/services/legal-params.service";
 
 export default function CourtFeeCalculator() {
@@ -249,8 +249,6 @@ export default function CourtFeeCalculator() {
         </div>
       </div>
 
-      {/* ===== FULL-WIDTH LEGAL KNOWLEDGE GUIDE SECTION ===== */}
-      <CalculatorGuide type="court-fee" />
     </div>
   );
 }
