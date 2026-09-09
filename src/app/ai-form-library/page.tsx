@@ -821,14 +821,58 @@ export default function AIFormLibrary() {
           {/* Left Column: Form Cards */}
           <div className="lg:col-span-8 space-y-6">
 
-            {isLoading && (
-              <div className="text-center py-12 text-[#641D06] font-bold flex items-center justify-center gap-2">
-                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#641D06]"></div>
-                Đang tìm kiếm bằng AI Vector...
-              </div>
-            )}
+            {isLoading ? (
+              <div className="space-y-4">
+                {/* AI Searching Status Bar */}
+                <div className="flex items-center gap-3 p-3.5 bg-gradient-to-r from-amber-50 via-amber-100/40 to-emerald-50 border border-amber-200/80 rounded-2xl">
+                  <div className="w-8 h-8 rounded-xl bg-amber-600/10 flex items-center justify-center text-[#641D06] shrink-0">
+                    <span className="material-symbols-outlined text-lg animate-spin">smart_toy</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-bold text-[#641D06] flex items-center gap-1.5">
+                      <span>Đang tìm kiếm bằng AI Vector...</span>
+                      <span className="inline-flex gap-1">
+                        <span className="w-1.5 h-1.5 bg-[#641D06] rounded-full animate-bounce"></span>
+                        <span className="w-1.5 h-1.5 bg-[#641D06] rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                        <span className="w-1.5 h-1.5 bg-[#641D06] rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                      </span>
+                    </p>
+                    <p className="text-[11px] text-slate-500 truncate">
+                      Đang phân tích ngữ nghĩa và xếp hạng độ phù hợp cho từ khóa &quot;{debouncedSearchTerm || searchTerm}&quot;
+                    </p>
+                  </div>
+                </div>
 
-            {debouncedSearchTerm.trim().length > 0 && displayForms.length === 0 && !isLoading && (
+                {/* 3 Form Card Skeletons */}
+                {[1, 2, 3].map((i) => (
+                  <div
+                    key={i}
+                    className="bg-white border border-slate-200 p-6 rounded-2xl shadow-xs relative overflow-hidden animate-pulse"
+                  >
+                    <div className="absolute top-0 left-0 right-0 h-1.5 bg-slate-200" />
+                    <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+                      <div className="flex-1 space-y-3 w-full">
+                        <div className="flex items-center gap-2.5">
+                          <div className="h-5 w-24 bg-emerald-100/80 rounded-full" />
+                          <div className="h-5 w-32 bg-slate-200 rounded-md" />
+                        </div>
+                        <div className="space-y-2">
+                          <div className="h-5 bg-slate-200 rounded-lg w-4/5" />
+                          <div className="h-4 bg-slate-200/80 rounded-lg w-1/2" />
+                        </div>
+                        <div className="space-y-1.5 pt-1">
+                          <div className="h-3.5 bg-slate-100 rounded w-full" />
+                          <div className="h-3.5 bg-slate-100 rounded w-4/5" />
+                        </div>
+                        <div className="pt-2">
+                          <div className="h-10 w-36 bg-emerald-100/60 rounded-xl" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : debouncedSearchTerm.trim().length > 0 && displayForms.length === 0 ? (
               <div className="text-center py-16 bg-white rounded-3xl border border-slate-200 p-8 shadow-xs">
                 <span className="material-symbols-outlined text-6xl text-slate-300 mb-3 block">search_off</span>
                 <h3 className="font-bold text-slate-800 text-lg mb-1">Không tìm thấy biểu mẫu phù hợp</h3>
@@ -843,54 +887,54 @@ export default function AIFormLibrary() {
                   Liên hệ Luật sư
                 </Link>
               </div>
-            )}
+            ) : (
+              displayForms.map((form) => {
+                const matchPercent =
+                  form.matchPercent !== undefined
+                    ? form.matchPercent
+                    : form.score !== undefined
+                    ? Math.min(99, Math.max(15, Math.round(form.score * 100)))
+                    : 85;
 
-            {displayForms.map((form) => {
-              const matchPercent =
-                form.matchPercent !== undefined
-                  ? form.matchPercent
-                  : form.score !== undefined
-                  ? Math.min(99, Math.max(15, Math.round(form.score * 100)))
-                  : 85;
+                return (
+                  <div
+                    key={form.id}
+                    className="bg-white border border-slate-200 hover:border-emerald-600 transition-all p-6 rounded-2xl flex flex-col md:flex-row gap-6 shadow-xs hover:shadow-md relative overflow-hidden group"
+                  >
+                    <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-500 to-amber-500" />
 
-              return (
-                <div
-                  key={form.id}
-                  className="bg-white border border-slate-200 hover:border-emerald-600 transition-all p-6 rounded-2xl flex flex-col md:flex-row gap-6 shadow-xs hover:shadow-md relative overflow-hidden group"
-                >
-                  <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-500 to-amber-500" />
-
-                  <div className="flex-1 space-y-3">
-                    <div className="flex items-center gap-2.5 flex-wrap">
-                      <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
-                        <span className="material-symbols-outlined text-[14px]">check_circle</span>
-                        {matchPercent}% phù hợp
-                      </span>
-                      {form.category && (
-                        <span className="bg-slate-100 text-slate-700 text-[11px] font-semibold px-2.5 py-0.5 rounded-md border border-slate-200">
-                          {form.category}
+                    <div className="flex-1 space-y-3">
+                      <div className="flex items-center gap-2.5 flex-wrap">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
+                          <span className="material-symbols-outlined text-[14px]">check_circle</span>
+                          {matchPercent}% phù hợp
                         </span>
-                      )}
-                    </div>
-                    <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#641D06] transition-colors leading-snug">
-                      {form.title}
-                    </h3>
-                    <p className="text-xs md:text-sm text-slate-600 line-clamp-3 leading-relaxed">
-                      {form.description || form.content || "Biểu mẫu pháp lý chuẩn hóa"}
-                    </p>
-                    <div className="flex items-center gap-3 mt-4 pt-2">
-                      <button
-                        onClick={() => handleDownloadClick(form)}
-                        className="bg-emerald-700 text-white hover:bg-emerald-800 h-10 px-5 rounded-xl text-xs md:text-sm font-bold transition-all flex items-center gap-2 shadow-xs cursor-pointer active:scale-95"
-                      >
-                        <span className="material-symbols-outlined text-[18px]">download</span>
-                        Tải xuống (.doc)
-                      </button>
+                        {form.category && (
+                          <span className="bg-slate-100 text-slate-700 text-[11px] font-semibold px-2.5 py-0.5 rounded-md border border-slate-200">
+                            {form.category}
+                          </span>
+                        )}
+                      </div>
+                      <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#641D06] transition-colors leading-snug">
+                        {form.title}
+                      </h3>
+                      <p className="text-xs md:text-sm text-slate-600 line-clamp-3 leading-relaxed">
+                        {form.description || form.content || "Biểu mẫu pháp lý chuẩn hóa"}
+                      </p>
+                      <div className="flex items-center gap-3 mt-4 pt-2">
+                        <button
+                          onClick={() => handleDownloadClick(form)}
+                          className="bg-emerald-700 text-white hover:bg-emerald-800 h-10 px-5 rounded-xl text-xs md:text-sm font-bold transition-all flex items-center gap-2 shadow-xs cursor-pointer active:scale-95"
+                        >
+                          <span className="material-symbols-outlined text-[18px]">download</span>
+                          Tải xuống (.doc)
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })
+            )}
           </div>
 
           {/* Right Sidebar: Quick Actions */}
