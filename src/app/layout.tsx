@@ -136,6 +136,7 @@ const jsonLd = {
 
 import { Suspense } from "react";
 import TopProgressBar from "@/components/common/TopProgressBar";
+import GoogleAnalyticsTracker from "@/components/common/GoogleAnalyticsTracker";
 
 export default function RootLayout({
   children,
@@ -184,6 +185,7 @@ export default function RootLayout({
 
         <Suspense fallback={null}>
           <TopProgressBar />
+          <GoogleAnalyticsTracker gaId="G-WLB2R37XF3" />
         </Suspense>
         <Providers>
           <LayoutShell>{children}</LayoutShell>
