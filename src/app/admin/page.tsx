@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { newsService } from "@/services/news.service";
 import { appointmentService } from "@/services/appointment.service";
 import { formService } from "@/services/form.service";
+import AnalyticsDashboard from "@/components/admin/AnalyticsDashboard";
 
 export default function AdminDashboardPage() {
   const { data: newsList = [] } = useQuery({
@@ -123,6 +124,9 @@ export default function AdminDashboardPage() {
           </Link>
         ))}
       </div>
+
+      {/* Google Analytics 4 (GA4) Realtime & Traffic Insights */}
+      <AnalyticsDashboard />
 
       {/* 2-Column Split: Real Appointments & Real News */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
