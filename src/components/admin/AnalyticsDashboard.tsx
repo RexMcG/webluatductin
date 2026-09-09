@@ -310,7 +310,7 @@ export default function AnalyticsDashboard() {
                         <div>
                           <div className="text-xs font-black text-slate-900">{dev.percentage}%</div>
                           <div className="text-[10px] text-slate-500 leading-tight truncate">
-                            {dev.device.split(" ")[0]}
+                            {dev.device.replace(/\s*\(.*?\)/, "")}
                           </div>
                         </div>
                       </div>
