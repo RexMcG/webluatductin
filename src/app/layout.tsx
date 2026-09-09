@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import Providers from "@/components/providers";
 import LayoutShell from "@/components/layout/LayoutShell";
@@ -162,6 +163,25 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-background text-text-primary antialiased min-h-full flex flex-col font-sans">
+        {/* Google Analytics 4 (GA4) */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-MTWTP12C4H"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+        >
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-MTWTP12C4H', {
+              page_path: window.location.pathname,
+            });
+          `}
+        </Script>
+
         <Suspense fallback={null}>
           <TopProgressBar />
         </Suspense>
