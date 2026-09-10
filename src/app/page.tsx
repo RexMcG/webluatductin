@@ -156,9 +156,9 @@ export default function Home() {
 
             {/* Smart Navigation Search Bar */}
             <div ref={searchRef} className="mt-8 w-full relative max-w-3xl z-40">
-              <form onSubmit={handleSearchSubmit} className="relative w-full shadow-2xl rounded-full">
+              <form onSubmit={handleSearchSubmit} className="relative w-full shadow-2xl rounded-2xl">
                 <input
-                  className="w-full h-16 md:h-20 pl-8 pr-20 border-[3px] border-accent rounded-full focus:ring-4 focus:ring-accent/30 focus:border-accent bg-white text-slate-900 placeholder:text-slate-400 outline-none text-base sm:text-lg md:text-xl font-medium shadow-inner"
+                  className="w-full h-16 md:h-20 pl-7 pr-20 border-[3px] border-accent rounded-2xl focus:ring-4 focus:ring-accent/30 focus:border-accent bg-white text-slate-900 placeholder:text-slate-400 outline-none text-base sm:text-lg md:text-xl font-medium shadow-inner"
                   id="hero-search"
                   placeholder="Nhập nhu cầu (VD: tranh chấp đất đai, tính án phí, ly hôn, rà soát hợp đồng M&amp;A...)"
                   type="text"
@@ -171,7 +171,7 @@ export default function Home() {
                 />
                 <button
                   type="submit"
-                  className="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 bg-[#641D06] hover:bg-black text-amber-400 w-11 h-11 md:w-14 md:h-14 rounded-full flex items-center justify-center text-2xl md:text-3xl transition-transform hover:scale-105 cursor-pointer border border-amber-500/40 shadow-md"
+                  className="material-symbols-outlined absolute right-3.5 top-1/2 -translate-y-1/2 bg-[#641D06] hover:bg-black text-amber-400 w-11 h-11 md:w-14 md:h-14 rounded-xl flex items-center justify-center text-2xl md:text-3xl transition-transform hover:scale-105 cursor-pointer border border-amber-500/40 shadow-md"
                   id="hero-search-btn"
                   title="Tìm kiếm & Trỏ ngay đến trang"
                 >
@@ -232,14 +232,14 @@ export default function Home() {
 
             <div className="flex flex-wrap justify-center gap-4 mt-8">
               <Link
-                className="bg-primary hover:bg-secondary text-white h-14 px-8 rounded-full font-label-sm text-base md:text-lg font-bold transition-all inline-flex items-center shadow-lg gap-2"
+                className="bg-primary hover:bg-secondary text-white h-14 px-8 rounded-xl font-label-sm text-base md:text-lg font-bold transition-all inline-flex items-center shadow-lg gap-2"
                 href="/appointment"
               >
                 <span className="material-symbols-outlined">calendar_month</span>
                 Đặt Lịch Tham Vấn Luật Sư
               </Link>
               <Link
-                className="bg-accent hover:opacity-90 text-white h-14 px-8 rounded-full font-label-sm text-base md:text-lg font-bold transition-all inline-flex items-center shadow-lg gap-2"
+                className="bg-accent hover:opacity-90 text-white h-14 px-8 rounded-xl font-label-sm text-base md:text-lg font-bold transition-all inline-flex items-center shadow-lg gap-2"
                 href="/ai-chatbot"
               >
                 <span className="material-symbols-outlined">smart_toy</span>
