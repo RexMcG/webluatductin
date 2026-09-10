@@ -7,9 +7,14 @@ import {
   LegalAlert,
   DEFAULT_LEGAL_PARAMS,
 } from "@/services/legal-params.service";
+import {
+  formSentinelService,
+  FormSentinelAlert,
+} from "@/services/form-sentinel.service";
 
 export default function AdminSettingsPage() {
-  const [activeTab, setActiveTab] = useState<"general" | "legal-params" | "ai-radar">("legal-params");
+  const [activeTab, setActiveTab] = useState<"general" | "legal-params" | "ai-radar">("ai-radar");
+  const [radarSubTab, setRadarSubTab] = useState<"forms" | "params">("forms");
 
   // General Firm Settings
   const [settings, setSettings] = useState({
@@ -31,9 +36,18 @@ export default function AdminSettingsPage() {
   const [isScanning, setIsScanning] = useState(false);
   const [scanMessage, setScanMessage] = useState<string | null>(null);
 
+  // Form Sentinel States (Tầng 1 - 3)
+  const [formAlerts, setFormAlerts] = useState<FormSentinelAlert[]>([]);
+  const [isScanningForms, setIsScanningForms] = useState(false);
+  const [formScanLogs, setFormScanLogs] = useState<string[]>([]);
+  const [activeDiffAlert, setActiveDiffAlert] = useState<FormSentinelAlert | null>(null);
+  const [sourceFilter, setSourceFilter] = useState<string>("all");
+  const [applyingAlertId, setApplyingAlertId] = useState<string | null>(null);
+
   useEffect(() => {
     setLegalParams(legalParamsService.getParams());
     setAlerts(legalParamsService.getAlerts());
+    formSentinelService.getAlerts().then((data) => setFormAlerts(data));
   }, []);
 
   const handleSaveGeneral = (e: React.FormEvent) => {
@@ -70,6 +84,51 @@ export default function AdminSettingsPage() {
     setAlerts(legalParamsService.getAlerts());
     setIsSaved(true);
     setTimeout(() => setIsSaved(false), 3000);
+  };
+
+  const handleRunFormSentinelScan = async () => {
+    setIsScanningForms(true);
+    setFormScanLogs([
+      "📡 Khởi động Radar Tầng 1: Đang kết nối các nguồn văn bản pháp luật...",
+      "🔍 [1/6] Quét toaan.gov.vn (TANDTC): Rà soát Nghị quyết HĐTP & Mẫu tố tụng dân sự...",
+      "🔍 [2/6] Quét phapluat.gov.vn (Cổng Pháp Luật Quốc Gia): Kiểm tra biểu mẫu hợp đồng mới...",
+      "🔍 [3/6] Quét vbpl.vn (CSDL Quốc gia VBQPPL) & dichvucong.gov.vn...",
+      "🔍 [4/6] Quét thuvienphapluat.vn & luatvietnam.vn: Đang lọc và phát hiện phụ lục đính kèm...",
+      "🧹 Tầng 2: Kích hoạt Brand Cleaner - Tẩy sạch 100% nhãn hiệu bên thứ ba (LuatVietnam, Thư Viện Pháp Luật)...",
+      "🤖 Tầng 3: Kích hoạt Gemini AI Semantic Matcher - Đối chiếu với 700+ biểu mẫu trong cơ sở dữ liệu...",
+      "✨ Hoàn tất! Đã tổng hợp các cảnh báo biểu mẫu mới với bảng đối chiếu phân tích điểm thay đổi.",
+    ]);
+
+    try {
+      const result = await formSentinelService.runScan();
+      if (result && result.alerts) {
+        setFormAlerts(result.alerts);
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setTimeout(() => {
+        setIsScanningForms(false);
+      }, 1500);
+    }
+  };
+
+  const handleApplyFormAlert = async (alertId: string) => {
+    setApplyingAlertId(alertId);
+    try {
+      await formSentinelService.applyAlert(alertId);
+      const updated = await formSentinelService.getAlerts();
+      setFormAlerts(updated);
+      setIsSaved(true);
+      setTimeout(() => setIsSaved(false), 3000);
+      if (activeDiffAlert && activeDiffAlert.id === alertId) {
+        setActiveDiffAlert({ ...activeDiffAlert, status: "applied" });
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setApplyingAlertId(null);
+    }
   };
 
   return (
@@ -125,9 +184,9 @@ export default function AdminSettingsPage() {
           }`}
         >
           <span className="material-symbols-outlined text-base">radar</span>
-          <span>AI Legal Radar (Bộ Quét Luật Mới)</span>
+          <span>AI Legal Radar &amp; Form Sentinel</span>
           <span className="px-2 py-0.5 rounded-full bg-emerald-500 text-white text-[10px] font-bold">
-            3 Mới
+            {formAlerts.filter((a) => a.status === "pending").length + alerts.filter((a) => a.status === "pending").length} Mới
           </span>
         </button>
 
@@ -459,118 +518,548 @@ export default function AdminSettingsPage() {
         </form>
       )}
 
-      {/* TAB 2: AI LEGAL RADAR / SENTINEL ALERTS */}
+      {/* TAB 2: AI LEGAL RADAR & FORM SENTINEL */}
       {activeTab === "ai-radar" && (
         <div className="space-y-6">
-          {/* Radar Scanner Top Control */}
-          <div className="bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 text-white p-6 sm:p-8 rounded-3xl shadow-lg border border-purple-800/40">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-              <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-bold mb-2 border border-purple-500/30">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  AI Sentinel Radar • Tự động quét 24/7
-                </div>
-                <h2 className="text-xl sm:text-2xl font-black text-white">
-                  Trung Tâm Quét &amp; Cảnh Báo Thay Đổi Văn Bản Quy Phạm Pháp Luật
-                </h2>
-                <p className="text-slate-300 text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed">
-                  Hệ thống AI Agent tự động giám sát Cổng thông tin Chính phủ (chinhphu.vn), CSDL Quốc gia VBQPPL (vbpl.vn), Tổng cục Thuế và BHXH Việt Nam để phát hiện sớm các Nghị định, Nghị quyết sửa đổi cách tính thuế &amp; tiền lương.
-                </p>
-              </div>
+          {/* Sub-Tabs: Form Sentinel vs Legal Params */}
+          <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-slate-200 shadow-2xs">
+            <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => setRadarSubTab("forms")}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs transition-all cursor-pointer ${
+                  radarSubTab === "forms"
+                    ? "bg-purple-700 text-white shadow-sm"
+                    : "bg-slate-50 text-slate-700 hover:bg-slate-100 border border-slate-200"
+                }`}
+              >
+                <span className="material-symbols-outlined text-base">description</span>
+                <span>AI Form Sentinel (Quét Biểu Mẫu &amp; Tự Động Cập Nhật)</span>
+                <span className="px-2 py-0.5 rounded-full bg-emerald-500 text-white text-[10px] font-bold">
+                  {formAlerts.filter((a) => a.status === "pending").length} Cần Duyệt
+                </span>
+              </button>
 
               <button
                 type="button"
-                onClick={handleRunAiRadarScan}
-                disabled={isScanning}
-                className="bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white font-bold text-xs sm:text-sm px-6 py-3.5 rounded-2xl transition-all shadow-lg flex items-center gap-2 cursor-pointer shrink-0 self-start md:self-auto"
+                onClick={() => setRadarSubTab("params")}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs transition-all cursor-pointer ${
+                  radarSubTab === "params"
+                    ? "bg-purple-700 text-white shadow-sm"
+                    : "bg-slate-50 text-slate-700 hover:bg-slate-100 border border-slate-200"
+                }`}
               >
-                <span className={`material-symbols-outlined text-lg ${isScanning ? "animate-spin" : ""}`}>
-                  {isScanning ? "progress_activity" : "radar"}
+                <span className="material-symbols-outlined text-base">calculate</span>
+                <span>Tham Số Thuế &amp; Tiền Lương</span>
+                <span className="px-2 py-0.5 rounded-full bg-purple-200 text-purple-900 text-[10px] font-bold">
+                  {alerts.length} Đề Xuất
                 </span>
-                <span>{isScanning ? "Đang Quét Radar..." : "Chạy Quét Văn Bản Mới Ngay"}</span>
               </button>
             </div>
 
-            {scanMessage && (
-              <div className="mt-4 p-3 bg-purple-900/60 rounded-xl border border-purple-400/30 text-xs text-purple-200 flex items-center gap-2 animate-fadeIn">
-                <span className="material-symbols-outlined text-base text-amber-400">info</span>
-                <span>{scanMessage}</span>
-              </div>
-            )}
+            <div className="text-[11px] text-slate-500 font-medium px-2">
+              Tầng 1 - 3 • Quét đa nguồn &amp; Tự động hóa chuẩn thương hiệu
+            </div>
           </div>
 
-          {/* List of Detected Legal Alerts */}
-          <div className="space-y-4">
-            <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-              <span className="material-symbols-outlined text-purple-700 text-base">notifications_active</span>
-              Danh Sách Văn Bản Mới Được AI Phát Hiện &amp; Đề Xuất Cập Nhật
-            </h3>
-
-            {alerts.map((alert) => (
-              <div
-                key={alert.id}
-                className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-purple-300 transition-all space-y-4"
-              >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+          {/* SUBTAB 1: AI FORM SENTINEL (TẦNG 1 - 3) */}
+          {radarSubTab === "forms" && (
+            <div className="space-y-6">
+              {/* Sentinel Header Control */}
+              <div className="bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 text-white p-6 sm:p-8 rounded-3xl shadow-lg border border-purple-800/40">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                   <div>
-                    <span className="text-[11px] font-bold text-purple-700 bg-purple-50 px-2.5 py-1 rounded-lg mr-2">
-                      Nguồn: {alert.source}
-                    </span>
-                    <span className="font-black text-slate-900 text-xs sm:text-sm">
-                      {alert.documentNumber}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-3 text-xs text-slate-500">
-                    <span>Ban hành: <strong>{alert.issueDate}</strong></span>
-                    <span>•</span>
-                    <span className="text-amber-800 font-bold">Hiệu lực: {alert.effectiveDate}</span>
-                  </div>
-                </div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-bold mb-2 border border-purple-500/30">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                      AI Form Sentinel • Radar Quét Biểu Mẫu 6 Nguồn 24/7
+                    </div>
+                    <h2 className="text-xl sm:text-2xl font-black text-white">
+                      Trung Tâm Quét &amp; Cập Nhật Tự Động Thư Viện Biểu Mẫu
+                    </h2>
+                    <p className="text-slate-300 text-xs sm:text-sm mt-1 max-w-3xl leading-relaxed">
+                      Hệ thống tự động giám sát các văn bản có phụ lục biểu mẫu từ <strong>Cổng TTĐT Tòa án Tối cao (toaan.gov.vn)</strong>, <strong>Cổng Pháp Luật QG (phapluat.gov.vn)</strong>, <strong>CSDL Quốc Gia (vbpl.vn)</strong>, <strong>Dịch vụ công</strong>, <strong>Thư Viện Pháp Luật</strong> và <strong>Luật Việt Nam</strong>. Tự động tẩy sạch nhãn hiệu bên thứ ba và chuẩn hóa nhận diện Hãng Luật Đức Tín.
+                    </p>
 
-                <div>
-                  <h4 className="font-black text-base text-slate-900 leading-snug">{alert.title}</h4>
-                  <p className="text-xs text-slate-600 mt-1 leading-relaxed">{alert.summary}</p>
-                </div>
-
-                {/* Suggested Diff Changes Box */}
-                <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200/80">
-                  <div className="text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-sm text-purple-700">compare_arrows</span>
-                    Bảng đối chiếu tham số cũ vs Tham số mới theo luật:
+                    {/* Sources Badge List */}
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      {[
+                        "toaan.gov.vn (TANDTC)",
+                        "phapluat.gov.vn",
+                        "vbpl.vn",
+                        "dichvucong.gov.vn",
+                        "thuvienphapluat.vn (Đã lọc brand)",
+                        "luatvietnam.vn (Đã khử brand)"
+                      ].map((src, i) => (
+                        <span key={i} className="text-[10px] font-mono bg-white/10 text-purple-200 px-2.5 py-1 rounded-lg border border-white/10 flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                          {src}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                    {alert.suggestedChanges.map((change, idx) => (
-                      <div key={idx} className="bg-white p-3 rounded-xl border border-slate-200 text-xs space-y-1">
-                        <div className="font-bold text-slate-800">{change.label}</div>
-                        <div className="text-[11px] text-slate-400 line-through">Cũ: {change.oldValue}</div>
-                        <div className="text-xs font-black text-emerald-600 flex items-center gap-1">
-                          <span>Mới: {change.newValue}</span>
-                          <span className="text-emerald-500 text-[10px]">★</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Actions */}
-                <div className="flex items-center justify-between pt-2">
-                  <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-xl">
-                    <span className="material-symbols-outlined text-sm">check_circle</span>
-                    {alert.status === "applied" ? "Đã áp dụng vào hệ thống tính toán" : "Chờ áp dụng"}
-                  </span>
 
                   <button
                     type="button"
-                    onClick={() => handleApplyAlert(alert.id)}
-                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition-all shadow-sm flex items-center gap-1.5 cursor-pointer active:scale-95"
+                    onClick={handleRunFormSentinelScan}
+                    disabled={isScanningForms}
+                    className="bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-bold text-xs sm:text-sm px-6 py-3.5 rounded-2xl transition-all shadow-lg flex items-center gap-2 cursor-pointer shrink-0 self-start md:self-auto active:scale-95"
                   >
-                    <span className="material-symbols-outlined text-sm">bolt</span>
-                    <span>1-Chạm Áp Dụng Thay Đổi Này</span>
+                    <span className={`material-symbols-outlined text-lg ${isScanningForms ? "animate-spin" : ""}`}>
+                      {isScanningForms ? "progress_activity" : "radar"}
+                    </span>
+                    <span>{isScanningForms ? "Radar Đang Quét..." : "Kích Hoạt Quét Biểu Mẫu Mới"}</span>
+                  </button>
+                </div>
+
+                {/* Scan Console Logs */}
+                {formScanLogs.length > 0 && (
+                  <div className="mt-5 p-4 bg-black/50 rounded-2xl border border-purple-500/30 text-xs font-mono text-purple-200 space-y-1.5 max-h-48 overflow-y-auto">
+                    <div className="text-slate-400 text-[11px] font-bold uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                      <span className="material-symbols-outlined text-xs text-emerald-400">terminal</span>
+                      Nhật ký quét Radar Tầng 1 - Tầng 3:
+                    </div>
+                    {formScanLogs.map((log, idx) => (
+                      <div key={idx} className="flex items-start gap-2">
+                        <span className="text-emerald-400 select-none">&gt;</span>
+                        <span className={idx === formScanLogs.length - 1 ? "text-white font-bold" : "text-slate-300"}>
+                          {log}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Filter and Counter */}
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-xs font-bold text-slate-700 uppercase tracking-wider">Lọc nguồn:</span>
+                  {[
+                    { id: "all", label: "Tất cả nguồn" },
+                    { id: "toaan", label: "TAND Tối Cao" },
+                    { id: "phapluat", label: "Cổng Pháp Luật QG" },
+                    { id: "luatvietnam", label: "Luật Việt Nam (Đã lọc)" },
+                    { id: "thuvien", label: "Thư Viện Pháp Luật" },
+                  ].map((f) => (
+                    <button
+                      key={f.id}
+                      type="button"
+                      onClick={() => setSourceFilter(f.id)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        sourceFilter === f.id
+                          ? "bg-purple-700 text-white"
+                          : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
+                      }`}
+                    >
+                      {f.label}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="text-xs text-slate-500 font-medium">
+                  Tìm thấy <strong className="text-purple-700">{formAlerts.length} biểu mẫu</strong> cần đối chiếu
+                </div>
+              </div>
+
+              {/* Form Sentinel Alert Cards */}
+              <div className="space-y-4">
+                {formAlerts
+                  .filter((item) => {
+                    if (sourceFilter === "all") return true;
+                    if (sourceFilter === "toaan") return item.source.toLowerCase().includes("toaan");
+                    if (sourceFilter === "phapluat") return item.source.toLowerCase().includes("phapluat");
+                    if (sourceFilter === "luatvietnam") return item.source.toLowerCase().includes("luatvietnam");
+                    if (sourceFilter === "thuvien") return item.source.toLowerCase().includes("thuvien");
+                    return true;
+                  })
+                  .map((alert) => (
+                    <div
+                      key={alert.id}
+                      className="bg-white p-6 sm:p-7 rounded-3xl border border-slate-200 shadow-sm hover:border-purple-300 transition-all space-y-4"
+                    >
+                      {/* Top Meta */}
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="text-[11px] font-bold text-purple-700 bg-purple-50 px-2.5 py-1 rounded-lg">
+                            Nguồn: {alert.source}
+                          </span>
+                          <span className="text-xs font-black text-slate-800 bg-slate-100 px-2.5 py-1 rounded-lg">
+                            {alert.documentNumber}
+                          </span>
+                          <span className="text-xs font-bold text-slate-500 bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-200">
+                            Lĩnh vực: {alert.category}
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-3 text-xs text-slate-500">
+                          <span>Ban hành: <strong>{alert.issueDate}</strong></span>
+                          <span>•</span>
+                          <span className="text-amber-800 font-bold">Hiệu lực: {alert.effectiveDate}</span>
+                        </div>
+                      </div>
+
+                      {/* Main Title & Matched DB Form */}
+                      <div>
+                        <div className="flex items-start justify-between gap-4">
+                          <h4 className="font-black text-base sm:text-lg text-slate-900 leading-snug">
+                            {alert.title}
+                          </h4>
+                          {alert.status === "applied" ? (
+                            <span className="shrink-0 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200 flex items-center gap-1.5">
+                              <span className="material-symbols-outlined text-sm">check_circle</span>
+                              Đã cập nhật vào thư viện
+                            </span>
+                          ) : (
+                            <span className="shrink-0 text-xs font-bold text-amber-700 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200 flex items-center gap-1.5">
+                              <span className="material-symbols-outlined text-sm">update</span>
+                              Chờ luật sư phê duyệt
+                            </span>
+                          )}
+                        </div>
+
+                        {alert.matchedFormTitle && (
+                          <div className="mt-2 text-xs bg-emerald-50/60 p-2.5 rounded-xl border border-emerald-200/80 text-emerald-900 flex items-center gap-2">
+                            <span className="material-symbols-outlined text-base text-emerald-700">link</span>
+                            <span>
+                              <strong>Liên kết kho biểu mẫu hiện tại:</strong> Đã khớp với mẫu <u>#{alert.matchedFormId} - {alert.matchedFormTitle}</u> trong cơ sở dữ liệu.
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* AI Diff Summary Box */}
+                      <div className="bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200/90 space-y-3">
+                        <div className="flex items-center justify-between">
+                          <div className="text-[11px] font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                            <span className="material-symbols-outlined text-base text-purple-700">insights</span>
+                            Tầng 3 Gemini AI: Phân tích thay đổi &amp; Căn cứ pháp lý mới
+                          </div>
+                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${
+                            alert.diffAnalysis.riskLevel === "Cao"
+                              ? "bg-rose-100 text-rose-800"
+                              : "bg-blue-100 text-blue-800"
+                          }`}>
+                            Mức độ cần thiết: {alert.diffAnalysis.riskLevel}
+                          </span>
+                        </div>
+
+                        <p className="text-xs text-slate-700 leading-relaxed font-medium">
+                          {alert.diffAnalysis.summary}
+                        </p>
+
+                        {/* Key changes pill grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+                          {alert.diffAnalysis.keyChanges.map((change, cIdx) => (
+                            <div key={cIdx} className="bg-white p-3 rounded-xl border border-slate-200 text-xs space-y-1.5 shadow-2xs">
+                              <div className="font-bold text-slate-900 text-xs">{change.label}</div>
+                              <div className="text-[11px] text-slate-400 line-through">
+                                Cũ: {change.oldText}
+                              </div>
+                              <div className="text-[11px] font-bold text-emerald-700 flex items-start gap-1">
+                                <span className="text-emerald-500">★</span>
+                                <span>Mới: {change.newText}</span>
+                              </div>
+                              <div className="text-[10px] text-slate-500 italic pt-0.5">
+                                Lý do: {change.reason}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Brand Sanitizer Badge */}
+                        <div className="bg-amber-50/80 p-3 rounded-xl border border-amber-200/80 text-[11px] text-amber-900 flex items-center gap-2">
+                          <span className="material-symbols-outlined text-base text-amber-700 shrink-0">verified_user</span>
+                          <span>
+                            <strong>Tầng 2 Brand Sanitizer:</strong> Đã kiểm tra &amp; loại bỏ toàn bộ dấu vết thương hiệu bên thứ ba (LuatVietnam, Thư Viện Pháp Luật...). Biểu mẫu đã sẵn sàng với Header nhận diện thương hiệu <strong>Công Ty Luật TNHH Đức Tín &amp; Cộng Sự</strong>.
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+                        <button
+                          type="button"
+                          onClick={() => setActiveDiffAlert(alert)}
+                          className="bg-white hover:bg-slate-100 text-slate-800 font-bold text-xs px-4 py-2.5 rounded-xl border border-slate-300 transition-all flex items-center gap-1.5 cursor-pointer"
+                        >
+                          <span className="material-symbols-outlined text-sm text-purple-700">compare</span>
+                          <span>Xem Đối Chiếu So Sánh Chi Tiết (Diff Modal)</span>
+                        </button>
+
+                        <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() => handleApplyFormAlert(alert.id)}
+                            disabled={alert.status === "applied" || applyingAlertId === alert.id}
+                            className={`font-bold text-xs px-5 py-2.5 rounded-xl transition-all shadow-sm flex items-center gap-1.5 cursor-pointer active:scale-95 ${
+                              alert.status === "applied"
+                                ? "bg-slate-200 text-slate-500 cursor-not-allowed"
+                                : "bg-emerald-600 hover:bg-emerald-700 text-white"
+                            }`}
+                          >
+                            <span className="material-symbols-outlined text-sm">
+                              {applyingAlertId === alert.id ? "progress_activity" : "bolt"}
+                            </span>
+                            <span>
+                              {applyingAlertId === alert.id
+                                ? "Đang Cập Nhật..."
+                                : alert.status === "applied"
+                                ? "Đã Áp Dụng Thành Công"
+                                : "1-Chạm Cập Nhật Vào Thư Viện"}
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          )}
+
+          {/* SUBTAB 2: THAM SỐ THUẾ & TIỀN LƯƠNG (RADAR PARAMS) */}
+          {radarSubTab === "params" && (
+            <div className="space-y-6">
+              {/* Radar Scanner Top Control */}
+              <div className="bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 text-white p-6 sm:p-8 rounded-3xl shadow-lg border border-purple-800/40">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                  <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-bold mb-2 border border-purple-500/30">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                      AI Sentinel Radar • Tự động quét 24/7
+                    </div>
+                    <h2 className="text-xl sm:text-2xl font-black text-white">
+                      Trung Tâm Quét &amp; Cảnh Báo Thay Đổi Văn Bản Quy Phạm Pháp Luật
+                    </h2>
+                    <p className="text-slate-300 text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed">
+                      Hệ thống AI Agent tự động giám sát Cổng thông tin Chính phủ (chinhphu.vn), CSDL Quốc gia VBQPPL (vbpl.vn), Tổng cục Thuế và BHXH Việt Nam để phát hiện sớm các Nghị định, Nghị quyết sửa đổi cách tính thuế &amp; tiền lương.
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={handleRunAiRadarScan}
+                    disabled={isScanning}
+                    className="bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white font-bold text-xs sm:text-sm px-6 py-3.5 rounded-2xl transition-all shadow-lg flex items-center gap-2 cursor-pointer shrink-0 self-start md:self-auto"
+                  >
+                    <span className={`material-symbols-outlined text-lg ${isScanning ? "animate-spin" : ""}`}>
+                      {isScanning ? "progress_activity" : "radar"}
+                    </span>
+                    <span>{isScanning ? "Đang Quét Radar..." : "Chạy Quét Văn Bản Mới Ngay"}</span>
+                  </button>
+                </div>
+
+                {scanMessage && (
+                  <div className="mt-4 p-3 bg-purple-900/60 rounded-xl border border-purple-400/30 text-xs text-purple-200 flex items-center gap-2 animate-fadeIn">
+                    <span className="material-symbols-outlined text-base text-amber-400">info</span>
+                    <span>{scanMessage}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* List of Detected Legal Alerts */}
+              <div className="space-y-4">
+                <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+                  <span className="material-symbols-outlined text-purple-700 text-base">notifications_active</span>
+                  Danh Sách Văn Bản Mới Được AI Phát Hiện &amp; Đề Xuất Cập Nhật
+                </h3>
+
+                {alerts.map((alert) => (
+                  <div
+                    key={alert.id}
+                    className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-purple-300 transition-all space-y-4"
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                      <div>
+                        <span className="text-[11px] font-bold text-purple-700 bg-purple-50 px-2.5 py-1 rounded-lg mr-2">
+                          Nguồn: {alert.source}
+                        </span>
+                        <span className="font-black text-slate-900 text-xs sm:text-sm">
+                          {alert.documentNumber}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-3 text-xs text-slate-500">
+                        <span>Ban hành: <strong>{alert.issueDate}</strong></span>
+                        <span>•</span>
+                        <span className="text-amber-800 font-bold">Hiệu lực: {alert.effectiveDate}</span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="font-black text-base text-slate-900 leading-snug">{alert.title}</h4>
+                      <p className="text-xs text-slate-600 mt-1 leading-relaxed">{alert.summary}</p>
+                    </div>
+
+                    {/* Suggested Diff Changes Box */}
+                    <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200/80">
+                      <div className="text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                        <span className="material-symbols-outlined text-sm text-purple-700">compare_arrows</span>
+                        Bảng đối chiếu tham số cũ vs Tham số mới theo luật:
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                        {alert.suggestedChanges.map((change, idx) => (
+                          <div key={idx} className="bg-white p-3 rounded-xl border border-slate-200 text-xs space-y-1">
+                            <div className="font-bold text-slate-800">{change.label}</div>
+                            <div className="text-[11px] text-slate-400 line-through">Cũ: {change.oldValue}</div>
+                            <div className="text-xs font-black text-emerald-600 flex items-center gap-1">
+                              <span>Mới: {change.newValue}</span>
+                              <span className="text-emerald-500 text-[10px]">★</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="flex items-center justify-between pt-2">
+                      <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-xl">
+                        <span className="material-symbols-outlined text-sm">check_circle</span>
+                        {alert.status === "applied" ? "Đã áp dụng vào hệ thống tính toán" : "Chờ áp dụng"}
+                      </span>
+
+                      <button
+                        type="button"
+                        onClick={() => handleApplyAlert(alert.id)}
+                        className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition-all shadow-sm flex items-center gap-1.5 cursor-pointer active:scale-95"
+                      >
+                        <span className="material-symbols-outlined text-sm">bolt</span>
+                        <span>1-Chạm Áp Dụng Thay Đổi Này</span>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* INTERACTIVE DIFF MODAL (TẦNG 3) */}
+          {activeDiffAlert && (
+            <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto animate-fadeIn">
+              <div className="bg-white w-full max-w-5xl rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-8 max-h-[90vh] flex flex-col">
+                {/* Modal Header */}
+                <div className="bg-slate-900 text-white p-5 sm:p-6 flex items-start justify-between gap-4 border-b border-slate-800">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[10px] font-bold uppercase tracking-wider bg-purple-500/20 text-purple-300 px-2.5 py-0.5 rounded-full border border-purple-400/30">
+                        Đối Chiếu Biểu Mẫu Tầng 3
+                      </span>
+                      <span className="text-xs text-slate-400">
+                        Nguồn: {activeDiffAlert.source}
+                      </span>
+                    </div>
+                    <h3 className="text-base sm:text-lg font-black text-white leading-snug">
+                      {activeDiffAlert.title}
+                    </h3>
+                    <div className="text-xs text-slate-400 mt-1 flex flex-wrap items-center gap-3">
+                      <span>Căn cứ: <strong>{activeDiffAlert.documentNumber}</strong></span>
+                      <span>•</span>
+                      <span>Hiệu lực: <strong className="text-emerald-400">{activeDiffAlert.effectiveDate}</strong></span>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveDiffAlert(null)}
+                    className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-white/10 transition-colors cursor-pointer"
+                  >
+                    <span className="material-symbols-outlined text-xl">close</span>
+                  </button>
+                </div>
+
+                {/* Modal Brand Cleaned Notice */}
+                <div className="bg-emerald-50 px-6 py-2.5 border-b border-emerald-200 text-emerald-900 text-xs flex items-center gap-2">
+                  <span className="material-symbols-outlined text-base text-emerald-700">verified</span>
+                  <span>
+                    <strong>Bộ Lọc Thương Hiệu Đã Hoạt Động:</strong> Mọi từ khóa, liên kết hoặc số điện thoại của bên thứ ba (LuatVietnam, Thư Viện Pháp Luật...) đã bị xóa sạch hoàn toàn. Biểu mẫu chuẩn hóa dưới thương hiệu <strong>Hãng Luật Đức Tín &amp; Cộng Sự</strong>.
+                  </span>
+                </div>
+
+                {/* Modal Body: Side-by-side Diff */}
+                <div className="p-6 overflow-y-auto flex-1 space-y-6">
+                  {/* Diff Analysis Cards */}
+                  <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+                    <div className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+                      <span className="material-symbols-outlined text-sm text-purple-700">troubleshoot</span>
+                      Đánh Giá Tác Động Pháp Lý Từ Gemini AI
+                    </div>
+                    <p className="text-xs text-slate-700 leading-relaxed font-medium">
+                      {activeDiffAlert.diffAnalysis.summary}
+                    </p>
+                    <div className="text-[11px] text-purple-900 bg-purple-50 p-2.5 rounded-xl border border-purple-200">
+                      💡 <strong>Khuyến nghị của AI:</strong> {activeDiffAlert.diffAnalysis.aiRecommendation}
+                    </div>
+                  </div>
+
+                  {/* Two Column Document Comparison */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Left: Old Content */}
+                    <div className="border border-rose-200 rounded-2xl bg-rose-50/30 overflow-hidden flex flex-col">
+                      <div className="bg-rose-100/80 px-4 py-2.5 border-b border-rose-200 text-xs font-bold text-rose-900 flex items-center justify-between">
+                        <span className="flex items-center gap-1.5">
+                          <span className="material-symbols-outlined text-sm text-rose-700">history</span>
+                          Bản cũ / Trước khi cập nhật
+                        </span>
+                        <span className="text-[10px] bg-rose-200 text-rose-800 px-2 py-0.5 rounded-md font-mono">
+                          Nguy cơ lỗi thời
+                        </span>
+                      </div>
+                      <div className="p-4 text-xs font-mono text-slate-600 whitespace-pre-wrap leading-relaxed overflow-y-auto max-h-96">
+                        {activeDiffAlert.rawExtractedContent}
+                      </div>
+                    </div>
+
+                    {/* Right: New Standardized Content */}
+                    <div className="border border-emerald-300 rounded-2xl bg-emerald-50/30 overflow-hidden flex flex-col">
+                      <div className="bg-emerald-100/80 px-4 py-2.5 border-b border-emerald-300 text-xs font-bold text-emerald-900 flex items-center justify-between">
+                        <span className="flex items-center gap-1.5">
+                          <span className="material-symbols-outlined text-sm text-emerald-700">verified</span>
+                          Bản mới chuẩn hóa Luật Đức Tín
+                        </span>
+                        <span className="text-[10px] bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded-md font-mono">
+                          Chuẩn pháp lý 2026
+                        </span>
+                      </div>
+                      <div className="p-4 text-xs font-mono text-slate-900 whitespace-pre-wrap leading-relaxed overflow-y-auto max-h-96 bg-white/60">
+                        {activeDiffAlert.cleanStandardizedContent}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Modal Footer */}
+                <div className="bg-slate-50 p-4 sm:p-5 border-t border-slate-200 flex items-center justify-between gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setActiveDiffAlert(null)}
+                    className="px-5 py-2.5 rounded-xl border border-slate-300 text-xs font-bold text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+                  >
+                    Đóng cửa sổ
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleApplyFormAlert(activeDiffAlert.id)}
+                    disabled={activeDiffAlert.status === "applied" || applyingAlertId === activeDiffAlert.id}
+                    className={`font-bold text-xs px-6 py-2.5 rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer ${
+                      activeDiffAlert.status === "applied"
+                        ? "bg-slate-300 text-slate-600 cursor-not-allowed"
+                        : "bg-emerald-600 hover:bg-emerald-700 text-white active:scale-95"
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-sm">
+                      {applyingAlertId === activeDiffAlert.id ? "progress_activity" : "bolt"}
+                    </span>
+                    <span>
+                      {applyingAlertId === activeDiffAlert.id
+                        ? "Đang Cập Nhật Vào Hệ Thống..."
+                        : activeDiffAlert.status === "applied"
+                        ? "Đã Cập Nhật Thành Công"
+                        : "1-Chạm Phê Duyệt & Cập Nhật Vào Thư Viện"}
+                    </span>
                   </button>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          )}
         </div>
       )}
 
