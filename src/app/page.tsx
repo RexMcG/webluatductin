@@ -697,8 +697,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* FAQ Accordion (Right) - Căn chỉnh đồng đều tuyệt đối 100% đầu & cằm với ô đặt câu hỏi */}
-          <div className="flex flex-col justify-between h-full">
+          {/* FAQ Accordion (Right) - Căn chỉnh đồng đều đầu & cằm, đảm bảo khoảng cách thông thoáng không dính nút */}
+          <div className="flex flex-col justify-between gap-6 sm:gap-8 h-full">
             <div>
               <h2 className="text-[#92400e] font-black text-2xl md:text-3xl uppercase mb-1 font-sans leading-none tracking-tight">CÂU HỎI &amp; GIẢI ĐÁP PHÁP LUẬT</h2>
               <SectionDivider label="HỎI ĐÁP" className="!justify-start my-2" />
@@ -738,7 +738,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="mt-auto flex items-end">
+            <div className="mt-auto pt-4 flex items-end">
               <Link href="/news" className="inline-flex items-center justify-center bg-[#92400e] text-white font-bold uppercase px-7 py-3 rounded-xl hover:bg-[#78350f] transition-colors shadow-sm text-xs sm:text-sm">
                 XEM THÊM BÀI VIẾT
               </Link>
