@@ -144,18 +144,18 @@ export default function Home() {
         className="relative w-full bg-cover bg-[center_25%] bg-no-repeat border-b-[7px] border-[#641D06]"
         style={{ backgroundImage: "url('/img/herobanner.webp')" }}
       >
-        <div className="relative z-10 max-w-container-max mx-auto px-4 md:px-margin-desktop py-14 md:py-36 flex flex-col items-center justify-center min-h-[420px] md:min-h-[600px]">
-          <div className="max-w-4xl w-full flex flex-col items-center text-center space-y-6 md:space-y-8">
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black font-sans leading-[1.15] tracking-tight">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-32 flex items-center min-h-[460px] md:min-h-[620px]">
+          <div className="max-w-2xl lg:max-w-3xl w-full flex flex-col items-start text-left space-y-6 md:space-y-7">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black font-sans leading-[1.15] tracking-tight">
               <span className="text-primary drop-shadow-sm">Công Ty Luật Đức Tín &amp; Cộng Sự</span><br className="hidden sm:inline" />{" "}
               <span className="text-accent drop-shadow-sm text-2xl sm:text-4xl md:text-5xl block mt-1">Hãng Luật Hàng Đầu TP.HCM</span>
             </h1>
-            <p className="font-body-md text-base md:text-xl text-primary font-semibold max-w-3xl leading-relaxed">
+            <p className="font-body-md text-base md:text-xl text-primary font-semibold max-w-2xl leading-relaxed">
               Đồng hành pháp lý chiến lược — Giải pháp toàn diện cho Doanh nghiệp &amp; Cá nhân.
             </p>
 
             {/* Smart Navigation Search Bar */}
-            <div ref={searchRef} className="mt-8 w-full relative max-w-3xl z-40">
+            <div ref={searchRef} className="mt-4 w-full relative max-w-2xl z-40">
               <form onSubmit={handleSearchSubmit} className="relative w-full shadow-2xl rounded-2xl">
                 <input
                   className="w-full h-16 md:h-20 pl-7 pr-20 border-[3px] border-accent rounded-2xl focus:ring-4 focus:ring-accent/30 focus:border-accent bg-white text-slate-900 placeholder:text-slate-400 outline-none text-base sm:text-lg md:text-xl font-medium shadow-inner"
@@ -230,7 +230,7 @@ export default function Home() {
               )}
             </div>
 
-            <div className="flex flex-wrap justify-center gap-4 mt-8">
+            <div className="flex flex-wrap items-center justify-start gap-4 mt-2">
               <Link
                 className="bg-primary hover:bg-secondary text-white h-14 px-8 rounded-xl font-label-sm text-base md:text-lg font-bold transition-all inline-flex items-center shadow-lg gap-2"
                 href="/appointment"
