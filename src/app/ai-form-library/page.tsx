@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { formLibraryService, FormItem } from "@/services/form-library.service";
 import { formLeadService } from "@/services/form-lead.service";
 import { exportFormToDoc } from "@/utils/form-exporter";
+import SectionDivider from "@/components/common/SectionDivider";
 
 // Curated standard Vietnamese legal templates fallback & initial library (25+ chuẩn biểu mẫu)
 const POPULAR_FORMS: FormItem[] = [
@@ -754,12 +755,10 @@ export default function AIFormLibrary() {
 
       {/* Hero Section */}
       <div className="text-center mb-10 max-w-4xl mx-auto">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight uppercase mb-3 leading-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight uppercase mb-1 leading-tight">
           Kho Biểu Mẫu Pháp Lý AI
         </h1>
-        <div className="text-amber-600 flex items-center justify-center my-2">
-          <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
-        </div>
+        <SectionDivider label="TIỆN ÍCH" />
         <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
           Tra cứu và tải xuống miễn phí các biểu mẫu pháp lý chuẩn xác. Nhập câu văn nói tự nhiên, AI sẽ tự động phân tích ngữ nghĩa và gợi ý biểu mẫu chính xác.
         </p>

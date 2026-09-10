@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { SERVICES_DATA } from "@/data/servicesData";
+import SectionDivider from "@/components/common/SectionDivider";
 
 export default function ServicesPage() {
   const serviceList = Object.values(SERVICES_DATA);
@@ -43,9 +44,7 @@ export default function ServicesPage() {
           <h2 className="text-3xl md:text-4xl font-black text-slate-900 uppercase font-sans">
             Lĩnh Vực Hoạt Động Cốt Lõi
           </h2>
-          <div className="text-amber-600 flex items-center justify-center my-3">
-            <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
-          </div>
+          <SectionDivider label="LĨNH VỰC HOẠT ĐỘNG" />
           <p className="text-slate-600 text-base md:text-lg leading-relaxed">
             Đức Tín &amp; Cộng sự quy tụ đội ngũ luật sư chuyên gia với bề dày thực chiến, giải quyết nhanh chóng và hiệu quả mọi bài toán pháp lý.
           </p>

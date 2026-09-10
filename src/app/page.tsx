@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { questionService } from "@/services/question.service";
+import SectionDivider from "@/components/common/SectionDivider";
 
 export default function Home() {
   const router = useRouter();
@@ -261,12 +262,10 @@ export default function Home() {
           {/* About Us */}
           <div>
             <div className="text-center mb-10 w-full flex flex-col items-center justify-center">
-              <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
+              <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
                 Về Chúng Tôi
               </h2>
-              <div className="text-accent flex items-center justify-center mt-1">
-                <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
-              </div>
+              <SectionDivider label="GIỚI THIỆU" />
             </div>
             <div className="prose prose-xl md:prose-2xl text-text-secondary leading-relaxed space-y-4 text-justify text-lg md:text-xl">
               <p>
@@ -281,12 +280,10 @@ export default function Home() {
           {/* Why Choose Us */}
           <div>
             <div className="text-center mb-10 w-full flex flex-col items-center justify-center">
-              <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
+              <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
                 Tôn Chỉ Hoạt Động &amp; Năng Lực Vượt Trội
               </h2>
-              <div className="text-accent flex items-center justify-center mt-1">
-                <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
-              </div>
+              <SectionDivider label="TÔN CHỈ HOẠT ĐỘNG" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
@@ -333,12 +330,10 @@ export default function Home() {
       <section className="border-t border-border-neutral py-16">
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
           <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
               Lĩnh Vực Hoạt Động Mũi Nhọn
             </h2>
-            <div className="text-accent flex items-center justify-center mt-1">
-              <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
-            </div>
+            <SectionDivider label="LĨNH VỰC HOẠT ĐỘNG" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
           
@@ -473,12 +468,10 @@ export default function Home() {
       <section className="bg-surface-alt border-y border-border-neutral py-16">
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
           <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
               Tiện Ích Pháp Lý
             </h2>
-            <div className="text-amber-800 flex items-center justify-center mt-1">
-              <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
-            </div>
+            <SectionDivider label="TIỆN ÍCH" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Tool 1 */}
@@ -707,10 +700,8 @@ export default function Home() {
           {/* FAQ Accordion (Right) - Căn chỉnh đồng đều tuyệt đối 100% đầu & cằm với ô đặt câu hỏi */}
           <div className="flex flex-col justify-between h-full">
             <div>
-              <h2 className="text-[#92400e] font-black text-2xl md:text-3xl uppercase mb-1.5 font-sans leading-none tracking-tight">CÂU HỎI &amp; GIẢI ĐÁP PHÁP LUẬT</h2>
-              <div className="text-amber-800 mb-4 mt-2 flex items-center">
-                <span className="tracking-widest font-bold">— ⚖️ —</span>
-              </div>
+              <h2 className="text-[#92400e] font-black text-2xl md:text-3xl uppercase mb-1 font-sans leading-none tracking-tight">CÂU HỎI &amp; GIẢI ĐÁP PHÁP LUẬT</h2>
+              <SectionDivider label="HỎI ĐÁP" className="!justify-start my-2" />
 
               <div className="space-y-3">
                 {[
@@ -761,12 +752,10 @@ export default function Home() {
       <section id="lawyers" className="border-t border-border-neutral py-16 scroll-mt-24">
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
           <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-2">
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
               Đội Ngũ Luật Sư Điều Hành
             </h2>
-            <div className="text-amber-800 flex items-center justify-center mt-1">
-              <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
-            </div>
+            <SectionDivider label="ĐỘI NGŨ LUẬT SƯ" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {[
@@ -820,9 +809,7 @@ export default function Home() {
           <h3 className="font-sans text-slate-800 uppercase tracking-widest text-sm md:text-base font-black">
             Đối Tác &amp; Khách Hàng Tiêu Biểu
           </h3>
-          <div className="text-amber-800 flex items-center justify-center mt-1.5">
-            <span className="tracking-widest font-bold text-xs">— ⚖️ —</span>
-          </div>
+          <SectionDivider label="ĐỐI TÁC TIÊU BIỂU" />
         </div>
         <div className="relative w-full overflow-hidden flex py-2">
           <div className="flex whitespace-nowrap animate-marquee w-max items-center">

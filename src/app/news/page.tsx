@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { newsService, NewsArticle } from '@/services/news.service';
 import Link from 'next/link';
 import DOMPurify from 'isomorphic-dompurify';
+import SectionDivider from '@/components/common/SectionDivider';
 
 export default function NewsPage() {
   const { data: newsList, isLoading, error } = useQuery({
@@ -17,9 +18,7 @@ export default function NewsPage() {
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight uppercase mb-3 leading-tight">
           Bảng Tin &amp; Sự Kiện Pháp Luật
         </h1>
-        <div className="text-amber-600 flex items-center justify-center my-3">
-          <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
-        </div>
+        <SectionDivider label="KIẾN THỨC" />
         <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
           Tổng hợp thông tin pháp luật, phân tích vụ án và quy định pháp lý mới nhất từ Công ty Luật TNHH Đức Tín và Cộng sự.
         </p>

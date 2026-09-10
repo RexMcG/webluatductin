@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import SectionDivider from "@/components/common/SectionDivider";
 
 export default function AIFormChecker() {
   const [analysisState, setAnalysisState] = useState<"idle" | "scanning" | "complete">("idle");
@@ -26,12 +27,10 @@ export default function AIFormChecker() {
     <div className="max-w-7xl mx-auto px-4 md:px-8 pt-10 pb-16 min-h-screen">
       {/* HEADER AREA */}
       <div className="text-center mb-10 max-w-4xl mx-auto">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight uppercase mb-3 leading-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight uppercase mb-1 leading-tight">
           AI Thẩm Định &amp; Hướng Dẫn Điền Biểu Mẫu
         </h1>
-        <div className="text-amber-600 flex items-center justify-center my-3">
-          <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
-        </div>
+        <SectionDivider label="TIỆN ÍCH" />
         <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
           Tải lên bản chụp/PDF biểu mẫu của bạn. Trợ lý AI sẽ rà soát lỗi sai hoặc hướng dẫn điền từng mục chuẩn pháp lý.
         </p>

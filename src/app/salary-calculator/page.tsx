@@ -5,6 +5,7 @@ import Link from "next/link";
 import { calcPIT, getLegalParams } from "@/utils/calculator";
 import { InfoTooltip } from "@/components/calculator/CalculatorGuide";
 import { LegalParams, DEFAULT_LEGAL_PARAMS } from "@/services/legal-params.service";
+import SectionDivider from "@/components/common/SectionDivider";
 
 export default function SalaryCalculator() {
   const [params, setParams] = useState<LegalParams>(DEFAULT_LEGAL_PARAMS);
@@ -68,12 +69,10 @@ export default function SalaryCalculator() {
     <div className="max-w-7xl mx-auto px-4 md:px-8 pt-10 pb-16 min-h-screen">
       {/* Page Title */}
       <div className="text-center mb-10 max-w-4xl mx-auto">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight uppercase mb-3 leading-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight uppercase mb-1 leading-tight">
           Tính Lương Gross-to-Net Chuẩn Pháp Luật
         </h1>
-        <div className="text-amber-600 flex items-center justify-center my-3">
-          <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
-        </div>
+        <SectionDivider label="TIỆN ÍCH" />
         <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed mb-4">
           Tính toán chính xác lương thực nhận (Net) từ lương tổng (Gross), các khoản trích nộp BHXH, BHYT, BHTN và thuế TNCN theo quy định mới nhất.
         </p>

@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { appointmentService } from "@/services/appointment.service";
+import SectionDivider from "@/components/common/SectionDivider";
 
 // 9 Lĩnh vực cốt lõi của Đức Tín & Cộng sự + 1 Lĩnh vực Khác
 export const PRACTICE_AREAS = [
@@ -267,9 +268,7 @@ export default function AppointmentPage() {
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight uppercase mb-3 leading-tight">
           Đặt Lịch Hẹn Tư Vấn Pháp Lý
         </h1>
-        <div className="text-amber-600 flex items-center justify-center my-3">
-          <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
-        </div>
+        <SectionDivider label="ĐẶT LỊCH" />
         <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
           Vui lòng điền thông tin chi tiết để đặt lịch làm việc trực tiếp với{" "}
           <strong className="text-slate-900 font-bold">Luật sư Phan Đức Tín</strong> (Giám đốc Điều hành Công ty Luật TNHH Đức Tín và Cộng sự).

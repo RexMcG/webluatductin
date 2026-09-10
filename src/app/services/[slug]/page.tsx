@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { SERVICES_DATA } from "@/data/servicesData";
+import SectionDivider from "@/components/common/SectionDivider";
 
 type TabType = "about" | "experience" | "articles";
 
@@ -44,9 +45,7 @@ export default function ServiceDetailPage() {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight mb-3 uppercase leading-tight">
               {service.title}
             </h1>
-            <div className="text-amber-600 flex items-center justify-center my-3">
-              <span className="tracking-widest font-bold text-lg">— ⚖️ —</span>
-            </div>
+            <SectionDivider label="DỊCH VỤ PHÁP LÝ" />
             <p className="text-base md:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
               {service.heroDesc}
             </p>
@@ -113,9 +112,7 @@ export default function ServiceDetailPage() {
               <h2 className="text-2xl md:text-3xl font-black text-slate-900 font-sans uppercase">
                 Giải Pháp Pháp Lý Vững Chắc Từ Đức Tín &amp; Cộng Sự
               </h2>
-              <div className="text-amber-600 flex items-center mb-4">
-                <span className="tracking-widest font-bold">— ⚖️ —</span>
-              </div>
+              <SectionDivider label="DỊCH VỤ PHÁP LÝ" className="!justify-start mb-4" />
 
               <div className="space-y-4 text-slate-700 text-base md:text-lg leading-relaxed">
                 {service.about.overview.map((para, idx) => (
