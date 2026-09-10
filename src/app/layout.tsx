@@ -146,15 +146,18 @@ export default function RootLayout({
   return (
     <html lang="vi" className={roboto.className}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
           rel="preload"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=swap"
           as="style"
+          crossOrigin="anonymous"
         />
         <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=swap"
           rel="stylesheet"
+          crossOrigin="anonymous"
         />
         <link rel="preload" as="image" href="/img/herobanner.webp" type="image/webp" fetchPriority="high" />
         <link rel="apple-touch-icon" href="/img/Logo_website.png" />

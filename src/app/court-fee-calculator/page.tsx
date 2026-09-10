@@ -20,6 +20,12 @@ export default function CourtFeeCalculator() {
     setParams(getLegalParams());
     const handleUpdate = () => setParams(getLegalParams());
     window.addEventListener("legal_params_updated", handleUpdate);
+
+    // Security: Tự động làm sạch URL query params chống rò rỉ và injection
+    if (typeof window !== "undefined" && window.location.search) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+
     return () => window.removeEventListener("legal_params_updated", handleUpdate);
   }, []);
 

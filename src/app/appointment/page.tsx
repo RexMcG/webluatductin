@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { appointmentService } from "@/services/appointment.service";
 
@@ -42,6 +42,13 @@ export default function AppointmentPage() {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
+  // Security: Tự động làm sạch URL query params để chống lộ thông tin nhạy cảm (email, phone)
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.search) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+  }, []);
 
   // Form state
   const [formData, setFormData] = useState({
