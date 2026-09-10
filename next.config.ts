@@ -7,6 +7,7 @@ const cspHeader = `
   img-src 'self' data: blob: https: http:;
   font-src 'self' https://fonts.gstatic.com data:;
   connect-src 'self' https://webluat-backend.onrender.com http://localhost:3001 https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://generativelanguage.googleapis.com;
+  frame-src 'self' https://www.google.com https://maps.google.com;
   frame-ancestors 'self';
   form-action 'self';
   base-uri 'self';
