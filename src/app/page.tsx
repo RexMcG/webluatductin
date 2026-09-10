@@ -145,10 +145,15 @@ export default function Home() {
         style={{ backgroundImage: "url('/img/herobanner.webp')" }}
       >
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-32 flex items-center min-h-[460px] md:min-h-[620px]">
-          <div className="max-w-2xl lg:max-w-3xl w-full flex flex-col items-start text-left space-y-6 md:space-y-7">
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black font-sans leading-[1.15] tracking-tight">
-              <span className="text-primary drop-shadow-sm">Công Ty Luật Đức Tín &amp; Cộng Sự</span><br className="hidden sm:inline" />{" "}
-              <span className="text-accent drop-shadow-sm text-2xl sm:text-4xl md:text-5xl block mt-1">Hãng Luật Hàng Đầu TP.HCM</span>
+          <div className="max-w-3xl lg:max-w-4xl w-full flex flex-col items-start text-left space-y-5 md:space-y-6">
+            <h1 className="text-2xl sm:text-4xl md:text-[44px] lg:text-[52px] font-black font-sans leading-[1.2] tracking-tight">
+              <span className="text-primary drop-shadow-sm block">
+                <span className="inline-block">Công Ty Luật</span>{" "}
+                <span className="inline-block">Đức Tín &amp; Cộng Sự</span>
+              </span>
+              <span className="text-accent drop-shadow-sm text-xl sm:text-3xl md:text-4xl lg:text-[42px] block mt-1.5 font-bold">
+                Hãng Luật Hàng Đầu TP.HCM
+              </span>
             </h1>
             <p className="font-body-md text-base md:text-xl text-primary font-semibold max-w-2xl leading-relaxed">
               Đồng hành pháp lý chiến lược — Giải pháp toàn diện cho Doanh nghiệp &amp; Cá nhân.
