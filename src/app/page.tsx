@@ -589,7 +589,7 @@ export default function Home() {
                   <p className="text-sm text-white/90">Luật sư sẽ liên hệ lại với bạn qua số điện thoại <strong>{consultForm.phone}</strong> trong thời gian sớm nhất.</p>
                 </div>
               ) : (
-                <form className="space-y-3" onSubmit={handleConsultSubmit} noValidate>
+                <form method="POST" action="#" className="space-y-3" onSubmit={handleConsultSubmit} noValidate>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div>
                       <input 

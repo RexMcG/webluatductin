@@ -77,7 +77,7 @@ export default function PITCalculator() {
         <div className="lg:col-span-2 space-y-stack-lg">
           {/* Calculator Form */}
           <div className="bg-surface-alt border border-border-neutral p-6 md:p-8 rounded-lg shadow-sm">
-            <form className="space-y-6" onSubmit={handleSubmit}>
+            <form method="POST" action="#" className="space-y-6" onSubmit={handleSubmit}>
               <h2 className="font-headline-md text-headline-md text-primary mb-4">Nhập Thông Tin</h2>
               
               {/* Monthly Income */}

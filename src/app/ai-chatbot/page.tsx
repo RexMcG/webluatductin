@@ -230,7 +230,7 @@ function AIChatbotContent() {
             <p className="text-xs text-slate-600 mb-5 leading-relaxed">
               Luật sư <strong>Phan Đức Tín</strong> (Giám đốc Điều hành) sẽ trực tiếp liên hệ thẩm định hồ sơ cho bạn.
             </p>
-            <form onSubmit={handleConsultSubmit} className="space-y-3">
+            <form method="POST" action="#" onSubmit={handleConsultSubmit} className="space-y-3">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">Họ và tên</label>
                 <input 

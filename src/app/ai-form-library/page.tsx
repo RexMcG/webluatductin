@@ -687,7 +687,7 @@ export default function AIFormLibrary() {
                 <p className="text-xs text-emerald-700">Tệp Word (.doc) đã được lưu vào thư mục tải về của bạn.</p>
               </div>
             ) : (
-              <form onSubmit={handleLeadSubmit} noValidate className="space-y-4">
+              <form method="POST" action="#" onSubmit={handleLeadSubmit} noValidate className="space-y-4">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                     Họ và Tên <span className="text-red-500">*</span>

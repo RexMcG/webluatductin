@@ -442,7 +442,7 @@ export default function AppointmentPage() {
                 </div>
               </div>
 
-              <form onSubmit={handleSubmit} noValidate>
+              <form method="POST" action="#" onSubmit={handleSubmit} noValidate>
                 {/* ================= STEP 1 ================= */}
                 <div
                   className={`bg-white border border-slate-200 rounded-3xl p-6 md:p-10 shadow-sm ${

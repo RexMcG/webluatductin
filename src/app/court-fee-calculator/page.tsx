@@ -58,7 +58,7 @@ export default function CourtFeeCalculator() {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8">
         {/* Calculator Widget */}
         <div className="md:col-span-7 lg:col-span-8 bg-surface-main border border-border-neutral p-6 md:p-8 rounded shadow-sm">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form method="POST" action="#" className="space-y-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block font-label-sm text-label-sm text-primary mb-2">

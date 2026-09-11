@@ -2,9 +2,9 @@ import type { NextConfig } from "next";
 
 const cspHeader = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com;
+  script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-  img-src 'self' data: blob: https: http:;
+  img-src 'self' data: blob: https://images.unsplash.com https://*.google.com https://*.googleusercontent.com https://*.googletagmanager.com https://webluatductin.vercel.app;
   font-src 'self' https://fonts.gstatic.com data:;
   connect-src 'self' https://webluat-backend.onrender.com http://localhost:3001 https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://generativelanguage.googleapis.com;
   frame-src 'self' https://www.google.com https://maps.google.com;
@@ -38,6 +38,10 @@ const securityHeaders = [
   {
     key: 'Strict-Transport-Security',
     value: 'max-age=63072000; includeSubDomains; preload',
+  },
+  {
+    key: 'Access-Control-Allow-Origin',
+    value: 'https://webluatductin.vercel.app',
   },
 ];
 
