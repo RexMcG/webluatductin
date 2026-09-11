@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     telephone: false,
   },
   alternates: {
-    canonical: SITE_CONFIG.baseUrl,
+    canonical: "./",
   },
   openGraph: {
     title: "Luật Đức Tín & Cộng Sự | Hãng Luật Hàng Đầu TP.HCM",

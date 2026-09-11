@@ -160,7 +160,7 @@ export function exportFormToDoc(form: FormItem, leadInfo?: { name: string; phone
   </table>
 
   <div class="footer-note">
-    Biểu mẫu chuẩn hóa và phát hành bởi <strong>Công ty Luật TNHH Đức Tín &amp; Cộng sự</strong> • Hotline: 093 786 32 63 • https://ductin-partners.com
+    Biểu mẫu chuẩn hóa và phát hành bởi <strong>Công ty Luật TNHH Đức Tín &amp; Cộng sự</strong> • Hotline: 093 786 32 63 • https://www.ductin-partners.com
   </div>
 </body>
 </html>

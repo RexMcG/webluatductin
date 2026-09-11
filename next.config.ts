@@ -41,7 +41,7 @@ const securityHeaders = [
   },
   {
     key: 'Access-Control-Allow-Origin',
-    value: 'https://ductin-partners.com',
+    value: 'https://www.ductin-partners.com',
   },
 ];
 
