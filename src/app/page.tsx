@@ -788,10 +788,10 @@ export default function Home() {
 
       {/* Client Marquee */}
       <section className="border-y border-border-neutral py-16 bg-surface-main overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 mb-8 text-center">
-          <h3 className="font-sans text-slate-800 uppercase tracking-widest text-sm md:text-base font-black">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 mb-12 text-center w-full flex flex-col items-center justify-center">
+          <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
             Đối Tác &amp; Khách Hàng Tiêu Biểu
-          </h3>
+          </h2>
           <SectionDivider label="ĐỐI TÁC TIÊU BIỂU" />
         </div>
         <div className="relative w-full overflow-hidden flex py-2">
