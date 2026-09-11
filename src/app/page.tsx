@@ -257,7 +257,7 @@ export default function Home() {
       </section>
 
       {/* About Us & Why Choose Us */}
-      <section id="about-us" className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-16 scroll-mt-24">
+      <section id="about-us" className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-12 md:pt-16 pb-16 scroll-mt-24">
         <div className="flex flex-col gap-12">
           {/* About Us */}
           <div>
@@ -267,7 +267,7 @@ export default function Home() {
               </h2>
               <SectionDivider label="GIỚI THIỆU" />
             </div>
-            <div className="text-text-secondary leading-relaxed space-y-4 text-justify sm:text-left text-base md:text-lg">
+            <div className="prose prose-xl md:prose-2xl text-text-secondary leading-relaxed space-y-4 text-justify text-lg md:text-xl">
               <p>
                 <strong>Luật sư Phan Đức Tín</strong> là người sáng lập kiêm Giám đốc Điều hành <strong>Công ty Luật TNHH Đức Tín và Cộng sự</strong> (Đoàn Luật sư TP.HCM). Hãng luật đã tham gia tư vấn, giải quyết thành công hàng trăm vụ việc chuyên sâu về các lĩnh vực: đầu tư nước ngoài (FDI), lập dự án và thẩm định hồ sơ cấp Giấy chứng nhận đăng ký đầu tư cho các tập đoàn, doanh nhân đến từ Nhật Bản, Hàn Quốc, Mỹ, Singapore, Đức...
               </p>
@@ -288,35 +288,35 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
                 {
-                  title: "1. ĐỘI NGŨ LUẬT SƯ CHUYÊN SÂU & GIÀU KINH NGHIỆM",
+                  title: "1. Đội ngũ Luật sư chuyên sâu & giàu kinh nghiệm",
                   desc: "Đội ngũ Luật sư của DucTin & Partners năng động, sắc bén trong tranh tụng, vững chuyên môn nghiệp vụ, tiên phong ứng dụng công nghệ pháp lý và tuân thủ nghiêm ngặt Quy tắc Đạo đức nghề nghiệp."
                 },
                 {
-                  title: "2. GIẢI PHÁP PHÁP LÝ TOÀN DIỆN & DỨT ĐIỂM",
+                  title: "2. Giải pháp pháp lý toàn diện & dứt điểm",
                   desc: "Trực tiếp tháo gỡ các nút thắt pháp lý của thân chủ nhanh chóng, triệt để với lộ trình tối ưu chi phí. \"Chất lượng dịch vụ là Danh dự của Luật sư\"."
                 },
                 {
-                  title: "3. BẢO MẬT THÔNG TIN THÂN CHỦ TUYỆT ĐỐI",
+                  title: "3. Bảo mật thông tin thân chủ tuyệt đối",
                   desc: "Tuân thủ chặt chẽ nghĩa vụ giữ bí mật nghề nghiệp theo Điều 25 Luật Luật sư. Toàn bộ hồ sơ, thông tin vụ việc của thân chủ được bảo hộ an toàn tuyệt đối."
                 },
                 {
-                  title: "4. ĐÁNH GIÁ ĐÚNG BẢN CHẤT & TÍNH KHẢ THI",
+                  title: "4. Đánh giá đúng bản chất & tính khả thi",
                   desc: "Phân tích khách quan các rủi ro pháp lý, cung cấp phương án hành động có tính khả thi cao nhất, không cam kết khống hoặc gây ngộ nhận cho thân chủ."
                 },
                 {
-                  title: "5. CHI PHÍ MINH BẠCH THEO HỢP ĐỒNG DỊCH VỤ PHÁP LÝ",
+                  title: "5. Chi phí minh bạch theo hợp đồng dịch vụ pháp lý",
                   desc: "Mọi khoản thù lao và chi phí tố tụng đều được thỏa thuận rõ ràng, minh bạch trong Hợp đồng dịch vụ pháp lý, phù hợp với tính chất phức tạp của từng vụ việc."
                 },
                 {
-                  title: "6. TẬN TÂM ĐỒNG HÀNH BẢO VỆ THÂN CHỦ",
+                  title: "6. Tận tâm đồng hành bảo vệ thân chủ",
                   desc: "Luôn đặt quyền và lợi ích hợp pháp của thân chủ lên hàng đầu, chủ động cập nhật tiến độ giải quyết và sát cánh cùng thân chủ trong mọi giai đoạn tố tụng."
                 }
               ].map((item, idx) => (
-                <div key={idx} className="bg-surface-main p-4 sm:p-5 border border-border-neutral rounded-lg shadow-xs hover:shadow-md transition-shadow">
+                <div key={idx} className="bg-surface-main p-4 border border-border-neutral rounded-lg shadow-sm hover:shadow-md transition-shadow">
                   <h3 className="font-bold text-primary mb-2 text-base md:text-lg uppercase">
                     {item.title}
                   </h3>
-                  <p className="text-base text-text-secondary leading-relaxed">
+                  <p className="text-base md:text-lg text-text-secondary leading-relaxed">
                     {item.desc}
                   </p>
                 </div>
@@ -328,7 +328,7 @@ export default function Home() {
 
       {/* Practice Areas Grid */}
       <section className="border-t border-border-neutral py-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
           <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
               Lĩnh Vực Hoạt Động Mũi Nhọn
@@ -448,7 +448,7 @@ export default function Home() {
 
       {/* Featured Tools */}
       <section className="bg-surface-alt border-y border-border-neutral py-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
           <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
               Tiện Ích Pháp Lý
@@ -555,7 +555,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 items-stretch">
           
           {/* Consultation Form (Left) - Cằm và đầu được thu gọn đều tắp với cột phải */}
@@ -733,7 +733,7 @@ export default function Home() {
 
       {/* Expert Attorneys */}
       <section id="lawyers" className="border-t border-border-neutral py-16 scroll-mt-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
           <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
               Đội Ngũ Luật Sư Điều Hành
@@ -788,7 +788,7 @@ export default function Home() {
 
       {/* Client Marquee */}
       <section className="border-y border-border-neutral py-16 bg-surface-main overflow-hidden">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 text-center w-full flex flex-col items-center justify-center">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 mb-12 text-center w-full flex flex-col items-center justify-center">
           <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
             Đối Tác &amp; Khách Hàng Tiêu Biểu
           </h2>
