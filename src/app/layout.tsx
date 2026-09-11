@@ -22,9 +22,12 @@ export const metadata: Metadata = {
   description:
     "Hãng Luật Đức Tín & Cộng Sự tại TP.HCM. Chuyên tư vấn đầu tư FDI, doanh nghiệp, BĐS, tranh tụng Tòa án và ứng dụng AI pháp lý chuyên sâu.",
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png" },
+    ],
     shortcut: "/favicon.ico",
-    apple: "/img/Logo_website.png",
+    apple: "/apple-icon.png",
   },
   keywords: [
     "luật sư uy tín",
@@ -154,7 +157,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link rel="preload" as="image" href="/img/herobanner.webp" type="image/webp" fetchPriority="high" />
-        <link rel="apple-touch-icon" href="/img/Logo_website.png" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
