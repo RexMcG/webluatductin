@@ -370,9 +370,8 @@ export default function Home() {
             <div className="pt-4 border-t border-slate-100 mt-auto">
               <Link
                 href="/appointment"
-                className="w-full flex items-center justify-center gap-2 bg-[#641D06] hover:bg-black text-white rounded-xl py-2.5 sm:py-3 text-sm sm:text-[15px] font-bold transition-all active:scale-98 shadow-sm hover:shadow-md text-center"
+                className="w-full flex items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-xl py-2.5 sm:py-3 text-sm sm:text-[15px] font-bold transition-all active:scale-98 shadow-sm hover:shadow-md text-center tracking-wide"
               >
-                <span className="material-symbols-outlined text-base text-amber-300">calendar_month</span>
                 <span>Đặt Lịch Hẹn</span>
               </Link>
             </div>
@@ -411,9 +410,8 @@ export default function Home() {
             <div className="pt-4 border-t border-slate-100 mt-auto">
               <Link
                 href="/appointment"
-                className="w-full flex items-center justify-center gap-2 bg-[#641D06] hover:bg-black text-white rounded-xl py-2.5 sm:py-3 text-sm sm:text-[15px] font-bold transition-all active:scale-98 shadow-sm hover:shadow-md text-center"
+                className="w-full flex items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-xl py-2.5 sm:py-3 text-sm sm:text-[15px] font-bold transition-all active:scale-98 shadow-sm hover:shadow-md text-center tracking-wide"
               >
-                <span className="material-symbols-outlined text-base text-amber-300">calendar_month</span>
                 <span>Đặt Lịch Hẹn</span>
               </Link>
             </div>
@@ -452,9 +450,8 @@ export default function Home() {
             <div className="pt-4 border-t border-slate-100 mt-auto">
               <Link
                 href="/appointment"
-                className="w-full flex items-center justify-center gap-2 bg-[#641D06] hover:bg-black text-white rounded-xl py-2.5 sm:py-3 text-sm sm:text-[15px] font-bold transition-all active:scale-98 shadow-sm hover:shadow-md text-center"
+                className="w-full flex items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-xl py-2.5 sm:py-3 text-sm sm:text-[15px] font-bold transition-all active:scale-98 shadow-sm hover:shadow-md text-center tracking-wide"
               >
-                <span className="material-symbols-outlined text-base text-amber-300">calendar_month</span>
                 <span>Đặt Lịch Hẹn</span>
               </Link>
             </div>
