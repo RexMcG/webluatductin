@@ -4,6 +4,24 @@ import Link from "next/link";
 import React from "react";
 
 export default function Footer() {
+  const [isCollapsed, setIsCollapsed] = React.useState(false);
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const handleResize = () => {
+        // Automatically collapse on smaller screens (< 1440px) to prevent covering text
+        if (window.innerWidth < 1440) {
+          setIsCollapsed(true);
+        } else {
+          setIsCollapsed(false);
+        }
+      };
+      handleResize();
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
+
   const handleScrollTo = (target: "top" | "lawyers", e: React.MouseEvent) => {
     if (typeof window !== "undefined" && window.location.pathname === "/") {
       e.preventDefault();
@@ -21,52 +39,85 @@ export default function Footer() {
   };
   return (
     <>
-      {/* Desktop Floating Contact Bubbles (Left) - Hidden on Mobile */}
-      <div className="hidden md:flex fixed bottom-5 md:bottom-6 left-3 md:left-4 lg:left-6 z-50 flex-col gap-2.5 lg:gap-3">
-        {/* Call Hotline Bubble */}
-        <a
-          className="bg-gradient-to-br from-emerald-500 to-emerald-700 text-white rounded-full w-11 h-11 md:w-12 md:h-12 lg:w-14 lg:h-14 border-2 border-white shadow-[0_0_12px_rgba(16,185,129,0.5)] hover:scale-110 active:scale-95 transition-transform flex items-center justify-center relative group cursor-pointer shrink-0"
-          href="tel:0937863263"
-          aria-label="Gọi ngay Hotline tư vấn pháp luật"
-        >
-          <span className="material-symbols-outlined text-xl md:text-2xl">call</span>
-          <span className="absolute left-full ml-3 bg-emerald-700 text-white text-xs lg:text-sm font-bold whitespace-nowrap px-3 py-1.5 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg pointer-events-none">
-            Hotline: 093 786 32 63
-          </span>
-        </a>
+      {/* Desktop Floating Contact Widget (Left) - Hidden on Mobile */}
+      <div className="hidden md:flex fixed bottom-5 md:bottom-6 left-0 z-50 transition-all duration-300 ease-out">
+        {isCollapsed ? (
+          /* Collapsed Pill: Docked to extreme edge, leaves 100% of text visible */
+          <button
+            onClick={() => setIsCollapsed(false)}
+            className="flex items-center gap-1.5 bg-[#641D06] hover:bg-black text-white pl-2.5 pr-3 py-2 rounded-r-2xl shadow-2xl border-y border-r border-amber-400/80 cursor-pointer transition-all hover:pl-3.5 group animate-pulse"
+            title="Mở bảng liên hệ nhanh (Hotline, Zalo, Đặt lịch)"
+            aria-label="Mở bảng liên hệ nhanh"
+          >
+            <span className="material-symbols-outlined text-lg text-amber-400 group-hover:rotate-12 transition-transform">
+              call
+            </span>
+            <span className="text-[11px] font-bold tracking-wide text-amber-100 whitespace-nowrap">
+              Liên hệ
+            </span>
+            <span className="material-symbols-outlined text-sm text-amber-300">
+              chevron_right
+            </span>
+          </button>
+        ) : (
+          /* Expanded: 3 Bubbles + Minimize Button */
+          <div className="flex flex-col gap-2.5 lg:gap-3 pl-3 md:pl-4 lg:pl-6 relative animate-fadeIn">
+            {/* Minimize / Close Button */}
+            <button
+              onClick={() => setIsCollapsed(true)}
+              className="w-6 h-6 rounded-full bg-slate-900/85 hover:bg-black text-amber-300 hover:text-white border border-amber-400/60 flex items-center justify-center text-xs shadow-md transition-all self-end cursor-pointer mb-0.5"
+              title="Thu gọn để không che nội dung đọc"
+              aria-label="Thu gọn liên hệ"
+            >
+              <span className="material-symbols-outlined text-xs">chevron_left</span>
+            </button>
 
-        {/* Booking Bubble */}
-        <Link
-          className="bg-gradient-to-br from-red-500 to-primary text-white rounded-full w-11 h-11 md:w-12 md:h-12 lg:w-14 lg:h-14 border-2 border-white shadow-[0_0_12px_rgba(220,38,38,0.5)] hover:scale-110 active:scale-95 transition-transform flex items-center justify-center relative group animate-bounce cursor-pointer shrink-0"
-          style={{ animationDuration: '3s' }}
-          href="/appointment"
-          aria-label="Đặt lịch hẹn tư vấn luật sư"
-        >
-          <span className="material-symbols-outlined text-xl md:text-2xl">calendar_month</span>
-          <span className="absolute left-full ml-3 bg-primary text-white text-xs lg:text-sm font-bold whitespace-nowrap px-3 py-1.5 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg pointer-events-none">
-            Đặt lịch hẹn
-          </span>
-        </Link>
+            {/* Call Hotline Bubble */}
+            <a
+              className="bg-gradient-to-br from-emerald-500 to-emerald-700 text-white rounded-full w-11 h-11 md:w-12 md:h-12 lg:w-14 lg:h-14 border-2 border-white shadow-[0_0_12px_rgba(16,185,129,0.5)] hover:scale-110 active:scale-95 transition-transform flex items-center justify-center relative group cursor-pointer shrink-0"
+              href="tel:0937863263"
+              aria-label="Gọi ngay Hotline tư vấn pháp luật"
+            >
+              <span className="material-symbols-outlined text-xl md:text-2xl">call</span>
+              <span className="absolute left-full ml-3 bg-emerald-700 text-white text-xs lg:text-sm font-bold whitespace-nowrap px-3 py-1.5 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg pointer-events-none">
+                Hotline: 093 786 32 63
+              </span>
+            </a>
 
-        {/* Zalo Bubble */}
-        <a
-          className="bg-gradient-to-br from-blue-400 to-[#0068FF] text-white rounded-full w-11 h-11 md:w-12 md:h-12 lg:w-14 lg:h-14 border-2 border-white shadow-[0_0_12px_rgba(0,104,255,0.5)] hover:scale-110 active:scale-95 transition-transform flex items-center justify-center relative group cursor-pointer shrink-0"
-          href="https://zalo.me/0937863263"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Chat trực tiếp qua Zalo"
-        >
-          <img
-            src="/img/zalo_icon.webp"
-            alt="Zalo"
-            width={24}
-            height={24}
-            className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 object-contain"
-          />
-          <span className="absolute left-full ml-3 bg-[#0068FF] text-white text-xs lg:text-sm font-bold whitespace-nowrap px-3 py-1.5 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg pointer-events-none">
-            Chat Zalo
-          </span>
-        </a>
+            {/* Booking Bubble */}
+            <Link
+              className="bg-gradient-to-br from-red-500 to-primary text-white rounded-full w-11 h-11 md:w-12 md:h-12 lg:w-14 lg:h-14 border-2 border-white shadow-[0_0_12px_rgba(220,38,38,0.5)] hover:scale-110 active:scale-95 transition-transform flex items-center justify-center relative group animate-bounce cursor-pointer shrink-0"
+              style={{ animationDuration: '3s' }}
+              href="/appointment"
+              aria-label="Đặt lịch hẹn tư vấn luật sư"
+            >
+              <span className="material-symbols-outlined text-xl md:text-2xl">calendar_month</span>
+              <span className="absolute left-full ml-3 bg-primary text-white text-xs lg:text-sm font-bold whitespace-nowrap px-3 py-1.5 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg pointer-events-none">
+                Đặt lịch hẹn
+              </span>
+            </Link>
+
+            {/* Zalo Bubble */}
+            <a
+              className="bg-gradient-to-br from-blue-400 to-[#0068FF] text-white rounded-full w-11 h-11 md:w-12 md:h-12 lg:w-14 lg:h-14 border-2 border-white shadow-[0_0_12px_rgba(0,104,255,0.5)] hover:scale-110 active:scale-95 transition-transform flex items-center justify-center relative group cursor-pointer shrink-0"
+              href="https://zalo.me/0937863263"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Chat trực tiếp qua Zalo"
+            >
+              <img
+                src="/img/zalo_icon.webp"
+                alt="Zalo"
+                width={24}
+                height={24}
+                className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 object-contain"
+              />
+              <span className="absolute left-full ml-3 bg-[#0068FF] text-white text-xs lg:text-sm font-bold whitespace-nowrap px-3 py-1.5 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all shadow-lg pointer-events-none">
+                Chat Zalo
+              </span>
+            </a>
+          </div>
+        )}
       </div>
 
       {/* Modern Unified Mobile Bottom Action Bar (Fixed at very bottom of screen on Mobile) */}
