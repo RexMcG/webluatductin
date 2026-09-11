@@ -121,7 +121,7 @@ export default function Footer() {
 
       {/* ========== FOOTER ========== */}
       <footer className="bg-[#521705] border-t-4 border-amber-600/60 w-full pb-24 md:pb-6 pt-8 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Main Footer Grid: 4 Structured Semantic Columns */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-7 lg:gap-8 items-start">

@@ -22,10 +22,10 @@
 
   --spacing-stack-sm: 8px;
   --spacing-section-padding: 80px;
-  --spacing-margin-mobile: 24px;
+  --spacing-margin-mobile: 16px;
   --spacing-stack-lg: 32px;
-  --spacing-container-max: 1728px;
-  --spacing-margin-desktop: 64px;
+  --spacing-container-max: 1400px;
+  --spacing-margin-desktop: 32px;
   --spacing-stack-md: 16px;
   --font-headline-lg-mobile: 'Roboto', sans-serif;
   --font-headline-md: 'Roboto', sans-serif;

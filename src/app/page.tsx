@@ -145,7 +145,7 @@ export default function Home() {
         className="relative w-full bg-cover bg-[center_25%] bg-no-repeat border-b-[7px] border-[#641D06]"
         style={{ backgroundImage: "url('/img/herobanner.webp')" }}
       >
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-32 flex items-center min-h-[460px] md:min-h-[620px]">
+        <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-32 flex items-center min-h-[460px] md:min-h-[620px]">
           <div className="max-w-3xl lg:max-w-4xl w-full flex flex-col items-start text-left space-y-5 md:space-y-6">
             <h1 className="text-2xl sm:text-4xl md:text-[44px] lg:text-[52px] font-black font-sans leading-[1.2] tracking-tight">
               <span className="text-primary drop-shadow-sm block">
@@ -257,7 +257,7 @@ export default function Home() {
       </section>
 
       {/* About Us & Why Choose Us */}
-      <section id="about-us" className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-12 md:pt-16 pb-16 scroll-mt-24">
+      <section id="about-us" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-16 scroll-mt-24">
         <div className="flex flex-col gap-12">
           {/* About Us */}
           <div>
@@ -328,7 +328,7 @@ export default function Home() {
 
       {/* Practice Areas Grid */}
       <section className="border-t border-border-neutral py-16">
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
               Lĩnh Vực Hoạt Động Mũi Nhọn
@@ -448,7 +448,7 @@ export default function Home() {
 
       {/* Featured Tools */}
       <section className="bg-surface-alt border-y border-border-neutral py-16">
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
               Tiện Ích Pháp Lý
@@ -555,7 +555,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16">
+      <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 items-stretch">
           
           {/* Consultation Form (Left) - Cằm và đầu được thu gọn đều tắp với cột phải */}
@@ -733,7 +733,7 @@ export default function Home() {
 
       {/* Expert Attorneys */}
       <section id="lawyers" className="border-t border-border-neutral py-16 scroll-mt-24">
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
               Đội Ngũ Luật Sư Điều Hành
@@ -788,7 +788,7 @@ export default function Home() {
 
       {/* Client Marquee */}
       <section className="border-y border-border-neutral py-16 bg-surface-main overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 mb-12 text-center w-full flex flex-col items-center justify-center">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 mb-12 text-center w-full flex flex-col items-center justify-center">
           <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
             Đối Tác &amp; Khách Hàng Tiêu Biểu
           </h2>
