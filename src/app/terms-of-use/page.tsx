@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getCanonicalUrl, SITE_CONFIG } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Điều Khoản Sử Dụng Website | Công ty Luật TNHH Đức Tín & Cộng sự",
   description:
     "Điều khoản sử dụng website và các tiện ích pháp lý trực tuyến tại Công ty Luật TNHH Đức Tín & Cộng sự (Luật sư Phan Đức Tín).",
   alternates: {
-    canonical: "https://webluatductin.vercel.app/terms-of-use",
+    canonical: getCanonicalUrl("/terms-of-use"),
   },
 };
 
@@ -59,7 +60,7 @@ export default function TermsOfUsePage() {
             </p>
             <ul className="list-disc pl-6 space-y-1.5 text-slate-700">
               <li>Mọi hành vi sao chép, trích dẫn nội dung vì mục đích thương mại mà không có sự đồng ý trước bằng văn bản của Chúng tôi đều cấu thành hành vi xâm phạm quyền tác giả.</li>
-              <li>Trường hợp trích dẫn phi thương mại hoặc nghiên cứu học thuật, người sử dụng bắt buộc phải ghi rõ nguồn gốc thông tin: <em>&quot;Theo Công ty Luật TNHH Đức Tín &amp; Cộng sự - webluatductin.vercel.app&quot;</em> kèm đường dẫn liên kết (hyperlink) trỏ về bài viết gốc.</li>
+              <li>Trường hợp trích dẫn phi thương mại hoặc nghiên cứu học thuật, người sử dụng bắt buộc phải ghi rõ nguồn gốc thông tin: <em>&quot;Theo Công ty Luật TNHH Đức Tín &amp; Cộng sự - {SITE_CONFIG.domain}&quot;</em> kèm đường dẫn liên kết (hyperlink) trỏ về bài viết gốc.</li>
             </ul>
           </section>
 

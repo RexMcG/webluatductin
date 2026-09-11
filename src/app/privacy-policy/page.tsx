@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getCanonicalUrl, SITE_CONFIG } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Chính Sách Bảo Mật Thông Tin & Dữ Liệu Cá Nhân",
   description:
     "Chính sách bảo mật thông tin khách hàng và bảo vệ dữ liệu cá nhân tại Công ty Luật TNHH Đức Tín và Cộng sự theo Nghị định 13/2023/NĐ-CP và Luật Luật sư.",
   alternates: {
-    canonical: "https://webluatductin.vercel.app/privacy-policy",
+    canonical: getCanonicalUrl("/privacy-policy"),
   },
 };
 
@@ -40,7 +41,7 @@ export default function PrivacyPolicyPage() {
           {/* Lời mở đầu */}
           <div>
             <p className="leading-relaxed">
-              Công ty Luật TNHH Đức Tín và Cộng sự (sau đây gọi tắt là <strong>"Đức Tín &amp; Cộng sự"</strong> hoặc <strong>"Chúng tôi"</strong>) cam kết bảo vệ tuyệt đối bí mật thông tin và quyền riêng tư đối với dữ liệu cá nhân của Quý khách hàng, thân chủ và người dùng truy cập website <strong>webluatductin.vercel.app</strong>.
+              Công ty Luật TNHH Đức Tín và Cộng sự (sau đây gọi tắt là <strong>"Đức Tín &amp; Cộng sự"</strong> hoặc <strong>"Chúng tôi"</strong>) cam kết bảo vệ tuyệt đối bí mật thông tin và quyền riêng tư đối với dữ liệu cá nhân của Quý khách hàng, thân chủ và người dùng truy cập website <strong>{SITE_CONFIG.domain}</strong>.
             </p>
             <p className="mt-3 leading-relaxed">
               Văn bản này công khai mục đích, phạm vi thu thập, phương thức xử lý và các biện pháp bảo mật nhằm bảo đảm quyền và lợi ích hợp pháp của Quý khách hàng theo quy định của pháp luật Việt Nam.

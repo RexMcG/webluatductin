@@ -3,6 +3,7 @@ import Script from "next/script";
 import "./globals.css";
 import Providers from "@/components/providers";
 import LayoutShell from "@/components/layout/LayoutShell";
+import { SITE_CONFIG } from "@/config/site";
 
 import { Roboto } from "next/font/google";
 
@@ -14,7 +15,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://webluatductin.vercel.app"),
+  metadataBase: new URL(SITE_CONFIG.baseUrl),
   title: {
     default: "Luật Đức Tín & Cộng Sự | Hãng Luật Hàng Đầu TP.HCM",
     template: "%s | Luật Đức Tín (DUC TIN & Partners)",
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
     "luật sư hôn nhân gia đình",
     "luật đất đai nhà ở",
   ],
-  authors: [{ name: "Luật sư Phan Đức Tín", url: "https://webluatductin.vercel.app" }],
+  authors: [{ name: "Luật sư Phan Đức Tín", url: SITE_CONFIG.baseUrl }],
   creator: "Công ty Luật TNHH Đức Tín & Cộng Sự",
   publisher: "Công ty Luật TNHH Đức Tín & Cộng Sự",
   formatDetection: {
@@ -52,13 +53,13 @@ export const metadata: Metadata = {
     telephone: false,
   },
   alternates: {
-    canonical: "https://webluatductin.vercel.app",
+    canonical: SITE_CONFIG.baseUrl,
   },
   openGraph: {
     title: "Luật Đức Tín & Cộng Sự | Hãng Luật Hàng Đầu TP.HCM",
     description:
       "Hãng Luật Đức Tín & Cộng Sự tại TP.HCM. Chuyên tư vấn đầu tư FDI, doanh nghiệp, BĐS, tranh tụng Tòa án và ứng dụng AI pháp lý chuyên sâu.",
-    url: "https://webluatductin.vercel.app",
+    url: SITE_CONFIG.baseUrl,
     siteName: "Luật Đức Tín",
     locale: "vi_VN",
     type: "website",
@@ -96,16 +97,16 @@ const jsonLd = {
   "@type": "LegalService",
   name: "Công Ty Luật TNHH Đức Tín và Cộng Sự",
   alternateName: "DUC TIN & Partners Law Firm",
-  url: "https://webluatductin.vercel.app",
-  logo: "https://webluatductin.vercel.app/img/Logo_website.png",
-  image: "https://webluatductin.vercel.app/img/herobanner.webp",
+  url: SITE_CONFIG.baseUrl,
+  logo: `${SITE_CONFIG.baseUrl}/img/Logo_website.png`,
+  image: `${SITE_CONFIG.baseUrl}/img/herobanner.webp`,
   description:
     "Công ty luật uy tín hàng đầu tại TP. Hồ Chí Minh do Luật sư Phan Đức Tín sáng lập và điều hành.",
   founder: {
     "@type": "Person",
     name: "Phan Đức Tín",
     jobTitle: "Luật sư Trưởng - Giám đốc Điều hành",
-    image: "https://webluatductin.vercel.app/img/avatar1.webp",
+    image: `${SITE_CONFIG.baseUrl}/img/avatar1.webp`,
   },
   address: {
     "@type": "PostalAddress",

@@ -1,7 +1,8 @@
 import { MetadataRoute } from 'next';
+import { SITE_CONFIG } from '@/config/site';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://webluatductin.vercel.app';
+  const baseUrl = SITE_CONFIG.baseUrl;
 
   // Static core routes
   const staticRoutes: MetadataRoute.Sitemap = [

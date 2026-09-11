@@ -4,7 +4,7 @@ const cspHeader = `
   default-src 'self';
   script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-  img-src 'self' data: blob: https://images.unsplash.com https://*.google.com https://*.googleusercontent.com https://*.googletagmanager.com https://webluatductin.vercel.app;
+  img-src 'self' data: blob: https://images.unsplash.com https://*.google.com https://*.googleusercontent.com https://*.googletagmanager.com https://ductin-partners.com https://*.ductin-partners.com https://webluatductin.vercel.app;
   font-src 'self' https://fonts.gstatic.com data:;
   connect-src 'self' https://webluat-backend.onrender.com http://localhost:3001 https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://generativelanguage.googleapis.com;
   frame-src 'self' https://www.google.com https://maps.google.com;
@@ -41,7 +41,7 @@ const securityHeaders = [
   },
   {
     key: 'Access-Control-Allow-Origin',
-    value: 'https://webluatductin.vercel.app',
+    value: 'https://ductin-partners.com',
   },
 ];
 

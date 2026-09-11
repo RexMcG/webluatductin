@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getCanonicalUrl, SITE_CONFIG } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Chính Sách Bảo Vệ Dữ Liệu Cá Nhân | Công ty Luật TNHH Đức Tín & Cộng sự",
   description:
     "Chính sách bảo vệ dữ liệu cá nhân theo Nghị định 13/2023/NĐ-CP và Luật Luật sư tại Công ty Luật TNHH Đức Tín & Cộng sự (Luật sư Phan Đức Tín).",
   alternates: {
-    canonical: "https://webluatductin.vercel.app/data-protection",
+    canonical: getCanonicalUrl("/data-protection"),
   },
 };
 
@@ -40,7 +41,7 @@ export default function DataProtectionPage() {
           {/* Lời mở đầu */}
           <div>
             <p className="leading-relaxed">
-              <strong>Công ty Luật TNHH Đức Tín và Cộng sự</strong> (sau đây gọi tắt là <strong>&quot;Đức Tín &amp; Cộng sự&quot;</strong> hoặc <strong>&quot;Chúng tôi&quot;</strong>) cam kết tôn trọng tuyệt đối quyền riêng tư và bảo vệ an toàn dữ liệu cá nhân của mọi cá nhân, thân chủ, người truy cập website <strong>webluatductin.vercel.app</strong> và người gửi yêu cầu tư vấn pháp luật.
+              <strong>Công ty Luật TNHH Đức Tín và Cộng sự</strong> (sau đây gọi tắt là <strong>&quot;Đức Tín &amp; Cộng sự&quot;</strong> hoặc <strong>&quot;Chúng tôi&quot;</strong>) cam kết tôn trọng tuyệt đối quyền riêng tư và bảo vệ an toàn dữ liệu cá nhân của mọi cá nhân, thân chủ, người truy cập website <strong>{SITE_CONFIG.domain}</strong> và người gửi yêu cầu tư vấn pháp luật.
             </p>
             <p className="mt-3 leading-relaxed">
               Chính sách này được ban hành công khai nhằm minh bạch hóa cách thức Đức Tín &amp; Cộng sự thu thập, ghi nhận, phân tích, lưu trữ, sử dụng và bảo vệ dữ liệu cá nhân, phù hợp với quy định tại <strong>Nghị định số 13/2023/NĐ-CP</strong> về Bảo vệ Dữ liệu Cá nhân và nghĩa vụ giữ bí mật thông tin của luật sư theo <strong>Luật Luật sư</strong>.
@@ -71,7 +72,7 @@ export default function DataProtectionPage() {
             </h2>
             <p>Chính sách này áp dụng đối với dữ liệu cá nhân được xử lý khi cá nhân:</p>
             <ul className="list-disc pl-6 space-y-1.5 text-slate-700">
-              <li>Truy cập và tra cứu thông tin trên website webluatductin.vercel.app;</li>
+              <li>Truy cập và tra cứu thông tin trên website {SITE_CONFIG.domain};</li>
               <li>Gửi yêu cầu liên hệ, biểu mẫu đặt lịch hẹn tư vấn trực tuyến;</li>
               <li>Tương tác, đặt câu hỏi sơ bộ với Trợ lý Luật sư AI hoặc tải biểu mẫu pháp lý;</li>
               <li>Liên hệ với Chúng tôi qua số điện thoại Hotline, Zalo OA, Email hoặc các kênh liên lạc chính thức khác;</li>

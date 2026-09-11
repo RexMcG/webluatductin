@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getCanonicalUrl, SITE_CONFIG } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Tuyên Bố Từ Chối Trách Nhiệm | Công ty Luật TNHH Đức Tín & Cộng sự",
   description:
     "Tuyên bố từ chối trách nhiệm pháp lý đối với thông tin, biểu mẫu và công cụ tiện ích trên website Công ty Luật TNHH Đức Tín & Cộng sự (Ls. Phan Đức Tín).",
   alternates: {
-    canonical: "https://webluatductin.vercel.app/disclaimer",
+    canonical: getCanonicalUrl("/disclaimer"),
   },
 };
 
@@ -43,7 +44,7 @@ export default function DisclaimerPage() {
               LƯU Ý PHÁP LÝ QUAN TRỌNG:
             </p>
             <p className="mt-2 text-slate-700 leading-relaxed">
-              Trang web này và toàn bộ nội dung xuất bản trên tên miền <strong>webluatductin.vercel.app</strong> (bao gồm bài viết chuyên môn, bản tin án lệ, thư viện biểu mẫu pháp lý, tiện ích tính toán và Trợ lý Luật sư AI) được cung cấp với mục đích duy nhất là phổ biến kiến thức pháp luật và mang tính chất thông tin tham khảo chung.
+              Trang web này và toàn bộ nội dung xuất bản trên tên miền <strong>{SITE_CONFIG.domain}</strong> (bao gồm bài viết chuyên môn, bản tin án lệ, thư viện biểu mẫu pháp lý, tiện ích tính toán và Trợ lý Luật sư AI) được cung cấp với mục đích duy nhất là phổ biến kiến thức pháp luật và mang tính chất thông tin tham khảo chung.
             </p>
           </div>
 
