@@ -236,8 +236,8 @@ export default function SalaryCalculator() {
                   href="/ai-chatbot?q=T%C6%B0%20v%E1%BA%A5n%20h%E1%BB%A3p%20%C4%91%E1%BB%93ng%20lao%20%C4%91%E1%BB%99ng%20v%C3%A0%20ti%E1%BB%81n%20l%C6%B0%C6%A1ng"
                   className="bg-accent text-on-accent h-10 px-5 rounded font-label-sm text-label-sm hover:opacity-90 transition-opacity flex items-center gap-2 font-bold cursor-pointer"
                 >
-                  <span className="material-symbols-outlined text-[20px]">smart_toy</span>
-                  Hỏi Luật Sư AI
+                  <span className="material-symbols-outlined text-[20px]">support_agent</span>
+                  Tư Vấn Trực Tuyến
                 </Link>
                 <Link
                   href="/appointment"

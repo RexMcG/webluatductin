@@ -807,9 +807,9 @@ export default function AIFormLibrary() {
       {/* Results Section */}
       <section className="w-full py-2">
         <div className="flex items-center gap-2 mb-6 border-b border-border-neutral pb-4">
-          <span className="material-symbols-outlined text-amber-700">auto_awesome</span>
+          <span className="material-symbols-outlined text-[#641D06]">description</span>
           <h2 className="text-xl md:text-2xl font-bold text-slate-900">
-            {debouncedSearchTerm.trim() ? "Đề xuất biểu mẫu từ AI" : "Biểu mẫu pháp lý được tải nhiều nhất"}
+            {debouncedSearchTerm.trim() ? "Đề xuất biểu mẫu phù hợp" : "Biểu mẫu pháp lý được tải nhiều nhất"}
           </h2>
           <span className="text-xs font-semibold text-slate-500 ml-auto hidden md:block">
             {isLoading ? "Đang tìm kiếm..." : `${displayForms.length} biểu mẫu đề xuất`}
@@ -825,7 +825,7 @@ export default function AIFormLibrary() {
                 {/* AI Searching Status Bar */}
                 <div className="flex items-center gap-3 p-3.5 bg-gradient-to-r from-amber-50 via-amber-100/40 to-emerald-50 border border-amber-200/80 rounded-2xl">
                   <div className="w-8 h-8 rounded-xl bg-amber-600/10 flex items-center justify-center text-[#641D06] shrink-0">
-                    <span className="material-symbols-outlined text-lg animate-spin">smart_toy</span>
+                    <span className="material-symbols-outlined text-lg animate-spin">search</span>
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-xs font-bold text-[#641D06] flex items-center gap-1.5">
@@ -949,10 +949,10 @@ export default function AIFormLibrary() {
                   className="flex items-center gap-3 p-3.5 bg-slate-50 border border-slate-200 rounded-2xl hover:border-amber-500 hover:bg-amber-50/40 transition-all"
                 >
                   <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center shrink-0">
-                    <span className="material-symbols-outlined text-xl">smart_toy</span>
+                    <span className="material-symbols-outlined text-xl">support_agent</span>
                   </div>
                   <div>
-                    <div className="text-xs md:text-sm font-bold text-slate-900">Trợ Lý Luật Sư AI 24/7</div>
+                    <div className="text-xs md:text-sm font-bold text-slate-900">Trợ Lý Pháp Lý Trực Tuyến</div>
                     <div className="text-[11px] text-slate-500 mt-0.5">Hướng dẫn điền biểu mẫu đúng luật</div>
                   </div>
                 </Link>

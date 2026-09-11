@@ -282,7 +282,7 @@ export default function NewsDetailPage() {
                     }}
                     className="w-full text-left px-3 py-2.5 rounded-xl transition-all flex items-center gap-2 cursor-pointer bg-purple-50 hover:bg-purple-100 text-purple-900 font-bold border border-purple-200 mb-2 shadow-2xs"
                   >
-                    <span className="text-base">🧠</span>
+                    <span className="material-symbols-outlined text-lg text-purple-700">hub</span>
                     <span className="leading-snug">Sơ Đồ Tư Duy Mindmap</span>
                   </button>
                 )}
@@ -296,7 +296,7 @@ export default function NewsDetailPage() {
                     }}
                     className="w-full text-left px-3 py-2.5 rounded-xl transition-all flex items-center gap-2 cursor-pointer bg-amber-50 hover:bg-amber-100 text-amber-900 font-bold border border-amber-200 mb-2 shadow-2xs"
                   >
-                    <span className="text-base">📊</span>
+                    <span className="material-symbols-outlined text-lg text-amber-700">account_tree</span>
                     <span className="leading-snug">Sơ Đồ Quy Trình (Flowchart)</span>
                   </button>
                 )}
@@ -327,7 +327,7 @@ export default function NewsDetailPage() {
 
               {/* Bottom Info */}
               <div className="p-3 bg-slate-50 border-t border-slate-200 text-[11px] text-slate-500 flex items-center justify-between">
-                <span>⏱️ {sections.length} Mục chuyên sâu</span>
+                <span>{sections.length} Mục chuyên sâu</span>
                 <button
                   onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                   className="text-blue-600 hover:underline font-semibold"
@@ -385,7 +385,7 @@ export default function NewsDetailPage() {
                   <div className="absolute left-0 sm:left-auto sm:right-0 top-full mt-2 w-[290px] sm:w-[350px] bg-white rounded-2xl shadow-2xl border-2 border-amber-400 p-3.5 z-50 opacity-0 invisible group-hover/stages:opacity-100 group-hover/stages:visible transition-all duration-200 pointer-events-auto">
                     <div className="flex items-center justify-between border-b border-amber-100 pb-2 mb-2.5">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-base">📊</span>
+                        <span className="material-symbols-outlined text-sm text-[#641D06]">account_tree</span>
                         <span className="font-extrabold text-[#641D06] text-xs uppercase tracking-wide">
                           Quy trình {sections.length} Giai đoạn
                         </span>
@@ -422,7 +422,7 @@ export default function NewsDetailPage() {
                     </div>
 
                     <div className="mt-2.5 pt-2 border-t border-slate-100 text-[10px] text-slate-500 flex items-center justify-between">
-                      <span>💡 Rà soát bởi Ls. Phan Đức Tín</span>
+                      <span>Thẩm định: Ls. Phan Đức Tín</span>
                       <span className="font-bold text-[#641D06]">Luật Đức Tín</span>
                     </div>
                   </div>
@@ -434,7 +434,7 @@ export default function NewsDetailPage() {
             {newsItem.summary && (
               <div className="border-l-4 border-[#641D06] bg-amber-50/40 p-4 md:p-5 rounded-r-2xl mb-6 md:mb-8 text-slate-800 text-sm md:text-base leading-relaxed shadow-2xs">
                 <div className="text-xs font-bold text-amber-800 uppercase tracking-widest mb-1 flex items-center gap-1">
-                  <span className="material-symbols-outlined text-sm">auto_awesome</span>
+                  <span className="material-symbols-outlined text-sm">article</span>
                   Tóm lược cẩm nang:
                 </div>
                 {newsItem.summary}
@@ -463,7 +463,7 @@ export default function NewsDetailPage() {
                       }}
                       className="w-full text-left px-3 py-2 rounded-xl flex items-center gap-2 bg-purple-50 text-purple-900 font-bold border border-purple-200 mb-1"
                     >
-                      <span>🧠</span>
+                      <span className="material-symbols-outlined text-base text-purple-700">hub</span>
                       <span>Sơ Đồ Tư Duy Mindmap</span>
                     </button>
                   )}
@@ -476,7 +476,7 @@ export default function NewsDetailPage() {
                       }}
                       className="w-full text-left px-3 py-2 rounded-xl flex items-center gap-2 bg-amber-50 text-amber-900 font-bold border border-amber-200 mb-1"
                     >
-                      <span>📊</span>
+                      <span className="material-symbols-outlined text-base text-amber-700">account_tree</span>
                       <span>Sơ Đồ Quy Trình (Flowchart)</span>
                     </button>
                   )}
@@ -733,7 +733,7 @@ export default function NewsDetailPage() {
                     }}
                     className="w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center gap-2 bg-purple-50 hover:bg-purple-100 text-purple-900 font-bold border border-purple-200 mb-2 shadow-2xs"
                   >
-                    <span className="text-base">🧠</span>
+                    <span className="material-symbols-outlined text-base text-purple-700">hub</span>
                     <span>Sơ Đồ Tư Duy Mindmap</span>
                   </button>
                 )}
@@ -748,7 +748,7 @@ export default function NewsDetailPage() {
                     }}
                     className="w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center gap-2 bg-amber-50 hover:bg-amber-100 text-amber-900 font-bold border border-amber-200 mb-2 shadow-2xs"
                   >
-                    <span className="text-base">📊</span>
+                    <span className="material-symbols-outlined text-base text-amber-700">account_tree</span>
                     <span>Sơ Đồ Quy Trình (Flowchart)</span>
                   </button>
                 )}
@@ -845,9 +845,15 @@ export default function NewsDetailPage() {
               <div className="text-slate-500 text-xs lowercase">Đoàn Luật sư TP. Hồ Chí Minh</div>
             </div>
           </div>
-          <div className="flex items-center gap-4 text-xs font-bold text-slate-500">
-            <span>📅 {new Date(newsItem.publishedAt || Date.now()).toLocaleDateString("vi-VN")}</span>
-            <span>⏱️ {sections.length} Mục Chuyên Sâu</span>
+          <div className="flex items-center gap-4 text-xs font-semibold text-slate-500">
+            <span className="flex items-center gap-1">
+              <span className="material-symbols-outlined text-sm text-slate-400">calendar_today</span>
+              {new Date(newsItem.publishedAt || Date.now()).toLocaleDateString("vi-VN")}
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="material-symbols-outlined text-sm text-slate-400">toc</span>
+              {sections.length} Mục chuyên sâu
+            </span>
           </div>
         </div>
       </header>

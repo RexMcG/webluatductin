@@ -133,7 +133,7 @@ export default function CalculatorGuide({ type }: CalculatorGuideProps) {
       title: "Phân Biệt Lương Gross vs Lương Net & Trách Nhiệm Đóng Bảo Hiểm 2026",
       slug: "phan-biet-luong-gross-vs-luong-net-trach-nhiem-dong-bao-hiem-2026",
       category: "Lao Động & Tiền Lương",
-      badge: "🧠 Cẩm Nang Pháp Lý Chuyên Sâu",
+      badge: "Cẩm Nang Pháp Lý Chuyên Sâu",
       summary:
         "Cẩm nang toàn diện phân tích sự khác biệt pháp lý giữa Lương Gross và Lương Net, bảng phân định nghĩa vụ đóng bảo hiểm 32% (NLĐ 10.5% vs Doanh nghiệp 21.5%) và lời khuyên đàm phán hợp đồng từ Luật sư.",
       keyPoints: [
@@ -148,7 +148,7 @@ export default function CalculatorGuide({ type }: CalculatorGuideProps) {
       title: "Hướng Dẫn Tính Thuế TNCN, Giảm Trừ Gia Cảnh & Người Phụ Thuộc 2026",
       slug: "huong-dan-tinh-thue-tncn-giam-tru-gia-canh-dang-ky-nguoi-phu-thuoc-2026",
       category: "Thuế & Tài Chính Doanh Nghiệp",
-      badge: "🧠 Cẩm Nang Pháp Lý Chuyên Sâu",
+      badge: "Cẩm Nang Pháp Lý Chuyên Sâu",
       summary:
         "Hướng dẫn chi tiết cách tính thuế TNCN theo biểu thuế lũy tiến từng phần 7 bậc, điều kiện và thủ tục đăng ký người phụ thuộc để giảm trừ gia cảnh hợp pháp.",
       keyPoints: [
@@ -163,7 +163,7 @@ export default function CalculatorGuide({ type }: CalculatorGuideProps) {
       title: "Quy Định Mức Án Phí, Tạm Ứng Án Phí & Ai Phải Chịu Án Phí Tòa Án 2026",
       slug: "quy-dinh-muc-an-phi-tam-ung-an-phi-ai-phai-chiu-an-phi-toa-an-2026",
       category: "Tranh Tụng & Tố Tụng Tòa Án",
-      badge: "🧠 Cẩm Nang Pháp Lý Chuyên Sâu",
+      badge: "Cẩm Nang Pháp Lý Chuyên Sâu",
       summary:
         "Cẩm nang tố tụng toàn diện: Phân biệt vụ án có giá ngạch vs không giá ngạch, nghĩa vụ nộp tiền tạm ứng án phí 50% và nguyên tắc phân định nghĩa vụ chịu án phí theo Nghị quyết 326/2016.",
       keyPoints: [
@@ -271,8 +271,8 @@ export default function CalculatorGuide({ type }: CalculatorGuideProps) {
               href="/ai-chatbot"
               className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 text-xs font-bold px-3 py-2 transition-colors ml-auto"
             >
-              <span className="material-symbols-outlined text-base">smart_toy</span>
-              <span>Trợ Lý Pháp Lý AI 24/7</span>
+              <span className="material-symbols-outlined text-base">support_agent</span>
+              <span>Trợ Lý Pháp Lý 24/7</span>
             </Link>
           </div>
         </div>

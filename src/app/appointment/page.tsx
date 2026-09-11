@@ -802,7 +802,7 @@ export default function AppointmentPage() {
                           {attr.img ? (
                             <img alt={attr.name} className="w-full h-full object-cover" src={attr.img} />
                           ) : (
-                            <span className="material-symbols-outlined text-slate-500 text-2xl">auto_awesome</span>
+                            <span className="material-symbols-outlined text-slate-500 text-2xl">person</span>
                           )}
                         </div>
                         <div className="flex-1">
@@ -975,7 +975,7 @@ export default function AppointmentPage() {
                     <div className="flex flex-col sm:flex-row justify-between sm:items-center pb-3 border-b border-slate-200 gap-1 sm:gap-4">
                       <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Hình thức tư vấn:</span>
                       <span className="text-sm md:text-base font-bold text-slate-900">
-                        {formData.consultType === "offline" ? "🏛️ Tư vấn trực tiếp tại Văn phòng" : "💻 Tư vấn Online từ xa"}
+                        {formData.consultType === "offline" ? "Trực tiếp tại Văn phòng" : "Tư vấn Online từ xa"}
                       </span>
                     </div>
 
@@ -1069,7 +1069,7 @@ export default function AppointmentPage() {
                   <div className="flex justify-between items-start gap-3 pb-3 border-b border-slate-100">
                     <span className="text-slate-500 font-medium shrink-0">Hình thức:</span>
                     <span className="text-slate-900 font-bold text-right">
-                      {formData.consultType === "offline" ? "🏛️ Tại Văn phòng" : "💻 Online từ xa"}
+                      {formData.consultType === "offline" ? "Tại Văn phòng" : "Online từ xa"}
                     </span>
                   </div>
 

@@ -112,9 +112,9 @@ export default function Footer() {
           aria-label="Trợ lý Luật sư AI"
         >
           <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-emerald-600 to-emerald-500 text-white flex items-center justify-center shadow-md">
-            <span className="material-symbols-outlined text-xl">smart_toy</span>
+            <span className="material-symbols-outlined text-xl">support_agent</span>
           </div>
-          <span className="text-[11px] font-bold text-slate-800">Hỏi AI 24/7</span>
+          <span className="text-[11px] font-bold text-slate-800">Trợ lý 24/7</span>
           <span className="absolute top-1 right-2 w-2.5 h-2.5 bg-rose-500 rounded-full border-2 border-white animate-pulse"></span>
         </Link>
       </div>
@@ -143,9 +143,15 @@ export default function Footer() {
                 Công ty Luật TNHH Đức Tín &amp; Cộng Sự do Luật sư Phan Đức Tín trực tiếp điều hành. Cung cấp giải pháp pháp lý toàn diện cho cá nhân và doanh nghiệp, kết hợp đột phá cùng công nghệ AI pháp luật.
               </p>
 
-              <div className="text-[11px] text-amber-200/90 font-medium space-y-1 pt-1 border-t border-white/10">
-                <p>⚖️ Đăng ký hoạt động: Đoàn Luật sư TP. Hồ Chí Minh</p>
-                <p>🛡️ Cam kết bảo mật tuyệt đối &amp; bảo vệ tối đa quyền lợi khách hàng</p>
+              <div className="text-[11px] text-amber-200/90 font-medium space-y-1.5 pt-1 border-t border-white/10">
+                <p className="flex items-center gap-1.5">
+                  <span className="w-1 h-1 rounded-full bg-amber-300 shrink-0"></span>
+                  Đăng ký hoạt động: Đoàn Luật sư TP. Hồ Chí Minh
+                </p>
+                <p className="flex items-center gap-1.5">
+                  <span className="w-1 h-1 rounded-full bg-amber-300 shrink-0"></span>
+                  Cam kết bảo mật tuyệt đối &amp; bảo vệ tối đa quyền lợi khách hàng
+                </p>
               </div>
 
               {/* Các liên kết về công ty & Đội ngũ luật sư */}
@@ -312,7 +318,7 @@ export default function Footer() {
           {/* Bottom Area: 1-line Disclaimer + 4 Core Legal Policies Row */}
           <div className="mt-6 pt-3 border-t border-white/10 flex flex-col gap-3 text-slate-300/90 text-[11px]">
             <p className="leading-relaxed text-center sm:text-left">
-              <strong className="text-amber-300 font-medium">⚖️ Miễn trừ trách nhiệm:</strong> Toàn bộ thông tin, bài viết và tính năng tính toán trên website mang tính chất tham khảo kiến thức pháp luật, không cấu thành ý kiến tư vấn pháp lý chính thức cho đến khi hợp đồng dịch vụ được ký kết bằng văn bản theo luật định. Xem chi tiết tại{" "}
+              <strong className="text-amber-300 font-medium">Miễn trừ trách nhiệm:</strong> Toàn bộ thông tin, bài viết và tính năng tính toán trên website mang tính chất tham khảo kiến thức pháp luật, không cấu thành ý kiến tư vấn pháp lý chính thức cho đến khi hợp đồng dịch vụ được ký kết bằng văn bản theo luật định. Xem chi tiết tại{" "}
               <Link href="/disclaimer" className="text-amber-300 hover:underline">Tuyên bố từ chối trách nhiệm</Link>.
             </p>
             <div className="flex flex-col lg:flex-row items-center justify-between gap-3 pt-2.5 border-t border-white/5 text-xs text-slate-300">

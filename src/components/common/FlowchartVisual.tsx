@@ -228,7 +228,7 @@ export default function FlowchartVisual({ rawText }: { rawText?: string }) {
       {isOpen && (
         <div className="mb-4 py-2 px-3 bg-slate-50 border border-slate-200/80 rounded-xl flex items-center justify-between text-xs text-slate-600">
           <div className="flex items-center gap-1.5">
-            <span>💡</span>
+            <span className="material-symbols-outlined text-sm text-amber-700">info</span>
             <span>Chạm vào từng <strong>Giai đoạn</strong> để xổ ra / thu gọn các bước thực hiện chi tiết.</span>
           </div>
         </div>

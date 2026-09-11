@@ -39,8 +39,8 @@ export default function DisclaimerPage() {
           
           {/* Lời mở đầu */}
           <div className="border-l-4 border-amber-600 bg-amber-50/50 p-4 sm:p-5 rounded-r-2xl">
-            <p className="font-semibold text-slate-900">
-              ⚖️ LƯU Ý PHÁP LÝ QUAN TRỌNG:
+            <p className="font-bold text-[#641D06] uppercase tracking-wider text-xs sm:text-sm">
+              LƯU Ý PHÁP LÝ QUAN TRỌNG:
             </p>
             <p className="mt-2 text-slate-700 leading-relaxed">
               Trang web này và toàn bộ nội dung xuất bản trên tên miền <strong>webluatductin.vercel.app</strong> (bao gồm bài viết chuyên môn, bản tin án lệ, thư viện biểu mẫu pháp lý, tiện ích tính toán và Trợ lý Luật sư AI) được cung cấp với mục đích duy nhất là phổ biến kiến thức pháp luật và mang tính chất thông tin tham khảo chung.

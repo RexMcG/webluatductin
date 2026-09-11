@@ -49,8 +49,8 @@ export default function NotFound() {
             href="/ai-chatbot"
             className="bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-300 font-bold px-6 py-3.5 rounded-xl uppercase text-xs sm:text-sm transition-colors flex items-center gap-2"
           >
-            <span className="material-symbols-outlined text-base">smart_toy</span>
-            Hỏi Trợ Lý AI 24/7
+            <span className="material-symbols-outlined text-base">support_agent</span>
+            Tư Vấn Trực Tuyến
           </Link>
 
           <Link

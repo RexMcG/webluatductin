@@ -211,8 +211,8 @@ export default function PITCalculator() {
                   href="/ai-chatbot?q=T%C6%B0%20v%E1%BA%A5n%20thu%E1%BA%BF%20thu%20nh%E1%BA%ADp%20c%C3%A1%20nh%C3%A2n%20v%C3%A0%20quy%E1%BA%BFt%20to%C3%A1n"
                   className="bg-accent text-on-accent h-10 px-5 rounded font-label-sm text-label-sm hover:opacity-90 transition-opacity flex items-center gap-2 font-bold cursor-pointer"
                 >
-                  <span className="material-symbols-outlined text-[20px]">smart_toy</span>
-                  Hỏi Luật Sư AI
+                  <span className="material-symbols-outlined text-[20px]">support_agent</span>
+                  Tư Vấn Trực Tuyến
                 </Link>
                 <Link
                   href="/appointment"

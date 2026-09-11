@@ -250,7 +250,7 @@ export default function ServiceDetailPage() {
                       {exp.title}
                     </h3>
                     <div className="bg-emerald-50/80 p-3.5 rounded-xl border border-emerald-100 text-emerald-900 text-xs sm:text-sm font-semibold mb-4">
-                      🎯 {exp.result}
+                      <span className="font-bold text-emerald-800 uppercase tracking-wider text-[11px] mr-1">Kết quả:</span>{exp.result}
                     </div>
                     <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
                       {exp.summary}

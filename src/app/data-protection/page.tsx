@@ -105,7 +105,7 @@ export default function DataProtectionPage() {
               <div>
                 <strong className="text-slate-900">c. Lưu ý quan trọng về Dữ liệu cá nhân nhạy cảm:</strong>
                 <p className="mt-1 text-amber-900 bg-amber-50 p-3 rounded-xl border border-amber-200 text-xs sm:text-sm">
-                  ⚠️ Nội dung một vụ việc pháp lý có thể chứa dữ liệu cá nhân nhạy cảm (quan hệ hôn nhân gia đình, tình trạng tài chính, tài sản tranh chấp, hành vi bị cáo buộc trong tố tụng). Quý khách <strong>không nên gửi ảnh chụp Căn cước công dân, số tài khoản ngân hàng hoặc hồ sơ bệnh án qua biểu mẫu liên hệ mở</strong>. Luật sư sẽ hướng dẫn phương thức bàn giao hồ sơ bảo mật an toàn trực tiếp khi tiếp nhận chính thức.
+                  <strong className="text-[#641D06]">Lưu ý:</strong> Nội dung một vụ việc pháp lý có thể chứa dữ liệu cá nhân nhạy cảm (quan hệ hôn nhân gia đình, tình trạng tài chính, tài sản tranh chấp, hành vi bị cáo buộc trong tố tụng). Quý khách <strong>không nên gửi ảnh chụp Căn cước công dân, số tài khoản ngân hàng hoặc hồ sơ bệnh án qua biểu mẫu liên hệ mở</strong>. Luật sư sẽ hướng dẫn phương thức bàn giao hồ sơ bảo mật an toàn trực tiếp khi tiếp nhận chính thức.
                 </p>
               </div>
             </div>

@@ -222,13 +222,13 @@ export default function Home() {
                       className="flex items-center gap-3.5 p-4 hover:bg-amber-50/60 rounded-2xl transition-colors group cursor-pointer"
                     >
                       <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center shrink-0">
-                        <span className="material-symbols-outlined text-xl">smart_toy</span>
+                        <span className="material-symbols-outlined text-xl">support_agent</span>
                       </div>
                       <div>
                         <div className="font-bold text-slate-900 text-sm group-hover:text-[#641D06]">
-                          Hỏi Trợ lý Luật sư AI về "{searchQuery}"
+                          Hỏi Trợ lý Luật sư trực tuyến về "{searchQuery}"
                         </div>
-                        <div className="text-xs text-slate-500">Chuyển sang khung chat AI để giải đáp thắc mắc chi tiết</div>
+                        <div className="text-xs text-slate-500">Chuyển sang khung hỏi đáp trực tuyến để được giải đáp</div>
                       </div>
                     </Link>
                   )}
@@ -248,8 +248,8 @@ export default function Home() {
                 className="bg-accent hover:opacity-90 text-white h-14 px-8 rounded-xl font-label-sm text-base md:text-lg font-bold transition-all inline-flex items-center shadow-lg gap-2"
                 href="/ai-chatbot"
               >
-                <span className="material-symbols-outlined">smart_toy</span>
-                Trợ Lý Pháp Lý AI 24/7
+                <span className="material-symbols-outlined">support_agent</span>
+                Trợ Lý Pháp Lý Trực Tuyến
               </Link>
             </div>
           </div>
@@ -607,7 +607,7 @@ export default function Home() {
                         required 
                       />
                       {consultErrors.name && (
-                        <span className="text-amber-200 text-[11px] mt-1 block font-medium">⚠️ {consultErrors.name}</span>
+                        <span className="text-amber-200 text-[11px] mt-1 block font-medium">{consultErrors.name}</span>
                       )}
                     </div>
                     <div>
@@ -625,7 +625,7 @@ export default function Home() {
                         }`}
                       />
                       {consultErrors.email && (
-                        <span className="text-amber-200 text-[11px] mt-1 block font-medium">⚠️ {consultErrors.email}</span>
+                        <span className="text-amber-200 text-[11px] mt-1 block font-medium">{consultErrors.email}</span>
                       )}
                     </div>
                   </div>
@@ -646,7 +646,7 @@ export default function Home() {
                         required 
                       />
                       {consultErrors.phone && (
-                        <span className="text-amber-200 text-[11px] mt-1 block font-medium">⚠️ {consultErrors.phone}</span>
+                        <span className="text-amber-200 text-[11px] mt-1 block font-medium">{consultErrors.phone}</span>
                       )}
                     </div>
                     <div className="relative">
@@ -682,7 +682,7 @@ export default function Home() {
                       }`}
                     ></textarea>
                     {consultErrors.message && (
-                      <span className="text-amber-200 text-[11px] mt-1 block font-medium">⚠️ {consultErrors.message}</span>
+                      <span className="text-amber-200 text-[11px] mt-1 block font-medium">{consultErrors.message}</span>
                     )}
                   </div>
                   <button 
