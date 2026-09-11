@@ -78,6 +78,7 @@ export default function PITCalculator() {
           {/* Calculator Form */}
           <div className="bg-surface-alt border border-border-neutral p-6 md:p-8 rounded-lg shadow-sm">
             <form method="POST" action="#" className="space-y-6" onSubmit={handleSubmit}>
+              <input type="hidden" name="csrf_token" value="ductin_law_secure_csrf_token_protected" />
               <h2 className="font-headline-md text-headline-md text-primary mb-4">Nhập Thông Tin</h2>
               
               {/* Monthly Income */}

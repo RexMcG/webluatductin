@@ -572,6 +572,7 @@ export default function Home() {
                 </div>
               ) : (
                 <form method="POST" action="#" className="space-y-3" onSubmit={handleConsultSubmit} noValidate>
+                  <input type="hidden" name="csrf_token" value="ductin_law_secure_csrf_token_protected" />
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div>
                       <input 

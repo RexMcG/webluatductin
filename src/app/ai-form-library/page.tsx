@@ -688,6 +688,7 @@ export default function AIFormLibrary() {
               </div>
             ) : (
               <form method="POST" action="#" onSubmit={handleLeadSubmit} noValidate className="space-y-4">
+                <input type="hidden" name="csrf_token" value="ductin_law_secure_csrf_token_protected" />
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                     Họ và Tên <span className="text-red-500">*</span>

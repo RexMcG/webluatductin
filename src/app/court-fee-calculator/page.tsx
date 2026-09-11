@@ -59,6 +59,7 @@ export default function CourtFeeCalculator() {
         {/* Calculator Widget */}
         <div className="md:col-span-7 lg:col-span-8 bg-surface-main border border-border-neutral p-6 md:p-8 rounded shadow-sm">
           <form method="POST" action="#" className="space-y-6" onSubmit={handleSubmit}>
+            <input type="hidden" name="csrf_token" value="ductin_law_secure_csrf_token_protected" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block font-label-sm text-label-sm text-primary mb-2">

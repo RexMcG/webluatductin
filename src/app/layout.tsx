@@ -163,20 +163,23 @@ export default function RootLayout({
       <body className="bg-background text-text-primary antialiased min-h-full flex flex-col font-sans">
         {/* Google Analytics 4 (GA4) */}
         <Script
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-WLB2R37XF3"
-        />
-        <Script
           id="google-analytics"
           strategy="afterInteractive"
         >
           {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-WLB2R37XF3', {
-              page_path: window.location.pathname,
-            });
+            (function() {
+              var s = document.createElement('script');
+              s.async = true;
+              s.src = 'https://www.googletagmanager.com/gtag/js?id=G-WLB2R37XF3';
+              document.head.appendChild(s);
+              
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-WLB2R37XF3', {
+                page_path: window.location.pathname,
+              });
+            })();
           `}
         </Script>
 

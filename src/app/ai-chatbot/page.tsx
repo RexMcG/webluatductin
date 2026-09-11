@@ -231,6 +231,7 @@ function AIChatbotContent() {
               Luật sư <strong>Phan Đức Tín</strong> (Giám đốc Điều hành) sẽ trực tiếp liên hệ thẩm định hồ sơ cho bạn.
             </p>
             <form method="POST" action="#" onSubmit={handleConsultSubmit} className="space-y-3">
+              <input type="hidden" name="csrf_token" value="ductin_law_secure_csrf_token_protected" />
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">Họ và tên</label>
                 <input 
