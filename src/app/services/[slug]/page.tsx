@@ -42,7 +42,7 @@ export default function ServiceDetailPage() {
 
           {/* Title Area */}
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight mb-3 uppercase leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 font-sans tracking-tight mb-3 leading-tight">
               {service.title}
             </h1>
             <SectionDivider label="DỊCH VỤ PHÁP LÝ" />

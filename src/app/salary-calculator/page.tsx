@@ -69,7 +69,7 @@ export default function SalaryCalculator() {
     <div className="max-w-7xl mx-auto px-4 md:px-8 pt-10 pb-16 min-h-screen">
       {/* Page Title */}
       <div className="text-center mb-10 max-w-4xl mx-auto">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 font-sans tracking-tight uppercase mb-1 leading-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-4xl font-bold text-slate-900 font-sans tracking-tight mb-1 leading-tight">
           Tính Lương Gross-to-Net Chuẩn Pháp Luật
         </h1>
         <SectionDivider label="TIỆN ÍCH" />
