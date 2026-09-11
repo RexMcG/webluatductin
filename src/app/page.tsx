@@ -354,11 +354,6 @@ export default function Home() {
                     Doanh nghiệp
                   </span>
                 </div>
-                <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-xs text-slate-700 group-hover:bg-[#641D06] group-hover:text-white flex items-center justify-center shadow-xs transition-colors">
-                  <span className="material-symbols-outlined text-base group-hover:translate-x-0.5 transition-transform">
-                    arrow_forward
-                  </span>
-                </div>
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug">
                 Hợp Tác Doanh Nghiệp &amp; Luật Sư Nội Bộ
@@ -394,11 +389,6 @@ export default function Home() {
                     Đầu tư
                   </span>
                 </div>
-                <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-xs text-slate-700 group-hover:bg-[#641D06] group-hover:text-white flex items-center justify-center shadow-xs transition-colors">
-                  <span className="material-symbols-outlined text-base group-hover:translate-x-0.5 transition-transform">
-                    arrow_forward
-                  </span>
-                </div>
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug">
                 Tư Vấn Đầu Tư FDI &amp; Dự Án
@@ -432,11 +422,6 @@ export default function Home() {
                 <div className="absolute top-3 left-3">
                   <span className="rounded-full px-3.5 py-1 bg-white/95 backdrop-blur-xs text-[11px] uppercase tracking-wider font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
                     Tố tụng
-                  </span>
-                </div>
-                <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-xs text-slate-700 group-hover:bg-[#641D06] group-hover:text-white flex items-center justify-center shadow-xs transition-colors">
-                  <span className="material-symbols-outlined text-base group-hover:translate-x-0.5 transition-transform">
-                    arrow_forward
                   </span>
                 </div>
               </div>

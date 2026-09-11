@@ -74,13 +74,6 @@ export default function ServicesPage() {
                       {srv.category}
                     </span>
                   </div>
-                  
-                  {/* Subtle top-right arrow badge */}
-                  <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-xs text-slate-700 group-hover:bg-[#641D06] group-hover:text-white flex items-center justify-center shadow-xs transition-colors">
-                    <span className="material-symbols-outlined text-base group-hover:translate-x-0.5 transition-transform">
-                      arrow_forward
-                    </span>
-                  </div>
                 </div>
 
                 <h3 className="text-xl font-bold text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug">
