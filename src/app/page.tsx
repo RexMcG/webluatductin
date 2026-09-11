@@ -256,69 +256,156 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About Us & Why Choose Us */}
-      <section id="about-us" className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-12 md:pt-16 pb-16 scroll-mt-24">
-        <div className="flex flex-col gap-12">
-          {/* About Us */}
+      {/* About Us & Principles Section */}
+      <section id="about-us" className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-16 scroll-mt-24">
+        <div className="flex flex-col gap-12 sm:gap-16">
+          {/* About Us - Institutional Law Firm Profile */}
           <div>
-            <div className="text-center mb-10 w-full flex flex-col items-center justify-center">
+            <div className="text-center mb-8 w-full flex flex-col items-center justify-center">
               <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
                 Về Chúng Tôi
               </h2>
-              <SectionDivider label="GIỚI THIỆU" />
+              <SectionDivider label="GIỚI THIỆU HÃNG LUẬT" />
             </div>
-            <div className="prose prose-xl md:prose-2xl text-text-secondary leading-relaxed space-y-4 text-justify text-lg md:text-xl">
-              <p>
-                <strong>Luật sư Phan Đức Tín</strong> là người sáng lập kiêm Giám đốc Điều hành <strong>Công ty Luật TNHH Đức Tín và Cộng sự</strong> (Đoàn Luật sư TP.HCM). Hãng luật đã tham gia tư vấn, giải quyết thành công hàng trăm vụ việc chuyên sâu về các lĩnh vực: đầu tư nước ngoài (FDI), lập dự án và thẩm định hồ sơ cấp Giấy chứng nhận đăng ký đầu tư cho các tập đoàn, doanh nhân đến từ Nhật Bản, Hàn Quốc, Mỹ, Singapore, Đức...
-              </p>
-              <p>
-                Đồng thời, chúng tôi trực tiếp đại diện tranh tụng tại Tòa án các cấp và Trọng tài thương mại quốc tế (VIAC); tư vấn và thẩm định pháp lý hợp đồng mua bán doanh nghiệp (M&amp;A), cơ cấu nguồn vốn, giải quyết dứt điểm các tranh chấp phức tạp về đất đai, nhà ở, thừa kế và hôn nhân gia đình.
-              </p>
+
+            {/* Institutional Overview Card (No solo portrait - firm representation) */}
+            <div className="relative bg-gradient-to-b from-amber-50/40 via-white to-amber-50/20 border border-amber-200/90 rounded-3xl p-6 sm:p-8 md:p-10 shadow-sm overflow-hidden">
+              {/* Subtle background legal watermark */}
+              <div className="absolute -right-8 -bottom-8 pointer-events-none opacity-[0.04] text-amber-950 select-none">
+                <span className="material-symbols-outlined text-[200px]">balance</span>
+              </div>
+
+              {/* Firm Official Badge Header */}
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-amber-200/60">
+                <div>
+                  <div className="text-xs uppercase font-extrabold tracking-widest text-[#641D06]">
+                    Hồ Sơ Năng Lực
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 font-sans mt-0.5">
+                    Công Ty Luật TNHH Đức Tín &amp; Cộng Sự
+                  </h3>
+                </div>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100/80 text-[#641D06] border border-amber-300/70 text-xs font-bold tracking-wide shrink-0">
+                  <span className="material-symbols-outlined text-sm">verified</span>
+                  Đoàn Luật sư TP.HCM
+                </span>
+              </div>
+
+              {/* Core Content - Comfortable Reading Typography */}
+              <div className="text-slate-700 text-base md:text-lg leading-relaxed space-y-4 text-justify sm:text-left">
+                <p>
+                  <strong>Công ty Luật TNHH Đức Tín và Cộng sự</strong> (Đoàn Luật sư TP.HCM) là tổ chức hành nghề luật sư chuyên nghiệp, quy tụ đội ngũ Luật sư uy tín, giàu kinh nghiệm thực chiến và năng động. Hãng luật đã tham gia tư vấn, thẩm định và giải quyết thành công hàng trăm vụ việc pháp lý chuyên sâu cho các cá nhân, doanh nhân và tập đoàn đa quốc gia đến từ Nhật Bản, Hàn Quốc, Hoa Kỳ, Singapore, Đức...
+                </p>
+                <p>
+                  Chúng tôi cung cấp giải pháp pháp lý toàn diện từ tư vấn đầu tư nước ngoài (FDI), lập dự án đầu tư, thẩm định hợp đồng mua bán sáp nhập doanh nghiệp (M&amp;A), đến trực tiếp đại diện tranh tụng tại Tòa án các cấp và Trọng tài thương mại quốc tế (VIAC); xử lý dứt điểm các tranh chấp phức tạp về đất đai, nhà ở, thừa kế và hôn nhân gia đình.
+                </p>
+              </div>
+
+              {/* 4 Firm Credential Highlights */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pt-6 mt-6 border-t border-amber-200/60">
+                <div className="bg-white/80 p-3 sm:p-3.5 rounded-xl border border-amber-100 shadow-2xs text-center">
+                  <div className="w-8 h-8 mx-auto mb-1.5 rounded-lg bg-amber-100/70 text-[#641D06] flex items-center justify-center">
+                    <span className="material-symbols-outlined text-lg">account_balance</span>
+                  </div>
+                  <div className="font-bold text-slate-900 text-xs sm:text-sm">Đoàn Luật Sư TP.HCM</div>
+                  <div className="text-[11px] text-slate-500 mt-0.5">Tư cách pháp nhân độc lập</div>
+                </div>
+
+                <div className="bg-white/80 p-3 sm:p-3.5 rounded-xl border border-amber-100 shadow-2xs text-center">
+                  <div className="w-8 h-8 mx-auto mb-1.5 rounded-lg bg-amber-100/70 text-[#641D06] flex items-center justify-center">
+                    <span className="material-symbols-outlined text-lg">public</span>
+                  </div>
+                  <div className="font-bold text-slate-900 text-xs sm:text-sm">Tư Vấn FDI Quốc Tế</div>
+                  <div className="text-[11px] text-slate-500 mt-0.5">Mỹ, Nhật, Hàn, Sing, Đức</div>
+                </div>
+
+                <div className="bg-white/80 p-3 sm:p-3.5 rounded-xl border border-amber-100 shadow-2xs text-center">
+                  <div className="w-8 h-8 mx-auto mb-1.5 rounded-lg bg-amber-100/70 text-[#641D06] flex items-center justify-center">
+                    <span className="material-symbols-outlined text-lg">gavel</span>
+                  </div>
+                  <div className="font-bold text-slate-900 text-xs sm:text-sm">Tòa Án &amp; VIAC</div>
+                  <div className="text-[11px] text-slate-500 mt-0.5">Đại diện tranh tụng các cấp</div>
+                </div>
+
+                <div className="bg-white/80 p-3 sm:p-3.5 rounded-xl border border-amber-100 shadow-2xs text-center">
+                  <div className="w-8 h-8 mx-auto mb-1.5 rounded-lg bg-amber-100/70 text-[#641D06] flex items-center justify-center">
+                    <span className="material-symbols-outlined text-lg">shield</span>
+                  </div>
+                  <div className="font-bold text-slate-900 text-xs sm:text-sm">Bảo Mật Tuyệt Đối</div>
+                  <div className="text-[11px] text-slate-500 mt-0.5">Điều 25 Luật Luật sư</div>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Why Choose Us */}
+          {/* Why Choose Us - Principles */}
           <div>
-            <div className="text-center mb-10 w-full flex flex-col items-center justify-center">
+            <div className="text-center mb-8 w-full flex flex-col items-center justify-center">
               <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
                 Tôn Chỉ Hoạt Động &amp; Năng Lực Vượt Trội
               </h2>
               <SectionDivider label="TÔN CHỈ HOẠT ĐỘNG" />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
               {[
                 {
-                  title: "1. Đội ngũ Luật sư chuyên sâu & giàu kinh nghiệm",
+                  num: "01",
+                  icon: "groups",
+                  title: "Đội ngũ Luật sư chuyên sâu & giàu kinh nghiệm",
                   desc: "Đội ngũ Luật sư của DucTin & Partners năng động, sắc bén trong tranh tụng, vững chuyên môn nghiệp vụ, tiên phong ứng dụng công nghệ pháp lý và tuân thủ nghiêm ngặt Quy tắc Đạo đức nghề nghiệp."
                 },
                 {
-                  title: "2. Giải pháp pháp lý toàn diện & dứt điểm",
+                  num: "02",
+                  icon: "task_alt",
+                  title: "Giải pháp pháp lý toàn diện & dứt điểm",
                   desc: "Trực tiếp tháo gỡ các nút thắt pháp lý của thân chủ nhanh chóng, triệt để với lộ trình tối ưu chi phí. \"Chất lượng dịch vụ là Danh dự của Luật sư\"."
                 },
                 {
-                  title: "3. Bảo mật thông tin thân chủ tuyệt đối",
+                  num: "03",
+                  icon: "lock",
+                  title: "Bảo mật thông tin thân chủ tuyệt đối",
                   desc: "Tuân thủ chặt chẽ nghĩa vụ giữ bí mật nghề nghiệp theo Điều 25 Luật Luật sư. Toàn bộ hồ sơ, thông tin vụ việc của thân chủ được bảo hộ an toàn tuyệt đối."
                 },
                 {
-                  title: "4. Đánh giá đúng bản chất & tính khả thi",
+                  num: "04",
+                  icon: "balance",
+                  title: "Đánh giá đúng bản chất & tính khả thi",
                   desc: "Phân tích khách quan các rủi ro pháp lý, cung cấp phương án hành động có tính khả thi cao nhất, không cam kết khống hoặc gây ngộ nhận cho thân chủ."
                 },
                 {
-                  title: "5. Chi phí minh bạch theo hợp đồng dịch vụ pháp lý",
+                  num: "05",
+                  icon: "receipt_long",
+                  title: "Chi phí minh bạch theo hợp đồng dịch vụ",
                   desc: "Mọi khoản thù lao và chi phí tố tụng đều được thỏa thuận rõ ràng, minh bạch trong Hợp đồng dịch vụ pháp lý, phù hợp với tính chất phức tạp của từng vụ việc."
                 },
                 {
-                  title: "6. Tận tâm đồng hành bảo vệ thân chủ",
+                  num: "06",
+                  icon: "volunteer_activism",
+                  title: "Tận tâm đồng hành bảo vệ thân chủ",
                   desc: "Luôn đặt quyền và lợi ích hợp pháp của thân chủ lên hàng đầu, chủ động cập nhật tiến độ giải quyết và sát cánh cùng thân chủ trong mọi giai đoạn tố tụng."
                 }
               ].map((item, idx) => (
-                <div key={idx} className="bg-surface-main p-4 border border-border-neutral rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                  <h3 className="font-bold text-primary mb-2 text-base md:text-lg uppercase">
-                    {item.title}
-                  </h3>
-                  <p className="text-base md:text-lg text-text-secondary leading-relaxed">
-                    {item.desc}
-                  </p>
+                <div 
+                  key={idx} 
+                  className="bg-white p-5 sm:p-6 border border-slate-200 rounded-2xl shadow-2xs hover:shadow-md hover:border-amber-400 transition-all group flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="w-8 h-8 rounded-lg bg-amber-100/70 text-[#641D06] font-bold text-xs flex items-center justify-center">
+                        {item.num}
+                      </span>
+                      <span className="material-symbols-outlined text-slate-400 group-hover:text-[#641D06] transition-colors text-xl">
+                        {item.icon}
+                      </span>
+                    </div>
+                    <h3 className="font-bold text-slate-900 group-hover:text-[#641D06] transition-colors mb-2 text-base md:text-lg leading-snug">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm md:text-base text-slate-600 leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -328,7 +415,7 @@ export default function Home() {
 
       {/* Practice Areas Grid */}
       <section className="border-t border-border-neutral py-16">
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
               Lĩnh Vực Hoạt Động Mũi Nhọn
@@ -448,7 +535,7 @@ export default function Home() {
 
       {/* Featured Tools */}
       <section className="bg-surface-alt border-y border-border-neutral py-16">
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
               Tiện Ích Pháp Lý
@@ -555,7 +642,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 items-stretch">
           
           {/* Consultation Form (Left) - Cằm và đầu được thu gọn đều tắp với cột phải */}
@@ -733,7 +820,7 @@ export default function Home() {
 
       {/* Expert Attorneys */}
       <section id="lawyers" className="border-t border-border-neutral py-16 scroll-mt-24">
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
               Đội Ngũ Luật Sư Điều Hành
@@ -788,7 +875,7 @@ export default function Home() {
 
       {/* Client Marquee */}
       <section className="border-y border-border-neutral py-16 bg-surface-main overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 mb-12 text-center w-full flex flex-col items-center justify-center">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 text-center w-full flex flex-col items-center justify-center">
           <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
             Đối Tác &amp; Khách Hàng Tiêu Biểu
           </h2>
