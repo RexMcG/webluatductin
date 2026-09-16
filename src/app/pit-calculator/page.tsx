@@ -97,13 +97,18 @@ export default function PITCalculator() {
                     min="0"
                     step="100000"
                     type="number"
-                    placeholder="Ví dụ: 30000000"
+                    placeholder="Ví dụ: 30.000.000"
                     value={gross}
                     onChange={(e) => setGross(e.target.value)}
                     required
                   />
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 font-label-sm text-label-sm text-text-secondary pointer-events-none">VNĐ</span>
                 </div>
+                {gross && Number(gross) > 0 && (
+                  <p className="text-xs text-amber-800 font-medium mt-1.5">
+                    Thu nhập: <strong className="text-slate-900 font-bold">{Number(gross).toLocaleString('vi-VN')}</strong> VNĐ
+                  </p>
+                )}
               </div>
 
               {/* Insurance Payments */}
@@ -122,12 +127,17 @@ export default function PITCalculator() {
                     min="0"
                     step="10000"
                     type="number"
-                    placeholder="Ví dụ: 1000000"
+                    placeholder="Ví dụ: 1.000.000"
                     value={insurance}
                     onChange={(e) => setInsurance(e.target.value)}
                   />
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 font-label-sm text-label-sm text-text-secondary pointer-events-none">VNĐ</span>
                 </div>
+                {insurance && Number(insurance) > 0 && (
+                  <p className="text-xs text-amber-800 font-medium mt-1.5">
+                    Bảo hiểm: <strong className="text-slate-900 font-bold">{Number(insurance).toLocaleString('vi-VN')}</strong> VNĐ
+                  </p>
+                )}
               </div>
 
               {/* Number of Dependents */}

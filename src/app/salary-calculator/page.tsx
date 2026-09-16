@@ -110,13 +110,18 @@ export default function SalaryCalculator() {
                     min="0"
                     step="100000"
                     type="number"
-                    placeholder="Ví dụ: 20000000"
+                    placeholder="Ví dụ: 20.000.000"
                     value={gross}
                     onChange={(e) => setGross(e.target.value)}
                     required
                   />
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 font-label-sm text-label-sm text-text-secondary pointer-events-none">VNĐ</span>
                 </div>
+                {gross && Number(gross) > 0 && (
+                  <p className="text-xs text-amber-800 font-medium mt-1.5">
+                    Mức lương: <strong className="text-slate-900 font-bold">{Number(gross).toLocaleString('vi-VN')}</strong> VNĐ
+                  </p>
+                )}
               </div>
 
               {/* Number of Dependents */}

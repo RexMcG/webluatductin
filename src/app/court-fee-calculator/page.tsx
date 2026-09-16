@@ -147,7 +147,7 @@ export default function CourtFeeCalculator() {
                     type="number"
                     value={claimValue}
                     onChange={(e) => setClaimValue(e.target.value)}
-                    placeholder="Ví dụ: 500000000"
+                    placeholder="Ví dụ: 500.000.000"
                     className="w-full border border-border-neutral bg-surface-alt text-primary p-3 pr-16 rounded focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md outline-none"
                     required
                   />
@@ -155,6 +155,11 @@ export default function CourtFeeCalculator() {
                     VNĐ
                   </span>
                 </div>
+                {claimValue && Number(claimValue) > 0 && (
+                  <p className="text-xs text-amber-800 font-medium mt-1.5">
+                    Số tiền: <strong className="text-slate-900 font-bold">{Number(claimValue).toLocaleString('vi-VN')}</strong> VNĐ
+                  </p>
+                )}
               </div>
             )}
 
