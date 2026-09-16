@@ -582,7 +582,7 @@ export default function NewsDetailPage() {
               <div className="mt-4 pt-3.5 border-t border-amber-900/15 space-y-2">
                 <a
                   href="tel:0937863263"
-                  className="w-full bg-[#15803d] hover:bg-[#166534] text-white h-9.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-xs active:scale-98"
+                  className="w-full bg-[#22c55e] hover:bg-[#16a34a] text-white h-9.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-xs active:scale-98"
                 >
                   <span className="material-symbols-outlined text-base">call</span>
                   <span>Hotline: 093 786 32 63</span>

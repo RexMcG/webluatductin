@@ -306,7 +306,7 @@ function AIChatbotContent() {
               <div className="mt-4 pt-3.5 border-t border-amber-900/15 space-y-2">
                 <a
                   href="tel:0937863263"
-                  className="w-full bg-[#15803d] hover:bg-[#166534] text-white h-10 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-xs active:scale-98"
+                  className="w-full bg-[#22c55e] hover:bg-[#16a34a] text-white h-10 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-xs active:scale-98"
                 >
                   <span className="material-symbols-outlined text-base">call</span>
                   Hotline: 093 786 32 63
@@ -317,7 +317,7 @@ function AIChatbotContent() {
                   rel="noopener noreferrer"
                   className="w-full bg-[#0068FF] hover:bg-[#0058db] text-white h-10 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-xs active:scale-98"
                 >
-                  <span className="material-symbols-outlined text-base">chat</span>
+                  <img src="/img/zalo_icon.webp" alt="Zalo" width={20} height={20} className="w-5 h-5 object-contain shrink-0" />
                   Chat Zalo Trực Tiếp
                 </a>
                 <button

@@ -351,9 +351,9 @@ export default function AppointmentPage() {
                 href="https://zalo.me/0937863263"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3.5 rounded-xl shadow-sm transition-all inline-flex items-center gap-2"
+                className="bg-[#0068FF] hover:bg-[#0058db] text-white font-bold px-6 py-3.5 rounded-xl shadow-sm transition-all inline-flex items-center gap-2"
               >
-                <span className="material-symbols-outlined text-xl">chat</span>
+                <img src="/img/zalo_icon.webp" alt="Zalo" width={22} height={22} className="w-5.5 h-5.5 object-contain shrink-0" />
                 Nhắn Zalo Ngay
               </a>
               <Link
