@@ -322,10 +322,10 @@ function AIChatbotContent() {
                 </a>
                 <button
                   onClick={() => setShowConsultModal(true)}
-                  className="w-full bg-[#641D06] hover:bg-[#7d2408] text-white h-10 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-md shadow-[#641D06]/20 active:scale-98 cursor-pointer"
+                  className="w-full bg-amber-400 hover:bg-amber-300 text-slate-950 h-10 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-md shadow-amber-400/20 active:scale-98 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-base">calendar_month</span>
-                  Đặt Lịch Tư Vấn 1:1
+                  Đặt lịch tư vấn
                 </button>
               </div>
             </div>

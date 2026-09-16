@@ -145,7 +145,7 @@ export async function POST(req: NextRequest) {
         firm: "Công ty Luật TNHH Đức Tín & Cộng Sự"
       },
       quickActions: [
-        { label: "Đặt Lịch Tư Vấn 1:1", action: "appointment", icon: "calendar_month", type: "appointment" },
+        { label: "Đặt Lịch Tư Vấn", action: "appointment", icon: "calendar_month", type: "appointment" },
         { label: "Gọi Hotline Ls. Tín", action: "tel:0937863263", icon: "call", type: "call" },
         { label: "Chat Zalo Luật sư", action: "https://zalo.me/0937863263", icon: "chat", type: "zalo" }
       ]
@@ -156,7 +156,7 @@ export async function POST(req: NextRequest) {
       sessionId: Math.floor(Date.now() / 1000),
       reply: 'Chào Quý khách, tôi là Trợ lý Pháp lý AI của Công ty Luật TNHH Đức Tín & Cộng Sự. Để được tư vấn chi tiết và thẩm định hồ sơ chính xác nhất, Quý khách vui lòng liên hệ trực tiếp Luật sư Phan Đức Tín qua Hotline/Zalo: 093 786 32 63.',
       quickActions: [
-        { label: "Đặt Lịch Tư Vấn 1:1", action: "appointment", icon: "calendar_month", type: "appointment" },
+        { label: "Đặt Lịch Tư Vấn", action: "appointment", icon: "calendar_month", type: "appointment" },
         { label: "Gọi Hotline Ls. Tín", action: "tel:0937863263", icon: "call", type: "call" },
         { label: "Chat Zalo Luật sư", action: "https://zalo.me/0937863263", icon: "chat", type: "zalo" }
       ]
