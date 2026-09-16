@@ -31,7 +31,7 @@ export default function FloatingChatWidget() {
         aria-label="Trợ lý Pháp lý AI"
         className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-700 to-emerald-500 text-white flex items-center justify-center shadow-xl hover:shadow-2xl hover:scale-105 transition-all relative border-2 border-white cursor-pointer group"
       >
-        <span className="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform">
+        <span className="material-symbols-outlined text-2xl text-black group-hover:rotate-12 transition-transform">
           smart_toy
         </span>
         <span className="absolute -top-1 -right-1 w-4 h-4 bg-rose-500 rounded-full border-2 border-white flex items-center justify-center text-[9px] font-bold text-white">
