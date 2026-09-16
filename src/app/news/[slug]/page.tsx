@@ -593,7 +593,7 @@ export default function NewsDetailPage() {
                   rel="noopener noreferrer"
                   className="w-full bg-[#0068FF] hover:bg-[#0058db] text-white h-9.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-xs active:scale-98"
                 >
-                  <img src="/img/zalo_icon.webp" alt="Zalo" className="w-4 h-4 object-contain brightness-0 invert" />
+                  <img src="/img/zalo_icon.webp" alt="Zalo" width={20} height={20} className="w-5 h-5 object-contain shrink-0" />
                   <span>Chat Zalo Luật Sư</span>
                 </a>
                 <Link
