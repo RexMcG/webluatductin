@@ -519,20 +519,27 @@ END:VCALENDAR`;
                       key={idx}
                       className={`p-3 rounded-2xl text-center border transition-all ${
                         isToday
-                          ? "bg-red-50/80 border-red-300 text-red-900 shadow-2xs"
+                          ? "bg-rose-100/90 border-2 border-rose-500 text-rose-950 shadow-md ring-2 ring-rose-200/80"
                           : idx >= 5
                           ? "bg-slate-50/80 border-slate-200 text-slate-500"
                           : "bg-slate-100 border-slate-200 text-slate-800"
                       }`}
                     >
-                      <div className={`font-bold text-xs ${isToday ? "text-red-700 font-extrabold" : ""}`}>{wDay.weekdayLabel}</div>
-                      <div className={`text-sm font-black mt-0.5 ${isToday ? "text-red-950" : ""}`}>
+                      <div className="flex items-center justify-center gap-1">
+                        <span className={`font-bold text-xs ${isToday ? "text-rose-800 font-extrabold" : ""}`}>{wDay.weekdayLabel}</span>
+                        {isToday && (
+                          <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-rose-600 text-white shadow-2xs leading-none">
+                            Hôm nay
+                          </span>
+                        )}
+                      </div>
+                      <div className={`text-sm font-black mt-0.5 ${isToday ? "text-rose-950 text-base" : ""}`}>
                         {wDay.dayNumber}/{wDay.monthNumber}
                       </div>
                       {dayAptsCount > 0 && (
                         <span className={`inline-block mt-1 text-[9.5px] font-bold px-2 py-0.5 rounded-full border ${
                           isToday
-                            ? "bg-red-100 text-red-800 border-red-200"
+                            ? "bg-rose-200/90 text-rose-900 border-rose-400 font-black"
                             : "bg-white text-slate-700 border-slate-200"
                         }`}>
                           {dayAptsCount} lịch
@@ -580,14 +587,16 @@ END:VCALENDAR`;
                           key={dIdx}
                           className={`min-h-[105px] p-2 rounded-2xl border transition-all flex flex-col justify-between ${
                             slotApts.length > 0
-                              ? "bg-white border-slate-300 shadow-2xs"
+                              ? isToday
+                                ? "bg-rose-50/70 border-2 border-rose-400 shadow-xs ring-1 ring-rose-300/60"
+                                : "bg-white border-slate-300 shadow-2xs"
                               : isToday
-                              ? "bg-red-50/25 border-red-100 hover:bg-red-50/50"
+                              ? "bg-rose-100/60 border-2 border-rose-300/90 hover:bg-rose-100 shadow-2xs"
                               : "bg-slate-50/40 border-slate-100 hover:bg-slate-50/80"
                           }`}
                         >
                           {slotApts.length === 0 ? (
-                            <div className="h-full flex items-center justify-center text-slate-300 text-[10px] font-medium">
+                            <div className={`h-full flex items-center justify-center text-[10px] font-medium ${isToday ? "text-rose-400 font-semibold" : "text-slate-300"}`}>
                               — Trống —
                             </div>
                           ) : (
@@ -719,7 +728,7 @@ END:VCALENDAR`;
                       className={`min-h-[110px] p-2 rounded-2xl border transition-all flex flex-col justify-between ${
                         cell.isCurrentMonth
                           ? isToday
-                            ? "bg-red-50/40 border-red-300 shadow-2xs"
+                            ? "bg-rose-100/70 border-2 border-rose-400 shadow-xs ring-1 ring-rose-300/40"
                             : "bg-white border-slate-200 hover:border-slate-300"
                           : "bg-slate-50/60 border-slate-100 text-slate-300"
                       }`}
@@ -729,7 +738,7 @@ END:VCALENDAR`;
                         <span
                           className={`text-xs font-black w-6 h-6 rounded-full flex items-center justify-center ${
                             isToday
-                              ? "bg-red-700 text-white shadow-2xs"
+                              ? "bg-rose-600 text-white shadow-2xs font-extrabold"
                               : cell.isCurrentMonth
                               ? "text-slate-800"
                               : "text-slate-300"
