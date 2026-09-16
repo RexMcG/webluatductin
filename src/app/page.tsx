@@ -364,11 +364,10 @@ export default function Home() {
             </Link>
             <div className="pt-4 border-t border-slate-100 mt-auto">
               <Link
-                href="/appointment"
-                className="w-full flex items-center justify-center gap-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 rounded-xl py-2.5 sm:py-3 text-sm sm:text-[15px] font-bold transition-all active:scale-98 shadow-sm hover:shadow-md text-center tracking-wide"
+                href="/services/hop-tac-doanh-nghiep"
+                className="w-full flex items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-xl py-2.5 sm:py-3 text-sm sm:text-[15px] font-bold transition-all active:scale-98 shadow-sm hover:shadow-md text-center tracking-wide"
               >
-                <span className="material-symbols-outlined text-base">calendar_month</span>
-                <span>Đặt Lịch Hẹn</span>
+                <span>Xem chi tiết</span>
               </Link>
             </div>
           </div>
@@ -400,11 +399,10 @@ export default function Home() {
             </Link>
             <div className="pt-4 border-t border-slate-100 mt-auto">
               <Link
-                href="/appointment"
-                className="w-full flex items-center justify-center gap-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 rounded-xl py-2.5 sm:py-3 text-sm sm:text-[15px] font-bold transition-all active:scale-98 shadow-sm hover:shadow-md text-center tracking-wide"
+                href="/services/dau-tu-nuoc-ngoai-fdi"
+                className="w-full flex items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-xl py-2.5 sm:py-3 text-sm sm:text-[15px] font-bold transition-all active:scale-98 shadow-sm hover:shadow-md text-center tracking-wide"
               >
-                <span className="material-symbols-outlined text-base">calendar_month</span>
-                <span>Đặt Lịch Hẹn</span>
+                <span>Xem chi tiết</span>
               </Link>
             </div>
           </div>
@@ -436,11 +434,10 @@ export default function Home() {
             </Link>
             <div className="pt-4 border-t border-slate-100 mt-auto">
               <Link
-                href="/appointment"
-                className="w-full flex items-center justify-center gap-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 rounded-xl py-2.5 sm:py-3 text-sm sm:text-[15px] font-bold transition-all active:scale-98 shadow-sm hover:shadow-md text-center tracking-wide"
+                href="/services/tranh-tung-tai-toa"
+                className="w-full flex items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-xl py-2.5 sm:py-3 text-sm sm:text-[15px] font-bold transition-all active:scale-98 shadow-sm hover:shadow-md text-center tracking-wide"
               >
-                <span className="material-symbols-outlined text-base">calendar_month</span>
-                <span>Đặt Lịch Hẹn</span>
+                <span>Xem chi tiết</span>
               </Link>
             </div>
           </div>
