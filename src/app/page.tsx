@@ -764,8 +764,10 @@ export default function Home() {
               img: "avatar3.webp"
             }
           ].map((ls, idx) => (
-            <div key={idx} className="border border-slate-200 p-6 sm:p-7 rounded-3xl bg-white shadow-sm hover:shadow-xl hover:border-amber-400 hover:-translate-y-1 transition-all flex flex-col items-center text-center">
-              <div className="w-28 h-28 bg-emerald-100 rounded-full border-2 border-emerald-300 mb-5 overflow-hidden shadow-xs">
+            <div key={idx} className="border border-slate-200 p-6 sm:p-7 rounded-3xl bg-white shadow-sm hover:shadow-xl hover:border-amber-400 hover:-translate-y-1 transition-all flex flex-col items-center text-center relative overflow-hidden">
+              {/* Top Red Accent Line */}
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#641D06]" />
+              <div className="w-28 h-28 bg-emerald-100 rounded-full border-2 border-emerald-300 mb-5 overflow-hidden shadow-xs mt-1">
                 <img 
                   alt={ls.name} 
                   width={112}
