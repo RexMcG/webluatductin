@@ -100,11 +100,14 @@ export default function ServicesPage() {
 
       {/* Consultation Banner */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 mt-6">
-        <div className="bg-[#1A1A1A] text-white p-8 md:p-12 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+        <div 
+          style={{ background: 'linear-gradient(180deg, #494949 0, #737373 100%)' }}
+          className="text-white p-8 md:p-12 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 border border-white/10"
+        >
           <div>
             <div className="text-amber-400 font-bold text-xs uppercase tracking-widest mb-1">Tư vấn trực tiếp cùng Luật sư</div>
             <h3 className="text-2xl md:text-3xl font-black font-sans uppercase text-white mb-2">Luật Sư Phan Đức Tín</h3>
-            <p className="text-slate-300 text-sm md:text-base max-w-xl leading-relaxed">
+            <p className="text-white text-sm md:text-base max-w-xl leading-relaxed font-normal">
               Hơn 15 năm kinh nghiệm giải quyết tranh chấp kinh doanh, bất động sản và đầu tư FDI tại Việt Nam.
             </p>
           </div>

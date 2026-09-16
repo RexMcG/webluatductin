@@ -996,7 +996,7 @@ export default function NewsDetailPage() {
           <div>
             <div className="text-amber-400 font-bold text-xs uppercase tracking-widest mb-1">Cần tư vấn chuyên sâu?</div>
             <h3 className="text-2xl font-bold font-sans mb-2 text-white">Trao đổi trực tiếp với Luật sư Phan Đức Tín</h3>
-            <p className="text-slate-300 text-sm max-w-xl leading-relaxed">
+            <p className="text-white text-sm max-w-xl leading-relaxed">
               Mọi vướng mắc về thủ tục pháp lý, tranh chấp hoặc hồ sơ sẽ được Luật sư trực tiếp tư vấn bảo mật và chính xác nhất.
             </p>
           </div>

@@ -134,7 +134,7 @@ export default function Header() {
 
             {/* Mobile Menu Button */}
             <button
-              className="lg:hidden material-symbols-outlined cursor-pointer text-slate-900 p-2 rounded-lg hover:bg-slate-100 transition-colors"
+              className="flex lg:!hidden material-symbols-outlined cursor-pointer text-slate-900 p-2 rounded-lg hover:bg-slate-100 transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? "Đóng menu điều hướng" : "Mở menu điều hướng"}
               aria-expanded={isMobileMenuOpen}
@@ -146,7 +146,7 @@ export default function Header() {
 
         {/* Mobile Menu Drawer */}
         <div
-          className={`${isMobileMenuOpen ? "block" : "hidden"} md:hidden bg-white border-t border-slate-200 px-5 py-4 shadow-2xl transition-all max-h-[calc(100vh-5rem)] overflow-y-auto`}
+          className={`${isMobileMenuOpen ? "block" : "hidden"} lg:!hidden bg-white border-t border-slate-200 px-5 py-4 shadow-2xl transition-all max-h-[calc(100vh-5rem)] overflow-y-auto`}
         >
           <div className="flex flex-col gap-1.5 font-bold text-slate-800">
             <Link 
