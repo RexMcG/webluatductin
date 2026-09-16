@@ -248,8 +248,8 @@ export default function Home() {
                 className="bg-accent hover:opacity-90 text-white h-14 px-8 rounded-xl font-label-sm text-base md:text-lg font-bold transition-all inline-flex items-center shadow-lg gap-2"
                 href="/ai-chatbot"
               >
-                <span className="material-symbols-outlined">support_agent</span>
-                Trợ Lý Pháp Lý Trực Tuyến
+                <span className="material-symbols-outlined">smart_toy</span>
+                Trợ Lý Pháp Lý AI 24/7
               </Link>
             </div>
           </div>

@@ -950,11 +950,11 @@ export default function AIFormLibrary() {
                   className="flex items-center gap-3 p-3.5 bg-slate-50 border border-slate-200 rounded-2xl hover:border-amber-500 hover:bg-amber-50/40 transition-all"
                 >
                   <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center shrink-0">
-                    <span className="material-symbols-outlined text-xl">support_agent</span>
+                    <span className="material-symbols-outlined text-xl">smart_toy</span>
                   </div>
                   <div>
-                    <div className="text-xs md:text-sm font-bold text-slate-900">Trợ Lý Pháp Lý Trực Tuyến</div>
-                    <div className="text-[11px] text-slate-500 mt-0.5">Hướng dẫn điền biểu mẫu đúng luật</div>
+                    <div className="text-xs md:text-sm font-bold text-slate-900">Trợ Lý Pháp Lý AI (24/7)</div>
+                    <div className="text-[11px] text-slate-500 mt-0.5">Hỏi đáp &amp; hướng dẫn điền đơn tự động</div>
                   </div>
                 </Link>
 
