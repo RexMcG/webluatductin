@@ -781,7 +781,7 @@ export default function Home() {
               <p className="text-xs font-bold text-amber-700 uppercase tracking-wider mb-3">{ls.role}</p>
               <p className="text-slate-600 text-sm mb-6 leading-relaxed flex-grow">{ls.desc}</p>
               <div className="w-full pt-4 border-t border-slate-100">
-                <Link className="flex items-center justify-center w-full bg-[#641D06] hover:bg-black text-white h-11 rounded-xl font-bold text-sm sm:text-base transition-all shadow-xs text-center" href="/appointment">
+                <Link className="flex items-center justify-center w-full bg-amber-400 hover:bg-amber-300 text-slate-950 h-11 rounded-xl font-bold text-sm sm:text-base transition-all active:scale-98 shadow-sm hover:shadow-md text-center tracking-wide" href="/appointment">
                   Đặt Lịch Hẹn Tư Vấn
                 </Link>
               </div>
