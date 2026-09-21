@@ -158,6 +158,32 @@ const QUICK_ACTIONS = [
   { label: "Chat Zalo Luật sư", action: "https://zalo.me/0937863263", icon: "chat", type: "zalo" }
 ];
 
+function getTodayString(): string {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+function parseCookieUsage(req: NextRequest): number {
+  try {
+    const val = req.cookies.get('dt_daily_count')?.value;
+    if (!val) return 0;
+    const parsed = JSON.parse(val);
+    if (parsed.date === getTodayString() && typeof parsed.count === 'number') {
+      return parsed.count;
+    }
+  } catch {}
+  return 0;
+}
+
+function withUsageCookie(res: NextResponse, count: number): NextResponse {
+  res.cookies.set('dt_daily_count', JSON.stringify({ date: getTodayString(), count }), {
+    path: '/',
+    maxAge: 86400,
+    sameSite: 'lax',
+  });
+  return res;
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -170,6 +196,7 @@ export async function POST(req: NextRequest) {
     const trimmedMsg = message.trim();
     const now = Date.now();
     const clientIp = getClientIp(req);
+    const cookieCount = parseCookieUsage(req);
 
     // 1. Kiểm tra độ dài tin nhắn (chống spam văn bản khổng lồ đốt token)
     if (trimmedMsg.length > MAX_MESSAGE_LENGTH) {
@@ -181,17 +208,19 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // 2. Kiểm tra Rate Limit theo IP (chống tool/bot spam cạn hạn mức API)
+    // 2. Kiểm tra Rate Limit theo IP và Cookie
     let record = rateLimitMap.get(clientIp);
     if (!record) {
       record = {
         lastTime: 0,
         minuteCount: 0,
         minuteReset: now + 60 * 1000,
-        dayCount: 0,
+        dayCount: cookieCount,
         dayReset: now + 24 * 60 * 60 * 1000,
       };
       rateLimitMap.set(clientIp, record);
+    } else if (cookieCount > record.dayCount) {
+      record.dayCount = cookieCount;
     }
 
     // Reset chu kỳ phút nếu hết hạn
@@ -208,39 +237,39 @@ export async function POST(req: NextRequest) {
 
     // Chặn gửi quá dồn dập (dưới 2.5 giây)
     if (record.lastTime > 0 && (now - record.lastTime) < MIN_INTERVAL_MS) {
-      return NextResponse.json({
+      return withUsageCookie(NextResponse.json({
         sessionId: sessionId || Math.floor(now / 1000),
         reply: 'Quý khách vui lòng đợi giây lát để Trợ lý AI hoàn tất xử lý trước khi gửi câu hỏi tiếp theo.',
         lawyer: LAWYER_CONTACT,
         quickActions: QUICK_ACTIONS,
         remainingQuestions: Math.max(0, MAX_PER_DAY - record.dayCount),
         maxQuestions: MAX_PER_DAY,
-      });
+      }), record.dayCount);
     }
 
     // Chặn vượt quá giới hạn theo phút (tối đa 4 câu / phút)
     if (record.minuteCount >= MAX_PER_MINUTE) {
       const waitSeconds = Math.max(1, Math.ceil((record.minuteReset - now) / 1000));
-      return NextResponse.json({
+      return withUsageCookie(NextResponse.json({
         sessionId: sessionId || Math.floor(now / 1000),
         reply: `Hệ thống AI đang nhận nhiều yêu cầu. Quý khách vui lòng đợi **${waitSeconds} giây** trước khi đặt câu hỏi tiếp theo để được phục vụ chu đáo nhất, hoặc gọi ngay Hotline **093 786 32 63** để trao đổi trực tiếp với Luật sư.`,
         lawyer: LAWYER_CONTACT,
         quickActions: QUICK_ACTIONS,
         remainingQuestions: Math.max(0, MAX_PER_DAY - record.dayCount),
         maxQuestions: MAX_PER_DAY,
-      });
+      }), record.dayCount);
     }
 
     // Chặn vượt quá giới hạn theo ngày (tối đa 8 câu / ngày)
     if (record.dayCount >= MAX_PER_DAY) {
-      return NextResponse.json({
+      return withUsageCookie(NextResponse.json({
         sessionId: sessionId || Math.floor(now / 1000),
         reply: `Quý khách đã sử dụng hết hạn mức tư vấn AI miễn phí trong ngày (**${MAX_PER_DAY} câu hỏi/ngày**). Để bảo vệ tối đa quyền lợi và thẩm định hồ sơ chuyên sâu, Quý khách vui lòng liên hệ trực tiếp **Luật sư Phan Đức Tín** qua Hotline/Zalo: **093 786 32 63**.`,
         lawyer: LAWYER_CONTACT,
         quickActions: QUICK_ACTIONS,
         remainingQuestions: 0,
         maxQuestions: MAX_PER_DAY,
-      });
+      }), record.dayCount);
     }
 
     // Cập nhật bộ đếm
@@ -271,11 +300,11 @@ export async function POST(req: NextRequest) {
       if (backendRes.ok) {
         const backendData = await backendRes.json();
         if (backendData && backendData.reply) {
-          return NextResponse.json({
+          return withUsageCookie(NextResponse.json({
             ...backendData,
             remainingQuestions,
             maxQuestions: MAX_PER_DAY,
-          });
+          }), record.dayCount);
         }
       }
     } catch {
@@ -285,14 +314,14 @@ export async function POST(req: NextRequest) {
     // 2. Direct High-Speed Gemini Fallback (Zero-downtime, always answers)
     const reply = await callGeminiDirectly(message.trim());
 
-    return NextResponse.json({
+    return withUsageCookie(NextResponse.json({
       sessionId: sessionId || Math.floor(Date.now() / 1000),
       reply,
       lawyer: LAWYER_CONTACT,
       quickActions: QUICK_ACTIONS,
       remainingQuestions,
       maxQuestions: MAX_PER_DAY,
-    });
+    }), record.dayCount);
   } catch (error: any) {
     console.error('API chatbot route error:', error);
     return NextResponse.json({
@@ -308,18 +337,17 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   const clientIp = getClientIp(req);
+  const cookieCount = parseCookieUsage(req);
   const now = Date.now();
   let record = rateLimitMap.get(clientIp);
 
-  if (!record || now > record.dayReset) {
-    return NextResponse.json({
-      remainingQuestions: MAX_PER_DAY,
-      maxQuestions: MAX_PER_DAY,
-    });
-  }
+  const effectiveCount = Math.max(
+    cookieCount,
+    record && now <= record.dayReset ? record.dayCount : 0
+  );
 
   return NextResponse.json({
-    remainingQuestions: Math.max(0, MAX_PER_DAY - record.dayCount),
+    remainingQuestions: Math.max(0, MAX_PER_DAY - effectiveCount),
     maxQuestions: MAX_PER_DAY,
   });
 }

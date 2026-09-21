@@ -42,6 +42,42 @@ Bạn đang có vướng mắc pháp lý nào cần hỗ trợ?`,
   ]
 };
 
+const DAILY_LIMIT = 8;
+const STORAGE_KEY_DAILY_USAGE = "ductin_ai_daily_usage_v2";
+
+function getTodayString(): string {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+function getStoredDailyCount(): number {
+  if (typeof window === "undefined") return 0;
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_DAILY_USAGE);
+    if (!raw) return 0;
+    const data = JSON.parse(raw);
+    if (data.date === getTodayString() && typeof data.count === "number") {
+      return data.count;
+    }
+  } catch (e) {
+    console.warn("Failed to read daily usage:", e);
+  }
+  return 0;
+}
+
+function incrementStoredDailyCount(): number {
+  if (typeof window === "undefined") return 1;
+  try {
+    const today = getTodayString();
+    const current = getStoredDailyCount();
+    const next = current + 1;
+    localStorage.setItem(STORAGE_KEY_DAILY_USAGE, JSON.stringify({ date: today, count: next }));
+    return next;
+  } catch {
+    return 1;
+  }
+}
+
 function AIChatbotContent() {
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get("q");
@@ -51,18 +87,23 @@ function AIChatbotContent() {
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [sessionId, setSessionId] = useState<number | undefined>(undefined);
-  const [remainingQuestions, setRemainingQuestions] = useState<number>(8);
-  const [maxQuestions, setMaxQuestions] = useState<number>(8);
+  const [remainingQuestions, setRemainingQuestions] = useState<number>(DAILY_LIMIT);
+  const [maxQuestions, setMaxQuestions] = useState<number>(DAILY_LIMIT);
   const chatFeedRef = useRef<HTMLDivElement>(null);
 
   const LOCAL_STORAGE_KEY_MSGS = "ductin_chatbot_messages_v1";
   const LOCAL_STORAGE_KEY_SESSION = "ductin_chatbot_session_id_v1";
 
-  // Fetch initial question limit for this client/IP
+  // Fetch initial question limit for this client/IP with localStorage sync
   useEffect(() => {
+    const count = getStoredDailyCount();
+    const clientRemaining = Math.max(0, DAILY_LIMIT - count);
+    setRemainingQuestions(clientRemaining);
+
     chatbotService.getQuestionLimit().then((lim) => {
       if (lim && typeof lim.remainingQuestions === "number") {
-        setRemainingQuestions(lim.remainingQuestions);
+        const synced = Math.min(clientRemaining, lim.remainingQuestions);
+        setRemainingQuestions(synced);
         if (lim.maxQuestions) setMaxQuestions(lim.maxQuestions);
       }
     });
@@ -127,16 +168,19 @@ function AIChatbotContent() {
       return;
     }
 
+    const currentUsed = incrementStoredDailyCount();
+    const calculatedRemaining = Math.max(0, DAILY_LIMIT - currentUsed);
+
     const userMessageId = Date.now();
-    const optimisticRemaining = Math.max(0, remainingQuestions - 1);
     const userMessage: Message = { 
       id: userMessageId, 
       sender: "user", 
       text: queryText.trim(),
-      remainingQuestions: optimisticRemaining,
-      maxQuestions: maxQuestions
+      remainingQuestions: calculatedRemaining,
+      maxQuestions: DAILY_LIMIT
     };
     setMessages((prev) => [...prev, userMessage]);
+    setRemainingQuestions(calculatedRemaining);
     setInput("");
     setIsTyping(true);
 
@@ -150,15 +194,12 @@ function AIChatbotContent() {
         setSessionId(res.sessionId);
       }
 
-      const actualRemaining = res.remainingQuestions ?? optimisticRemaining;
-      if (res.remainingQuestions !== undefined) {
+      if (typeof res.remainingQuestions === "number" && res.remainingQuestions < calculatedRemaining) {
         setRemainingQuestions(res.remainingQuestions);
-        if (res.maxQuestions) setMaxQuestions(res.maxQuestions);
+        setMessages((prev) =>
+          prev.map((m) => (m.id === userMessageId ? { ...m, remainingQuestions: res.remainingQuestions } : m))
+        );
       }
-
-      setMessages((prev) => 
-        prev.map(m => m.id === userMessageId ? { ...m, remainingQuestions: actualRemaining } : m)
-      );
 
       const aiMessage: Message = {
         id: Date.now() + 1,
@@ -167,8 +208,8 @@ function AIChatbotContent() {
         lawyer: res.lawyer,
         suggestedForms: res.suggestedForms,
         quickActions: res.quickActions,
-        remainingQuestions: actualRemaining,
-        maxQuestions: res.maxQuestions ?? maxQuestions
+        remainingQuestions: calculatedRemaining,
+        maxQuestions: res.maxQuestions ?? DAILY_LIMIT
       };
 
       setMessages((prev) => [...prev, aiMessage]);
@@ -183,15 +224,12 @@ function AIChatbotContent() {
         replyText = "Chào bạn! Tôi là **Trợ lý Pháp lý AI** của Công ty Luật TNHH Đức Tín & Cộng Sự. Tôi có thể hỗ trợ giải đáp các quy định pháp luật về Đất đai, Hôn nhân gia đình, Lao động, Hợp đồng, Doanh nghiệp và Khởi kiện. Bạn đang gặp vướng mắc hoặc cần tư vấn vụ việc gì?";
       }
 
-      const fallbackRemaining = Math.max(0, remainingQuestions - 1);
-      setRemainingQuestions(fallbackRemaining);
-
       const fallbackMessage: Message = {
         id: Date.now() + 1,
         sender: "ai",
         text: replyText,
-        remainingQuestions: fallbackRemaining,
-        maxQuestions: maxQuestions,
+        remainingQuestions: calculatedRemaining,
+        maxQuestions: DAILY_LIMIT,
         quickActions: [
           { label: "Đặt Lịch Tư Vấn", action: "appointment", icon: "calendar_month", type: "appointment" },
           { label: "Gọi Hotline Ls. Tín", action: "tel:0937863263", icon: "call", type: "call" },
@@ -546,11 +584,20 @@ function AIChatbotContent() {
                     </div>
 
                     {/* Dưới chân câu hỏi của bạn (màu xám như chữ Đã xem trong Messenger) */}
-                    {msg.sender === "user" && (
-                      <span className="text-[11px] text-slate-400 font-normal pr-1 select-none text-right">
-                        Còn {msg.remainingQuestions !== undefined ? msg.remainingQuestions : remainingQuestions}/{msg.maxQuestions || maxQuestions || 8} lượt hôm nay
-                      </span>
-                    )}
+                    {msg.sender === "user" && (() => {
+                      const userMsgs = messages.filter((m) => m.sender === "user");
+                      const qIndex = userMsgs.findIndex((m) => m.id === msg.id);
+
+                      let rem = msg.remainingQuestions;
+                      if (rem === undefined || (qIndex > 0 && rem >= (userMsgs[qIndex - 1]?.remainingQuestions ?? 8))) {
+                        rem = Math.max(0, 8 - (qIndex + 1));
+                      }
+                      return (
+                        <span className="text-[11px] text-slate-400 font-normal pr-1 select-none text-right">
+                          Còn {rem}/{msg.maxQuestions || maxQuestions || 8} lượt hôm nay
+                        </span>
+                      );
+                    })()}
                   </div>
                 </div>
               ))}
