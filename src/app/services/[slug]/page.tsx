@@ -105,14 +105,16 @@ export default function ServiceDetailPage() {
         {activeTab === "about" && (
           <div className="space-y-12">
             {/* Overview Prose */}
-            <div className="bg-white rounded-3xl p-6 md:p-12 border border-slate-200 shadow-sm space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-900 text-xs font-bold uppercase tracking-wider">
-                Năng lực &amp; Giải pháp chuyên sâu
+            <div className="bg-white rounded-3xl p-6 md:p-12 border border-slate-200 shadow-sm space-y-8">
+              <div className="text-center max-w-3xl mx-auto space-y-3">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 text-amber-900 text-xs font-bold uppercase tracking-wider border border-amber-200/60 shadow-2xs">
+                  Năng lực &amp; Giải pháp chuyên sâu
+                </div>
+                <h2 className="text-2xl md:text-3xl font-black text-slate-900 font-sans uppercase">
+                  Giải Pháp Pháp Lý Vững Chắc Từ Đức Tín &amp; Cộng Sự
+                </h2>
+                <SectionDivider label="DỊCH VỤ PHÁP LÝ" />
               </div>
-              <h2 className="text-2xl md:text-3xl font-black text-slate-900 font-sans uppercase">
-                Giải Pháp Pháp Lý Vững Chắc Từ Đức Tín &amp; Cộng Sự
-              </h2>
-              <SectionDivider label="DỊCH VỤ PHÁP LÝ" className="!justify-start mb-4" />
 
               <div className="space-y-4 text-slate-700 text-base md:text-lg leading-relaxed">
                 {service.about.overview.map((para, idx) => (
