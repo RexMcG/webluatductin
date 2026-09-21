@@ -43,7 +43,15 @@ NGUYÊN TẮC HÀNH VĂN & TÁC PHONG LUẬT SƯ:
      + [Tài liệu 2]
    - Chiến Lược Bảo Vệ Thân Chủ
      + [Khuyến nghị của Luật sư]
-   \`\`\``;
+   \`\`\`;
+
+6. QUY ĐỊNH HẠN MỨC HỎI ĐÁP (RATE LIMIT & CHÍNH SÁCH):
+   - Website Hãng luật Đức Tín áp dụng chính sách: **Tối đa 8 lượt hỏi/ngày** cho mỗi người dùng (Quý khách) để hỗ trợ tư vấn định hướng ban đầu.
+   - TUYỆT ĐỐI KHÔNG BAO GIỜ được trả lời là "không giới hạn câu hỏi", "hỏi bao nhiêu cũng được", hoặc "không có giới hạn".
+   - Khi Quý khách hỏi: "còn bao nhiêu câu", "hỏi được mấy câu nữa", "có bị giới hạn không", "hạn mức thế nào", v.v.:
+     + BẮT BUỘC PHẢI khẳng định rõ: Hệ thống có áp dụng chính sách hỗ trợ tối đa 8 lượt hỏi miễn phí/ngày để đảm bảo chất lượng phản hồi chuyên sâu và chống quá tải.
+     + Thông báo số lượt còn lại hiện tại của Quý khách (nhắc Quý khách quan sát số lượt hiển thị ngay dưới chân câu hỏi của Quý khách).
+     + Nếu có vụ việc phức tạp hoặc khi hết 8 lượt hỏi trong ngày, hướng dẫn Quý khách liên hệ trực tiếp **Luật sư Phan Đức Tín** qua Hotline/Zalo: **093 786 32 63** hoặc Đặt lịch hẹn tư vấn chuyên sâu.`;
 
 const getGeminiKey = () => {
   if (process.env.GEMINI_API_KEY) return process.env.GEMINI_API_KEY;
@@ -64,13 +72,13 @@ const CANDIDATE_MODELS = [
   'gemini-pro-latest',
 ];
 
-async function callGeminiDirectly(message: string): Promise<string> {
+async function callGeminiDirectly(message: string, remainingQuestions: number): Promise<string> {
   const apiKey = getGeminiKey();
   const contents = [
     {
       role: 'user',
       parts: [
-        { text: `[HƯỚNG DẪN HỆ THỐNG]:\n${SYSTEM_PROMPT}\n\n[CÂU HỎI THÂN CHỦ]:\n${message}` }
+        { text: `[HƯỚNG DẪN HỆ THỐNG]:\n${SYSTEM_PROMPT}\n\n[HẠN MỨC HỎI ĐÁP HÔM NAY]: Quý khách hiện còn ${remainingQuestions}/8 lượt hỏi miễn phí trong ngày hôm nay. Nếu Quý khách hỏi còn bao nhiêu câu hoặc hỏi về giới hạn, hãy thông báo rõ con số này và tuyệt đối KHÔNG ĐƯỢC trả lời là không giới hạn.\n\n[CÂU HỎI THÂN CHỦ]:\n${message}` }
       ]
     }
   ];
@@ -279,7 +287,33 @@ export async function POST(req: NextRequest) {
 
     const remainingQuestions = Math.max(0, MAX_PER_DAY - record.dayCount);
 
-    // 3. Gửi tới Backend API nếu khả dụng
+    // 3. Phản hồi nhanh & chuẩn xác nếu Quý khách hỏi về hạn mức / số câu còn lại
+    const isAskingAboutLimit = /(bao nhiêu câu|mấy câu|giới hạn.*câu|còn.*lượt|còn.*hỏi.*được|hạn mức.*hỏi|hỏi được bao nhiêu|hỏi bao nhiêu|hết lượt|bao nhiêu lượt|có bị giới hạn|bạn có biết không)/i.test(trimmedMsg);
+    if (isAskingAboutLimit) {
+      const limitReply = `Kính chào Quý khách,
+
+Về thắc mắc của Quý khách, tôi xin phản hồi như sau:
+
+Trên hệ thống Trợ lý Pháp lý AI của Hãng luật Đức Tín & Cộng Sự, mỗi Quý khách được hỗ trợ **tối đa 8 lượt hỏi miễn phí trong ngày** (áp dụng theo chu kỳ 24 giờ).
+
+Hiện tại, sau câu hỏi này, Quý khách còn **${remainingQuestions}/8 lượt hỏi miễn phí** trong ngày hôm nay (Quý khách cũng có thể dễ dàng theo dõi số lượt đếm lùi ở ngay dưới chân mỗi câu hỏi của mình).
+
+Nếu Quý khách có vụ việc tranh chấp phức tạp, nhiều tài liệu hồ sơ cần nghiên cứu chuyên sâu hoặc muốn trao đổi không giới hạn, Quý khách vui lòng liên hệ trực tiếp **Luật sư Phan Đức Tín** qua:
+- **Hotline trực tiếp:** [093 786 32 63](tel:0937863263)
+- **Chat Zalo Luật sư:** [093 786 32 63](https://zalo.me/0937863263)
+- **Đặt lịch tư vấn:** Điền phiếu hẹn tại nút Đặt lịch tư vấn bên dưới.`;
+
+      return withUsageCookie(NextResponse.json({
+        sessionId: sessionId || Math.floor(Date.now() / 1000),
+        reply: limitReply,
+        lawyer: LAWYER_CONTACT,
+        quickActions: QUICK_ACTIONS,
+        remainingQuestions,
+        maxQuestions: MAX_PER_DAY,
+      }), record.dayCount);
+    }
+
+    // 4. Gửi tới Backend API nếu khả dụng
     const backendBase = process.env.NEXT_PUBLIC_API_URL 
       ? process.env.NEXT_PUBLIC_API_URL.replace(/\/api\/v1\/?$/, '') 
       : 'https://webluat-backend.onrender.com';
@@ -291,7 +325,7 @@ export async function POST(req: NextRequest) {
       const backendRes = await fetch(`${backendBase}/api/v1/chatbot/message`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message, sessionId }),
+        body: JSON.stringify({ message, sessionId, remainingQuestions }),
         signal: controller.signal,
       });
 
@@ -311,8 +345,8 @@ export async function POST(req: NextRequest) {
       // Backend unavailable or timed out, fallback gracefully to direct Gemini
     }
 
-    // 2. Direct High-Speed Gemini Fallback (Zero-downtime, always answers)
-    const reply = await callGeminiDirectly(message.trim());
+    // 5. Direct High-Speed Gemini Fallback (Zero-downtime, always answers)
+    const reply = await callGeminiDirectly(message.trim(), remainingQuestions);
 
     return withUsageCookie(NextResponse.json({
       sessionId: sessionId || Math.floor(Date.now() / 1000),
