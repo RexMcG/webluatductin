@@ -36,6 +36,8 @@ export interface ChatMessageResponse {
   lawyer?: LawyerInfo;
   suggestedForms?: SuggestedForm[];
   quickActions?: QuickAction[];
+  remainingQuestions?: number;
+  maxQuestions?: number;
 }
 
 export interface ChatSessionSummary {
@@ -85,6 +87,17 @@ export const chatbotService = {
 
     // 2. Fallback to direct backend API client
     return apiClient.post('/chatbot/message', data);
+  },
+  getQuestionLimit: async (): Promise<{ remainingQuestions: number; maxQuestions: number }> => {
+    try {
+      const res = await fetch('/api/chatbot/message', { method: 'GET' });
+      if (res.ok) {
+        return await res.json();
+      }
+    } catch (e) {
+      console.warn('Failed to fetch rate limit:', e);
+    }
+    return { remainingQuestions: 8, maxQuestions: 8 };
   },
   getSessions: async (page = 1, limit = 50): Promise<{ success: boolean; data: { sessions: ChatSessionSummary[]; total: number; page: number; totalPages: number } }> => {
     try {

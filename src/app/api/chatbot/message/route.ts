@@ -213,10 +213,12 @@ export async function POST(req: NextRequest) {
         reply: 'Quý khách vui lòng đợi giây lát để Trợ lý AI hoàn tất xử lý trước khi gửi câu hỏi tiếp theo.',
         lawyer: LAWYER_CONTACT,
         quickActions: QUICK_ACTIONS,
+        remainingQuestions: Math.max(0, MAX_PER_DAY - record.dayCount),
+        maxQuestions: MAX_PER_DAY,
       });
     }
 
-    // Chặn vượt quá giới hạn theo phút (tối đa 6 câu / phút)
+    // Chặn vượt quá giới hạn theo phút (tối đa 4 câu / phút)
     if (record.minuteCount >= MAX_PER_MINUTE) {
       const waitSeconds = Math.max(1, Math.ceil((record.minuteReset - now) / 1000));
       return NextResponse.json({
@@ -224,16 +226,20 @@ export async function POST(req: NextRequest) {
         reply: `Hệ thống AI đang nhận nhiều yêu cầu. Quý khách vui lòng đợi **${waitSeconds} giây** trước khi đặt câu hỏi tiếp theo để được phục vụ chu đáo nhất, hoặc gọi ngay Hotline **093 786 32 63** để trao đổi trực tiếp với Luật sư.`,
         lawyer: LAWYER_CONTACT,
         quickActions: QUICK_ACTIONS,
+        remainingQuestions: Math.max(0, MAX_PER_DAY - record.dayCount),
+        maxQuestions: MAX_PER_DAY,
       });
     }
 
-    // Chặn vượt quá giới hạn theo ngày (tối đa 35 câu / ngày)
+    // Chặn vượt quá giới hạn theo ngày (tối đa 8 câu / ngày)
     if (record.dayCount >= MAX_PER_DAY) {
       return NextResponse.json({
         sessionId: sessionId || Math.floor(now / 1000),
         reply: `Quý khách đã sử dụng hết hạn mức tư vấn AI miễn phí trong ngày (**${MAX_PER_DAY} câu hỏi/ngày**). Để bảo vệ tối đa quyền lợi và thẩm định hồ sơ chuyên sâu, Quý khách vui lòng liên hệ trực tiếp **Luật sư Phan Đức Tín** qua Hotline/Zalo: **093 786 32 63**.`,
         lawyer: LAWYER_CONTACT,
         quickActions: QUICK_ACTIONS,
+        remainingQuestions: 0,
+        maxQuestions: MAX_PER_DAY,
       });
     }
 
@@ -241,6 +247,8 @@ export async function POST(req: NextRequest) {
     record.lastTime = now;
     record.minuteCount++;
     record.dayCount++;
+
+    const remainingQuestions = Math.max(0, MAX_PER_DAY - record.dayCount);
 
     // 3. Gửi tới Backend API nếu khả dụng
     const backendBase = process.env.NEXT_PUBLIC_API_URL 
@@ -263,7 +271,11 @@ export async function POST(req: NextRequest) {
       if (backendRes.ok) {
         const backendData = await backendRes.json();
         if (backendData && backendData.reply) {
-          return NextResponse.json(backendData);
+          return NextResponse.json({
+            ...backendData,
+            remainingQuestions,
+            maxQuestions: MAX_PER_DAY,
+          });
         }
       }
     } catch {
@@ -278,6 +290,8 @@ export async function POST(req: NextRequest) {
       reply,
       lawyer: LAWYER_CONTACT,
       quickActions: QUICK_ACTIONS,
+      remainingQuestions,
+      maxQuestions: MAX_PER_DAY,
     });
   } catch (error: any) {
     console.error('API chatbot route error:', error);
@@ -286,6 +300,26 @@ export async function POST(req: NextRequest) {
       reply: 'Chào Quý khách, tôi là Trợ lý Pháp lý AI của Công ty Luật TNHH Đức Tín & Cộng Sự. Để được tư vấn chi tiết và thẩm định hồ sơ chính xác nhất, Quý khách vui lòng liên hệ trực tiếp Luật sư Phan Đức Tín qua Hotline/Zalo: 093 786 32 63.',
       lawyer: LAWYER_CONTACT,
       quickActions: QUICK_ACTIONS,
+      remainingQuestions: 0,
+      maxQuestions: MAX_PER_DAY,
     });
   }
+}
+
+export async function GET(req: NextRequest) {
+  const clientIp = getClientIp(req);
+  const now = Date.now();
+  let record = rateLimitMap.get(clientIp);
+
+  if (!record || now > record.dayReset) {
+    return NextResponse.json({
+      remainingQuestions: MAX_PER_DAY,
+      maxQuestions: MAX_PER_DAY,
+    });
+  }
+
+  return NextResponse.json({
+    remainingQuestions: Math.max(0, MAX_PER_DAY - record.dayCount),
+    maxQuestions: MAX_PER_DAY,
+  });
 }

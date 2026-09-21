@@ -16,6 +16,8 @@ type Message = {
   lawyer?: LawyerInfo;
   suggestedForms?: SuggestedForm[];
   quickActions?: QuickAction[];
+  remainingQuestions?: number;
+  maxQuestions?: number;
 };
 
 const INITIAL_MESSAGE: Message = {
@@ -49,10 +51,22 @@ function AIChatbotContent() {
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [sessionId, setSessionId] = useState<number | undefined>(undefined);
+  const [remainingQuestions, setRemainingQuestions] = useState<number>(8);
+  const [maxQuestions, setMaxQuestions] = useState<number>(8);
   const chatFeedRef = useRef<HTMLDivElement>(null);
 
   const LOCAL_STORAGE_KEY_MSGS = "ductin_chatbot_messages_v1";
   const LOCAL_STORAGE_KEY_SESSION = "ductin_chatbot_session_id_v1";
+
+  // Fetch initial question limit for this client/IP
+  useEffect(() => {
+    chatbotService.getQuestionLimit().then((lim) => {
+      if (lim && typeof lim.remainingQuestions === "number") {
+        setRemainingQuestions(lim.remainingQuestions);
+        if (lim.maxQuestions) setMaxQuestions(lim.maxQuestions);
+      }
+    });
+  }, []);
 
   // Load chat history from localStorage on initial render
   useEffect(() => {
@@ -108,6 +122,11 @@ function AIChatbotContent() {
   const sendQuery = async (queryText: string) => {
     if (!queryText.trim() || isTyping) return;
 
+    if (remainingQuestions <= 0) {
+      setShowConsultModal(true);
+      return;
+    }
+
     const userMessage: Message = { id: Date.now(), sender: "user", text: queryText.trim() };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
@@ -123,13 +142,22 @@ function AIChatbotContent() {
         setSessionId(res.sessionId);
       }
 
+      if (res.remainingQuestions !== undefined) {
+        setRemainingQuestions(res.remainingQuestions);
+        if (res.maxQuestions) setMaxQuestions(res.maxQuestions);
+      }
+
+      const nextRemaining = res.remainingQuestions ?? Math.max(0, remainingQuestions - 1);
+
       const aiMessage: Message = {
         id: Date.now() + 1,
         sender: "ai",
         text: res.reply,
         lawyer: res.lawyer,
         suggestedForms: res.suggestedForms,
-        quickActions: res.quickActions
+        quickActions: res.quickActions,
+        remainingQuestions: nextRemaining,
+        maxQuestions: res.maxQuestions ?? maxQuestions
       };
 
       setMessages((prev) => [...prev, aiMessage]);
@@ -144,10 +172,15 @@ function AIChatbotContent() {
         replyText = "Chào bạn! Tôi là **Trợ lý Pháp lý AI** của Công ty Luật TNHH Đức Tín & Cộng Sự. Tôi có thể hỗ trợ giải đáp các quy định pháp luật về Đất đai, Hôn nhân gia đình, Lao động, Hợp đồng, Doanh nghiệp và Khởi kiện. Bạn đang gặp vướng mắc hoặc cần tư vấn vụ việc gì?";
       }
 
+      const fallbackRemaining = Math.max(0, remainingQuestions - 1);
+      setRemainingQuestions(fallbackRemaining);
+
       const fallbackMessage: Message = {
         id: Date.now() + 1,
         sender: "ai",
         text: replyText,
+        remainingQuestions: fallbackRemaining,
+        maxQuestions: maxQuestions,
         quickActions: [
           { label: "Đặt Lịch Tư Vấn", action: "appointment", icon: "calendar_month", type: "appointment" },
           { label: "Gọi Hotline Ls. Tín", action: "tel:0937863263", icon: "call", type: "call" },
@@ -367,10 +400,20 @@ function AIChatbotContent() {
                   <span className="material-symbols-outlined text-xl">balance</span>
                 </div>
                 <div>
-                  <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                  <h2 className="text-sm font-bold text-slate-900 flex flex-wrap items-center gap-2">
                     Trợ Lý AI Luật Đức Tín
                     <span className="bg-emerald-100 text-emerald-800 text-[10px] font-extrabold px-2 py-0.5 rounded-full">
                       Pháp Luật Hiện Hành 2026
+                    </span>
+                    <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
+                      remainingQuestions > 2
+                        ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+                        : remainingQuestions > 0
+                        ? "bg-amber-50 text-amber-800 border-amber-200"
+                        : "bg-rose-50 text-rose-800 border-rose-200"
+                    }`}>
+                      <span className={`w-1.5 h-1.5 rounded-full ${remainingQuestions > 2 ? "bg-emerald-500" : remainingQuestions > 0 ? "bg-amber-500 animate-pulse" : "bg-rose-500"}`} />
+                      Còn {remainingQuestions}/{maxQuestions} lượt hôm nay
                     </span>
                   </h2>
                   <p className="text-[11px] text-slate-500">
@@ -489,6 +532,40 @@ function AIChatbotContent() {
                           ))}
                         </div>
                       )}
+
+                      {/* Footer ở chân mỗi câu hỏi/trả lời của AI */}
+                      {(() => {
+                        const rem = msg.remainingQuestions !== undefined ? msg.remainingQuestions : (msg.id === 1 ? remainingQuestions : undefined);
+                        const total = msg.maxQuestions || maxQuestions || 8;
+                        if (rem === undefined) return null;
+                        return (
+                          <div className="mt-3.5 pt-2.5 border-t border-slate-200/80 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500">
+                            <div className="inline-flex items-center gap-1.5 font-medium">
+                              <span className={`w-2 h-2 rounded-full ${rem > 2 ? "bg-emerald-500" : rem > 0 ? "bg-amber-500 animate-pulse" : "bg-rose-500"}`} />
+                              <span>
+                                Hạn mức tư vấn hôm nay:{" "}
+                                <strong className={rem > 2 ? "text-emerald-700 font-bold" : rem > 0 ? "text-amber-700 font-bold" : "text-rose-600 font-bold"}>
+                                  Còn {rem}/{total} lượt hỏi
+                                </strong>
+                              </span>
+                            </div>
+                            {rem <= 2 && rem > 0 && (
+                              <span className="text-amber-700 bg-amber-50 border border-amber-200/70 px-2 py-0.5 rounded-md font-medium text-[10px]">
+                                Sắp hết lượt hỏi miễn phí
+                              </span>
+                            )}
+                            {rem === 0 && (
+                              <button 
+                                onClick={() => setShowConsultModal(true)} 
+                                className="text-white bg-[#641D06] hover:bg-[#501705] font-bold px-2.5 py-1 rounded-md text-[10px] cursor-pointer shadow-xs transition-colors inline-flex items-center gap-1"
+                              >
+                                <span className="material-symbols-outlined text-[13px]">calendar_month</span>
+                                Đặt lịch gặp Luật sư
+                              </button>
+                            )}
+                          </div>
+                        );
+                      })()}
                     </div>
                   </div>
                 </div>
@@ -521,7 +598,11 @@ function AIChatbotContent() {
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
                     className="w-full border border-slate-300 rounded-xl px-4 py-3 bg-white text-slate-900 placeholder:text-slate-400 outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 resize-none text-sm leading-relaxed"
-                    placeholder="Nhập câu hỏi pháp lý của bạn tại đây (ví dụ: 'Vạch mắt võng có được rẽ không', 'Thủ tục ly hôn')..."
+                    placeholder={
+                      remainingQuestions <= 0
+                        ? "Quý khách đã sử dụng hết 8 lượt hỏi hôm nay. Vui lòng liên hệ Hotline 093 786 32 63 hoặc Đặt lịch hẹn để được Luật sư tư vấn chuyên sâu."
+                        : "Nhập câu hỏi pháp lý của bạn tại đây (ví dụ: 'Vạch mắt võng có được rẽ không', 'Thủ tục ly hôn')..."
+                    }
                     rows={1}
                     style={{ minHeight: "48px", maxHeight: "140px" }}
                   />
@@ -535,9 +616,20 @@ function AIChatbotContent() {
                   <span className="material-symbols-outlined text-xl">send</span>
                 </button>
               </div>
-              <p className="text-[11px] text-slate-500 mt-2 text-center">
-                * Trợ lý AI cung cấp thông tin tham khảo. Để bảo vệ quyền lợi hợp pháp tối đa, bạn nên liên hệ trực tiếp với Luật sư Phan Đức Tín.
-              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-1.5 mt-2.5 px-1 text-[11px]">
+                <div className="flex items-center gap-1.5 font-medium text-slate-600">
+                  <span className={`w-2 h-2 rounded-full ${remainingQuestions > 2 ? "bg-emerald-500" : remainingQuestions > 0 ? "bg-amber-500 animate-pulse" : "bg-rose-500"}`} />
+                  <span>
+                    Hôm nay Quý khách còn{" "}
+                    <strong className={remainingQuestions > 2 ? "text-emerald-700 font-bold" : remainingQuestions > 0 ? "text-amber-700 font-bold" : "text-rose-600 font-bold"}>
+                      {remainingQuestions}/{maxQuestions} lượt hỏi miễn phí
+                    </strong>.
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-400 text-center sm:text-right">
+                  * Thông tin tham khảo • Hotline Ls. Tín: 093 786 32 63
+                </p>
+              </div>
             </div>
 
           </div>
