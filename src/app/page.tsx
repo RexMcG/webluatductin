@@ -542,7 +542,7 @@ export default function Home() {
                   Thư Viện Biểu Mẫu AI
                 </h3>
                 <p className="font-body-md text-text-secondary leading-relaxed mb-8 flex-grow text-sm sm:text-base">
-                  Tìm kiếm thông minh ngữ nghĩa và tải về trọn bộ biểu mẫu pháp lý chuẩn xác (.doc) có thẩm định tức thì.
+                  Tìm kiếm nhanh chóng và tải về trọn bộ biểu mẫu pháp lý chuẩn xác (.doc) có thẩm định tức thì.
                 </p>
                 <div className="mt-auto">
                   <Link href="/ai-form-library" aria-label="Khám phá Thư Viện Biểu Mẫu AI" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3.5 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">

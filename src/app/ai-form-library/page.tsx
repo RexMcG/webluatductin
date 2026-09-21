@@ -761,7 +761,7 @@ export default function AIFormLibrary() {
         </h1>
         <SectionDivider label="TIỆN ÍCH" />
         <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-          Tra cứu và tải xuống miễn phí các biểu mẫu pháp lý chuẩn xác. Nhập câu văn nói tự nhiên, AI sẽ tự động phân tích ngữ nghĩa và gợi ý biểu mẫu chính xác.
+          Tra cứu và tải xuống miễn phí các biểu mẫu pháp lý chuẩn xác và đầy đủ nhất theo nhu cầu của bạn.
         </p>
 
         {/* Search Bar */}
@@ -830,7 +830,7 @@ export default function AIFormLibrary() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-xs font-bold text-[#641D06] flex items-center gap-1.5">
-                      <span>Đang tìm kiếm bằng AI Vector...</span>
+                      <span>Đang tìm kiếm biểu mẫu...</span>
                       <span className="inline-flex gap-1">
                         <span className="w-1.5 h-1.5 bg-[#641D06] rounded-full animate-bounce"></span>
                         <span className="w-1.5 h-1.5 bg-[#641D06] rounded-full animate-bounce [animation-delay:0.2s]"></span>
@@ -838,7 +838,7 @@ export default function AIFormLibrary() {
                       </span>
                     </p>
                     <p className="text-[11px] text-slate-500 truncate">
-                      Đang phân tích ngữ nghĩa và xếp hạng độ phù hợp cho từ khóa &quot;{debouncedSearchTerm || searchTerm}&quot;
+                      Đang tìm kiếm biểu mẫu phù hợp cho từ khóa &quot;{debouncedSearchTerm || searchTerm}&quot;
                     </p>
                   </div>
                 </div>
