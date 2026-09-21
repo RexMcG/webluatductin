@@ -102,8 +102,8 @@ async function callGeminiDirectly(message: string): Promise<string> {
 // ============================================================================
 // CHỐNG SPAM & BẢO VỆ TOKEN (RATE LIMITING THEO PHÚT, NGÀY & ĐỘ DÀI)
 // ============================================================================
-const MAX_PER_MINUTE = 6;        // Tối đa 6 câu hỏi / phút cho mỗi IP
-const MAX_PER_DAY = 35;          // Tối đa 35 câu hỏi / ngày cho mỗi IP
+const MAX_PER_MINUTE = 4;        // Tối đa 4 câu hỏi / phút cho mỗi IP
+const MAX_PER_DAY = 8;           // Tối đa 8 câu hỏi / ngày cho mỗi IP
 const MIN_INTERVAL_MS = 2500;    // Tối thiểu 2.5 giây giữa 2 câu hỏi liên tiếp
 const MAX_MESSAGE_LENGTH = 1500; // Giới hạn tối đa 1.500 ký tự mỗi câu hỏi
 
