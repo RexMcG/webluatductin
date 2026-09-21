@@ -127,7 +127,15 @@ function AIChatbotContent() {
       return;
     }
 
-    const userMessage: Message = { id: Date.now(), sender: "user", text: queryText.trim() };
+    const userMessageId = Date.now();
+    const optimisticRemaining = Math.max(0, remainingQuestions - 1);
+    const userMessage: Message = { 
+      id: userMessageId, 
+      sender: "user", 
+      text: queryText.trim(),
+      remainingQuestions: optimisticRemaining,
+      maxQuestions: maxQuestions
+    };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsTyping(true);
@@ -142,12 +150,15 @@ function AIChatbotContent() {
         setSessionId(res.sessionId);
       }
 
+      const actualRemaining = res.remainingQuestions ?? optimisticRemaining;
       if (res.remainingQuestions !== undefined) {
         setRemainingQuestions(res.remainingQuestions);
         if (res.maxQuestions) setMaxQuestions(res.maxQuestions);
       }
 
-      const nextRemaining = res.remainingQuestions ?? Math.max(0, remainingQuestions - 1);
+      setMessages((prev) => 
+        prev.map(m => m.id === userMessageId ? { ...m, remainingQuestions: actualRemaining } : m)
+      );
 
       const aiMessage: Message = {
         id: Date.now() + 1,
@@ -156,7 +167,7 @@ function AIChatbotContent() {
         lawyer: res.lawyer,
         suggestedForms: res.suggestedForms,
         quickActions: res.quickActions,
-        remainingQuestions: nextRemaining,
+        remainingQuestions: actualRemaining,
         maxQuestions: res.maxQuestions ?? maxQuestions
       };
 
@@ -532,41 +543,14 @@ function AIChatbotContent() {
                           ))}
                         </div>
                       )}
-
-                      {/* Footer ở chân mỗi câu hỏi/trả lời của AI */}
-                      {(() => {
-                        const rem = msg.remainingQuestions !== undefined ? msg.remainingQuestions : (msg.id === 1 ? remainingQuestions : undefined);
-                        const total = msg.maxQuestions || maxQuestions || 8;
-                        if (rem === undefined) return null;
-                        return (
-                          <div className="mt-3.5 pt-2.5 border-t border-slate-200/80 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500">
-                            <div className="inline-flex items-center gap-1.5 font-medium">
-                              <span className={`w-2 h-2 rounded-full ${rem > 2 ? "bg-emerald-500" : rem > 0 ? "bg-amber-500 animate-pulse" : "bg-rose-500"}`} />
-                              <span>
-                                Hạn mức tư vấn hôm nay:{" "}
-                                <strong className={rem > 2 ? "text-emerald-700 font-bold" : rem > 0 ? "text-amber-700 font-bold" : "text-rose-600 font-bold"}>
-                                  Còn {rem}/{total} lượt hỏi
-                                </strong>
-                              </span>
-                            </div>
-                            {rem <= 2 && rem > 0 && (
-                              <span className="text-amber-700 bg-amber-50 border border-amber-200/70 px-2 py-0.5 rounded-md font-medium text-[10px]">
-                                Sắp hết lượt hỏi miễn phí
-                              </span>
-                            )}
-                            {rem === 0 && (
-                              <button 
-                                onClick={() => setShowConsultModal(true)} 
-                                className="text-white bg-[#641D06] hover:bg-[#501705] font-bold px-2.5 py-1 rounded-md text-[10px] cursor-pointer shadow-xs transition-colors inline-flex items-center gap-1"
-                              >
-                                <span className="material-symbols-outlined text-[13px]">calendar_month</span>
-                                Đặt lịch gặp Luật sư
-                              </button>
-                            )}
-                          </div>
-                        );
-                      })()}
                     </div>
+
+                    {/* Dưới chân câu hỏi của bạn (màu xám như chữ Đã xem trong Messenger) */}
+                    {msg.sender === "user" && (
+                      <span className="text-[11px] text-slate-400 font-normal pr-1 select-none text-right">
+                        Còn {msg.remainingQuestions !== undefined ? msg.remainingQuestions : remainingQuestions}/{msg.maxQuestions || maxQuestions || 8} lượt hôm nay
+                      </span>
+                    )}
                   </div>
                 </div>
               ))}
