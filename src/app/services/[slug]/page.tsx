@@ -107,9 +107,6 @@ export default function ServiceDetailPage() {
             {/* Overview Prose */}
             <div className="bg-white rounded-3xl p-6 md:p-12 border border-slate-200 shadow-sm space-y-8">
               <div className="text-center max-w-3xl mx-auto space-y-3">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 text-amber-900 text-xs font-bold uppercase tracking-wider border border-amber-200/60 shadow-2xs">
-                  Năng lực &amp; Giải pháp chuyên sâu
-                </div>
                 <h2 className="text-2xl md:text-3xl font-black text-slate-900 font-sans uppercase">
                   Giải Pháp Pháp Lý Vững Chắc Từ Đức Tín &amp; Cộng Sự
                 </h2>
@@ -220,10 +217,6 @@ export default function ServiceDetailPage() {
         {activeTab === "experience" && (
           <div className="space-y-8">
             <div className="text-center max-w-2xl mx-auto">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-3">
-                <span className="material-symbols-outlined text-sm">verified</span>
-                Thương vụ &amp; Dự án tiêu biểu
-              </div>
               <h2 className="text-2xl md:text-3xl font-black text-slate-900 font-sans uppercase">
                 Kinh Nghiệm &amp; Vụ Việc Thực Tế
               </h2>
@@ -281,10 +274,6 @@ export default function ServiceDetailPage() {
         {activeTab === "articles" && (
           <div className="space-y-8">
             <div className="text-center max-w-2xl mx-auto">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wider mb-3">
-                <span className="material-symbols-outlined text-sm">menu_book</span>
-                Kiến thức &amp; Cập nhật pháp luật
-              </div>
               <h2 className="text-2xl md:text-3xl font-black text-slate-900 font-sans uppercase">
                 Bài Viết &amp; Phân Tích Chuyên Môn
               </h2>
