@@ -180,25 +180,26 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
 
   // Balanced responsive canvas coordinates with ample headroom for hover popups above nodes
   const maxSide = Math.max(leftBranches.length, rightBranches.length);
-  const rowSpacing = maxSide >= 4 ? 98 : 112;
-  const canvasH = Math.max(450, (maxSide - 1) * rowSpacing + 260);
+  const rowSpacing = maxSide >= 4 ? 98 : 115;
+  const canvasH = Math.max(380, (maxSide - 1) * rowSpacing + 220);
   const canvasW = 960;
 
   const cx = canvasW / 2; // 480
   const cy = canvasH / 2;
 
-  const centerBoxW = 200;
-  const centerBoxH = 88;
-  const centerL = cx - centerBoxW / 2; // 380
-  const centerR = cx + centerBoxW / 2; // 580
+  // Center hub box: Icon removed, clean, prominent text
+  const centerBoxW = 180;
+  const centerBoxH = 76;
+  const centerL = cx - centerBoxW / 2; // 390
+  const centerR = cx + centerBoxW / 2; // 570
 
-  // Well-proportioned branch button sizes - expanded to give ample room for Vietnamese text
-  const branchBoxW = 250;
-  const branchBoxH = 72;
+  // Branch box sizes: Expanded from 250px to 315px (+26% width) to eliminate any "..." truncation
+  const branchBoxW = 315;
+  const branchBoxH = 76;
 
-  // X Coordinates nicely inset from canvas edges
-  const leftBranchX = 145;
-  const rightBranchX = 815;
+  // Left and Right X coordinates - nicely inset 15px from canvas edges
+  const leftBranchX = 15 + branchBoxW / 2; // 172.5 (Right edge at 330)
+  const rightBranchX = canvasW - 15 - branchBoxW / 2; // 787.5 (Left edge at 630)
 
   // Helper to compute Y coordinate for each branch
   const getBranchY = (bIdx: number, totalOnSide: number) => {
@@ -308,7 +309,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 return (
                   <path
                     key={`l-conn-clean-${idx}`}
-                    d={`M ${startX} ${startY} C ${startX - 40} ${startY}, ${endX + 40} ${endY}, ${endX} ${endY}`}
+                    d={`M ${startX} ${startY} C ${startX - 30} ${startY}, ${endX + 30} ${endY}, ${endX} ${endY}`}
                     fill="none"
                     stroke={b.lineColor}
                     strokeWidth="3.5"
@@ -336,7 +337,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 return (
                   <path
                     key={`r-conn-clean-${idx}`}
-                    d={`M ${startX} ${startY} C ${startX + 40} ${startY}, ${endX - 40} ${endY}, ${endX} ${endY}`}
+                    d={`M ${startX} ${startY} C ${startX + 30} ${startY}, ${endX - 30} ${endY}, ${endX} ${endY}`}
                     fill="none"
                     stroke={b.lineColor}
                     strokeWidth="3.5"
@@ -351,7 +352,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
               })}
             </svg>
 
-            {/* 2. CENTER HUB (NATIVE HTML ELEMENT) */}
+            {/* 2. CENTER HUB (NATIVE HTML ELEMENT - CLEAN, ICON-FREE, FULLY VISIBLE TEXT) */}
             <div
               className="absolute -translate-x-1/2 -translate-y-1/2 flex items-center justify-center p-0.5 z-10"
               style={{
@@ -361,15 +362,14 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 height: `${(centerBoxH / canvasH) * 100}%`,
               }}
             >
-              <div className="w-full h-full rounded-2xl bg-[#641D06] text-white p-2 sm:p-2.5 shadow-md border-2 border-[#C0963B] flex flex-col items-center justify-center text-center">
-                <span className="material-symbols-outlined text-base sm:text-xl mb-0.5 text-amber-300">account_balance</span>
-                <h3 className="font-extrabold text-[11px] sm:text-sm uppercase tracking-wide leading-tight line-clamp-2 text-amber-100">
+              <div className="w-full h-full rounded-2xl bg-[#641D06] text-white p-2 sm:p-2.5 shadow-md border-2 border-[#C0963B] flex items-center justify-center text-center">
+                <h3 className="font-extrabold text-[11px] sm:text-xs md:text-[13px] uppercase tracking-wide leading-snug text-amber-100 break-words px-1.5">
                   {data.center}
                 </h3>
               </div>
             </div>
 
-            {/* 3. LEFT BRANCHES (NATIVE HTML ELEMENTS) */}
+            {/* 3. LEFT BRANCHES (NATIVE HTML ELEMENTS - EXPANDED ROOM FOR TEXT, NO "...") */}
             {leftBranches.map((b, bIdx) => {
               const branchY = getBranchY(bIdx, leftBranches.length);
               const isHovered = hoveredIdx === bIdx;
@@ -392,7 +392,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                   <button
                     type="button"
                     onClick={() => handleJumpToSection(b, bIdx)}
-                    className={`w-full h-full px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-2xl shadow-md border-2 text-left flex items-center justify-between gap-1.5 sm:gap-2.5 leading-snug cursor-pointer transition-all duration-150 ${
+                    className={`w-full h-full px-2.5 sm:px-3 py-1.5 rounded-2xl shadow-md border-2 text-left flex items-center gap-2 sm:gap-2.5 leading-snug cursor-pointer transition-all duration-150 ${
                       isHovered
                         ? "ring-4 ring-amber-300/90 shadow-xl brightness-110"
                         : "hover:ring-2 hover:ring-amber-200/80 hover:shadow-lg"
@@ -404,25 +404,19 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                     }}
                   >
                     {/* Number Badge [1], [2] */}
-                    <div className="flex items-center gap-1.5 sm:gap-2.5 flex-1 min-w-0">
-                      <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-amber-400 text-slate-950 font-black text-[10px] sm:text-xs flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
-                        {itemNumber}
-                      </span>
-                      <span className="font-semibold text-white leading-snug line-clamp-2 text-[11px] sm:text-[13px] tracking-normal">
-                        {cleanTitle}
-                      </span>
-                    </div>
-
-                    {/* Tooltip ⓘ Badge */}
-                    <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-white/20 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/40 flex items-center justify-center text-[9px] sm:text-[11px] font-bold shrink-0 transition-colors shadow-xs" title="Xem chi tiết mục">
-                      ⓘ
+                    <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-amber-400 text-slate-950 font-black text-[10px] sm:text-xs flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
+                      {itemNumber}
+                    </span>
+                    {/* Full Vietnamese Title without truncation */}
+                    <span className="font-semibold text-white leading-snug text-[11px] sm:text-[12px] md:text-[13px] tracking-normal break-words flex-1">
+                      {cleanTitle}
                     </span>
                   </button>
                 </div>
               );
             })}
 
-            {/* 4. RIGHT BRANCHES (NATIVE HTML ELEMENTS) */}
+            {/* 4. RIGHT BRANCHES (NATIVE HTML ELEMENTS - EXPANDED ROOM FOR TEXT, NO "...") */}
             {rightBranches.map((b, bIdx) => {
               const branchY = getBranchY(bIdx, rightBranches.length);
               const globalIdx = half + bIdx;
@@ -446,7 +440,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                   <button
                     type="button"
                     onClick={() => handleJumpToSection(b, globalIdx)}
-                    className={`w-full h-full px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-2xl shadow-md border-2 text-right flex items-center justify-between gap-1.5 sm:gap-2.5 leading-snug cursor-pointer transition-all duration-150 ${
+                    className={`w-full h-full px-2.5 sm:px-3 py-1.5 rounded-2xl shadow-md border-2 text-right flex items-center justify-end gap-2 sm:gap-2.5 leading-snug cursor-pointer transition-all duration-150 ${
                       isHovered
                         ? "ring-4 ring-amber-300/90 shadow-xl brightness-110"
                         : "hover:ring-2 hover:ring-amber-200/80 hover:shadow-lg"
@@ -457,20 +451,14 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                       color: b.textColor,
                     }}
                   >
-                    {/* Tooltip ⓘ Badge */}
-                    <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-white/20 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/40 flex items-center justify-center text-[9px] sm:text-[11px] font-bold shrink-0 transition-colors shadow-xs" title="Xem chi tiết mục">
-                      ⓘ
+                    {/* Full Vietnamese Title without truncation */}
+                    <span className="font-semibold text-white leading-snug text-right text-[11px] sm:text-[12px] md:text-[13px] tracking-normal break-words flex-1">
+                      {cleanTitle}
                     </span>
-
                     {/* Number Badge [3], [4] */}
-                    <div className="flex items-center justify-end gap-1.5 sm:gap-2.5 flex-1 min-w-0">
-                      <span className="font-semibold text-white leading-snug line-clamp-2 text-right text-[11px] sm:text-[13px] tracking-normal">
-                        {cleanTitle}
-                      </span>
-                      <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-amber-400 text-slate-950 font-black text-[10px] sm:text-xs flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
-                        {itemNumber}
-                      </span>
-                    </div>
+                    <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-amber-400 text-slate-950 font-black text-[10px] sm:text-xs flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
+                      {itemNumber}
+                    </span>
                   </button>
                 </div>
               );
