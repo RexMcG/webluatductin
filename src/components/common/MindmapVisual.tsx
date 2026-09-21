@@ -180,26 +180,26 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
 
   // Balanced responsive canvas coordinates with ample headroom for hover popups above nodes
   const maxSide = Math.max(leftBranches.length, rightBranches.length);
-  const rowSpacing = maxSide >= 4 ? 98 : 115;
-  const canvasH = Math.max(380, (maxSide - 1) * rowSpacing + 220);
+  const rowSpacing = maxSide >= 4 ? 100 : 120;
+  const canvasH = Math.max(390, (maxSide - 1) * rowSpacing + 230);
   const canvasW = 960;
 
   const cx = canvasW / 2; // 480
   const cy = canvasH / 2;
 
-  // Center hub box: Icon removed, clean, prominent text
-  const centerBoxW = 180;
-  const centerBoxH = 76;
-  const centerL = cx - centerBoxW / 2; // 390
-  const centerR = cx + centerBoxW / 2; // 570
+  // Center hub box: Roomy width and height, icon-free, with container-query responsive text
+  const centerBoxW = 210;
+  const centerBoxH = 88;
+  const centerL = cx - centerBoxW / 2; // 375
+  const centerR = cx + centerBoxW / 2; // 585
 
-  // Branch box sizes: Expanded from 250px to 315px (+26% width) to eliminate any "..." truncation
-  const branchBoxW = 315;
-  const branchBoxH = 76;
+  // Branch box sizes: 310px width, 78px height
+  const branchBoxW = 310;
+  const branchBoxH = 78;
 
   // Left and Right X coordinates - nicely inset 15px from canvas edges
-  const leftBranchX = 15 + branchBoxW / 2; // 172.5 (Right edge at 330)
-  const rightBranchX = canvasW - 15 - branchBoxW / 2; // 787.5 (Left edge at 630)
+  const leftBranchX = 15 + branchBoxW / 2; // 170 (Right edge at 325)
+  const rightBranchX = canvasW - 15 - branchBoxW / 2; // 790 (Left edge at 635)
 
   // Helper to compute Y coordinate for each branch
   const getBranchY = (bIdx: number, totalOnSide: number) => {
@@ -266,7 +266,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
         <div className="w-full relative overflow-x-auto sm:overflow-visible no-scrollbar">
           {/* UNIFIED DYNAMIC SVG VECTOR CANVAS & HTML NODES */}
           <div
-            className="w-full relative min-w-[560px] sm:min-w-0 select-none"
+            className="@container w-full relative min-w-[500px] sm:min-w-0 select-none"
             style={{
               aspectRatio: `${canvasW} / ${canvasH}`,
             }}
@@ -309,7 +309,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 return (
                   <path
                     key={`l-conn-clean-${idx}`}
-                    d={`M ${startX} ${startY} C ${startX - 30} ${startY}, ${endX + 30} ${endY}, ${endX} ${endY}`}
+                    d={`M ${startX} ${startY} C ${startX - 25} ${startY}, ${endX + 25} ${endY}, ${endX} ${endY}`}
                     fill="none"
                     stroke={b.lineColor}
                     strokeWidth="3.5"
@@ -337,7 +337,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 return (
                   <path
                     key={`r-conn-clean-${idx}`}
-                    d={`M ${startX} ${startY} C ${startX + 30} ${startY}, ${endX - 30} ${endY}, ${endX} ${endY}`}
+                    d={`M ${startX} ${startY} C ${startX + 25} ${startY}, ${endX - 25} ${endY}, ${endX} ${endY}`}
                     fill="none"
                     stroke={b.lineColor}
                     strokeWidth="3.5"
@@ -362,8 +362,13 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 height: `${(centerBoxH / canvasH) * 100}%`,
               }}
             >
-              <div className="w-full h-full rounded-2xl bg-[#641D06] text-white p-2 sm:p-2.5 shadow-md border-2 border-[#C0963B] flex items-center justify-center text-center">
-                <h3 className="font-extrabold text-[11px] sm:text-xs md:text-[13px] uppercase tracking-wide leading-snug text-amber-100 break-words px-1.5">
+              <div className="w-full h-full rounded-2xl bg-[#641D06] text-white p-1 sm:p-2 shadow-md border-2 border-[#C0963B] flex items-center justify-center text-center overflow-hidden">
+                <h3
+                  className="font-black uppercase tracking-wide text-amber-100 break-words line-clamp-3 leading-snug px-1"
+                  style={{
+                    fontSize: "clamp(9px, 1.9cqw, 13px)",
+                  }}
+                >
                   {data.center}
                 </h3>
               </div>
@@ -392,7 +397,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                   <button
                     type="button"
                     onClick={() => handleJumpToSection(b, bIdx)}
-                    className={`w-full h-full px-2.5 sm:px-3 py-1.5 rounded-2xl shadow-md border-2 text-left flex items-center gap-2 sm:gap-2.5 leading-snug cursor-pointer transition-all duration-150 ${
+                    className={`w-full h-full px-2 sm:px-3 py-1.5 rounded-2xl shadow-md border-2 text-left flex items-center gap-2 sm:gap-2.5 leading-snug cursor-pointer transition-all duration-150 ${
                       isHovered
                         ? "ring-4 ring-amber-300/90 shadow-xl brightness-110"
                         : "hover:ring-2 hover:ring-amber-200/80 hover:shadow-lg"
@@ -408,7 +413,12 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                       {itemNumber}
                     </span>
                     {/* Full Vietnamese Title without truncation */}
-                    <span className="font-semibold text-white leading-snug text-[11px] sm:text-[12px] md:text-[13px] tracking-normal break-words flex-1">
+                    <span
+                      className="font-semibold text-white leading-snug tracking-normal break-words flex-1 line-clamp-3"
+                      style={{
+                        fontSize: "clamp(9.5px, 1.8cqw, 13px)",
+                      }}
+                    >
                       {cleanTitle}
                     </span>
                   </button>
@@ -440,7 +450,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                   <button
                     type="button"
                     onClick={() => handleJumpToSection(b, globalIdx)}
-                    className={`w-full h-full px-2.5 sm:px-3 py-1.5 rounded-2xl shadow-md border-2 text-right flex items-center justify-end gap-2 sm:gap-2.5 leading-snug cursor-pointer transition-all duration-150 ${
+                    className={`w-full h-full px-2 sm:px-3 py-1.5 rounded-2xl shadow-md border-2 text-right flex items-center justify-end gap-2 sm:gap-2.5 leading-snug cursor-pointer transition-all duration-150 ${
                       isHovered
                         ? "ring-4 ring-amber-300/90 shadow-xl brightness-110"
                         : "hover:ring-2 hover:ring-amber-200/80 hover:shadow-lg"
@@ -452,7 +462,12 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                     }}
                   >
                     {/* Full Vietnamese Title without truncation */}
-                    <span className="font-semibold text-white leading-snug text-right text-[11px] sm:text-[12px] md:text-[13px] tracking-normal break-words flex-1">
+                    <span
+                      className="font-semibold text-white leading-snug text-right tracking-normal break-words flex-1 line-clamp-3"
+                      style={{
+                        fontSize: "clamp(9.5px, 1.8cqw, 13px)",
+                      }}
+                    >
                       {cleanTitle}
                     </span>
                     {/* Number Badge [3], [4] */}
