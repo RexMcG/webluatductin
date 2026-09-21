@@ -264,10 +264,17 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
       {isOpen && (
         <div className="w-full relative overflow-x-auto sm:overflow-visible no-scrollbar">
           {/* UNIFIED DYNAMIC SVG VECTOR CANVAS */}
-          <div className="w-full relative min-w-[500px] sm:min-w-0">
+          <div className="w-full relative min-w-[500px] sm:min-w-0" style={{ WebkitTransform: "translate3d(0,0,0)", transform: "translate3d(0,0,0)" }}>
             <svg
               viewBox={`0 0 ${canvasW} ${canvasH}`}
               className="w-full h-auto drop-shadow-2xs overflow-visible"
+              style={{
+                aspectRatio: `${canvasW} / ${canvasH}`,
+                WebkitTransform: "translate3d(0,0,0)",
+                transform: "translate3d(0,0,0)",
+                WebkitBackfaceVisibility: "hidden",
+                backfaceVisibility: "hidden",
+              }}
             >
               <defs>
                 {/* Dynamic Forward Arrowhead Markers */}
@@ -304,10 +311,13 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                     d={`M ${startX} ${startY} C ${startX - 40} ${startY}, ${endX + 40} ${endY}, ${endX} ${endY}`}
                     fill="none"
                     stroke={b.lineColor}
-                    strokeWidth={isTarget ? "4.5" : "3"}
+                    strokeWidth="3.5"
                     strokeLinecap="round"
                     markerEnd={`url(#arrow-main-clean-${idx})`}
-                    className="transition-all duration-300"
+                    opacity={isTarget ? 1 : 0.75}
+                    style={{
+                      transition: "opacity 0.2s ease, stroke 0.2s ease",
+                    }}
                   />
                 );
               })}
@@ -329,10 +339,13 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                     d={`M ${startX} ${startY} C ${startX + 40} ${startY}, ${endX - 40} ${endY}, ${endX} ${endY}`}
                     fill="none"
                     stroke={b.lineColor}
-                    strokeWidth={isTarget ? "4.5" : "3"}
+                    strokeWidth="3.5"
                     strokeLinecap="round"
                     markerEnd={`url(#arrow-main-clean-${half + idx})`}
-                    className="transition-all duration-300"
+                    opacity={isTarget ? 1 : 0.75}
+                    style={{
+                      transition: "opacity 0.2s ease, stroke 0.2s ease",
+                    }}
                   />
                 );
               })}
@@ -343,6 +356,12 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 y={cy - centerBoxH / 2}
                 width={centerBoxW}
                 height={centerBoxH}
+                style={{
+                  WebkitTransform: "translate3d(0,0,0)",
+                  transform: "translate3d(0,0,0)",
+                  WebkitBackfaceVisibility: "hidden",
+                  backfaceVisibility: "hidden",
+                }}
               >
                 <div className="w-full h-full flex items-center justify-center p-0.5">
                   <div className="w-full h-full rounded-2xl bg-[#641D06] text-white p-2.5 shadow-md border-2 border-[#C0963B] flex flex-col items-center justify-center text-center">
@@ -368,7 +387,13 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                     y={branchY - branchBoxH / 2}
                     width={branchBoxW}
                     height={branchBoxH}
-                    className="overflow-visible"
+                    style={{
+                      overflow: "visible",
+                      WebkitTransform: "translate3d(0,0,0)",
+                      transform: "translate3d(0,0,0)",
+                      WebkitBackfaceVisibility: "hidden",
+                      backfaceVisibility: "hidden",
+                    }}
                   >
                     <div
                       className="w-full h-full flex items-center justify-center p-0.5 relative group"
@@ -379,15 +404,19 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                       <button
                         type="button"
                         onClick={() => handleJumpToSection(b, bIdx)}
-                        className={`w-full h-full px-3.5 py-2 rounded-2xl shadow-md border-2 text-left flex items-center justify-between gap-2.5 leading-snug transition-all duration-200 cursor-pointer active:scale-95 ${
+                        className={`w-full h-full px-3.5 py-2 rounded-2xl shadow-md border-2 text-left flex items-center justify-between gap-2.5 leading-snug cursor-pointer transition-all duration-150 ${
                           isHovered
-                            ? "ring-4 ring-amber-300 scale-105 shadow-xl"
-                            : "hover:scale-102 hover:shadow-lg"
+                            ? "ring-4 ring-amber-300/90 shadow-xl brightness-110"
+                            : "hover:ring-2 hover:ring-amber-200/80 hover:shadow-lg"
                         }`}
                         style={{
                           backgroundColor: b.colorBg,
                           borderColor: isHovered ? "#C0963B" : b.colorBorder,
                           color: b.textColor,
+                          WebkitTransform: "translate3d(0,0,0)",
+                          transform: "translate3d(0,0,0)",
+                          WebkitBackfaceVisibility: "hidden",
+                          backfaceVisibility: "hidden",
                         }}
                       >
                         {/* Number Badge [1], [2] */}
@@ -425,7 +454,13 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                     y={branchY - branchBoxH / 2}
                     width={branchBoxW}
                     height={branchBoxH}
-                    className="overflow-visible"
+                    style={{
+                      overflow: "visible",
+                      WebkitTransform: "translate3d(0,0,0)",
+                      transform: "translate3d(0,0,0)",
+                      WebkitBackfaceVisibility: "hidden",
+                      backfaceVisibility: "hidden",
+                    }}
                   >
                     <div
                       className="w-full h-full flex items-center justify-center p-0.5 relative group"
@@ -436,15 +471,19 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                       <button
                         type="button"
                         onClick={() => handleJumpToSection(b, globalIdx)}
-                        className={`w-full h-full px-3.5 py-2 rounded-2xl shadow-md border-2 text-right flex items-center justify-between gap-2.5 leading-snug transition-all duration-200 cursor-pointer active:scale-95 ${
+                        className={`w-full h-full px-3.5 py-2 rounded-2xl shadow-md border-2 text-right flex items-center justify-between gap-2.5 leading-snug cursor-pointer transition-all duration-150 ${
                           isHovered
-                            ? "ring-4 ring-amber-300 scale-105 shadow-xl"
-                            : "hover:scale-102 hover:shadow-lg"
+                            ? "ring-4 ring-amber-300/90 shadow-xl brightness-110"
+                            : "hover:ring-2 hover:ring-amber-200/80 hover:shadow-lg"
                         }`}
                         style={{
                           backgroundColor: b.colorBg,
                           borderColor: isHovered ? "#C0963B" : b.colorBorder,
                           color: b.textColor,
+                          WebkitTransform: "translate3d(0,0,0)",
+                          transform: "translate3d(0,0,0)",
+                          WebkitBackfaceVisibility: "hidden",
+                          backfaceVisibility: "hidden",
                         }}
                       >
                         {/* Tooltip ⓘ Badge */}
@@ -475,19 +514,23 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
               const sideIdx = isRight ? hoveredIdx - half : hoveredIdx;
               const totalOnSide = isRight ? rightBranches.length : leftBranches.length;
               const branchY = getBranchY(sideIdx, totalOnSide);
-              const branchTopY = branchY - branchBoxH / 2;
-              const branchTopPercent = (branchTopY / canvasH) * 100;
-              const bottomOffsetPercent = 100 - branchTopPercent;
+              const isUpper = branchY < cy;
               const itemNumber = hoveredIdx + 1;
               const cleanTitle = getCleanTitle(b.name);
 
               return (
                 <div
-                  className={`absolute z-40 w-72 sm:w-80 p-3 sm:p-3.5 bg-white text-slate-900 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.28)] text-xs leading-relaxed animate-fadeIn border-2 border-slate-300 pointer-events-auto transition-all cursor-pointer ${
+                  className={`absolute z-40 w-72 sm:w-80 p-3 sm:p-3.5 bg-white text-slate-900 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.28)] text-xs leading-relaxed border-2 border-slate-300 pointer-events-auto transition-opacity duration-150 cursor-pointer ${
                     isRight ? "right-2 sm:right-6" : "left-2 sm:left-6"
                   }`}
                   style={{
-                    bottom: `calc(${bottomOffsetPercent}% + 14px)`
+                    ...(isUpper
+                      ? { top: `calc(${((branchY + branchBoxH / 2) / canvasH) * 100}% + 12px)` }
+                      : { bottom: `calc(${(1 - (branchY - branchBoxH / 2) / canvasH) * 100}% + 12px)` }),
+                    WebkitTransform: "translate3d(0,0,0)",
+                    transform: "translate3d(0,0,0)",
+                    WebkitBackfaceVisibility: "hidden",
+                    backfaceVisibility: "hidden",
                   }}
                   onMouseEnter={() => {
                     if (hoverTimeoutRef.current) {
@@ -498,12 +541,20 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                   onMouseLeave={handleBranchMouseLeave}
                   onClick={() => handleJumpToSection(b, hoveredIdx)}
                 >
-                  {/* Downward Pointer Arrow pointing directly to the hovered branch node */}
-                  <div
-                    className={`absolute -bottom-2 ${
-                      isRight ? "right-14 sm:right-16" : "left-14 sm:left-16"
-                    } w-0 h-0 border-x-8 border-x-transparent border-t-8 border-t-white drop-shadow-xs pointer-events-none`}
-                  />
+                  {/* Directional Pointer Arrow pointing directly to the hovered branch node */}
+                  {isUpper ? (
+                    <div
+                      className={`absolute -top-2 ${
+                        isRight ? "right-14 sm:right-16" : "left-14 sm:left-16"
+                      } w-0 h-0 border-x-8 border-x-transparent border-b-8 border-b-white drop-shadow-xs pointer-events-none`}
+                    />
+                  ) : (
+                    <div
+                      className={`absolute -bottom-2 ${
+                        isRight ? "right-14 sm:right-16" : "left-14 sm:left-16"
+                      } w-0 h-0 border-x-8 border-x-transparent border-t-8 border-t-white drop-shadow-xs pointer-events-none`}
+                    />
+                  )}
 
                   {/* Tooltip Title Header */}
                   <div className="font-extrabold text-[#641D06] mb-2 flex items-center justify-between gap-1 border-b border-slate-200 pb-1.5">
