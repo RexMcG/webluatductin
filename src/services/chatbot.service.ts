@@ -89,10 +89,10 @@ export const chatbotService = {
   getSessions: async (page = 1, limit = 50): Promise<{ success: boolean; data: { sessions: ChatSessionSummary[]; total: number; page: number; totalPages: number } }> => {
     try {
       const res = (await apiClient.get<any>(`/chatbot/sessions?page=${page}&limit=${limit}`)) as any;
-      if (res && res.data && Array.isArray(res.data.sessions)) {
+      if (res && res.data && Array.isArray(res.data.sessions) && res.data.sessions.length > 0) {
         return res as any;
       }
-      if (res && Array.isArray(res.sessions)) {
+      if (res && Array.isArray(res.sessions) && res.sessions.length > 0) {
         return { success: true, data: res } as any;
       }
     } catch (e) {
