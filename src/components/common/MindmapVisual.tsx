@@ -263,18 +263,18 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
 
       {isOpen && (
         <div className="w-full relative overflow-x-auto sm:overflow-visible no-scrollbar">
-          {/* UNIFIED DYNAMIC SVG VECTOR CANVAS */}
-          <div className="w-full relative min-w-[500px] sm:min-w-0" style={{ WebkitTransform: "translate3d(0,0,0)", transform: "translate3d(0,0,0)" }}>
+          {/* UNIFIED DYNAMIC SVG VECTOR CANVAS & HTML NODES */}
+          <div
+            className="w-full relative min-w-[560px] sm:min-w-0 select-none"
+            style={{
+              aspectRatio: `${canvasW} / ${canvasH}`,
+            }}
+          >
+            {/* 1. BACKGROUND VECTOR SVG LAYER (CONNECTING LINES ONLY - IMMUNE TO WEBKIT FOREIGNOBJECT BUGS) */}
             <svg
               viewBox={`0 0 ${canvasW} ${canvasH}`}
-              className="w-full h-auto drop-shadow-2xs overflow-visible"
-              style={{
-                aspectRatio: `${canvasW} / ${canvasH}`,
-                WebkitTransform: "translate3d(0,0,0)",
-                transform: "translate3d(0,0,0)",
-                WebkitBackfaceVisibility: "hidden",
-                backfaceVisibility: "hidden",
-              }}
+              className="absolute inset-0 w-full h-full pointer-events-none drop-shadow-2xs overflow-visible"
+              preserveAspectRatio="none"
             >
               <defs>
                 {/* Dynamic Forward Arrowhead Markers */}
@@ -294,7 +294,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 ))}
               </defs>
 
-              {/* 1. LEFT SIDE CONNECTIONS */}
+              {/* LEFT SIDE CONNECTIONS */}
               {leftBranches.map((b, idx) => {
                 const branchY = getBranchY(idx, leftBranches.length);
                 const startX = centerL;
@@ -322,7 +322,7 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                 );
               })}
 
-              {/* 2. RIGHT SIDE CONNECTIONS */}
+              {/* RIGHT SIDE CONNECTIONS */}
               {rightBranches.map((b, idx) => {
                 const branchY = getBranchY(idx, rightBranches.length);
                 const startX = centerR;
@@ -349,163 +349,132 @@ export default function MindmapVisual({ rawText }: { rawText: string }) {
                   />
                 );
               })}
-
-              {/* 3. CENTER HUB */}
-              <foreignObject
-                x={centerL}
-                y={cy - centerBoxH / 2}
-                width={centerBoxW}
-                height={centerBoxH}
-                style={{
-                  WebkitTransform: "translate3d(0,0,0)",
-                  transform: "translate3d(0,0,0)",
-                  WebkitBackfaceVisibility: "hidden",
-                  backfaceVisibility: "hidden",
-                }}
-              >
-                <div className="w-full h-full flex items-center justify-center p-0.5">
-                  <div className="w-full h-full rounded-2xl bg-[#641D06] text-white p-2.5 shadow-md border-2 border-[#C0963B] flex flex-col items-center justify-center text-center">
-                    <span className="material-symbols-outlined text-xl mb-0.5 text-amber-300">account_balance</span>
-                    <h3 className="font-extrabold text-[13px] sm:text-sm uppercase tracking-wide leading-tight line-clamp-2 text-amber-100">
-                      {data.center}
-                    </h3>
-                  </div>
-                </div>
-              </foreignObject>
-
-              {/* 4. LEFT BRANCHES */}
-              {leftBranches.map((b, bIdx) => {
-                const branchY = getBranchY(bIdx, leftBranches.length);
-                const isHovered = hoveredIdx === bIdx;
-                const itemNumber = bIdx + 1;
-                const cleanTitle = getCleanTitle(b.name);
-
-                return (
-                  <foreignObject
-                    key={`l-node-clean-${bIdx}`}
-                    x={leftBranchX - branchBoxW / 2}
-                    y={branchY - branchBoxH / 2}
-                    width={branchBoxW}
-                    height={branchBoxH}
-                    style={{
-                      overflow: "visible",
-                      WebkitTransform: "translate3d(0,0,0)",
-                      transform: "translate3d(0,0,0)",
-                      WebkitBackfaceVisibility: "hidden",
-                      backfaceVisibility: "hidden",
-                    }}
-                  >
-                    <div
-                      className="w-full h-full flex items-center justify-center p-0.5 relative group"
-                      onMouseEnter={() => handleBranchMouseEnter(bIdx)}
-                      onMouseLeave={handleBranchMouseLeave}
-                    >
-                      {/* Main Clickable Branch Button */}
-                      <button
-                        type="button"
-                        onClick={() => handleJumpToSection(b, bIdx)}
-                        className={`w-full h-full px-3.5 py-2 rounded-2xl shadow-md border-2 text-left flex items-center justify-between gap-2.5 leading-snug cursor-pointer transition-all duration-150 ${
-                          isHovered
-                            ? "ring-4 ring-amber-300/90 shadow-xl brightness-110"
-                            : "hover:ring-2 hover:ring-amber-200/80 hover:shadow-lg"
-                        }`}
-                        style={{
-                          backgroundColor: b.colorBg,
-                          borderColor: isHovered ? "#C0963B" : b.colorBorder,
-                          color: b.textColor,
-                          WebkitTransform: "translate3d(0,0,0)",
-                          transform: "translate3d(0,0,0)",
-                          WebkitBackfaceVisibility: "hidden",
-                          backfaceVisibility: "hidden",
-                        }}
-                      >
-                        {/* Number Badge [1], [2] */}
-                        <div className="flex items-center gap-2.5 flex-1 min-w-0">
-                          <span className="w-6 h-6 rounded-full bg-amber-400 text-slate-950 font-black text-xs flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
-                            {itemNumber}
-                          </span>
-                          <span className="font-semibold text-white leading-snug line-clamp-2 text-[13px] sm:text-[13.5px] tracking-normal">
-                            {cleanTitle}
-                          </span>
-                        </div>
-
-                        {/* Tooltip ⓘ Badge */}
-                        <span className="w-5 h-5 rounded-full bg-white/20 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/40 flex items-center justify-center text-[11px] font-bold shrink-0 transition-colors shadow-xs" title="Xem chi tiết mục">
-                          ⓘ
-                        </span>
-                      </button>
-                    </div>
-                  </foreignObject>
-                );
-              })}
-
-              {/* 5. RIGHT BRANCHES */}
-              {rightBranches.map((b, bIdx) => {
-                const branchY = getBranchY(bIdx, rightBranches.length);
-                const globalIdx = half + bIdx;
-                const isHovered = hoveredIdx === globalIdx;
-                const itemNumber = globalIdx + 1;
-                const cleanTitle = getCleanTitle(b.name);
-
-                return (
-                  <foreignObject
-                    key={`r-node-clean-${bIdx}`}
-                    x={rightBranchX - branchBoxW / 2}
-                    y={branchY - branchBoxH / 2}
-                    width={branchBoxW}
-                    height={branchBoxH}
-                    style={{
-                      overflow: "visible",
-                      WebkitTransform: "translate3d(0,0,0)",
-                      transform: "translate3d(0,0,0)",
-                      WebkitBackfaceVisibility: "hidden",
-                      backfaceVisibility: "hidden",
-                    }}
-                  >
-                    <div
-                      className="w-full h-full flex items-center justify-center p-0.5 relative group"
-                      onMouseEnter={() => handleBranchMouseEnter(globalIdx)}
-                      onMouseLeave={handleBranchMouseLeave}
-                    >
-                      {/* Main Clickable Branch Button */}
-                      <button
-                        type="button"
-                        onClick={() => handleJumpToSection(b, globalIdx)}
-                        className={`w-full h-full px-3.5 py-2 rounded-2xl shadow-md border-2 text-right flex items-center justify-between gap-2.5 leading-snug cursor-pointer transition-all duration-150 ${
-                          isHovered
-                            ? "ring-4 ring-amber-300/90 shadow-xl brightness-110"
-                            : "hover:ring-2 hover:ring-amber-200/80 hover:shadow-lg"
-                        }`}
-                        style={{
-                          backgroundColor: b.colorBg,
-                          borderColor: isHovered ? "#C0963B" : b.colorBorder,
-                          color: b.textColor,
-                          WebkitTransform: "translate3d(0,0,0)",
-                          transform: "translate3d(0,0,0)",
-                          WebkitBackfaceVisibility: "hidden",
-                          backfaceVisibility: "hidden",
-                        }}
-                      >
-                        {/* Tooltip ⓘ Badge */}
-                        <span className="w-5 h-5 rounded-full bg-white/20 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/40 flex items-center justify-center text-[11px] font-bold shrink-0 transition-colors shadow-xs" title="Xem chi tiết mục">
-                          ⓘ
-                        </span>
-
-                        {/* Number Badge [3], [4] */}
-                        <div className="flex items-center justify-end gap-2.5 flex-1 min-w-0">
-                          <span className="font-semibold text-white leading-snug line-clamp-2 text-right text-[13px] sm:text-[13.5px] tracking-normal">
-                            {cleanTitle}
-                          </span>
-                          <span className="w-6 h-6 rounded-full bg-amber-400 text-slate-950 font-black text-xs flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
-                            {itemNumber}
-                          </span>
-                        </div>
-                      </button>
-                    </div>
-                  </foreignObject>
-                );
-              })}
             </svg>
+
+            {/* 2. CENTER HUB (NATIVE HTML ELEMENT) */}
+            <div
+              className="absolute -translate-x-1/2 -translate-y-1/2 flex items-center justify-center p-0.5 z-10"
+              style={{
+                left: `${(cx / canvasW) * 100}%`,
+                top: `${(cy / canvasH) * 100}%`,
+                width: `${(centerBoxW / canvasW) * 100}%`,
+                height: `${(centerBoxH / canvasH) * 100}%`,
+              }}
+            >
+              <div className="w-full h-full rounded-2xl bg-[#641D06] text-white p-2 sm:p-2.5 shadow-md border-2 border-[#C0963B] flex flex-col items-center justify-center text-center">
+                <span className="material-symbols-outlined text-base sm:text-xl mb-0.5 text-amber-300">account_balance</span>
+                <h3 className="font-extrabold text-[11px] sm:text-sm uppercase tracking-wide leading-tight line-clamp-2 text-amber-100">
+                  {data.center}
+                </h3>
+              </div>
+            </div>
+
+            {/* 3. LEFT BRANCHES (NATIVE HTML ELEMENTS) */}
+            {leftBranches.map((b, bIdx) => {
+              const branchY = getBranchY(bIdx, leftBranches.length);
+              const isHovered = hoveredIdx === bIdx;
+              const itemNumber = bIdx + 1;
+              const cleanTitle = getCleanTitle(b.name);
+
+              return (
+                <div
+                  key={`l-node-clean-${bIdx}`}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 flex items-center justify-center p-0.5 z-10"
+                  style={{
+                    left: `${(leftBranchX / canvasW) * 100}%`,
+                    top: `${(branchY / canvasH) * 100}%`,
+                    width: `${(branchBoxW / canvasW) * 100}%`,
+                    height: `${(branchBoxH / canvasH) * 100}%`,
+                  }}
+                  onMouseEnter={() => handleBranchMouseEnter(bIdx)}
+                  onMouseLeave={handleBranchMouseLeave}
+                >
+                  <button
+                    type="button"
+                    onClick={() => handleJumpToSection(b, bIdx)}
+                    className={`w-full h-full px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-2xl shadow-md border-2 text-left flex items-center justify-between gap-1.5 sm:gap-2.5 leading-snug cursor-pointer transition-all duration-150 ${
+                      isHovered
+                        ? "ring-4 ring-amber-300/90 shadow-xl brightness-110"
+                        : "hover:ring-2 hover:ring-amber-200/80 hover:shadow-lg"
+                    }`}
+                    style={{
+                      backgroundColor: b.colorBg,
+                      borderColor: isHovered ? "#C0963B" : b.colorBorder,
+                      color: b.textColor,
+                    }}
+                  >
+                    {/* Number Badge [1], [2] */}
+                    <div className="flex items-center gap-1.5 sm:gap-2.5 flex-1 min-w-0">
+                      <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-amber-400 text-slate-950 font-black text-[10px] sm:text-xs flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
+                        {itemNumber}
+                      </span>
+                      <span className="font-semibold text-white leading-snug line-clamp-2 text-[11px] sm:text-[13px] tracking-normal">
+                        {cleanTitle}
+                      </span>
+                    </div>
+
+                    {/* Tooltip ⓘ Badge */}
+                    <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-white/20 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/40 flex items-center justify-center text-[9px] sm:text-[11px] font-bold shrink-0 transition-colors shadow-xs" title="Xem chi tiết mục">
+                      ⓘ
+                    </span>
+                  </button>
+                </div>
+              );
+            })}
+
+            {/* 4. RIGHT BRANCHES (NATIVE HTML ELEMENTS) */}
+            {rightBranches.map((b, bIdx) => {
+              const branchY = getBranchY(bIdx, rightBranches.length);
+              const globalIdx = half + bIdx;
+              const isHovered = hoveredIdx === globalIdx;
+              const itemNumber = globalIdx + 1;
+              const cleanTitle = getCleanTitle(b.name);
+
+              return (
+                <div
+                  key={`r-node-clean-${bIdx}`}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 flex items-center justify-center p-0.5 z-10"
+                  style={{
+                    left: `${(rightBranchX / canvasW) * 100}%`,
+                    top: `${(branchY / canvasH) * 100}%`,
+                    width: `${(branchBoxW / canvasW) * 100}%`,
+                    height: `${(branchBoxH / canvasH) * 100}%`,
+                  }}
+                  onMouseEnter={() => handleBranchMouseEnter(globalIdx)}
+                  onMouseLeave={handleBranchMouseLeave}
+                >
+                  <button
+                    type="button"
+                    onClick={() => handleJumpToSection(b, globalIdx)}
+                    className={`w-full h-full px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-2xl shadow-md border-2 text-right flex items-center justify-between gap-1.5 sm:gap-2.5 leading-snug cursor-pointer transition-all duration-150 ${
+                      isHovered
+                        ? "ring-4 ring-amber-300/90 shadow-xl brightness-110"
+                        : "hover:ring-2 hover:ring-amber-200/80 hover:shadow-lg"
+                    }`}
+                    style={{
+                      backgroundColor: b.colorBg,
+                      borderColor: isHovered ? "#C0963B" : b.colorBorder,
+                      color: b.textColor,
+                    }}
+                  >
+                    {/* Tooltip ⓘ Badge */}
+                    <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-white/20 hover:bg-amber-300 text-amber-200 hover:text-slate-900 border border-amber-300/40 flex items-center justify-center text-[9px] sm:text-[11px] font-bold shrink-0 transition-colors shadow-xs" title="Xem chi tiết mục">
+                      ⓘ
+                    </span>
+
+                    {/* Number Badge [3], [4] */}
+                    <div className="flex items-center justify-end gap-1.5 sm:gap-2.5 flex-1 min-w-0">
+                      <span className="font-semibold text-white leading-snug line-clamp-2 text-right text-[11px] sm:text-[13px] tracking-normal">
+                        {cleanTitle}
+                      </span>
+                      <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-amber-400 text-slate-950 font-black text-[10px] sm:text-xs flex items-center justify-center shrink-0 shadow-xs border border-amber-300">
+                        {itemNumber}
+                      </span>
+                    </div>
+                  </button>
+                </div>
+              );
+            })}
 
             {/* SAFARI/MACBOOK IMMUNE FLOATING PREVIEW POPUP (OUTSIDE FOREIGN OBJECT) */}
             {hoveredIdx !== null && data.branches[hoveredIdx] && (() => {
