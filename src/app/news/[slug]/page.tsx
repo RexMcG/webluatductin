@@ -342,11 +342,6 @@ export default function NewsDetailPage() {
               CENTER COLUMN: ARTICLE CONTENT (APPEARS FIRST ON MOBILE)
              ========================================================= */}
           <main className="w-full flex-1 min-w-0 bg-white rounded-2xl md:rounded-3xl border border-slate-200 p-5 sm:p-8 xl:p-12 shadow-sm">
-            {/* Category badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 text-amber-900 text-xs font-bold mb-3 md:mb-4 uppercase tracking-wider">
-              <span className="material-symbols-outlined text-[16px]">verified</span>
-              {newsItem.category || "Pháp Luật 2026"}
-            </div>
 
             {/* Article Title */}
             <h1 className="text-xl sm:text-3xl md:text-4xl font-black text-slate-900 font-sans leading-tight tracking-tight mb-4 md:mb-6">
@@ -827,10 +822,6 @@ export default function NewsDetailPage() {
 
       {/* Article Header */}
       <header className="mb-8 border-b border-slate-200 pb-8">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 text-slate-800 text-xs font-bold mb-4 uppercase tracking-wider border border-slate-200">
-          <span className="material-symbols-outlined text-[16px] text-amber-700">verified</span>
-          {newsItem.category || "Pháp Luật 2026"}
-        </div>
         <h1 className="text-3xl md:text-5xl font-black text-slate-900 font-sans mb-6 leading-tight tracking-tight">
           {newsItem.title}
         </h1>
