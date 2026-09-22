@@ -231,7 +231,7 @@ export default function NewsDetailPage() {
             className="inline-flex items-center gap-2 text-slate-500 hover:text-[#641D06] transition-colors font-semibold text-xs sm:text-sm"
           >
             <span className="material-symbols-outlined text-base">arrow_back</span>
-            Bảng tin &amp; Sự kiện pháp luật
+            Bảng tin pháp luật
           </Link>
         </div>
 
