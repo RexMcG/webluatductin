@@ -452,14 +452,9 @@ export default function Home() {
             {(siteContent.home.stats?.items && siteContent.home.stats.items.length > 0 ? siteContent.home.stats.items : DEFAULT_SITE_CONTENT.home.stats.items).map((item, idx) => (
               <div
                 key={idx}
-                className="bg-black/25 backdrop-blur-xs p-5 sm:p-6 rounded-3xl border border-white/15 hover:border-amber-400/80 hover:bg-black/35 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group shadow-md"
+                className="bg-black/25 backdrop-blur-xs p-6 sm:p-7 rounded-3xl border border-white/15 hover:border-amber-400/80 hover:bg-black/35 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group shadow-md"
               >
-                <div className="w-12 h-12 rounded-2xl bg-amber-400/20 border border-amber-400/40 text-amber-300 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                  <span className="material-symbols-outlined text-2xl">
-                    {item.icon || "verified"}
-                  </span>
-                </div>
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-black font-sans text-amber-400 tracking-tight drop-shadow-sm mb-1">
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-black font-sans text-amber-400 tracking-tight drop-shadow-sm mb-2">
                   {item.value}
                 </div>
                 <div className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-100 mb-1.5">
