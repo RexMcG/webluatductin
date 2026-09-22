@@ -404,21 +404,38 @@ export default function AdminContentPage() {
             </div>
           </div>
 
-          {/* Section 2: Về Chúng Tôi & Ls. Phan Đức Tín */}
+          {/* Section 2: Về Chúng Tôi (Giới Thiệu Hãng Luật) */}
           <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-5">
             <div className="border-b border-slate-100 pb-4 flex items-center justify-between">
               <div>
                 <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-amber-600"></span>
-                  Khối Về Đức Tín &amp; Luật Sư Phan Đức Tín
+                  Khối Về Chúng Tôi (Giới Thiệu Hãng Luật - Hình số 2)
                 </h2>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  Thông tin định vị thương hiệu, câu châm ngôn triết lý hành nghề và các chỉ số thành tích.
+                  Chỉnh sửa tiêu đề và các đoạn văn bản giới thiệu Ls. Phan Đức Tín cùng bề dày hoạt động của công ty.
                 </p>
               </div>
-              <span className="text-xs bg-amber-50 text-amber-900 font-bold px-3 py-1 rounded-full border border-amber-200">
-                About &amp; Stats
-              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  const currentParas = content.home.about.paragraphs || DEFAULT_SITE_CONTENT.home.about.paragraphs;
+                  setContent({
+                    ...content,
+                    home: {
+                      ...content.home,
+                      about: {
+                        ...content.home.about,
+                        paragraphs: [...currentParas, "Đoạn văn bản giới thiệu mới..."],
+                      },
+                    },
+                  });
+                }}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 text-xs font-bold border border-amber-200 cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-sm">add</span>
+                <span>Thêm đoạn văn bản</span>
+              </button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -428,7 +445,7 @@ export default function AdminContentPage() {
                 </label>
                 <input
                   type="text"
-                  value={content.home.about.heading}
+                  value={content.home.about.heading || "Về Chúng Tôi"}
                   onChange={(e) =>
                     setContent({
                       ...content,
@@ -444,11 +461,11 @@ export default function AdminContentPage() {
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-                  Tiêu đề phụ / Slogan ngắn
+                  Nhãn phân cách (SectionDivider Label)
                 </label>
                 <input
                   type="text"
-                  value={content.home.about.subHeading}
+                  value={content.home.about.subHeading || "GIỚI THIỆU"}
                   onChange={(e) =>
                     setContent({
                       ...content,
@@ -462,39 +479,117 @@ export default function AdminContentPage() {
                 />
               </div>
 
-              <div className="md:col-span-2">
-                <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-                  Châm ngôn / Lời khẳng định của Luật sư (Quote)
+              {/* Paragraphs list */}
+              <div className="md:col-span-2 space-y-3 pt-1">
+                <label className="block text-xs font-bold text-slate-700 uppercase">
+                  Nội dung từng đoạn văn bản giới thiệu:
                 </label>
-                <textarea
-                  rows={2}
-                  value={content.home.about.quote}
-                  onChange={(e) =>
-                    setContent({
-                      ...content,
-                      home: {
-                        ...content.home,
-                        about: { ...content.home.about, quote: e.target.value },
-                      },
-                    })
-                  }
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-amber-600 focus:border-transparent outline-none font-medium italic"
-                />
+                {(content.home.about.paragraphs && content.home.about.paragraphs.length > 0
+                  ? content.home.about.paragraphs
+                  : DEFAULT_SITE_CONTENT.home.about.paragraphs
+                ).map((para, pIdx) => (
+                  <div key={pIdx} className="flex items-start gap-2 bg-slate-50 p-3 rounded-2xl border border-slate-200">
+                    <span className="text-xs font-bold text-amber-800 mt-2 shrink-0 px-2 py-1 bg-amber-100 rounded-lg">
+                      Đoạn #{pIdx + 1}
+                    </span>
+                    <textarea
+                      rows={3}
+                      value={para}
+                      onChange={(e) => {
+                        const newParas = [
+                          ...(content.home.about.paragraphs || DEFAULT_SITE_CONTENT.home.about.paragraphs),
+                        ];
+                        newParas[pIdx] = e.target.value;
+                        setContent({
+                          ...content,
+                          home: {
+                            ...content.home,
+                            about: { ...content.home.about, paragraphs: newParas },
+                          },
+                        });
+                      }}
+                      className="flex-1 px-3.5 py-2 rounded-xl border border-slate-200 text-sm text-slate-800 bg-white focus:ring-2 focus:ring-amber-600 outline-none leading-relaxed"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const newParas = [
+                          ...(content.home.about.paragraphs || DEFAULT_SITE_CONTENT.home.about.paragraphs),
+                        ];
+                        newParas.splice(pIdx, 1);
+                        setContent({
+                          ...content,
+                          home: {
+                            ...content.home,
+                            about: { ...content.home.about, paragraphs: newParas },
+                          },
+                        });
+                      }}
+                      className="p-2 text-rose-500 hover:text-rose-700 cursor-pointer mt-1"
+                      title="Xóa đoạn này"
+                    >
+                      <span className="material-symbols-outlined text-lg">delete</span>
+                    </button>
+                  </div>
+                ))}
               </div>
+            </div>
+          </div>
 
+          {/* Section 3: Tôn Chỉ Hoạt Động & Năng Lực Vượt Trội (Hình số 2) */}
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-5">
+            <div className="border-b border-slate-100 pb-4 flex items-center justify-between">
+              <div>
+                <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+                  Khối Tôn Chỉ Hoạt Động &amp; Năng Lực Vượt Trội (6 Thẻ - Hình số 2)
+                </h2>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Chỉnh sửa tiêu đề và nội dung từng thẻ trong 6 tôn chỉ hoạt động cốt lõi của văn phòng.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  const currentItems = content.home.principles?.items || DEFAULT_SITE_CONTENT.home.principles.items;
+                  setContent({
+                    ...content,
+                    home: {
+                      ...content.home,
+                      principles: {
+                        ...(content.home.principles || DEFAULT_SITE_CONTENT.home.principles),
+                        items: [
+                          ...currentItems,
+                          { title: `${currentItems.length + 1}. Tôn chỉ mới`, desc: "Nội dung tôn chỉ..." },
+                        ],
+                      },
+                    },
+                  });
+                }}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 text-xs font-bold border border-amber-200 cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-sm">add</span>
+                <span>Thêm thẻ tôn chỉ</span>
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-                  Họ và tên Luật sư điều hành
+                  Tiêu đề phần tôn chỉ
                 </label>
                 <input
                   type="text"
-                  value={content.home.about.lawyerName}
+                  value={content.home.principles?.heading || "Tôn Chỉ Hoạt Động & Năng Lực Vượt Trội"}
                   onChange={(e) =>
                     setContent({
                       ...content,
                       home: {
                         ...content.home,
-                        about: { ...content.home.about, lawyerName: e.target.value },
+                        principles: {
+                          ...(content.home.principles || DEFAULT_SITE_CONTENT.home.principles),
+                          heading: e.target.value,
+                        },
                       },
                     })
                   }
@@ -504,17 +599,20 @@ export default function AdminContentPage() {
 
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-                  Chức danh Luật sư
+                  Nhãn phân cách (SectionDivider Label)
                 </label>
                 <input
                   type="text"
-                  value={content.home.about.lawyerTitle}
+                  value={content.home.principles?.subHeading || "TÔN CHỈ HOẠT ĐỘNG"}
                   onChange={(e) =>
                     setContent({
                       ...content,
                       home: {
                         ...content.home,
-                        about: { ...content.home.about, lawyerTitle: e.target.value },
+                        principles: {
+                          ...(content.home.principles || DEFAULT_SITE_CONTENT.home.principles),
+                          subHeading: e.target.value,
+                        },
                       },
                     })
                   }
@@ -522,19 +620,146 @@ export default function AdminContentPage() {
                 />
               </div>
 
-              <div className="md:col-span-2">
+              {/* 6 Principle Items Grid */}
+              <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                {(content.home.principles?.items || DEFAULT_SITE_CONTENT.home.principles.items).map((item, idx) => (
+                  <div key={idx} className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 relative">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-amber-900 uppercase">
+                        Mục #{idx + 1}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const newItems = [
+                            ...(content.home.principles?.items || DEFAULT_SITE_CONTENT.home.principles.items),
+                          ];
+                          newItems.splice(idx, 1);
+                          setContent({
+                            ...content,
+                            home: {
+                              ...content.home,
+                              principles: {
+                                ...(content.home.principles || DEFAULT_SITE_CONTENT.home.principles),
+                                items: newItems,
+                              },
+                            },
+                          });
+                        }}
+                        className="text-xs text-rose-600 hover:text-rose-800 font-bold cursor-pointer"
+                      >
+                        Xóa mục này
+                      </button>
+                    </div>
+
+                    <input
+                      type="text"
+                      value={item.title}
+                      onChange={(e) => {
+                        const newItems = [
+                          ...(content.home.principles?.items || DEFAULT_SITE_CONTENT.home.principles.items),
+                        ];
+                        newItems[idx].title = e.target.value;
+                        setContent({
+                          ...content,
+                          home: {
+                            ...content.home,
+                            principles: {
+                              ...(content.home.principles || DEFAULT_SITE_CONTENT.home.principles),
+                              items: newItems,
+                            },
+                          },
+                        });
+                      }}
+                      className="w-full px-3 py-1.5 rounded-lg border border-slate-300 font-bold text-xs bg-white text-slate-900"
+                      placeholder="Tiêu đề mục (VD: 1. Đội ngũ Luật sư...)"
+                    />
+
+                    <textarea
+                      rows={3}
+                      value={item.desc}
+                      onChange={(e) => {
+                        const newItems = [
+                          ...(content.home.principles?.items || DEFAULT_SITE_CONTENT.home.principles.items),
+                        ];
+                        newItems[idx].desc = e.target.value;
+                        setContent({
+                          ...content,
+                          home: {
+                            ...content.home,
+                            principles: {
+                              ...(content.home.principles || DEFAULT_SITE_CONTENT.home.principles),
+                              items: newItems,
+                            },
+                          },
+                        });
+                      }}
+                      className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs bg-white text-slate-700 leading-relaxed"
+                      placeholder="Nội dung mô tả chi tiết..."
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Section 4: Khối Chỉ Số Thực Tế (Hiển Thị Giữa Lĩnh Vực & Tiện Ích) */}
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-5">
+            <div className="border-b border-slate-100 pb-4 flex items-center justify-between">
+              <div>
+                <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-red-600"></span>
+                  Khối Chỉ Số Hoạt Động &amp; Thành Tựu (Nằm Giữa Lĩnh Vực &amp; Tiện Ích)
+                </h2>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Các chỉ số thống kê ấn tượng (Năm kinh nghiệm, Tỷ lệ thành công, Vụ việc, Doanh nghiệp).
+                </p>
+              </div>
+              <span className="text-xs bg-emerald-50 text-emerald-800 font-bold px-3 py-1 rounded-full border border-emerald-200">
+                Hiển thị giữa Lĩnh Vực &amp; Tiện Ích
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-                  Đoạn văn giới thiệu bề dày kinh nghiệm &amp; chuyên môn
+                  Tiêu đề khối chỉ số
                 </label>
-                <textarea
-                  rows={3}
-                  value={content.home.about.lawyerBio}
+                <input
+                  type="text"
+                  value={content.home.stats?.heading || "Dấu Ấn Thành Tựu & Năng Lực Thực Chiến"}
                   onChange={(e) =>
                     setContent({
                       ...content,
                       home: {
                         ...content.home,
-                        about: { ...content.home.about, lawyerBio: e.target.value },
+                        stats: {
+                          ...(content.home.stats || DEFAULT_SITE_CONTENT.home.stats),
+                          heading: e.target.value,
+                        },
+                      },
+                    })
+                  }
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-amber-600 focus:border-transparent outline-none font-medium"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+                  Huy hiệu phụ (Badge)
+                </label>
+                <input
+                  type="text"
+                  value={content.home.stats?.subHeading || "CHỈ SỐ THỰC TẾ"}
+                  onChange={(e) =>
+                    setContent({
+                      ...content,
+                      home: {
+                        ...content.home,
+                        stats: {
+                          ...(content.home.stats || DEFAULT_SITE_CONTENT.home.stats),
+                          subHeading: e.target.value,
+                        },
                       },
                     })
                   }
@@ -543,86 +768,253 @@ export default function AdminContentPage() {
               </div>
 
               {/* 4 Stats Cards */}
-              <div className="md:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
-                <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200">
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">
-                    Năm kinh nghiệm
-                  </label>
-                  <input
-                    type="text"
-                    value={content.home.about.experienceYears}
-                    onChange={(e) =>
-                      setContent({
-                        ...content,
-                        home: {
-                          ...content.home,
-                          about: { ...content.home.about, experienceYears: e.target.value },
-                        },
-                      })
-                    }
-                    className="w-full px-3 py-1.5 rounded-lg border border-slate-300 font-black text-amber-900 text-base"
-                  />
-                </div>
+              <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+                {(content.home.stats?.items || DEFAULT_SITE_CONTENT.home.stats.items).map((item, idx) => (
+                  <div key={idx} className="p-4 rounded-2xl bg-amber-50/50 border border-amber-200/80 space-y-2">
+                    <span className="text-[11px] font-black text-amber-900 uppercase block">
+                      Chỉ số #{idx + 1}
+                    </span>
 
-                <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200">
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">
-                    Tỷ lệ thành công
-                  </label>
-                  <input
-                    type="text"
-                    value={content.home.about.successRate}
-                    onChange={(e) =>
-                      setContent({
-                        ...content,
-                        home: {
-                          ...content.home,
-                          about: { ...content.home.about, successRate: e.target.value },
-                        },
-                      })
-                    }
-                    className="w-full px-3 py-1.5 rounded-lg border border-slate-300 font-black text-amber-900 text-base"
-                  />
-                </div>
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">
+                        Con số hiển thị
+                      </label>
+                      <input
+                        type="text"
+                        value={item.value}
+                        onChange={(e) => {
+                          const newItems = [
+                            ...(content.home.stats?.items || DEFAULT_SITE_CONTENT.home.stats.items),
+                          ];
+                          newItems[idx].value = e.target.value;
+                          setContent({
+                            ...content,
+                            home: {
+                              ...content.home,
+                              stats: {
+                                ...(content.home.stats || DEFAULT_SITE_CONTENT.home.stats),
+                                items: newItems,
+                              },
+                            },
+                          });
+                        }}
+                        className="w-full px-3 py-1.5 rounded-lg border border-slate-300 font-black text-amber-950 text-base bg-white"
+                        placeholder="VD: 15+"
+                      />
+                    </div>
 
-                <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200">
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">
-                    Số vụ việc giải quyết
-                  </label>
-                  <input
-                    type="text"
-                    value={content.home.about.casesCount}
-                    onChange={(e) =>
-                      setContent({
-                        ...content,
-                        home: {
-                          ...content.home,
-                          about: { ...content.home.about, casesCount: e.target.value },
-                        },
-                      })
-                    }
-                    className="w-full px-3 py-1.5 rounded-lg border border-slate-300 font-black text-amber-900 text-base"
-                  />
-                </div>
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">
+                        Tên nhãn chỉ số
+                      </label>
+                      <input
+                        type="text"
+                        value={item.label}
+                        onChange={(e) => {
+                          const newItems = [
+                            ...(content.home.stats?.items || DEFAULT_SITE_CONTENT.home.stats.items),
+                          ];
+                          newItems[idx].label = e.target.value;
+                          setContent({
+                            ...content,
+                            home: {
+                              ...content.home,
+                              stats: {
+                                ...(content.home.stats || DEFAULT_SITE_CONTENT.home.stats),
+                                items: newItems,
+                              },
+                            },
+                          });
+                        }}
+                        className="w-full px-3 py-1.5 rounded-lg border border-slate-300 font-bold text-xs bg-white text-slate-900"
+                        placeholder="VD: Năm Kinh Nghiệm"
+                      />
+                    </div>
 
-                <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200">
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">
-                    Doanh nghiệp đồng hành
-                  </label>
-                  <input
-                    type="text"
-                    value={content.home.about.corporateClientsCount}
-                    onChange={(e) =>
-                      setContent({
-                        ...content,
-                        home: {
-                          ...content.home,
-                          about: { ...content.home.about, corporateClientsCount: e.target.value },
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">
+                        Mô tả tóm tắt
+                      </label>
+                      <textarea
+                        rows={2}
+                        value={item.desc || ""}
+                        onChange={(e) => {
+                          const newItems = [
+                            ...(content.home.stats?.items || DEFAULT_SITE_CONTENT.home.stats.items),
+                          ];
+                          newItems[idx].desc = e.target.value;
+                          setContent({
+                            ...content,
+                            home: {
+                              ...content.home,
+                              stats: {
+                                ...(content.home.stats || DEFAULT_SITE_CONTENT.home.stats),
+                                items: newItems,
+                              },
+                            },
+                          });
+                        }}
+                        className="w-full px-3 py-1 rounded-lg border border-slate-300 text-[11px] bg-white text-slate-600"
+                        placeholder="VD: Thực chiến giải quyết..."
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Section 5: Đội Ngũ Luật Sư Điều Hành */}
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-5">
+            <div className="border-b border-slate-100 pb-4 flex items-center justify-between">
+              <div>
+                <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-purple-600"></span>
+                  Khối Đội Ngũ Luật Sư Điều Hành
+                </h2>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Chỉnh sửa họ tên, chức danh và tiểu sử của các luật sư phụ trách.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+                  Tiêu đề khối
+                </label>
+                <input
+                  type="text"
+                  value={content.home.lawyers?.heading || "Đội Ngũ Luật Sư Điều Hành"}
+                  onChange={(e) =>
+                    setContent({
+                      ...content,
+                      home: {
+                        ...content.home,
+                        lawyers: {
+                          ...(content.home.lawyers || DEFAULT_SITE_CONTENT.home.lawyers),
+                          heading: e.target.value,
                         },
-                      })
-                    }
-                    className="w-full px-3 py-1.5 rounded-lg border border-slate-300 font-black text-amber-900 text-base"
-                  />
-                </div>
+                      },
+                    })
+                  }
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-amber-600 focus:border-transparent outline-none font-medium"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+                  Nhãn phân cách (SectionDivider Label)
+                </label>
+                <input
+                  type="text"
+                  value={content.home.lawyers?.subHeading || "ĐỘI NGŨ LUẬT SƯ"}
+                  onChange={(e) =>
+                    setContent({
+                      ...content,
+                      home: {
+                        ...content.home,
+                        lawyers: {
+                          ...(content.home.lawyers || DEFAULT_SITE_CONTENT.home.lawyers),
+                          subHeading: e.target.value,
+                        },
+                      },
+                    })
+                  }
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-amber-600 focus:border-transparent outline-none font-medium"
+                />
+              </div>
+
+              {/* 3 Lawyers */}
+              <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                {(content.home.lawyers?.items || DEFAULT_SITE_CONTENT.home.lawyers.items).map((ls, idx) => (
+                  <div key={idx} className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                    <span className="text-xs font-bold text-amber-900 uppercase block">
+                      Luật sư #{idx + 1}
+                    </span>
+
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">
+                        Họ và tên
+                      </label>
+                      <input
+                        type="text"
+                        value={ls.name}
+                        onChange={(e) => {
+                          const newLawyers = [
+                            ...(content.home.lawyers?.items || DEFAULT_SITE_CONTENT.home.lawyers.items),
+                          ];
+                          newLawyers[idx].name = e.target.value;
+                          setContent({
+                            ...content,
+                            home: {
+                              ...content.home,
+                              lawyers: {
+                                ...(content.home.lawyers || DEFAULT_SITE_CONTENT.home.lawyers),
+                                items: newLawyers,
+                              },
+                            },
+                          });
+                        }}
+                        className="w-full px-3 py-1.5 rounded-lg border border-slate-300 font-bold text-xs bg-white text-slate-900"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">
+                        Chức vụ / Vai trò
+                      </label>
+                      <input
+                        type="text"
+                        value={ls.role}
+                        onChange={(e) => {
+                          const newLawyers = [
+                            ...(content.home.lawyers?.items || DEFAULT_SITE_CONTENT.home.lawyers.items),
+                          ];
+                          newLawyers[idx].role = e.target.value;
+                          setContent({
+                            ...content,
+                            home: {
+                              ...content.home,
+                              lawyers: {
+                                ...(content.home.lawyers || DEFAULT_SITE_CONTENT.home.lawyers),
+                                items: newLawyers,
+                              },
+                            },
+                          });
+                        }}
+                        className="w-full px-3 py-1.5 rounded-lg border border-slate-300 font-bold text-amber-800 text-xs bg-white"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">
+                        Mô tả chuyên môn
+                      </label>
+                      <textarea
+                        rows={3}
+                        value={ls.desc}
+                        onChange={(e) => {
+                          const newLawyers = [
+                            ...(content.home.lawyers?.items || DEFAULT_SITE_CONTENT.home.lawyers.items),
+                          ];
+                          newLawyers[idx].desc = e.target.value;
+                          setContent({
+                            ...content,
+                            home: {
+                              ...content.home,
+                              lawyers: {
+                                ...(content.home.lawyers || DEFAULT_SITE_CONTENT.home.lawyers),
+                                items: newLawyers,
+                              },
+                            },
+                          });
+                        }}
+                        className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs bg-white text-slate-600 leading-relaxed"
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

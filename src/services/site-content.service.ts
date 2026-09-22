@@ -14,14 +14,52 @@ export interface HeroContent {
 export interface AboutContent {
   heading: string;
   subHeading: string;
-  quote: string;
-  lawyerName: string;
-  lawyerTitle: string;
-  lawyerBio: string;
-  experienceYears: string;
-  successRate: string;
-  casesCount: string;
-  corporateClientsCount: string;
+  paragraphs: string[];
+  quote?: string;
+  lawyerName?: string;
+  lawyerTitle?: string;
+  lawyerBio?: string;
+  experienceYears?: string;
+  successRate?: string;
+  casesCount?: string;
+  corporateClientsCount?: string;
+}
+
+export interface PrincipleItem {
+  title: string;
+  desc: string;
+}
+
+export interface PrinciplesContent {
+  heading: string;
+  subHeading: string;
+  items: PrincipleItem[];
+}
+
+export interface StatItem {
+  value: string;
+  label: string;
+  desc: string;
+  icon: string;
+}
+
+export interface StatsContent {
+  heading: string;
+  subHeading: string;
+  items: StatItem[];
+}
+
+export interface LawyerItem {
+  name: string;
+  role: string;
+  desc: string;
+  img: string;
+}
+
+export interface LawyersContent {
+  heading: string;
+  subHeading: string;
+  items: LawyerItem[];
 }
 
 export interface FaqItem {
@@ -38,6 +76,9 @@ export interface ConsultFormContent {
 export interface HomeContent {
   hero: HeroContent;
   about: AboutContent;
+  principles: PrinciplesContent;
+  stats: StatsContent;
+  lawyers: LawyersContent;
   faqHeading: string;
   faqSubHeading: string;
   faqs: FaqItem[];
@@ -91,8 +132,12 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
       aiChatButtonText: "Tham Vấn Trực Tuyến 24/7",
     },
     about: {
-      heading: "Về Đức Tín & Cộng Sự",
-      subHeading: "Tận Tâm • Bản Lĩnh • Chuẩn Mực Pháp Lý",
+      heading: "Về Chúng Tôi",
+      subHeading: "GIỚI THIỆU",
+      paragraphs: [
+        "Luật sư Phan Đức Tín là người sáng lập kiêm Giám đốc Điều hành Công ty Luật TNHH Đức Tín và Cộng sự (Đoàn Luật sư TP.HCM). Hãng luật đã tham gia tư vấn, giải quyết thành công hàng trăm vụ việc chuyên sâu về các lĩnh vực: đầu tư nước ngoài (FDI), lập dự án và thẩm định hồ sơ cấp Giấy chứng nhận đăng ký đầu tư cho các tập đoàn, doanh nhân đến từ Nhật Bản, Hàn Quốc, Mỹ, Singapore, Đức...",
+        "Đồng thời, chúng tôi trực tiếp đại diện tranh tụng tại Tòa án các cấp và Trọng tài thương mại quốc tế (VIAC); tư vấn và thẩm định pháp lý hợp đồng mua bán doanh nghiệp (M&A), cơ cấu nguồn vốn, giải quyết dứt điểm các tranh chấp phức tạp về đất đai, nhà ở, thừa kế và hôn nhân gia đình."
+      ],
       quote: "Chúng tôi không chỉ cung cấp ý kiến pháp lý đơn thuần, mà đồng hành như một đối tác chiến lược bảo vệ an toàn tối đa cho từng bước tiến của khách hàng.",
       lawyerName: "Luật sư Phan Đức Tín",
       lawyerTitle: "Luật sư Điều hành — Giám đốc Hãng luật",
@@ -101,6 +146,70 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
       successRate: "98%",
       casesCount: "2,500+",
       corporateClientsCount: "350+",
+    },
+    principles: {
+      heading: "Tôn Chỉ Hoạt Động & Năng Lực Vượt Trội",
+      subHeading: "TÔN CHỈ HOẠT ĐỘNG",
+      items: [
+        {
+          title: "1. Đội ngũ Luật sư chuyên sâu & giàu kinh nghiệm",
+          desc: "Đội ngũ Luật sư của DucTin & Partners năng động, sắc bén trong tranh tụng, vững chuyên môn nghiệp vụ, tiên phong ứng dụng công nghệ pháp lý và tuân thủ nghiêm ngặt Quy tắc Đạo đức nghề nghiệp."
+        },
+        {
+          title: "2. Giải pháp pháp lý toàn diện & dứt điểm",
+          desc: "Trực tiếp tháo gỡ các nút thắt pháp lý của thân chủ nhanh chóng, triệt để với lộ trình tối ưu chi phí. \"Chất lượng dịch vụ là Danh dự của Luật sư\"."
+        },
+        {
+          title: "3. Bảo mật thông tin thân chủ tuyệt đối",
+          desc: "Tuân thủ chặt chẽ nghĩa vụ giữ bí mật nghề nghiệp theo Điều 25 Luật Luật sư. Toàn bộ hồ sơ, thông tin vụ việc của thân chủ được bảo hộ an toàn tuyệt đối."
+        },
+        {
+          title: "4. Đánh giá đúng bản chất & tính khả thi",
+          desc: "Phân tích khách quan các rủi pro pháp lý, cung cấp phương án hành động có tính khả thi cao nhất, không cam kết khống hoặc gây ngộ nhận cho thân chủ."
+        },
+        {
+          title: "5. Chi phí minh bạch theo hợp đồng dịch vụ pháp lý",
+          desc: "Mọi khoản thù lao và chi phí tố tụng đều được thỏa thuận rõ ràng, minh bạch trong Hợp đồng dịch vụ pháp lý, phù hợp với tính chất phức tạp của từng vụ việc."
+        },
+        {
+          title: "6. Tận tâm đồng hành bảo vệ thân chủ",
+          desc: "Luôn đặt quyền và lợi ích hợp pháp của thân chủ lên hàng đầu, chủ động cập nhật tiến độ giải quyết và sát cánh cùng thân chủ trong mọi giai đoạn tố tụng."
+        }
+      ]
+    },
+    stats: {
+      heading: "Dấu Ấn Thành Tựu & Năng Lực Thực Chiến",
+      subHeading: "CHỈ SỐ THỰC TẾ",
+      items: [
+        { value: "15+", label: "Năm Kinh Nghiệm", desc: "Thực chiến giải quyết tranh tụng Tòa án & tư vấn FDI", icon: "history_edu" },
+        { value: "98%", label: "Tỷ Lệ Thành Công", desc: "Bảo vệ tối đa quyền & lợi ích hợp pháp của thân chủ", icon: "verified" },
+        { value: "2,500+", label: "Vụ Việc Giải Quyết", desc: "Tranh chấp đất đai, hợp đồng kinh tế, thừa kế & hình sự", icon: "gavel" },
+        { value: "350+", label: "Doanh Nghiệp Đồng Hành", desc: "Cố vấn pháp lý thường xuyên, quản trị nội bộ & M&A", icon: "apartment" }
+      ]
+    },
+    lawyers: {
+      heading: "Đội Ngũ Luật Sư Điều Hành",
+      subHeading: "ĐỘI NGŨ LUẬT SƯ",
+      items: [
+        {
+          name: "Ls. Phan Đức Tín",
+          role: "Luật sư Trưởng - Giám đốc Điều hành",
+          desc: "Hơn 15 năm kinh nghiệm tranh tụng, tư vấn đầu tư FDI và mua bán sáp nhập doanh nghiệp.",
+          img: "avatar1.webp"
+        },
+        {
+          name: "Ls. Nguyễn Hoàng Long",
+          role: "Phó Giám đốc - Trưởng ban Tranh tụng",
+          desc: "Chuyên sâu tố tụng Tòa án, giải quyết tranh chấp kinh doanh thương mại và bất động sản.",
+          img: "avatar2.webp"
+        },
+        {
+          name: "Ls. Trần Minh Tuấn",
+          role: "Trưởng phòng Doanh nghiệp & Đầu tư",
+          desc: "Chuyên thẩm định pháp lý hợp đồng quốc tế, sở hữu trí tuệ và cơ cấu vốn doanh nghiệp.",
+          img: "avatar3.webp"
+        }
+      ]
     },
     faqHeading: "Câu Hỏi Thường Gặp",
     faqSubHeading: "Giải đáp nhanh các thắc mắc phổ biến về dịch vụ pháp lý tại Đức Tín & Cộng sự",
@@ -155,7 +264,7 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
   }
 };
 
-const STORAGE_KEY = "ductin_site_content_v1";
+const STORAGE_KEY = "ductin_site_content_v2";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
 class SiteContentService {
@@ -191,7 +300,26 @@ class SiteContentService {
         ...DEFAULT_SITE_CONTENT.home,
         ...(saved.home || {}),
         hero: { ...DEFAULT_SITE_CONTENT.home.hero, ...(saved.home?.hero || {}) },
-        about: { ...DEFAULT_SITE_CONTENT.home.about, ...(saved.home?.about || {}) },
+        about: {
+          ...DEFAULT_SITE_CONTENT.home.about,
+          ...(saved.home?.about || {}),
+          paragraphs: saved.home?.about?.paragraphs || DEFAULT_SITE_CONTENT.home.about.paragraphs,
+        },
+        principles: {
+          ...DEFAULT_SITE_CONTENT.home.principles,
+          ...(saved.home?.principles || {}),
+          items: saved.home?.principles?.items || DEFAULT_SITE_CONTENT.home.principles.items,
+        },
+        stats: {
+          ...DEFAULT_SITE_CONTENT.home.stats,
+          ...(saved.home?.stats || {}),
+          items: saved.home?.stats?.items || DEFAULT_SITE_CONTENT.home.stats.items,
+        },
+        lawyers: {
+          ...DEFAULT_SITE_CONTENT.home.lawyers,
+          ...(saved.home?.lawyers || {}),
+          items: saved.home?.lawyers?.items || DEFAULT_SITE_CONTENT.home.lawyers.items,
+        },
         consultForm: { ...DEFAULT_SITE_CONTENT.home.consultForm, ...(saved.home?.consultForm || {}) },
         faqs: saved.home?.faqs || DEFAULT_SITE_CONTENT.home.faqs,
       },
@@ -248,6 +376,22 @@ class SiteContentService {
       home: {
         ...current.home,
         ...(partial.home || {}),
+        about: {
+          ...current.home.about,
+          ...(partial.home?.about || {}),
+        },
+        principles: {
+          ...current.home.principles,
+          ...(partial.home?.principles || {}),
+        },
+        stats: {
+          ...current.home.stats,
+          ...(partial.home?.stats || {}),
+        },
+        lawyers: {
+          ...current.home.lawyers,
+          ...(partial.home?.lawyers || {}),
+        },
       },
       servicesPage: {
         ...current.servicesPage,
