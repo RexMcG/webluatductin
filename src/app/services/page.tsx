@@ -1,11 +1,23 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { SERVICES_DATA } from "@/data/servicesData";
 import SectionDivider from "@/components/common/SectionDivider";
+import { siteContentService, DEFAULT_SITE_CONTENT } from "@/services/site-content.service";
 
 export default function ServicesPage() {
-  const serviceList = Object.values(SERVICES_DATA);
+  const [content, setContent] = useState(DEFAULT_SITE_CONTENT);
+
+  useEffect(() => {
+    setContent(siteContentService.getContent());
+    const unsub = siteContentService.subscribe((data) => {
+      setContent(data);
+    });
+    return () => unsub();
+  }, []);
+
+  const serviceList = Object.values(content.servicesDetail && Object.keys(content.servicesDetail).length > 0 ? content.servicesDetail : SERVICES_DATA);
 
   const SERVICE_IMAGES: Record<string, string> = {
     "hop-tac-doanh-nghiep": "/img/card_business.webp",
@@ -29,10 +41,13 @@ export default function ServicesPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-32 md:py-40 flex items-center min-h-[480px]">
           <div className="max-w-3xl space-y-6 flex flex-col items-start text-left">
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-black font-sans leading-[1.15] text-primary tracking-tight">
-              Giải Pháp Pháp Lý <br /> <span className="italic text-accent font-sans">Toàn Diện &amp; Tận Tâm</span>
+              {content.servicesPage.hero.title} <br />{" "}
+              <span className="italic text-accent font-sans">
+                {content.servicesPage.hero.titleAccent}
+              </span>
             </h1>
             <p className="font-body-md text-base md:text-xl text-primary font-semibold max-w-2xl leading-relaxed">
-              Bảo vệ tối đa quyền lợi hợp pháp, đồng hành giải quyết tranh chấp và kiến tạo giá trị bền vững cho doanh nghiệp và cá nhân.
+              {content.servicesPage.hero.description}
             </p>
           </div>
         </div>
@@ -42,11 +57,11 @@ export default function ServicesPage() {
       <section className="max-w-7xl mx-auto px-4 md:px-8 py-12">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 font-sans tracking-tight">
-            Lĩnh Vực Hoạt Động Cốt Lõi
+            {content.servicesPage.section.heading}
           </h2>
-          <SectionDivider label="LĨNH VỰC HOẠT ĐỘNG" />
+          <SectionDivider label={content.servicesPage.section.subHeading || "LĨNH VỰC HOẠT ĐỘNG"} />
           <p className="text-slate-600 text-base md:text-lg leading-relaxed">
-            Đức Tín &amp; Cộng sự quy tụ đội ngũ luật sư chuyên gia với bề dày thực chiến, giải quyết nhanh chóng và hiệu quả mọi bài toán pháp lý.
+            {content.servicesPage.section.description}
           </p>
         </div>
 

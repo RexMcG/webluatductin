@@ -1,17 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { SERVICES_DATA } from "@/data/servicesData";
 import SectionDivider from "@/components/common/SectionDivider";
+import { siteContentService } from "@/services/site-content.service";
 
 type TabType = "about" | "experience" | "articles";
 
 export default function ServiceDetailPage() {
   const params = useParams();
   const slug = params.slug as string;
-  const service = SERVICES_DATA[slug] || SERVICES_DATA["hop-tac-doanh-nghiep"];
+  const [content, setContent] = useState(siteContentService.getContent());
+
+  useEffect(() => {
+    setContent(siteContentService.getContent());
+    const unsub = siteContentService.subscribe((data) => {
+      setContent(data);
+    });
+    return () => unsub();
+  }, []);
+
+  const service = (content.servicesDetail && content.servicesDetail[slug]) || SERVICES_DATA[slug] || SERVICES_DATA["hop-tac-doanh-nghiep"];
 
   const [activeTab, setActiveTab] = useState<TabType>("about");
 

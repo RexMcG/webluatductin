@@ -220,6 +220,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       badge: "KPIs",
     },
     {
+      label: "Chỉnh sửa Nội dung Web",
+      href: "/admin/content",
+      icon: "edit_note",
+      badge: "Live CMS",
+    },
+    {
       label: "Quản lý Bài viết & Sơ đồ",
       href: "/admin/news",
       icon: "article",

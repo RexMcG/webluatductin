@@ -5,9 +5,20 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { questionService } from "@/services/question.service";
 import SectionDivider from "@/components/common/SectionDivider";
+import { siteContentService, DEFAULT_SITE_CONTENT } from "@/services/site-content.service";
 
 export default function Home() {
   const router = useRouter();
+  const [siteContent, setSiteContent] = useState(DEFAULT_SITE_CONTENT);
+
+  useEffect(() => {
+    setSiteContent(siteContentService.getContent());
+    const unsub = siteContentService.subscribe((data) => {
+      setSiteContent(data);
+    });
+    return () => unsub();
+  }, []);
+
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
@@ -149,15 +160,15 @@ export default function Home() {
           <div className="max-w-3xl lg:max-w-4xl w-full flex flex-col items-start text-left space-y-5 md:space-y-6">
             <h1 className="text-2xl sm:text-4xl md:text-[44px] lg:text-[52px] font-black font-sans leading-[1.2] tracking-tight">
               <span className="text-primary drop-shadow-sm block">
-                <span className="inline-block">Công Ty Luật</span>{" "}
-                <span className="inline-block">Đức Tín &amp; Cộng Sự</span>
+                <span className="inline-block">{siteContent.home.hero.titlePrimary}</span>{" "}
+                <span className="inline-block">{siteContent.home.hero.titleSecondary}</span>
               </span>
               <span className="text-accent drop-shadow-sm text-xl sm:text-3xl md:text-4xl lg:text-[42px] block mt-1.5 font-bold">
-                Hãng Luật Hàng Đầu TP.HCM
+                {siteContent.home.hero.titleAccent}
               </span>
             </h1>
             <p className="font-body-md text-base md:text-xl text-primary font-semibold max-w-2xl leading-relaxed">
-              Đồng hành pháp lý chiến lược — Giải pháp toàn diện cho Doanh nghiệp &amp; Cá nhân.
+              {siteContent.home.hero.description}
             </p>
 
             {/* Smart Navigation Search Bar */}
@@ -166,7 +177,7 @@ export default function Home() {
                 <input
                   className="w-full h-16 md:h-20 pl-7 pr-20 border-[3px] border-accent rounded-2xl focus:ring-4 focus:ring-accent/30 focus:border-accent bg-white text-slate-900 placeholder:text-slate-400 outline-none text-base sm:text-lg md:text-xl font-medium shadow-inner"
                   id="hero-search"
-                  placeholder="Nhập nhu cầu (VD: tranh chấp đất đai, tính án phí, ly hôn, rà soát hợp đồng M&amp;A...)"
+                  placeholder={siteContent.home.hero.searchPlaceholder}
                   type="text"
                   value={searchQuery}
                   onChange={(e) => {
@@ -242,14 +253,14 @@ export default function Home() {
                 href="/appointment"
               >
                 <span className="material-symbols-outlined">calendar_month</span>
-                Đặt Lịch Tham Vấn Luật Sư
+                {siteContent.home.hero.ctaButtonText || "Đặt Lịch Tham Vấn Luật Sư"}
               </Link>
               <Link
                 className="bg-accent hover:opacity-90 text-white h-14 px-8 rounded-xl font-label-sm text-base md:text-lg font-bold transition-all inline-flex items-center shadow-lg gap-2"
                 href="/ai-chatbot"
               >
                 <span className="material-symbols-outlined">smart_toy</span>
-                Trợ Lý Pháp Lý AI 24/7
+                {siteContent.home.hero.aiChatButtonText || "Trợ Lý Pháp Lý AI 24/7"}
               </Link>
             </div>
           </div>
@@ -687,7 +698,7 @@ export default function Home() {
               <SectionDivider label="HỎI ĐÁP" className="!justify-start my-2" />
 
               <div className="space-y-3">
-                {[
+                {(siteContent.home.faqs && siteContent.home.faqs.length > 0 ? siteContent.home.faqs : [
                   {
                     q: "Khi Giấy chứng nhận quyền sử dụng đất hết thời hạn phải làm sao?",
                     a: "Theo Luật Đất đai mới nhất, hộ gia đình, cá nhân trực tiếp sản xuất nông nghiệp khi hết thời hạn sử dụng đất nếu có nhu cầu thì được tiếp tục sử dụng mà không phải làm thủ tục gia hạn. Đối với đất thương mại dịch vụ hoặc tổ chức, cần nộp hồ sơ xin gia hạn trước khi hết hạn ít nhất 06 tháng."
@@ -700,7 +711,7 @@ export default function Home() {
                     q: "Doanh nghiệp nước ngoài đầu tư vào Việt Nam cần những điều kiện gì?",
                     a: "Cần đáp ứng điều kiện về tiếp cận thị trường theo ngành nghề đăng ký, có dự án đầu tư hợp pháp, địa điểm thực hiện dự án phù hợp quy hoạch, năng lực tài chính và làm thủ tục xin cấp Giấy chứng nhận đăng ký đầu tư (IRC) và Giấy chứng nhận đăng ký doanh nghiệp (ERC)."
                   }
-                ].map((faq, idx) => (
+                ]).map((faq, idx) => (
                   <div key={idx} className="border border-slate-200 rounded-2xl overflow-hidden shadow-2xs">
                     <button
                       onClick={() => toggleFaq(idx)}

@@ -2,9 +2,19 @@
 
 import Link from "next/link";
 import React from "react";
+import { siteContentService, DEFAULT_SITE_CONTENT, FooterContent } from "@/services/site-content.service";
 
 export default function Footer() {
   const [isCollapsed, setIsCollapsed] = React.useState(false);
+  const [footerData, setFooterData] = React.useState<FooterContent>(DEFAULT_SITE_CONTENT.footer);
+
+  React.useEffect(() => {
+    setFooterData(siteContentService.getContent().footer);
+    const unsub = siteContentService.subscribe((data) => {
+      setFooterData(data.footer);
+    });
+    return () => unsub();
+  }, []);
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
@@ -191,17 +201,17 @@ export default function Footer() {
               </Link>
 
               <p className="text-xs text-slate-200/90 leading-relaxed">
-                Công ty Luật TNHH Đức Tín &amp; Cộng Sự do Luật sư Phan Đức Tín trực tiếp điều hành. Cung cấp giải pháp pháp lý toàn diện cho cá nhân và doanh nghiệp, kết hợp đột phá cùng công nghệ AI pháp luật.
+                {footerData.description}
               </p>
 
               <div className="text-[11px] text-amber-200/90 font-medium space-y-1.5 pt-1 border-t border-white/10">
                 <p className="flex items-center gap-1.5">
                   <span className="w-1 h-1 rounded-full bg-amber-300 shrink-0"></span>
-                  Đăng ký hoạt động: Đoàn Luật sư TP. Hồ Chí Minh
+                  Đăng ký hoạt động: {footerData.barAssociation}
                 </p>
                 <p className="flex items-center gap-1.5">
                   <span className="w-1 h-1 rounded-full bg-amber-300 shrink-0"></span>
-                  Cam kết bảo mật tuyệt đối &amp; bảo vệ tối đa quyền lợi khách hàng
+                  {footerData.privacyCommitment}
                 </p>
               </div>
 
@@ -231,7 +241,7 @@ export default function Footer() {
               {/* Mạng xã hội & Kênh kết nối */}
               <div className="flex items-center gap-2.5 pt-1">
                 <a
-                  href="https://zalo.me/0937863263"
+                  href={footerData.zaloUrl || "https://zalo.me/0937863263"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-8 h-8 rounded-full bg-blue-600/80 hover:bg-blue-600 text-white flex items-center justify-center transition-colors shadow-2xs"
@@ -240,14 +250,14 @@ export default function Footer() {
                   <img src="/img/zalo_icon.webp" alt="Zalo" width={18} height={18} className="w-4 h-4 object-contain" />
                 </a>
                 <a
-                  href="tel:0937863263"
+                  href={`tel:${(footerData.hotline || "").replace(/\s/g, "")}`}
                   className="w-8 h-8 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center transition-colors shadow-2xs"
                   title="Hotline 24/7"
                 >
                   <span className="material-symbols-outlined text-base">call</span>
                 </a>
                 <a
-                  href="mailto:rexmcg12345678@gmail.com"
+                  href={`mailto:${footerData.email || "rexmcg12345678@gmail.com"}`}
                   className="w-8 h-8 rounded-full bg-amber-600 hover:bg-amber-500 text-white flex items-center justify-center transition-colors shadow-2xs"
                   title="Gửi Email"
                 >
@@ -333,18 +343,18 @@ export default function Footer() {
               <div className="space-y-1.5 text-xs text-slate-200">
                 <p>
                   <strong className="text-amber-300">Hotline / Zalo:</strong>{" "}
-                  <a href="tel:0937863263" className="hover:text-amber-300 font-bold transition-colors">
-                    093 786 32 63
+                  <a href={`tel:${(footerData.hotline || "").replace(/\s/g, "")}`} className="hover:text-amber-300 font-bold transition-colors">
+                    {footerData.hotline}
                   </a>
                 </p>
                 <p>
                   <strong className="text-amber-300">Email:</strong>{" "}
-                  <a href="mailto:rexmcg12345678@gmail.com" className="hover:text-amber-300 transition-colors break-all">
-                    rexmcg12345678@gmail.com
+                  <a href={`mailto:${footerData.email || ""}`} className="hover:text-amber-300 transition-colors break-all">
+                    {footerData.email}
                   </a>
                 </p>
                 <p className="text-[11.5px] leading-snug">
-                  <strong className="text-amber-300">Trụ sở chính:</strong> P. 1901, Tầng 19, Saigon Trade Center, 37 Tôn Đức Thắng, Q.1, TP. HCM.
+                  <strong className="text-amber-300">Trụ sở chính:</strong> {footerData.address}
                 </p>
               </div>
 
@@ -369,7 +379,7 @@ export default function Footer() {
           {/* Bottom Area: 1-line Disclaimer + 4 Core Legal Policies Row */}
           <div className="mt-6 pt-3 border-t border-white/10 flex flex-col gap-3 text-slate-300/90 text-[11px]">
             <p className="leading-relaxed text-center sm:text-left">
-              <strong className="text-amber-300 font-medium">Miễn trừ trách nhiệm:</strong> Toàn bộ thông tin, bài viết và tính năng tính toán trên website mang tính chất tham khảo kiến thức pháp luật, không cấu thành ý kiến tư vấn pháp lý chính thức cho đến khi hợp đồng dịch vụ được ký kết bằng văn bản theo luật định. Xem chi tiết tại{" "}
+              <strong className="text-amber-300 font-medium">Miễn trừ trách nhiệm:</strong> {footerData.disclaimer}{" "}
               <Link href="/disclaimer" className="text-amber-300 hover:underline">Tuyên bố từ chối trách nhiệm</Link>.
             </p>
             <div className="flex flex-col lg:flex-row items-center justify-between gap-3 pt-2.5 border-t border-white/5 text-xs text-slate-300">
