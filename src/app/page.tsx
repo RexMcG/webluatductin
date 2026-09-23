@@ -7,6 +7,86 @@ import { questionService } from "@/services/question.service";
 import SectionDivider from "@/components/common/SectionDivider";
 import { siteContentService, DEFAULT_SITE_CONTENT } from "@/services/site-content.service";
 
+function ScrambledStatNumber({
+  targetValue,
+  shouldAnimate,
+  delay = 0,
+}: {
+  targetValue: string;
+  shouldAnimate: boolean;
+  delay?: number;
+}) {
+  const [displayValue, setDisplayValue] = useState(targetValue);
+  const [isScrambling, setIsScrambling] = useState(false);
+
+  useEffect(() => {
+    if (!shouldAnimate) {
+      setDisplayValue(targetValue);
+      return;
+    }
+
+    let delayTimer: NodeJS.Timeout;
+    let intervalTimer: NodeJS.Timeout;
+
+    delayTimer = setTimeout(() => {
+      setIsScrambling(true);
+      const duration = 1200; // scramble for 1.2s
+      const intervalTime = 40; // update every 40ms
+      const startTime = Date.now();
+
+      const run = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(1, elapsed / duration);
+
+        if (progress >= 1) {
+          setDisplayValue(targetValue);
+          setIsScrambling(false);
+          return;
+        }
+
+        // Lock characters from left to right as progress increases
+        const lockCount = Math.floor(progress * targetValue.length);
+
+        let result = "";
+        for (let i = 0; i < targetValue.length; i++) {
+          const char = targetValue[i];
+          if (char >= "0" && char <= "9") {
+            if (i < lockCount && progress > 0.4) {
+              result += char;
+            } else {
+              result += Math.floor(Math.random() * 10).toString();
+            }
+          } else {
+            result += char;
+          }
+        }
+
+        setDisplayValue(result);
+        intervalTimer = setTimeout(run, intervalTime);
+      };
+
+      run();
+    }, delay);
+
+    return () => {
+      clearTimeout(delayTimer);
+      clearTimeout(intervalTimer);
+    };
+  }, [shouldAnimate, targetValue, delay]);
+
+  return (
+    <span
+      className={`tabular-nums transition-all duration-200 ${
+        isScrambling
+          ? "text-amber-300 drop-shadow-[0_0_12px_rgba(251,191,36,0.8)] scale-105 inline-block"
+          : "text-amber-400 inline-block"
+      }`}
+    >
+      {displayValue}
+    </span>
+  );
+}
+
 export default function Home() {
   const router = useRouter();
   const [siteContent, setSiteContent] = useState(DEFAULT_SITE_CONTENT);
@@ -17,6 +97,25 @@ export default function Home() {
       setSiteContent(data);
     });
     return () => unsub();
+  }, []);
+
+  const statsSectionRef = useRef<HTMLElement>(null);
+  const [statsInView, setStatsInView] = useState(false);
+
+  useEffect(() => {
+    if (!statsSectionRef.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          setStatsInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(statsSectionRef.current);
+    return () => observer.disconnect();
   }, []);
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -433,15 +532,15 @@ export default function Home() {
     </section>
 
       {/* Dynamic Key Performance Indicators / Stats Counter Section (Nằm giữa Lĩnh Vực và Tiện Ích) */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-[#4A1303] via-[#641D06] to-[#802206] py-14 sm:py-16 text-white border-y-4 border-amber-500/80 shadow-inner">
+      <section
+        ref={statsSectionRef}
+        className="relative overflow-hidden bg-gradient-to-r from-[#4A1303] via-[#641D06] to-[#802206] py-14 sm:py-16 text-white border-y-4 border-amber-500/80 shadow-inner"
+      >
         {/* Subtle background decoration */}
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
 
         <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-10">
-            <span className="inline-block px-3.5 py-1 rounded-full bg-amber-400/20 text-amber-300 text-xs font-black uppercase tracking-widest border border-amber-400/40 mb-2.5">
-              {siteContent.home.stats?.subHeading || "CHỈ SỐ THỰC TẾ"}
-            </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black font-sans tracking-tight text-white uppercase">
               {siteContent.home.stats?.heading || "Dấu Ấn Thành Tựu & Năng Lực Thực Chiến"}
             </h2>
@@ -454,8 +553,12 @@ export default function Home() {
                 key={idx}
                 className="bg-black/25 backdrop-blur-xs p-6 sm:p-7 rounded-3xl border border-white/15 hover:border-amber-400/80 hover:bg-black/35 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center group shadow-md"
               >
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-black font-sans text-amber-400 tracking-tight drop-shadow-sm mb-2">
-                  {item.value}
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-black font-sans tracking-tight drop-shadow-sm mb-2 min-h-[1.2em] flex items-center justify-center">
+                  <ScrambledStatNumber
+                    targetValue={item.value}
+                    shouldAnimate={statsInView}
+                    delay={idx * 120}
+                  />
                 </div>
                 <div className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-100 mb-1.5">
                   {item.label}
