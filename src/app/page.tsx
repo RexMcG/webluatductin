@@ -859,41 +859,136 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Expert Attorneys */}
+      {/* Managing Lawyer / Expert Attorneys */}
       <section id="lawyers" className="border-t border-border-neutral py-16 scroll-mt-24">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
-              {siteContent.home.lawyers?.heading || "Đội Ngũ Luật Sư Điều Hành"}
+              {siteContent.home.lawyers?.heading || "Luật Sư Điều Hành"}
             </h2>
-            <SectionDivider label={siteContent.home.lawyers?.subHeading || "ĐỘI NGŨ LUẬT SƯ"} />
+            <SectionDivider label={siteContent.home.lawyers?.subHeading || "LUẬT SƯ PHỤ TRÁCH CHUYÊN MÔN"} />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-          {(siteContent.home.lawyers?.items && siteContent.home.lawyers.items.length > 0 ? siteContent.home.lawyers.items : DEFAULT_SITE_CONTENT.home.lawyers.items).map((ls, idx) => (
-            <div key={idx} className="border border-slate-200 p-6 sm:p-7 rounded-3xl bg-white shadow-sm hover:shadow-xl hover:border-amber-400 hover:-translate-y-1 transition-all flex flex-col items-center text-center relative overflow-hidden">
-              {/* Top Red Accent Line */}
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#641D06]" />
-              <div className="w-28 h-28 bg-emerald-100 rounded-full border-2 border-emerald-300 mb-5 overflow-hidden shadow-xs mt-1">
-                <img 
-                  alt={ls.name} 
-                  width={112}
-                  height={112}
-                  loading="lazy"
-                  className="w-full h-full object-cover" 
-                  src={`/img/${ls.img || "avatar1.webp"}`} 
-                />
+
+          {(() => {
+            const lawyersList =
+              siteContent.home.lawyers?.items && siteContent.home.lawyers.items.length > 0
+                ? siteContent.home.lawyers.items
+                : DEFAULT_SITE_CONTENT.home.lawyers.items;
+
+            if (lawyersList.length === 1) {
+              const ls = lawyersList[0];
+              return (
+                <div className="max-w-4xl mx-auto bg-gradient-to-br from-white via-amber-50/25 to-white rounded-3xl border border-amber-200/80 p-7 sm:p-10 shadow-lg relative overflow-hidden">
+                  {/* Top luxury accent bar */}
+                  <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#4A1303] via-[#641D06] to-amber-500" />
+
+                  <div className="flex flex-col md:flex-row items-center md:items-start gap-8 sm:gap-10">
+                    {/* Left: Avatar with golden ring & status badge */}
+                    <div className="flex flex-col items-center shrink-0">
+                      <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full p-1.5 bg-gradient-to-tr from-amber-500 via-[#641D06] to-amber-300 shadow-md">
+                        <div className="w-full h-full rounded-full overflow-hidden bg-white">
+                          <img
+                            alt={ls.name}
+                            width={176}
+                            height={176}
+                            loading="lazy"
+                            className="w-full h-full object-cover object-top"
+                            src="/img/avatar1.webp"
+                          />
+                        </div>
+                      </div>
+                      <span className="mt-3.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-950 border border-amber-300/80 shadow-2xs">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Đoàn Luật Sư TP.HCM
+                      </span>
+                    </div>
+
+                    {/* Right: Lawyer Details, Credentials, Highlights & Actions */}
+                    <div className="flex-1 text-center md:text-left flex flex-col justify-between">
+                      <div>
+                        <div className="inline-block px-3 py-0.5 rounded-md bg-[#641D06]/10 text-[#641D06] text-xs font-black uppercase tracking-wider mb-2">
+                          Người Sáng Lập &amp; Điều Hành
+                        </div>
+                        <h3 className="text-2xl sm:text-3xl font-black text-slate-900 font-sans tracking-tight mb-1.5">
+                          {ls.name}
+                        </h3>
+                        <p className="text-sm sm:text-base font-bold text-amber-800 uppercase tracking-wide mb-4">
+                          {ls.role}
+                        </p>
+
+                        <p className="text-slate-700 text-sm sm:text-base leading-relaxed mb-6 font-normal">
+                          {ls.desc}
+                        </p>
+
+                        {/* Highlights / Commitments */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 text-left">
+                          <div className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-100">
+                            <span className="material-symbols-outlined text-amber-700 text-xl shrink-0">gavel</span>
+                            <div>
+                              <div className="text-xs font-bold text-slate-900">Trực Tiếp Thụ Lý</div>
+                              <div className="text-[12px] text-slate-600">Đích thân nghiên cứu hồ sơ &amp; tham gia tố tụng</div>
+                            </div>
+                          </div>
+                          <div className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-100">
+                            <span className="material-symbols-outlined text-amber-700 text-xl shrink-0">verified_user</span>
+                            <div>
+                              <div className="text-xs font-bold text-slate-900">Bảo Mật &amp; Chuẩn Mực</div>
+                              <div className="text-[12px] text-slate-600">Bảo vệ tối đa quyền &amp; lợi ích hợp pháp</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center gap-3">
+                        <Link
+                          href="/appointment"
+                          className="w-full sm:w-auto px-7 h-12 rounded-xl bg-[#641D06] hover:bg-black text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all active:scale-98 tracking-wide"
+                        >
+                          <span className="material-symbols-outlined text-lg">calendar_month</span>
+                          <span>Đặt Lịch Làm Việc Với Luật Sư</span>
+                        </Link>
+                        <a
+                          href="tel:0937863263"
+                          className="w-full sm:w-auto px-6 h-12 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-300 font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-all"
+                        >
+                          <span className="material-symbols-outlined text-lg text-[#641D06]">call</span>
+                          <span>093 786 32 63</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
+            return (
+              <div className={`grid grid-cols-1 ${lawyersList.length === 2 ? "md:grid-cols-2 max-w-4xl mx-auto" : "md:grid-cols-3"} gap-6 lg:gap-8`}>
+                {lawyersList.map((ls, idx) => (
+                  <div key={idx} className="border border-slate-200 p-6 sm:p-7 rounded-3xl bg-white shadow-sm hover:shadow-xl hover:border-amber-400 hover:-translate-y-1 transition-all flex flex-col items-center text-center relative overflow-hidden">
+                    <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#641D06]" />
+                    <div className="w-28 h-28 bg-emerald-100 rounded-full border-2 border-emerald-300 mb-5 overflow-hidden shadow-xs mt-1">
+                      <img 
+                        alt={ls.name} 
+                        width={112}
+                        height={112}
+                        loading="lazy"
+                        className="w-full h-full object-cover" 
+                        src={`/img/${ls.img || "avatar1.webp"}`} 
+                      />
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 font-sans mb-1">{ls.name}</h3>
+                    <p className="text-xs font-bold text-amber-700 uppercase tracking-wider mb-3">{ls.role}</p>
+                    <p className="text-slate-600 text-sm mb-6 leading-relaxed flex-grow">{ls.desc}</p>
+                    <div className="w-full pt-4 border-t border-slate-100 mt-auto">
+                      <Link className="flex items-center justify-center w-full bg-amber-400 hover:bg-amber-300 text-slate-950 h-11 rounded-xl font-bold text-sm sm:text-base transition-all active:scale-98 shadow-sm hover:shadow-md text-center tracking-wide" href="/appointment">
+                        Đặt Lịch Hẹn Tư Vấn
+                      </Link>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <h3 className="text-xl font-bold text-slate-900 font-sans mb-1">{ls.name}</h3>
-              <p className="text-xs font-bold text-amber-700 uppercase tracking-wider mb-3">{ls.role}</p>
-              <p className="text-slate-600 text-sm mb-6 leading-relaxed flex-grow">{ls.desc}</p>
-              <div className="w-full pt-4 border-t border-slate-100 mt-auto">
-                <Link className="flex items-center justify-center w-full bg-amber-400 hover:bg-amber-300 text-slate-950 h-11 rounded-xl font-bold text-sm sm:text-base transition-all active:scale-98 shadow-sm hover:shadow-md text-center tracking-wide" href="/appointment">
-                  Đặt Lịch Hẹn Tư Vấn
-                </Link>
-              </div>
-            </div>
-          ))}
-          </div>
+            );
+          })()}
         </div>
       </section>
 

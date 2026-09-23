@@ -123,7 +123,7 @@ export default function ServicesPage() {
             <div className="text-amber-400 font-bold text-xs uppercase tracking-widest mb-1">Tư vấn trực tiếp cùng Luật sư</div>
             <h3 className="text-2xl md:text-3xl font-black font-sans uppercase text-white mb-2">Luật Sư Phan Đức Tín</h3>
             <p className="text-white text-sm md:text-base max-w-xl leading-relaxed font-normal">
-              Hơn 15 năm kinh nghiệm giải quyết tranh chấp kinh doanh, bất động sản và đầu tư FDI tại Việt Nam.
+              Nhiều năm kinh nghiệm thực chiến giải quyết tranh chấp kinh doanh, bất động sản và đầu tư FDI tại Việt Nam.
             </p>
           </div>
           <div className="flex flex-wrap gap-3 shrink-0">

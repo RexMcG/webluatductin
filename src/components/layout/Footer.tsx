@@ -230,7 +230,7 @@ export default function Footer() {
                   onClick={(e) => handleScrollTo("lawyers", e)}
                   className="text-amber-300 hover:underline font-bold cursor-pointer"
                 >
-                  Đội ngũ Luật sư
+                  Luật sư Điều hành
                 </Link>
                 <span className="text-white/30">•</span>
                 <Link href="/news" className="text-amber-300 hover:underline font-bold">

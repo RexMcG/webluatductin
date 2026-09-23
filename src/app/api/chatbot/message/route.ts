@@ -155,8 +155,8 @@ const LAWYER_CONTACT = {
   phone: "093 786 32 63",
   phoneClean: "0937863263",
   zaloUrl: "https://zalo.me/0937863263",
-  avatar: "/img/avatar1.png",
-  experience: "Hơn 15 năm kinh nghiệm tranh tụng & tư vấn pháp lý chuyên sâu",
+  avatar: "/img/avatar1.webp",
+  experience: "Nhiều năm kinh nghiệm tranh tụng & tư vấn pháp lý chuyên sâu",
   firm: "Công ty Luật TNHH Đức Tín & Cộng Sự"
 };
 

@@ -864,16 +864,16 @@ export default function AdminContentPage() {
             </div>
           </div>
 
-          {/* Section 5: Đội Ngũ Luật Sư Điều Hành */}
+          {/* Section 5: Luật Sư Điều Hành */}
           <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-5">
             <div className="border-b border-slate-100 pb-4 flex items-center justify-between">
               <div>
                 <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-purple-600"></span>
-                  Khối Đội Ngũ Luật Sư Điều Hành
+                  Khối Luật Sư Điều Hành
                 </h2>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  Chỉnh sửa họ tên, chức danh và tiểu sử của các luật sư phụ trách.
+                  Chỉnh sửa họ tên, chức danh và tiểu sử của luật sư phụ trách.
                 </p>
               </div>
             </div>
@@ -885,7 +885,7 @@ export default function AdminContentPage() {
                 </label>
                 <input
                   type="text"
-                  value={content.home.lawyers?.heading || "Đội Ngũ Luật Sư Điều Hành"}
+                  value={content.home.lawyers?.heading || "Luật Sư Điều Hành"}
                   onChange={(e) =>
                     setContent({
                       ...content,
@@ -908,7 +908,7 @@ export default function AdminContentPage() {
                 </label>
                 <input
                   type="text"
-                  value={content.home.lawyers?.subHeading || "ĐỘI NGŨ LUẬT SƯ"}
+                  value={content.home.lawyers?.subHeading || "LUẬT SƯ PHỤ TRÁCH CHUYÊN MÔN"}
                   onChange={(e) =>
                     setContent({
                       ...content,
@@ -925,7 +925,7 @@ export default function AdminContentPage() {
                 />
               </div>
 
-              {/* 3 Lawyers */}
+              {/* Lawyers */}
               <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                 {(content.home.lawyers?.items || DEFAULT_SITE_CONTENT.home.lawyers.items).map((ls, idx) => (
                   <div key={idx} className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">

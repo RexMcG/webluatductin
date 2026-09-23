@@ -141,7 +141,7 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
       quote: "Chúng tôi không chỉ cung cấp ý kiến pháp lý đơn thuần, mà đồng hành như một đối tác chiến lược bảo vệ an toàn tối đa cho từng bước tiến của khách hàng.",
       lawyerName: "Luật sư Phan Đức Tín",
       lawyerTitle: "Luật sư Điều hành — Giám đốc Hãng luật",
-      lawyerBio: "Với hơn 15 năm kinh nghiệm thực chiến trong các lĩnh vực Tranh tụng Tòa án, M&A Doanh nghiệp và Bất động sản phức tạp, Luật sư Phan Đức Tín cùng đội ngũ luật sư cộng sự đã bảo vệ thành công quyền lợi hợp pháp cho hàng nghìn khách hàng cá nhân và doanh nghiệp trên toàn quốc.",
+      lawyerBio: "Với nhiều năm kinh nghiệm thực chiến trong các lĩnh vực Tranh tụng Tòa án, M&A Doanh nghiệp và Bất động sản phức tạp, Luật sư Phan Đức Tín đã trực tiếp bảo vệ thành công quyền lợi hợp pháp cho đông đảo khách hàng cá nhân và doanh nghiệp trên toàn quốc.",
       experienceYears: "15+",
       successRate: "98%",
       casesCount: "2,500+",
@@ -152,8 +152,8 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
       subHeading: "TÔN CHỈ HOẠT ĐỘNG",
       items: [
         {
-          title: "1. Đội ngũ Luật sư chuyên sâu & giàu kinh nghiệm",
-          desc: "Đội ngũ Luật sư của DucTin & Partners năng động, sắc bén trong tranh tụng, vững chuyên môn nghiệp vụ, tiên phong ứng dụng công nghệ pháp lý và tuân thủ nghiêm ngặt Quy tắc Đạo đức nghề nghiệp."
+          title: "1. Luật sư chuyên sâu & giàu kinh nghiệm",
+          desc: "Luật sư của DucTin & Partners năng động, sắc bén trong tranh tụng, vững chuyên môn nghiệp vụ, tiên phong ứng dụng công nghệ pháp lý và tuân thủ nghiêm ngặt Quy tắc Đạo đức nghề nghiệp."
         },
         {
           title: "2. Giải pháp pháp lý toàn diện & dứt điểm",
@@ -188,26 +188,14 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
       ]
     },
     lawyers: {
-      heading: "Đội Ngũ Luật Sư Điều Hành",
-      subHeading: "ĐỘI NGŨ LUẬT SƯ",
+      heading: "Luật Sư Điều Hành",
+      subHeading: "LUẬT SƯ PHỤ TRÁCH CHUYÊN MÔN",
       items: [
         {
           name: "Ls. Phan Đức Tín",
-          role: "Luật sư Trưởng - Giám đốc Điều hành",
-          desc: "Hơn 15 năm kinh nghiệm tranh tụng, tư vấn đầu tư FDI và mua bán sáp nhập doanh nghiệp.",
+          role: "Luật sư Sáng lập — Giám đốc Điều hành",
+          desc: "Nhiều năm kinh nghiệm thực chiến trong các lĩnh vực Tranh tụng Tòa án, M&A Doanh nghiệp, Đầu tư nước ngoài (FDI) và Bất động sản phức tạp. Đích thân trực tiếp nghiên cứu hồ sơ và đại diện bảo vệ quyền và lợi ích hợp pháp cho thân chủ.",
           img: "avatar1.webp"
-        },
-        {
-          name: "Ls. Nguyễn Hoàng Long",
-          role: "Phó Giám đốc - Trưởng ban Tranh tụng",
-          desc: "Chuyên sâu tố tụng Tòa án, giải quyết tranh chấp kinh doanh thương mại và bất động sản.",
-          img: "avatar2.webp"
-        },
-        {
-          name: "Ls. Trần Minh Tuấn",
-          role: "Trưởng phòng Doanh nghiệp & Đầu tư",
-          desc: "Chuyên thẩm định pháp lý hợp đồng quốc tế, sở hữu trí tuệ và cơ cấu vốn doanh nghiệp.",
-          img: "avatar3.webp"
         }
       ]
     },
@@ -264,7 +252,7 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
   }
 };
 
-const STORAGE_KEY = "ductin_site_content_v2";
+const STORAGE_KEY = "ductin_site_content_v3";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
 class SiteContentService {

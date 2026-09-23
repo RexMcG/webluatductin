@@ -755,30 +755,16 @@ export default function AppointmentPage() {
                   <div className="space-y-4 mb-8">
                     {[
                       {
-                        id: "Ls. Phan Đức Tín (Luật sư Trưởng - Giám đốc Điều hành)",
+                        id: "Ls. Phan Đức Tín (Luật sư Sáng lập - Giám đốc Điều hành)",
                         name: "Ls. Phan Đức Tín",
-                        role: "Luật sư Trưởng - Giám đốc Điều hành (Hơn 15 năm kinh nghiệm tranh tụng & tư vấn)",
-                        img: "/img/avatar1.png",
-                        badge: "Luật sư Trưởng",
+                        role: "Luật sư Sáng lập — Giám đốc Điều hành (Nhiều năm kinh nghiệm thực chiến tranh tụng & tư vấn)",
+                        img: "/img/avatar1.webp",
+                        badge: "Trực tiếp phụ trách",
                       },
                       {
-                        id: "Ls. Nguyễn Hoàng Long (Phó Giám đốc - Trưởng ban Tranh tụng)",
-                        name: "Ls. Nguyễn Hoàng Long",
-                        role: "Phó Giám đốc - Trưởng ban Tranh tụng Tòa án & Trọng tài",
-                        img: "/img/avatar2.png",
-                        badge: "Tranh tụng",
-                      },
-                      {
-                        id: "Ls. Trần Minh Tuấn (Trưởng phòng Tư vấn Doanh nghiệp & Đất đai)",
-                        name: "Ls. Trần Minh Tuấn",
-                        role: "Trưởng phòng Tư vấn Doanh nghiệp, Đầu tư FDI & Bất động sản",
-                        img: "/img/avatar2.png",
-                        badge: "Doanh nghiệp & Đất đai",
-                      },
-                      {
-                        id: "auto (Tự động đề xuất luật sư phù hợp nhất)",
-                        name: "Tự động phân công chuyên gia",
-                        role: "Hệ thống sẽ điều phối luật sư có chuyên môn sâu nhất về lĩnh vực vụ việc của bạn.",
+                        id: "auto (Hãng luật trực tiếp điều phối)",
+                        name: "Hãng luật trực tiếp điều phối",
+                        role: "Luật sư Phan Đức Tín cùng hãng luật sẽ tiếp nhận, phân tích hồ sơ và liên hệ giải quyết.",
                         img: null,
                         badge: "Khuyên dùng",
                       },

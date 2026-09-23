@@ -382,7 +382,7 @@ function AIChatbotContent() {
                 Luật sư Trưởng - Giám đốc Điều hành
               </p>
               <p className="text-xs text-slate-700 mt-2 leading-relaxed text-justify">
-                Hơn 15 năm kinh nghiệm tranh tụng tại Tòa án và tư vấn pháp lý chuyên sâu về Đất đai, Hôn nhân gia đình, Doanh nghiệp &amp; Hình sự.
+                Nhiều năm kinh nghiệm tranh tụng tại Tòa án và tư vấn pháp lý chuyên sâu về Đất đai, Hôn nhân gia đình, Doanh nghiệp &amp; Hình sự.
               </p>
 
               <div className="mt-4 pt-3.5 border-t border-amber-900/15 space-y-2">
