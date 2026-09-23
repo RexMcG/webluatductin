@@ -862,13 +862,6 @@ export default function Home() {
       {/* Managing Lawyer / Expert Attorneys */}
       <section id="lawyers" className="border-t border-border-neutral py-16 scroll-mt-24">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
-              {siteContent.home.lawyers?.heading || "Luật Sư Điều Hành"}
-            </h2>
-            <SectionDivider label={siteContent.home.lawyers?.subHeading || "LUẬT SƯ PHỤ TRÁCH CHUYÊN MÔN"} />
-          </div>
-
           {(() => {
             const lawyersList =
               siteContent.home.lawyers?.items && siteContent.home.lawyers.items.length > 0
@@ -918,7 +911,7 @@ export default function Home() {
                         </p>
                       </div>
 
-                      <div className="pt-6 border-t border-slate-200/80 flex flex-col sm:flex-row items-center gap-4">
+                      <div className="pt-6 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-end gap-4">
                         <Link
                           href="/appointment"
                           className="w-full sm:w-auto px-8 h-12 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all active:scale-98 tracking-wide"
