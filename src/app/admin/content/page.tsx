@@ -870,72 +870,40 @@ export default function AdminContentPage() {
               <div>
                 <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-purple-600"></span>
-                  Khối Luật Sư Điều Hành
+                  Khối Thông Tin Luật Sư Điều Hành (Trang Chủ)
                 </h2>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  Chỉnh sửa họ tên, chức danh và tiểu sử của luật sư phụ trách.
+                  Chỉnh sửa họ tên, chức danh và toàn bộ bài viết mô tả chi tiết của Luật sư hiển thị trên trang chủ.
                 </p>
               </div>
+              <span className="text-xs bg-purple-50 text-purple-800 font-bold px-3 py-1 rounded-full border border-purple-200">
+                Thẻ Profile Toàn Chiều Ngang
+              </span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-                  Tiêu đề khối
-                </label>
-                <input
-                  type="text"
-                  value={content.home.lawyers?.heading || "Luật Sư Điều Hành"}
-                  onChange={(e) =>
-                    setContent({
-                      ...content,
-                      home: {
-                        ...content.home,
-                        lawyers: {
-                          ...(content.home.lawyers || DEFAULT_SITE_CONTENT.home.lawyers),
-                          heading: e.target.value,
-                        },
-                      },
-                    })
-                  }
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-amber-600 focus:border-transparent outline-none font-medium"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-                  Nhãn phân cách (SectionDivider Label)
-                </label>
-                <input
-                  type="text"
-                  value={content.home.lawyers?.subHeading || "LUẬT SƯ PHỤ TRÁCH CHUYÊN MÔN"}
-                  onChange={(e) =>
-                    setContent({
-                      ...content,
-                      home: {
-                        ...content.home,
-                        lawyers: {
-                          ...(content.home.lawyers || DEFAULT_SITE_CONTENT.home.lawyers),
-                          subHeading: e.target.value,
-                        },
-                      },
-                    })
-                  }
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-amber-600 focus:border-transparent outline-none font-medium"
-                />
-              </div>
-
-              {/* Lawyers */}
-              <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                {(content.home.lawyers?.items || DEFAULT_SITE_CONTENT.home.lawyers.items).map((ls, idx) => (
-                  <div key={idx} className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                    <span className="text-xs font-bold text-amber-900 uppercase block">
-                      Luật sư #{idx + 1}
-                    </span>
-
+            <div className="space-y-6">
+              {(content.home.lawyers?.items || DEFAULT_SITE_CONTENT.home.lawyers.items).map((ls, idx) => (
+                <div key={idx} className="p-6 rounded-2xl bg-amber-50/30 border border-amber-200/80 space-y-4">
+                  <div className="flex items-center gap-4 pb-3 border-b border-amber-200/60">
+                    <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-amber-400 bg-white shrink-0 shadow-xs">
+                      <img
+                        src={`/img/${ls.img || "avatar1.webp"}`}
+                        alt={ls.name}
+                        className="w-full h-full object-cover object-top"
+                      />
+                    </div>
                     <div>
-                      <label className="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">
-                        Họ và tên
+                      <span className="text-xs font-black text-amber-900 uppercase block">
+                        Luật sư Điều hành #{idx + 1}
+                      </span>
+                      <p className="text-xs text-slate-500">Ảnh chân dung hiển thị: <code className="text-amber-800 font-mono font-bold">/img/avatar1.webp</code></p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+                        Họ và tên Luật sư
                       </label>
                       <input
                         type="text"
@@ -956,13 +924,14 @@ export default function AdminContentPage() {
                             },
                           });
                         }}
-                        className="w-full px-3 py-1.5 rounded-lg border border-slate-300 font-bold text-xs bg-white text-slate-900"
+                        className="w-full px-4 py-2.5 rounded-xl border border-slate-300 font-bold text-sm bg-white text-slate-900 focus:ring-2 focus:ring-amber-600 focus:border-transparent outline-none"
+                        placeholder="VD: Ls. Phan Đức Tín"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">
-                        Chức vụ / Vai trò
+                      <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+                        Chức vụ / Danh xưng
                       </label>
                       <input
                         type="text"
@@ -983,39 +952,46 @@ export default function AdminContentPage() {
                             },
                           });
                         }}
-                        className="w-full px-3 py-1.5 rounded-lg border border-slate-300 font-bold text-amber-800 text-xs bg-white"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">
-                        Mô tả chuyên môn
-                      </label>
-                      <textarea
-                        rows={3}
-                        value={ls.desc}
-                        onChange={(e) => {
-                          const newLawyers = [
-                            ...(content.home.lawyers?.items || DEFAULT_SITE_CONTENT.home.lawyers.items),
-                          ];
-                          newLawyers[idx].desc = e.target.value;
-                          setContent({
-                            ...content,
-                            home: {
-                              ...content.home,
-                              lawyers: {
-                                ...(content.home.lawyers || DEFAULT_SITE_CONTENT.home.lawyers),
-                                items: newLawyers,
-                              },
-                            },
-                          });
-                        }}
-                        className="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs bg-white text-slate-600 leading-relaxed"
+                        className="w-full px-4 py-2.5 rounded-xl border border-slate-300 font-bold text-amber-900 text-sm bg-white focus:ring-2 focus:ring-amber-600 focus:border-transparent outline-none"
+                        placeholder="VD: Luật sư Sáng lập — Giám đốc Điều hành"
                       />
                     </div>
                   </div>
-                ))}
-              </div>
+
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="block text-xs font-bold text-slate-700 uppercase">
+                        Nội dung bài viết mô tả chi tiết về Luật sư
+                      </label>
+                      <span className="text-[11px] text-amber-800 font-medium">
+                        💡 Mẹo: Nhấn Enter 2 lần (xuống dòng cách đoạn) để tạo các đoạn văn riêng biệt ngoài trang chủ
+                      </span>
+                    </div>
+                    <textarea
+                      rows={8}
+                      value={ls.desc}
+                      onChange={(e) => {
+                        const newLawyers = [
+                          ...(content.home.lawyers?.items || DEFAULT_SITE_CONTENT.home.lawyers.items),
+                        ];
+                        newLawyers[idx].desc = e.target.value;
+                        setContent({
+                          ...content,
+                          home: {
+                            ...content.home,
+                            lawyers: {
+                              ...(content.home.lawyers || DEFAULT_SITE_CONTENT.home.lawyers),
+                              items: newLawyers,
+                            },
+                          },
+                        });
+                      }}
+                      className="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm bg-white text-slate-800 leading-relaxed focus:ring-2 focus:ring-amber-600 focus:border-transparent outline-none"
+                      placeholder="Nhập đoạn văn mô tả chi tiết về bề dày kinh nghiệm, thế mạnh tranh tụng, các lĩnh vực phụ trách..."
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
