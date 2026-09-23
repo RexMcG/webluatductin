@@ -564,7 +564,7 @@ export default function Home() {
                   {item.label}
                 </div>
                 {item.desc && (
-                  <p className="text-[11px] sm:text-xs text-amber-100/70 leading-relaxed max-w-[200px]">
+                  <p className="text-[11px] sm:text-xs text-white leading-relaxed max-w-[220px] font-medium">
                     {item.desc}
                   </p>
                 )}
