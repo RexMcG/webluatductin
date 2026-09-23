@@ -876,7 +876,7 @@ export default function Home() {
                   <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#4A1303] via-[#641D06] to-amber-500" />
 
                   <div className="flex flex-col md:flex-row items-center md:items-start gap-8 sm:gap-12">
-                    {/* Left: Avatar with golden ring & status badge */}
+                    {/* Left: Avatar with golden ring */}
                     <div className="flex flex-col items-center shrink-0">
                       <div className="w-40 h-40 sm:w-48 sm:h-48 rounded-full p-1.5 bg-gradient-to-tr from-amber-500 via-[#641D06] to-amber-300 shadow-md">
                         <div className="w-full h-full rounded-full overflow-hidden bg-white">
@@ -890,13 +890,9 @@ export default function Home() {
                           />
                         </div>
                       </div>
-                      <span className="mt-4 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-950 border border-amber-300/80 shadow-2xs">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                        Đoàn Luật Sư TP.HCM
-                      </span>
                     </div>
 
-                    {/* Right: Lawyer Details, Simple Clean Description & Action Buttons */}
+                    {/* Right: Lawyer Details, Comprehensive Description & Action Buttons */}
                     <div className="flex-1 text-center md:text-left flex flex-col justify-between">
                       <div>
                         <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 font-sans tracking-tight mb-2">
@@ -906,9 +902,11 @@ export default function Home() {
                           {ls.role}
                         </p>
 
-                        <p className="text-slate-700 text-base sm:text-lg leading-relaxed mb-8 font-normal">
-                          {ls.desc}
-                        </p>
+                        <div className="space-y-3.5 text-slate-700 text-sm sm:text-base leading-relaxed mb-8 font-normal text-justify">
+                          {(ls.desc || "").split("\n\n").map((para, pIdx) => (
+                            <p key={pIdx}>{para}</p>
+                          ))}
+                        </div>
                       </div>
 
                       <div className="pt-6 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-end gap-4">

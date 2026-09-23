@@ -194,7 +194,7 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
         {
           name: "Ls. Phan Đức Tín",
           role: "Luật sư Sáng lập — Giám đốc Điều hành",
-          desc: "Nhiều năm kinh nghiệm thực chiến trong các lĩnh vực Tranh tụng Tòa án, M&A Doanh nghiệp, Đầu tư nước ngoài (FDI) và Bất động sản phức tạp. Đích thân trực tiếp nghiên cứu hồ sơ và đại diện bảo vệ quyền và lợi ích hợp pháp cho thân chủ.",
+          desc: "Luật sư Phan Đức Tín là người sáng lập kiêm Giám đốc Điều hành Công ty Luật TNHH Đức Tín và Cộng sự. Với nhiều năm kinh nghiệm thực chiến chuyên sâu, Luật sư đã trực tiếp tư vấn chiến lược và bảo vệ thành công quyền lợi hợp pháp cho hàng nghìn khách hàng cá nhân cũng như các tập đoàn, doanh nghiệp trong nước và quốc tế (FDI).\n\nThế mạnh mũi nhọn của Luật sư Phan Đức Tín là năng lực tranh tụng sắc bén tại các cấp Tòa án và Trung tâm Trọng tài Thương mại Quốc tế (VIAC) trong các vụ án kinh doanh thương mại, tranh chấp đất đai - bất động sản phức tạp, cơ cấu nguồn vốn và mua bán sáp nhập doanh nghiệp (M&A). Đồng thời, Luật sư trực tiếp tham gia tư vấn giải quyết dứt điểm các vướng mắc về hợp đồng kinh tế và phòng ngừa rủi ro pháp lý cho thân chủ.\n\nVới tôn chỉ hoạt động \"Chất lượng dịch vụ là Danh dự của Luật sư\", Luật sư Phan Đức Tín luôn đích thân nghiên cứu hồ sơ, trực tiếp tham gia các phiên xét xử/đàm phán, đảm bảo tính bảo mật tuyệt đối, tinh thần trách nhiệm cao nhất và mang lại kết quả tối ưu cho từng thân chủ.",
           img: "avatar1.webp"
         }
       ]
@@ -252,7 +252,7 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
   }
 };
 
-const STORAGE_KEY = "ductin_site_content_v3";
+const STORAGE_KEY = "ductin_site_content_v4";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
 class SiteContentService {
