@@ -253,7 +253,18 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
 };
 
 const STORAGE_KEY = "ductin_site_content_v5";
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+
+const getApiBase = () => {
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    return process.env.NEXT_PUBLIC_API_URL.replace(/\/+$/, "").replace(/\/api\/v1$/, "");
+  }
+  if (typeof window !== "undefined") {
+    if (window.location.hostname.includes("vercel.app") || window.location.hostname.includes("ductin")) {
+      return "https://webluat-backend.onrender.com";
+    }
+  }
+  return "http://localhost:3001";
+};
 
 class SiteContentService {
   private memoryCache: SiteContentData | null = null;
@@ -330,7 +341,7 @@ class SiteContentService {
 
   public async fetchFromBackend(): Promise<SiteContentData> {
     try {
-      const res = await fetch(`${API_BASE}/api/site-content`, { cache: "no-store" });
+      const res = await fetch(`${getApiBase()}/api/site-content`, { cache: "no-store" });
       if (res.ok) {
         const json = await res.json();
         if (json && json.data) {
@@ -403,7 +414,7 @@ class SiteContentService {
 
     // Push to backend asynchronously
     try {
-      await fetch(`${API_BASE}/api/site-content`, {
+      await fetch(`${getApiBase()}/api/site-content`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updated),
@@ -423,7 +434,7 @@ class SiteContentService {
     this.notify();
 
     try {
-      await fetch(`${API_BASE}/api/site-content/reset`, { method: "POST" });
+      await fetch(`${getApiBase()}/api/site-content/reset`, { method: "POST" });
     } catch (e) {
       console.warn("Backend reset failed:", e);
     }
