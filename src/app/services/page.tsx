@@ -112,38 +112,6 @@ export default function ServicesPage() {
           ))}
         </div>
       </section>
-
-      {/* Consultation Banner */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 mt-6">
-        <div 
-          style={{ background: 'linear-gradient(180deg, #494949 0, #737373 100%)' }}
-          className="text-white p-8 md:p-12 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 border border-white/10"
-        >
-          <div>
-            <div className="text-amber-400 font-bold text-xs uppercase tracking-widest mb-1">Tư vấn trực tiếp cùng Luật sư</div>
-            <h3 className="text-2xl md:text-3xl font-black font-sans uppercase text-white mb-2">Luật Sư Phan Đức Tín</h3>
-            <p className="text-white text-sm md:text-base max-w-xl leading-relaxed font-normal">
-              Nhiều năm kinh nghiệm thực chiến giải quyết tranh chấp kinh doanh, bất động sản và đầu tư FDI tại Việt Nam.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3 shrink-0">
-            <a
-              href="tel:0937863263"
-              className="bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold px-6 py-3.5 rounded-xl uppercase text-sm shadow-md transition-colors flex items-center gap-2"
-            >
-              <span className="material-symbols-outlined">call</span>
-              093 786 32 63
-            </a>
-            <Link
-              href="/appointment"
-              className="bg-[#C0963B] hover:bg-[#a37b2c] text-white font-bold px-6 py-3.5 rounded-xl uppercase text-sm shadow-md transition-colors flex items-center gap-2"
-            >
-              <span className="material-symbols-outlined">calendar_month</span>
-              Đặt Lịch Hẹn
-            </Link>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
