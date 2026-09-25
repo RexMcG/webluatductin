@@ -1,9 +1,11 @@
 import { FormItem } from "@/services/form-library.service";
+import { sanitizeFormItem } from "@/utils/form-brand-cleaner";
 
 /**
  * Generates an official Vietnamese legal Word Document (.doc) and triggers instant download in browser.
  */
-export function exportFormToDoc(form: FormItem, leadInfo?: { name: string; phone: string }) {
+export function exportFormToDoc(rawForm: FormItem, leadInfo?: { name: string; phone: string }) {
+  const form = sanitizeFormItem(rawForm);
   const currentDate = new Date();
   const day = String(currentDate.getDate()).padStart(2, "0");
   const month = String(currentDate.getMonth() + 1).padStart(2, "0");

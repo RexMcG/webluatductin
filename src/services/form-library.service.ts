@@ -1,4 +1,5 @@
 import { apiClient } from '@/lib/api-client';
+import { sanitizeFormItem } from '@/utils/form-brand-cleaner';
 
 export interface FormItem {
   id: number;
@@ -13,8 +14,10 @@ export interface FormItem {
 }
 
 export const formLibraryService = {
-  searchForms: (query: string, limit: number = 10): Promise<FormItem[]> => {
-    return apiClient.get('/forms/search', { params: { query, limit } });
+  searchForms: async (query: string, limit: number = 10): Promise<FormItem[]> => {
+    const rawItems: FormItem[] = await apiClient.get('/forms/search', { params: { query, limit } });
+    if (!Array.isArray(rawItems)) return [];
+    return rawItems.map(sanitizeFormItem);
   },
   createForm: (data: { title: string; content: string; category?: string }): Promise<FormItem> => {
     return apiClient.post('/forms', data);

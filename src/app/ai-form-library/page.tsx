@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { formLibraryService, FormItem } from "@/services/form-library.service";
 import { formLeadService } from "@/services/form-lead.service";
 import { exportFormToDoc } from "@/utils/form-exporter";
+import { sanitizeFormItem } from "@/utils/form-brand-cleaner";
 import SectionDivider from "@/components/common/SectionDivider";
 
 // Curated standard Vietnamese legal templates fallback & initial library (25+ chuẩn biểu mẫu)
@@ -499,7 +500,7 @@ export default function AIFormLibrary() {
   // ĐỀ XUẤT THÔNG MINH GỌN GÀNG: ĐÚNG 4 BIỂU MẪU CHUẨN XÁC & LIÊN QUAN NHẤT
   const displayForms = useMemo(() => {
     if (!debouncedSearchTerm.trim()) {
-      return POPULAR_FORMS.slice(0, 4);
+      return POPULAR_FORMS.slice(0, 4).map(sanitizeFormItem);
     }
 
     const term = debouncedSearchTerm.toLowerCase().trim();
@@ -508,10 +509,10 @@ export default function AIFormLibrary() {
     const results: FormItem[] = [];
     const seenIds = new Set<number>();
 
-    // 1. Nạp kết quả trực tiếp từ Backend API (tối đa 4)
+    // 1. Nạp kết quả trực tiếp từ Backend API (tối đa 4) - Chuẩn hóa và lọc sạch 100% thương hiệu bên thứ ba
     if (searchResults && searchResults.length > 0) {
       searchResults.slice(0, 4).forEach((item) => {
-        results.push(item);
+        results.push(sanitizeFormItem(item));
         seenIds.add(item.id);
       });
     }
