@@ -17,22 +17,22 @@ async function optimize() {
     const stat = fs.statSync(herobannerPath);
     totalBefore += stat.size;
     
-    // Create optimized WebP (2.8K Retina/QHD, quality 90)
+    // Create optimized WebP
     await sharp(herobannerPath)
-      .resize({ width: 2866, withoutEnlargement: true })
-      .webp({ quality: 90, effort: 6 })
+      .resize({ width: 1920, withoutEnlargement: true })
+      .webp({ quality: 80, effort: 6 })
       .toFile(path.join(imgDir, 'herobanner.webp'));
 
     // Create optimized JPG fallback
     await sharp(herobannerPath)
-      .resize({ width: 2866, withoutEnlargement: true })
-      .jpeg({ quality: 90, mozjpeg: true })
+      .resize({ width: 1920, withoutEnlargement: true })
+      .jpeg({ quality: 80, mozjpeg: true })
       .toFile(path.join(imgDir, 'herobanner.jpg'));
 
-    // Keep png version optimized
+    // Replace original png with highly compressed version
     const pngBuffer = await sharp(herobannerPath)
-      .resize({ width: 2866, withoutEnlargement: true })
-      .png({ compressionLevel: 9, quality: 90 })
+      .resize({ width: 1920, withoutEnlargement: true })
+      .png({ compressionLevel: 9, quality: 80 })
       .toBuffer();
     fs.writeFileSync(herobannerPath, pngBuffer);
     totalAfter += pngBuffer.length;
