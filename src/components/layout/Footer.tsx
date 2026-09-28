@@ -207,11 +207,11 @@ export default function Footer() {
               <div className="text-[11px] text-amber-200/90 font-medium space-y-1.5 pt-1 border-t border-white/10">
                 <p className="flex items-center gap-1.5">
                   <span className="w-1 h-1 rounded-full bg-amber-300 shrink-0"></span>
-                  Đăng ký hoạt động: {footerData.barAssociation}
+                  Giấy đăng ký hoạt động số: 41.02.1412/TP/ĐKHĐ
                 </p>
                 <p className="flex items-center gap-1.5">
                   <span className="w-1 h-1 rounded-full bg-amber-300 shrink-0"></span>
-                  {footerData.privacyCommitment}
+                  Đăng ký hoạt động: Sở Tư pháp TP. Hồ Chí Minh
                 </p>
               </div>
 
@@ -257,7 +257,7 @@ export default function Footer() {
                   <span className="material-symbols-outlined text-base">call</span>
                 </a>
                 <a
-                  href={`mailto:${footerData.email || "rexmcg12345678@gmail.com"}`}
+                  href={`mailto:${footerData.email || "tin.phan@ductin-partners.com"}`}
                   className="w-8 h-8 rounded-full bg-amber-600 hover:bg-amber-500 text-white flex items-center justify-center transition-colors shadow-2xs"
                   title="Gửi Email"
                 >
@@ -266,29 +266,29 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* CỘT 2: LĨNH VỰC HÀNH NGHỀ (2.5 cols) */}
+            {/* CỘT 2: LĨNH VỰC HOẠT ĐỘNG (2.5 cols) */}
             <div className="lg:col-span-2 flex flex-col gap-2">
               <p className="text-xs md:text-sm font-extrabold uppercase tracking-wider text-amber-300 pb-1.5 border-b border-amber-500/30">
-                Lĩnh Vực Hành Nghề
+                Lĩnh vực hoạt động
               </p>
               <div className="flex flex-col gap-1.5 text-xs md:text-[13px]">
                 <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services/hop-tac-doanh-nghiep">
-                  Doanh nghiệp &amp; M&amp;A
+                  Pháp lý doanh nghiệp
                 </Link>
-                <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services/dau-tu-nuoc-ngoai-fdi">
+                <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services/thu-hoi-no">
+                  Thu hồi nợ khó đòi
+                </Link>
+                <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services/tu-van-dau-tu">
                   Đầu tư nước ngoài (FDI)
                 </Link>
-                <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services/bat-dong-san-dat-dai">
-                  Đất đai &amp; Bất động sản
+                <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services/tranh-tung">
+                  Tranh tụng tại Tòa
                 </Link>
-                <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services/hon-nhan-gia-dinh">
-                  Hôn nhân &amp; Thừa kế
-                </Link>
-                <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services/tranh-tung-tai-toa">
-                  Tranh tụng Tòa án
+                <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services/bat-dong-san">
+                  Nhà đất &amp; Bất động sản
                 </Link>
                 <Link className="text-amber-300/90 hover:text-amber-200 font-bold transition-colors pt-0.5 inline-flex items-center gap-1" href="/services">
-                  <span>Tất cả lĩnh vực</span>
+                  <span>Tất cả 10 lĩnh vực</span>
                   <span className="material-symbols-outlined text-xs">arrow_forward</span>
                 </Link>
               </div>
@@ -318,11 +318,11 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* CỘT 4: TRỤ SỞ & LIÊN HỆ ĐẶT LỊCH (4 cols) */}
+            {/* CỘT 4: LIÊN HỆ ĐẶT LỊCH (4 cols) */}
             <div className="lg:col-span-4 flex flex-col gap-2.5 bg-black/20 p-4 rounded-2xl border border-white/10">
               <div className="flex items-center justify-between border-b border-amber-500/30 pb-1.5">
                 <p className="text-xs md:text-sm font-extrabold uppercase tracking-wider text-amber-300">
-                  Trụ Sở &amp; Liên Hệ
+                  LIÊN HỆ
                 </p>
                 <span className="text-[10px] text-emerald-300 font-bold flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -349,12 +349,15 @@ export default function Footer() {
                 </p>
                 <p>
                   <strong className="text-amber-300">Email:</strong>{" "}
-                  <a href={`mailto:${footerData.email || ""}`} className="hover:text-amber-300 transition-colors break-all">
-                    {footerData.email}
+                  <a href={`mailto:${footerData.email || "tin.phan@ductin-partners.com"}`} className="hover:text-amber-300 transition-colors break-all">
+                    {footerData.email || "tin.phan@ductin-partners.com"}
                   </a>
                 </p>
                 <p className="text-[11.5px] leading-snug">
-                  <strong className="text-amber-300">Trụ sở chính:</strong> {footerData.address}
+                  <strong className="text-amber-300">Trụ sở:</strong> Tòa nhà Saigon Trade Center, 37 Tôn Đức Thắng, Phường Sài Gòn, TP. Hồ Chí Minh
+                </p>
+                <p className="text-[11.5px] leading-snug">
+                  <strong className="text-amber-300">VP Thủ Đức:</strong> 91 Nguyễn Thị Nhung, KĐT Vạn Phúc, Phường Hiệp Bình, TP. Hồ Chí Minh
                 </p>
               </div>
 

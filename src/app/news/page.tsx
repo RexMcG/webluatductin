@@ -19,8 +19,8 @@ export default function NewsPage() {
           Bảng Tin Pháp Luật
         </h1>
         <SectionDivider label="KIẾN THỨC" />
-        <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-          Tổng hợp thông tin pháp luật, phân tích vụ án và quy định pháp lý mới nhất từ Công ty Luật TNHH Đức Tín và Cộng sự.
+        <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed">
+          Cập nhật các quy định pháp luật mới nhất, kết hợp góc nhìn chuyên sâu và phân tích tình huống thực tiễn từ đội ngũ Luật Đức Tín &amp; Cộng sự.
         </p>
       </div>
 

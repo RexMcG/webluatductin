@@ -21,6 +21,7 @@ export default function ServicesPage() {
 
   const SERVICE_IMAGES: Record<string, string> = {
     "hop-tac-doanh-nghiep": "/img/card_business.webp",
+    "thu-hoi-no": "/img/card_debt.webp",
     "tu-van-dau-tu": "/img/card_fdi.webp",
     "tranh-tung": "/img/card_court.webp",
     "bat-dong-san": "/img/card_realestate.webp",

@@ -5,17 +5,18 @@ import Link from "next/link";
 import { appointmentService } from "@/services/appointment.service";
 import SectionDivider from "@/components/common/SectionDivider";
 
-// 9 Lĩnh vực cốt lõi của Đức Tín & Cộng sự + 1 Lĩnh vực Khác
+// 10 Lĩnh vực hoạt động cốt lõi của Đức Tín & Cộng sự + 1 Lĩnh vực Khác
 export const PRACTICE_AREAS = [
   { value: "hop-tac-doanh-nghiep", label: "Hợp Tác Doanh Nghiệp & Luật Sư Nội Bộ", icon: "corporate_fare" },
   { value: "tu-van-dau-tu", label: "Tư Vấn Đầu Tư FDI & M&A", icon: "trending_up" },
   { value: "bat-dong-san-xay-dung", label: "Bất Động Sản & Dự Án Xây Dựng", icon: "real_estate_agent" },
-  { value: "tranh-tung-toa-an", label: "Tranh Tụng Tòa Án & Tố Tụng", icon: "gavel" },
-  { value: "hon-nhan-thua-ke", label: "Hôn Nhân Gia Đình & Di Chúc Thừa Kế", icon: "family_restroom" },
-  { value: "lao-dong-tien-luong", label: "Lao Động & Quản Trị Nhân Sự", icon: "badge" },
+  { value: "tranh-tung-toa-an", label: "Tranh Tụng Tòa Án & Trọng Tài", icon: "gavel" },
+  { value: "hon-nhan-thua-ke", label: "Hôn Nhân Gia Đình & Thừa Kế", icon: "family_restroom" },
+  { value: "lao-dong-tien-luong", label: "Lao Động & Tiền Lương", icon: "badge" },
   { value: "so-huu-tri-tue", label: "Sở Hữu Trí Tuệ & Chuyển Giao Công Nghệ", icon: "copyright" },
-  { value: "tai-chinh-ngan-hang-thue", label: "Tài Chính, Thuế & Kế Toán", icon: "account_balance" },
+  { value: "tai-chinh-ngan-hang-thue", label: "Tài Chính - Ngân Hàng - Thuế", icon: "account_balance" },
   { value: "thu-tuc-phap-ly-giay-phep", label: "Thủ Tục Pháp Lý & Giấy Phép Con", icon: "description" },
+  { value: "thu-hoi-no", label: "Thu Hồi Nợ Khó Đòi", icon: "request_quote" },
   { value: "khac", label: "Lĩnh Vực Pháp Lý Khác", icon: "more_horiz" },
 ];
 
@@ -270,8 +271,7 @@ export default function AppointmentPage() {
         </h1>
         <SectionDivider label="ĐẶT LỊCH" />
         <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-          Vui lòng điền thông tin chi tiết để đặt lịch làm việc trực tiếp với{" "}
-          <strong className="text-slate-900 font-bold">Luật sư Phan Đức Tín</strong> (Giám đốc Điều hành Công ty Luật TNHH Đức Tín và Cộng sự).
+          Vui lòng điền thông tin chi tiết để được đội ngũ Luật sư hỗ trợ nhiệt tình và chi tiết nhất.
         </p>
       </div>
 
@@ -456,7 +456,7 @@ export default function AppointmentPage() {
                       Chọn Lĩnh Vực &amp; Điền Thông Tin Vụ Việc
                     </h2>
                     <p className="text-slate-600 text-sm md:text-base mt-1">
-                      Cung cấp các thông tin ban đầu để Luật sư chuẩn bị trước phương án tư vấn tốt nhất.
+                      Vui lòng cung cấp thông tin cơ bản về vụ việc để Luật sư thẩm định và xây dựng phương án giải quyết.
                     </p>
                   </div>
 
@@ -487,7 +487,7 @@ export default function AppointmentPage() {
                             <span className="text-base font-bold text-slate-900">Tư vấn tại Văn phòng</span>
                           </div>
                           <p className="text-slate-600 text-xs md:text-sm mt-1 leading-relaxed">
-                            Làm việc trực tiếp tại trụ sở Công ty Luật Đức Tín (TP. Hồ Chí Minh), xem xét hồ sơ gốc.
+                            Trao đổi trực tiếp cùng Luật sư chuyên về mảng tranh chấp của Khách hàng và thẩm định hồ sơ.
                           </p>
                         </div>
                       </label>
@@ -513,7 +513,7 @@ export default function AppointmentPage() {
                             <span className="text-base font-bold text-slate-900">Tư vấn Online từ xa</span>
                           </div>
                           <p className="text-slate-600 text-xs md:text-sm mt-1 leading-relaxed">
-                            Trao đổi qua Google Meet, Zoom hoặc gọi điện thoại trực tiếp linh hoạt mọi lúc mọi nơi.
+                            Tư vấn qua Google Meet, Zoom hoặc điện thoại theo lịch hẹn trước.
                           </p>
                         </div>
                       </label>
@@ -745,10 +745,10 @@ export default function AppointmentPage() {
                   <div className="border-b border-slate-200 pb-5 mb-8">
                     <span className="text-xs uppercase font-extrabold tracking-widest text-[#641D06]">Bước 2 / 4</span>
                     <h2 className="text-2xl md:text-3xl font-black text-slate-900 font-sans tracking-tight mt-1">
-                      Chọn Luật Sư Chuyên Trách
+                      CHỌN LUẬT SƯ TƯ VẤN
                     </h2>
                     <p className="text-slate-600 text-sm md:text-base mt-1">
-                      Chỉ định luật sư bạn muốn làm việc trực tiếp hoặc chọn chế độ để Văn phòng phân công chuyên gia phù hợp nhất.
+                      Chỉ định luật sư bạn muốn làm việc trực tiếp hoặc để Văn phòng phân công Luật sư phù hợp nhất.
                     </p>
                   </div>
 

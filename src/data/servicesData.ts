@@ -29,10 +29,10 @@ export interface ServiceDetail {
 export const SERVICES_DATA: Record<string, ServiceDetail> = {
   "hop-tac-doanh-nghiep": {
     slug: "hop-tac-doanh-nghiep",
-    title: "Hợp Tác Doanh Nghiệp & Luật Sư Nội Bộ",
+    title: "Pháp Lý Doanh Nghiệp & Luật Sư Nội Bộ",
     category: "Doanh nghiệp",
-    badge: "Dịch Vụ Trọng Điểm 2026",
-    heroDesc: "Thấu hiểu sâu sắc khuôn khổ pháp lý doanh nghiệp và thực tiễn thương mại tại Việt Nam, Đức Tín & Cộng sự cung cấp giải pháp pháp lý toàn diện, giúp doanh nghiệp vững tâm phát triển và loại trừ rủi ro từ nội bộ.",
+    badge: "Dịch Vụ Trọng Điểm",
+    heroDesc: "Thấu hiểu sâu sắc khuôn khổ pháp lý và thực tiễn thương mại tại Việt Nam, Đức Tín & Cộng sự cung cấp giải pháp pháp lý toàn diện, giúp doanh nghiệp vững tâm phát triển và phòng ngừa hiệu quả các rủi ro nội bộ.",
     about: {
       overview: [
         "Việc hiểu rõ cả khuôn khổ pháp lý doanh nghiệp và thực tiễn thương mại ở Việt Nam cho phép các luật sư của Đức Tín & Cộng sự đưa ra lời khuyên thiết thực, sát sườn với từng mô hình hoạt động kinh doanh, gia tăng tối đa giá trị cho doanh nghiệp trong mọi giai đoạn phát triển.",
@@ -136,12 +136,105 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
     ]
   },
 
+  "thu-hoi-no": {
+    slug: "thu-hoi-no",
+    title: "Thu Hồi Nợ Khó Đòi",
+    category: "Thu hồi nợ",
+    badge: "Hiệu Quả & Đúng Pháp Luật",
+    heroDesc: "Cung cấp lộ trình xử lý công nợ chuyên nghiệp thông qua biện pháp hòa giải và các thủ tục tố tụng hợp pháp. Hỗ trợ khách hàng thu hồi tối đa tài sản, tối ưu hóa thời gian và giảm thiểu rủi ro tài chính.",
+    about: {
+      overview: [
+        "Nợ khó đòi, nợ tồn đọng kéo dài từ các hợp đồng mua bán, xây dựng, vay mượn thương mại luôn gây tắc nghẽn dòng vốn và đe dọa trực tiếp sự tồn vong của doanh nghiệp và sự ổn định tài chính của cá nhân.",
+        "Đức Tín & Cộng sự cam kết thu hồi nợ bằng các biện pháp pháp lý chính quy 100%, tuân thủ nghiêm ngặt chuẩn mực đạo đức nghề nghiệp và quy định của pháp luật Việt Nam. Tuyệt đối không sử dụng các biện pháp trái pháp luật gây ảnh hưởng đến uy tín và an toàn của thân chủ.",
+        "Với quy trình bài bản từ xác minh khả năng thanh toán, tài sản tẩu tán, gửi thư khuyến cáo pháp lý (Legal Notice), đàm phán thương lượng cho đến khởi kiện Tòa án, áp dụng biện pháp khẩn cấp tạm thời phong tỏa tài khoản/kê biên tài sản và cưỡng chế thi hành án dứt điểm."
+      ],
+      keyHighlights: [
+        {
+          title: "100% Biện Pháp Hợp Pháp",
+          desc: "Bảo đảm quy trình pháp lý chuẩn mực, bảo vệ uy tín thương hiệu và an toàn pháp lý tuyệt đối cho thân chủ.",
+          icon: "verified_user"
+        },
+        {
+          title: "Xác Minh Tài Sản Chuyên Nghiệp",
+          desc: "Truy vết dòng tiền, bất động sản, cổ phần và nguồn thu nhập thực tế của bên có nghĩa vụ trả nợ.",
+          icon: "search"
+        },
+        {
+          title: "Áp Dụng Phong Tỏa Kịp Thời",
+          desc: "Đề nghị Tòa án phong tỏa tài khoản ngân hàng, tạm dừng xuất cảnh và kê biên tài sản ngăn chặn tẩu tán.",
+          icon: "lock"
+        }
+      ],
+      scopes: [
+        {
+          title: "1. Thẩm định Hồ sơ Nợ & Khả năng Thu hồi",
+          items: [
+            "Kiểm tra tính pháp lý của hồ sơ công nợ: Hợp đồng, Biên bản đối chiếu công nợ, Hóa đơn VAT, Giấy vay tiền.",
+            "Xác minh nhân thân, tình trạng cư trú, tình trạng hoạt động doanh nghiệp và tài sản hiện có của bên nợ."
+          ]
+        },
+        {
+          title: "2. Thương lượng, Hòa giải & Gửi Thư Cảnh báo Pháp lý",
+          items: [
+            "Soạn thảo và gửi Thư khuyến cáo pháp lý (Legal Notice) ấn định thời hạn thanh toán dứt điểm.",
+            "Trực tiếp đại diện khách hàng gặp gỡ đối thoại, đàm phán lộ trình trả nợ có bảo đảm bằng tài sản."
+          ]
+        },
+        {
+          title: "3. Khởi kiện Tòa án & Yêu cầu Phong tỏa Tài sản",
+          items: [
+            "Soạn đơn khởi kiện yêu cầu Tòa án hoặc Trung tâm Trọng tài buộc bên nợ trả nợ gốc và lãi chậm thanh toán.",
+            "Yêu cầu áp dụng biện pháp khẩn cấp tạm thời: Phong tỏa tài khoản ngân hàng, kê biên tài sản, cấm chuyển dịch tài sản."
+          ]
+        },
+        {
+          title: "4. Đại diện Thi hành án Dân sự Thu hồi Tiền",
+          items: [
+            "Nộp đơn yêu cầu thi hành án và thúc đẩy Cơ quan Thi hành án dân sự tiến hành cưỡng chế, bán đấu giá tài sản bên nợ.",
+            "Giám sát việc thu hồi dòng tiền và hoàn trả trực tiếp vào tài khoản của khách hàng."
+          ]
+        }
+      ],
+      workflow: [
+        { step: "01", title: "Thẩm Định & Báo Phí", desc: "Luật sư nghiên cứu hồ sơ công nợ, đánh giá khả năng thu hồi và báo chi phí minh bạch." },
+        { step: "02", title: "Gửi Thư Cảnh Báo", desc: "Phát hành văn bản pháp lý chính thức, tạo sức ép pháp lý buộc bên nợ chủ động hợp tác trả tiền." },
+        { step: "03", title: "Khởi Kiện & Phong Tỏa", desc: "Nộp đơn khởi kiện, yêu cầu Tòa án phong tỏa tài sản ngăn chặn hành vi tẩu tán tài sản của bên nợ." },
+        { step: "04", title: "Thi Hành Án & Thu Tiền", desc: "Phối hợp cùng cơ quan thi hành án kê biên tài sản, hoàn tất thu hồi tối đa công nợ cho thân chủ." }
+      ]
+    },
+    experience: [
+      {
+        title: "Thu Hồi Thành Công 18 Tỷ Đồng Nợ Khó Đòi Cho Doanh Nghiệp Cung Ứng Vật Liệu Xây Dựng",
+        clientType: "Doanh nghiệp Sản xuất Thép",
+        result: "Đàm phán và áp dụng biện pháp ngăn chặn kịp thời, thu hồi 100% nợ gốc và 70% tiền lãi sau 45 ngày làm việc.",
+        year: "2025",
+        summary: "Luật sư Đức Tín phát hiện bên nợ đang chuẩn bị tẩu tán 2 bất động sản và nhanh chóng yêu cầu phong tỏa tài sản bảo đảm."
+      },
+      {
+        title: "Xử Lý Thu Hồi Khoản Vay Thương Mại 6.5 Tỷ Đồng Dây Dưa Qua 3 Năm",
+        clientType: "Nhà đầu tư Cá nhân",
+        result: "Buộc bên vay ký thỏa thuận chuyển nhượng quyền sử dụng đất để cấn trừ toàn bộ khoản nợ tại phòng công chứng.",
+        year: "2024",
+        summary: "Tổ chức đàm phán quyết liệt trên cơ sở các chứng cứ vi phạm hợp đồng và nguy cơ bị khởi tố hình sự nếu cố tình lừa đảo."
+      }
+    ],
+    articles: [
+      {
+        slug: "cam-nang-phap-ly-doanh-nghiep-2026",
+        title: "Quy trình Thu Hồi Nợ Doanh Nghiệp Hợp Pháp & Hiệu Quả Không Vướng Lao Lý",
+        date: "25/08/2026",
+        readTime: "7 phút đọc",
+        excerpt: "Hướng dẫn các bước hợp pháp để thu hồi công nợ quá hạn và thủ tục đề nghị Tòa án phong tỏa tài sản bên nợ."
+      }
+    ]
+  },
+
   "tu-van-dau-tu": {
     slug: "tu-van-dau-tu",
-    title: "Tư Vấn Đầu Tư FDI & Dự Án",
+    title: "Đầu Tư Nước Ngoài (FDI) & Cấp Phép Dự Án",
     category: "Đầu tư",
     badge: "Chuyên Gia FDI & M&A",
-    heroDesc: "Tối ưu hóa hành trình đầu tư vào Việt Nam cho các nhà đầu tư nước ngoài (FDI) và doanh nghiệp nội địa với sự am hiểu sâu sắc quy định đầu tư, đất đai và ưu đãi thuế.",
+    heroDesc: "Tối ưu hóa hành trình đầu tư vào Việt Nam cho các nhà đầu tư nước ngoài (FDI) bằng kinh nghiệm và sự am hiểu sâu sắc về quy định cấp phép dự án, pháp lý đất đai và các chính sách ưu đãi thuế.",
     about: {
       overview: [
         "Đức Tín & Cộng sự tự hào là đối tác pháp lý tin cậy của nhiều nhà đầu tư FDI đến từ Nhật Bản, Hàn Quốc, Singapore, Hoa Kỳ và Châu Âu khi bước chân vào thị trường Việt Nam.",
@@ -225,10 +318,10 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
 
   "tranh-tung": {
     slug: "tranh-tung",
-    title: "Giải Quyết Tranh Chấp & Tranh Tụng Tòa Án",
+    title: "Giải Quyết Tranh Chấp & Tranh Tụng Tại Tòa",
     category: "Tố tụng",
     badge: "Bảo Vệ Quyền Lợi Tuyệt Đối",
-    heroDesc: "Bảo vệ tối đa quyền và lợi ích hợp pháp của khách hàng tại Tòa án các cấp và Trung tâm Trọng tài Thương mại với chiến lược tranh tụng sắc bén, đanh thép và tận tâm.",
+    heroDesc: "Bảo vệ tối đa quyền và lợi ích hợp pháp của khách hàng tại Tòa án các cấp và Trung tâm Trọng tài với chiến lược giải quyết tranh chấp khôn khéo, linh hoạt dựa trên nền tảng pháp lý vững chắc.",
     about: {
       overview: [
         "Tranh chấp kinh doanh, thương mại, dân sự và đất đai luôn mang lại nhiều căng thẳng và rủi ro tài chính nặng nề cho các bên liên quan. Tại Đức Tín & Cộng sự, chúng tôi tiếp cận từng vụ việc với tư duy chiến lược: Ưu tiên thương lượng hòa giải có lợi nhất trước khi bước vào cuộc chiến pháp lý.",
@@ -311,10 +404,10 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
 
   "bat-dong-san": {
     slug: "bat-dong-san",
-    title: "Nhà Đất – Bất Động Sản & Dự Án",
+    title: "Pháp Lý Nhà Đất & Bất Động Sản",
     category: "Bất động sản",
     badge: "Pháp Lý Vững Vàng - Đầu Tư Bền Vững",
-    heroDesc: "Tư vấn toàn diện pháp lý mua bán, chuyển nhượng nhà đất, pháp lý dự án khu đô thị và giải quyết nhanh chóng các tranh chấp quyền sử dụng đất phức tạp.",
+    heroDesc: "Tư vấn toàn diện pháp lý cho các giao dịch mua bán, chuyển nhượng, tách thửa. Giải quyết triệt để các tranh chấp ranh giới, thừa kế nhà đất và thủ tục bồi thường, giải tỏa.",
     about: {
       overview: [
         "Thị trường bất động sản luôn tiềm ẩn nhiều rủi ro pháp lý phức tạp về quy hoạch, nguồn gốc đất, tính hợp pháp của hợp đồng mua bán và thủ tục cấp sổ hồng/sổ đỏ.",
@@ -397,10 +490,10 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
 
   "lao-dong": {
     slug: "lao-dong",
-    title: "Lao Động – Tiền Lương & BHXH",
+    title: "Lao Động, Tiền Lương & Bảo Hiểm Xã Hội",
     category: "Lao động",
     badge: "Pháp Lý Nhân Sự Chuẩn Mực",
-    heroDesc: "Xây dựng hệ thống quản trị nhân sự tuân thủ pháp luật, giải quyết êm thấm các tranh chấp lao động và tối ưu hóa chi phí tiền lương, bảo hiểm cho doanh nghiệp.",
+    heroDesc: "Xây dựng hệ thống quản trị nhân sự tuân thủ pháp luật, giải quyết êm thấm các tranh chấp lao động và tối ưu hóa chi phí tiền lương, bảo hiểm xã hội theo quy định.",
     about: {
       overview: [
         "Mối quan hệ lao động hài hòa và đúng luật là nền tảng sống còn cho sự ổn định của mọi tổ chức. Những vi phạm về sa thải sai luật, chậm đóng BHXH hay thiếu sót trong thỏa ước lao động có thể dẫn đến các vụ kiện tụng kéo dài và đình công gây tê liệt sản xuất.",
@@ -483,10 +576,10 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
 
   "hon-nhan-gia-dinh": {
     slug: "hon-nhan-gia-dinh",
-    title: "Hôn Nhân & Gia Đình – Thừa Kế",
+    title: "Ly Hôn, Tranh Chấp Tài Sản & Thừa Kế",
     category: "Gia đình",
     badge: "Thấu Cảm - Bảo Mật - Trọn Nghĩa Vẹn Tình",
-    heroDesc: "Đồng hành thấu hiểu và bảo vệ quyền lợi hợp pháp của khách hàng trong các vấn đề ly hôn thuận tình/đơn phương, phân chia tài sản chung và bảo vệ quyền nuôi con.",
+    heroDesc: "Đồng hành thấu hiểu và bảo vệ quyền lợi hợp pháp của khách hàng trong các vụ việc ly hôn, giành quyền nuôi con, phân chia tài sản chung và giải quyết tranh chấp di sản thừa kế.",
     about: {
       overview: [
         "Vấn đề hôn nhân và gia đình không chỉ đơn thuần là các quy định pháp luật khô khan, mà còn gắn liền với tình cảm, danh dự và tương lai của con cái. Đức Tín & Cộng sự tiếp cận mỗi vụ việc với tinh thần lắng nghe, thấu cảm và giữ gìn sự riêng tư tuyệt đối cho thân chủ.",
@@ -569,10 +662,10 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
 
   "thu-tuc-phap-ly-giay-phep": {
     slug: "thu-tuc-phap-ly-giay-phep",
-    title: "Thủ Tục Pháp Lý & Giấy Phép Con",
+    title: "Thành Lập Doanh Nghiệp & Giấy Phép Con",
     category: "Hành chính",
     badge: "Cấp Phép Nhanh Chóng - Chuẩn Xác",
-    heroDesc: "Đại diện thực hiện trọn gói các thủ tục thành lập doanh nghiệp, xin giấy phép con, vệ sinh an toàn thực phẩm, PCCC và đăng ký sở hữu trí tuệ uy tín.",
+    heroDesc: "Đại diện thực hiện trọn gói và nhanh chóng các thủ tục thành lập công ty, xin giấy phép con khắt khe như: Vệ sinh an toàn thực phẩm, Vận tải, Nhập khẩu, PCCC…",
     about: {
       overview: [
         "Đối với các ngành nghề kinh doanh có điều kiện, việc sở hữu đầy đủ giấy phép con là điều kiện tiên quyết để doanh nghiệp hoạt động hợp pháp và tránh các chế tài đình chỉ hoạt động hoặc xử phạt nặng nề.",
@@ -656,10 +749,10 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
 
   "hinh-su-bao-chua": {
     slug: "hinh-su-bao-chua",
-    title: "Luật Sư Hình Sự & Bào Chữa Vụ Án",
+    title: "Luật Sư Hình Sự & Bào Chữa Tại Tòa",
     category: "Hình sự",
     badge: "Bào Chữa Chuyên Nghiệp 24/7",
-    heroDesc: "Bào chữa đanh thép, bảo vệ tối đa quyền con người, quyền công dân và minh bạch hóa quá trình tố tụng cho bị can, bị cáo trong các vụ án hình sự, kinh tế và chức vụ.",
+    heroDesc: "Tham gia bảo vệ thân chủ ngay từ giai đoạn điều tra, hỏi cung đến khi xét xử. Phân tích chứng cứ, tìm kiếm tình tiết giảm nhẹ để gỡ tội và bảo vệ sự tự do, danh dự của khách hàng.",
     about: {
       overview: [
         "Trong lĩnh vực hình sự, sự tham gia kịp thời của Luật sư ngay từ giai đoạn tạm giữ, lấy lời khai ban đầu có ý nghĩa quyết định đối với số phận pháp lý của bị can, bị cáo.",
@@ -734,10 +827,10 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
 
   "so-huu-tri-tue": {
     slug: "so-huu-tri-tue",
-    title: "Sở Hữu Trí Tuệ & Bản Quyền Thương Hiệu",
+    title: "Sở Hữu Trí Tuệ & Đăng Ký Thương Hiệu",
     category: "Sở hữu trí tuệ",
     badge: "Bảo Hộ Độc Quyền Brand 2026",
-    heroDesc: "Bảo vệ giá trị cốt lõi tài sản trí tuệ của doanh nghiệp: Tra cứu, đăng ký độc quyền Nhãn hiệu, Logo, Sáng chế và giải quyết triệt để các hành vi vi phạm bản quyền thương hiệu.",
+    heroDesc: "Tra cứu, đăng ký độc quyền Nhãn hiệu, Logo, Sáng chế, Kiểu dáng công nghiệp. Xử lý triệt để các hành vi xâm phạm, làm nhái thương hiệu, giúp khách hàng an tâm xây dựng tài sản trí tuệ.",
     about: {
       overview: [
         "Thương hiệu, kiểu dáng sản phẩm, phần mềm và bí mật kinh doanh là những tài sản vô hình vô giá của doanh nghiệp trong kỷ nguyên số.",

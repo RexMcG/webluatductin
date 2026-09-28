@@ -63,7 +63,7 @@ export default function CourtFeeCalculator() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block font-label-sm text-label-sm text-primary mb-2">
-                  Lĩnh vực tranh chấp
+                  Lĩnh vực
                   <InfoTooltip
                     title="Lĩnh vực tranh chấp"
                     content="Mỗi loại tranh chấp (Dân sự, Kinh doanh thương mại, Hôn nhân gia đình, Lao động) có khung mức án phí riêng biệt theo Nghị quyết 326/2016."
@@ -82,7 +82,7 @@ export default function CourtFeeCalculator() {
               </div>
               <div>
                 <label className="block font-label-sm text-label-sm text-primary mb-2">
-                  Cấp tòa án
+                  Cấp xét xử
                   <InfoTooltip
                     title="Cấp xét xử"
                     content="Án phí sơ thẩm tính theo giá trị tranh chấp. Án phí phúc thẩm là mức cố định 300.000 VNĐ (hoặc 2.000.000 VNĐ với án kinh doanh thương mại)."
@@ -101,7 +101,7 @@ export default function CourtFeeCalculator() {
 
             <div>
               <label className="block font-label-sm text-label-sm text-primary mb-2">
-                Loại tranh chấp
+                Loại vụ việc
                 <InfoTooltip
                   title="Có giá ngạch vs Không giá ngạch"
                   content="Không có giá ngạch (300k): Yêu cầu không phải tiền (VD: ly hôn). Có giá ngạch: Yêu cầu giải quyết số tiền hoặc tài sản cụ thể."
@@ -136,7 +136,7 @@ export default function CourtFeeCalculator() {
             {claimType === "ngach" && (
               <div className="page-fade-in">
                 <label className="block font-label-sm text-label-sm text-primary mb-2">
-                  Giá trị yêu cầu / Tài sản tranh chấp (VNĐ)
+                  Số tiền tranh chấp (VNĐ)
                   <InfoTooltip
                     title="Giá trị tài sản tranh chấp"
                     content="Tổng số tiền nợ yêu cầu đòi lại hoặc giá trị quyền sử dụng đất, nhà ở yêu cầu phân chia theo định giá."
@@ -172,7 +172,7 @@ export default function CourtFeeCalculator() {
                   className="text-primary focus:ring-primary border-border-neutral rounded accent-primary w-4 h-4"
                 />
                 <span className="font-body-md text-body-md text-primary">
-                  Thuộc diện miễn/giảm án phí (Người nghèo, có công, đòi nợ lương, cấp dưỡng...)
+                  Thuộc diện miễn/giảm án phí (Hộ nghèo, người cao tuổi, người có công, đòi tiền lương, yêu cầu cấp dưỡng...)
                 </span>
               </label>
             </div>
@@ -195,13 +195,13 @@ export default function CourtFeeCalculator() {
             <div className="bg-surface-alt border border-border-neutral p-6 rounded flex-1 page-fade-in shadow-sm">
               <div className="flex items-center gap-2 mb-6 border-b border-border-neutral pb-4">
                 <span className="material-symbols-outlined text-primary">gavel</span>
-                <h2 className="font-headline-md text-headline-md text-primary">Kết Quả Tính Toán</h2>
+                <h2 className="font-headline-md text-headline-md text-primary">Kết quả</h2>
               </div>
               
               <div className="space-y-6">
                 <div>
                   <h3 className="font-label-sm text-label-sm text-text-secondary mb-1">
-                    Tạm Ứng Án Phí (50% nộp trước)
+                    Tạm Ứng Án Phí
                     <InfoTooltip
                       title="Tiền tạm ứng án phí"
                       content="Nộp cho Chi cục Thi hành án dân sự để Tòa án thụ lý vụ án. Sẽ được hoàn lại nếu bạn thắng kiện toàn bộ."
@@ -213,7 +213,7 @@ export default function CourtFeeCalculator() {
                 </div>
                 
                 <div>
-                  <h3 className="font-label-sm text-label-sm text-text-secondary mb-1">Án Phí Chính Thức</h3>
+                  <h3 className="font-label-sm text-label-sm text-text-secondary mb-1">Án phí</h3>
                   <p className={`font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold ${isExempt && result.fee > 0 ? "text-gray-400 line-through" : "text-primary"}`}>
                     {result.fee.toLocaleString('vi-VN')} VNĐ
                   </p>
@@ -240,7 +240,7 @@ export default function CourtFeeCalculator() {
           <div className="bg-[#641D06] text-white p-6 rounded-2xl flex flex-col items-start gap-3 shadow-sm border border-amber-900/30">
             <h3 className="font-headline-md text-headline-md text-amber-300 font-bold">Vụ việc phức tạp hoặc án phí quá cao?</h3>
             <p className="text-xs sm:text-sm text-amber-100/90 mb-2 leading-relaxed">
-              Nhận tư vấn trực tiếp từ Luật sư Tranh tụng Phan Đức Tín để định hướng giải quyết tối ưu chi phí và bảo vệ quyền lợi tối đa trước Tòa.
+              Nhận tư vấn trực tiếp từ Luật sư để định hướng giải quyết tối ưu chi phí và bảo vệ tối đa quyền và lợi ích hợp pháp tại Tòa.
             </p>
             <div className="flex flex-wrap gap-2">
               <Link
@@ -253,7 +253,7 @@ export default function CourtFeeCalculator() {
                 href="/ai-chatbot"
                 className="bg-white/15 hover:bg-white/25 text-white font-label-sm text-label-sm px-4 py-2.5 rounded-xl font-bold transition-colors inline-block"
               >
-                Hỏi AI Tranh Tụng
+                Hỏi Trợ lý AI
               </Link>
             </div>
           </div>

@@ -125,25 +125,25 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
       badge: "CÔNG TY LUẬT UY TÍN TP.HCM",
       titlePrimary: "Công Ty Luật",
       titleSecondary: "Đức Tín & Cộng Sự",
-      titleAccent: "Hãng Luật Hàng Đầu TP.HCM",
+      titleAccent: "Điểm Tựa Pháp Lý Vững Chắc",
       description: "Đồng hành pháp lý chiến lược — Giải pháp toàn diện cho Doanh nghiệp & Cá nhân.",
       searchPlaceholder: "Nhập nhu cầu (VD: tranh chấp đất đai, tính án phí, ly hôn, rà soát hợp đồng M&A...)",
-      ctaButtonText: "Đặt Lịch Tham Vấn Luật Sư",
+      ctaButtonText: "Đặt Lịch Hẹn Luật Sư",
       aiChatButtonText: "Tham Vấn Trực Tuyến 24/7",
     },
     about: {
       heading: "Về Chúng Tôi",
       subHeading: "GIỚI THIỆU",
       paragraphs: [
-        "Luật sư Phan Đức Tín là người sáng lập kiêm Giám đốc Điều hành Công ty Luật TNHH Đức Tín và Cộng sự (Đoàn Luật sư TP.HCM). Hãng luật đã tham gia tư vấn, giải quyết thành công hàng trăm vụ việc chuyên sâu về các lĩnh vực: đầu tư nước ngoài (FDI), lập dự án và thẩm định hồ sơ cấp Giấy chứng nhận đăng ký đầu tư cho các tập đoàn, doanh nhân đến từ Nhật Bản, Hàn Quốc, Mỹ, Singapore, Đức...",
-        "Đồng thời, chúng tôi trực tiếp đại diện tranh tụng tại Tòa án các cấp và Trọng tài thương mại quốc tế (VIAC); tư vấn và thẩm định pháp lý hợp đồng mua bán doanh nghiệp (M&A), cơ cấu nguồn vốn, giải quyết dứt điểm các tranh chấp phức tạp về đất đai, nhà ở, thừa kế và hôn nhân gia đình."
+        "Trải qua hơn 20 năm xây dựng và phát triển, Công ty Luật TNHH Đức Tín và Cộng sự (Đoàn Luật sư TP.HCM), dưới sự dẫn dắt của Luật sư Phan Đức Tín, tự hào là đối tác pháp lý vững chắc của cộng đồng doanh nghiệp và khách hàng cá nhân.",
+        "Trong suốt hai thập kỷ qua, đội ngũ của chúng tôi đã khẳng định năng lực và vị thế thông qua việc tư vấn, giải quyết thành công hàng trăm vụ việc phức tạp. Dấu ấn đậm nét của Công ty được thể hiện qua các dự án tư vấn Đầu tư nước ngoài (FDI) và Mua bán sáp nhập (M&A), kiến tạo nền tảng pháp lý an toàn cho các tập đoàn, nhà đầu tư đến từ Nhật Bản, Hàn Quốc, Mỹ, Singapore, Châu Âu...",
+        "Bên cạnh đó, Đức Tín & Cộng sự luôn chứng minh bản lĩnh vượt trội trong vai trò đại diện tranh tụng tại Tòa án các cấp và Trọng tài Thương mại; tháo gỡ hiệu quả các vướng mắc về cơ cấu vốn, cũng như giải quyết thấu đáo, hài hòa các tranh chấp dân sự, đất đai và hôn nhân - gia đình."
       ],
       quote: "Chúng tôi không chỉ cung cấp ý kiến pháp lý đơn thuần, mà đồng hành như một đối tác chiến lược bảo vệ an toàn tối đa cho từng bước tiến của khách hàng.",
       lawyerName: "Luật sư Phan Đức Tín",
       lawyerTitle: "Luật sư Điều hành — Giám đốc Hãng luật",
       lawyerBio: "Với nhiều năm kinh nghiệm thực chiến trong các lĩnh vực Tranh tụng Tòa án, M&A Doanh nghiệp và Bất động sản phức tạp, Luật sư Phan Đức Tín đã trực tiếp bảo vệ thành công quyền lợi hợp pháp cho đông đảo khách hàng cá nhân và doanh nghiệp trên toàn quốc.",
-      experienceYears: "15+",
-      successRate: "98%",
+      experienceYears: "20+",
       casesCount: "2,500+",
       corporateClientsCount: "350+",
     },
@@ -152,12 +152,12 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
       subHeading: "TÔN CHỈ HOẠT ĐỘNG",
       items: [
         {
-          title: "1. Luật sư chuyên sâu & giàu kinh nghiệm",
-          desc: "Luật sư của DucTin & Partners năng động, sắc bén trong tranh tụng, vững chuyên môn nghiệp vụ, tiên phong ứng dụng công nghệ pháp lý và tuân thủ nghiêm ngặt Quy tắc Đạo đức nghề nghiệp."
+          title: "1. ĐỘI NGŨ LUẬT SƯ CHUYÊN NGHIỆP & GIÀU KINH NGHIỆM",
+          desc: "Hội tụ đội ngũ Luật sư có nền tảng pháp lý vững chắc và bề dày kinh nghiệm thực tiễn. Đội ngũ DucTin & Partners tự tin sở hữu kỹ năng tranh tụng sắc bén, khả năng giải quyết vấn đề toàn diện, tiên phong ứng dụng công nghệ pháp lý và tuân thủ nghiêm ngặt chuẩn mực hành nghề."
         },
         {
-          title: "2. Giải pháp pháp lý toàn diện & dứt điểm",
-          desc: "Trực tiếp tháo gỡ các nút thắt pháp lý của thân chủ nhanh chóng, triệt để với lộ trình tối ưu chi phí. \"Chất lượng dịch vụ là Danh dự của Luật sư\"."
+          title: "2. GIẢI PHÁP PHÁP LÝ TOÀN DIỆN & DỨT ĐIỂM",
+          desc: "Cam kết mang đến giải pháp pháp lý thực tế, tối ưu hóa lợi ích và giải quyết triệt để vấn đề của khách hàng; đồng hành từ khâu tham vấn, đàm phán đến tranh tụng và thi hành án."
         },
         {
           title: "3. Bảo mật thông tin thân chủ tuyệt đối",
@@ -165,7 +165,7 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
         },
         {
           title: "4. Đánh giá đúng bản chất & tính khả thi",
-          desc: "Phân tích khách quan các rủi pro pháp lý, cung cấp phương án hành động có tính khả thi cao nhất, không cam kết khống hoặc gây ngộ nhận cho thân chủ."
+          desc: "Phân tích khách quan các rủi ro pháp lý, cung cấp phương án hành động có tính khả thi cao nhất, không cam kết khống hoặc gây ngộ nhận cho thân chủ."
         },
         {
           title: "5. Chi phí minh bạch theo hợp đồng dịch vụ pháp lý",
@@ -178,13 +178,12 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
       ]
     },
     stats: {
-      heading: "Dấu Ấn Thành Tựu & Năng Lực Thực Chiến",
+      heading: "Kinh Nghiệm & Thành Tựu Nổi Bật",
       subHeading: "CHỈ SỐ THỰC TẾ",
       items: [
-        { value: "15+", label: "Năm Kinh Nghiệm", desc: "Thực chiến giải quyết tranh tụng Tòa án & tư vấn FDI", icon: "history_edu" },
-        { value: "98%", label: "Tỷ Lệ Thành Công", desc: "Bảo vệ tối đa quyền & lợi ích hợp pháp của thân chủ", icon: "verified" },
-        { value: "2,500+", label: "Vụ Việc Giải Quyết", desc: "Tranh chấp đất đai, hợp đồng kinh tế, thừa kế & hình sự", icon: "gavel" },
-        { value: "350+", label: "Doanh Nghiệp Đồng Hành", desc: "Cố vấn pháp lý thường xuyên, quản trị nội bộ & M&A", icon: "apartment" }
+        { value: "20+", label: "Năm Kinh Nghiệm", desc: "Kinh nghiệm thực tiễn giải quyết tranh chấp và tư vấn doanh nghiệp.", icon: "history_edu" },
+        { value: "2,500+", label: "VỤ VIỆC ĐÃ GIẢI QUYẾT", desc: "Đại diện giải quyết các tranh chấp Đất đai, Kinh tế, Thừa kế và Hình sự.", icon: "gavel" },
+        { value: "350+", label: "KHÁCH HÀNG DOANH NGHIỆP", desc: "tư vấn pháp lý thường xuyên, tuân thủ doanh nghiệp và M&A", icon: "apartment" }
       ]
     },
     lawyers: {
@@ -226,7 +225,7 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
     hero: {
       title: "Giải Pháp Pháp Lý",
       titleAccent: "Toàn Diện & Tận Tâm",
-      description: "Bảo vệ tối đa quyền lợi hợp pháp, đồng hành giải quyết tranh chấp và kiến tạo giá trị bền vững cho doanh nghiệp và cá nhân.",
+      description: "Bảo vệ tối đa quyền và lợi ích hợp pháp, đồng hành giải quyết tranh chấp và kiến tạo giá trị bền vững cho doanh nghiệp và cá nhân.",
     },
     section: {
       heading: "Lĩnh Vực Hoạt Động Cốt Lõi",
@@ -241,18 +240,18 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
     companyName: "CÔNG TY LUẬT TNHH ĐỨC TÍN VÀ CỘNG SỰ (DUC TIN & PARTNERS)",
     brandName: "Đức Tín & Cộng Sự",
     description: "Công ty Luật TNHH Đức Tín & Cộng Sự do Luật sư Phan Đức Tín trực tiếp điều hành. Cung cấp giải pháp pháp lý toàn diện cho cá nhân và doanh nghiệp, kết hợp đột phá cùng công nghệ AI pháp luật.",
-    barAssociation: "Đoàn Luật sư TP. Hồ Chí Minh",
-    privacyCommitment: "Cam kết bảo mật tuyệt đối & bảo vệ tối đa quyền lợi khách hàng",
+    barAssociation: "Sở Tư pháp TP. Hồ Chí Minh",
+    privacyCommitment: "Giấy đăng ký hoạt động số: 41.02.1412/TP/ĐKHĐ - Đăng ký hoạt động: Sở Tư pháp TP. Hồ Chí Minh",
     hotline: "093 786 32 63",
-    email: "rexmcg12345678@gmail.com",
-    address: "Tòa nhà Saigon Trade Center, 37 Tôn Đức Thắng, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh",
+    email: "tin.phan@ductin-partners.com",
+    address: "Tòa nhà Saigon Trade Center, 37 Tôn Đức Thắng, Phường Sài Gòn, TP. Hồ Chí Minh",
     zaloUrl: "https://zalo.me/0937863263",
     copyright: "© 2026 Duc Tin & Partners Law Firm. Bảo lưu mọi quyền.",
     disclaimer: "Các công cụ tính toán và nội dung trên website mang tính chất tham khảo pháp lý. Vui lòng liên hệ luật sư để được tư vấn chính xác cho từng vụ việc cụ thể."
   }
 };
 
-const STORAGE_KEY = "ductin_site_content_v5";
+const STORAGE_KEY = "ductin_site_content_v6";
 
 const getApiBase = () => {
   if (process.env.NEXT_PUBLIC_API_URL) {
