@@ -398,12 +398,10 @@ export default function Home() {
             </div>
             <div className="prose prose-xl md:prose-2xl text-text-secondary leading-relaxed space-y-4 text-justify text-lg md:text-xl">
               <p>
-                <strong className="text-slate-900 font-bold">Về sứ mệnh: </strong>
-                Bảo vệ tối đa quyền và lợi ích hợp pháp của thân chủ, đem lại giải pháp pháp lý an toàn, hiệu quả và kiến tạo giá trị bền vững cho cộng đồng doanh nghiệp và khách hàng cá nhân.
+                Sứ mệnh của chúng tôi là bảo vệ tối đa quyền và lợi ích hợp pháp của thân chủ, đem lại giải pháp pháp lý an toàn, hiệu quả và kiến tạo giá trị bền vững cho cộng đồng doanh nghiệp và khách hàng cá nhân.
               </p>
               <p>
-                <strong className="text-slate-900 font-bold">Về tầm nhìn: </strong>
-                Trở thành tổ chức hành nghề luật uy tín hàng đầu, tiên phong trong ứng dụng công nghệ pháp lý và chuẩn mực hành nghề chuyên nghiệp tại Việt Nam và khu vực.
+                Về tầm nhìn, Đức Tín &amp; Cộng sự hướng tới trở thành tổ chức hành nghề luật uy tín hàng đầu, tiên phong trong ứng dụng công nghệ pháp lý và chuẩn mực hành nghề chuyên nghiệp tại Việt Nam và khu vực.
               </p>
             </div>
           </div>
