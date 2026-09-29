@@ -48,7 +48,7 @@ export async function POST(req: Request) {
             ${consultType ? `
             <tr style="border-bottom: 1px solid #f1f5f9;">
               <td style="padding: 10px; font-weight: bold; color: #334155;">Hình thức:</td>
-              <td style="padding: 10px; color: #0f172a;">${consultType === 'offline' ? 'Tư vấn tại Văn phòng' : 'Tư vấn Online từ xa'}</td>
+              <td style="padding: 10px; color: #0f172a;">${consultType === 'offline' ? 'Trực tiếp tại Văn phòng' : 'Trực tuyến / Qua điện thoại'}</td>
             </tr>` : ''}
             ${service ? `
             <tr style="border-bottom: 1px solid #f1f5f9;">

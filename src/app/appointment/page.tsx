@@ -325,7 +325,7 @@ export default function AppointmentPage() {
               <div className="flex justify-between border-b border-slate-200 pb-2">
                 <span className="text-slate-500">Hình thức:</span>
                 <span className="font-bold text-slate-900">
-                  {formData.consultType === "offline" ? "Tư vấn trực tiếp tại Văn phòng" : "Tư vấn Online từ xa"}
+                  {formData.consultType === "offline" ? "Trực tiếp tại Văn phòng" : "Trực tuyến / Qua điện thoại"}
                 </span>
               </div>
               <div className="flex justify-between border-b border-slate-200 pb-2">
@@ -484,7 +484,7 @@ export default function AppointmentPage() {
                         <div>
                           <div className="flex items-center gap-2">
                             <span className="material-symbols-outlined text-[#641D06] text-xl">domain</span>
-                            <span className="text-base font-bold text-slate-900">Tư vấn tại Văn phòng</span>
+                            <span className="text-base font-bold text-slate-900">Trực tiếp tại Văn phòng</span>
                           </div>
                           <p className="text-slate-600 text-xs md:text-sm mt-1 leading-relaxed">
                             Trao đổi trực tiếp cùng Luật sư chuyên về mảng tranh chấp của Khách hàng và thẩm định hồ sơ.
@@ -510,7 +510,7 @@ export default function AppointmentPage() {
                         <div>
                           <div className="flex items-center gap-2">
                             <span className="material-symbols-outlined text-[#641D06] text-xl">videocam</span>
-                            <span className="text-base font-bold text-slate-900">Tư vấn Online từ xa</span>
+                            <span className="text-base font-bold text-slate-900">Trực tuyến / Qua điện thoại</span>
                           </div>
                           <p className="text-slate-600 text-xs md:text-sm mt-1 leading-relaxed">
                             Tư vấn qua Google Meet, Zoom hoặc điện thoại theo lịch hẹn trước.
@@ -962,7 +962,7 @@ export default function AppointmentPage() {
                     <div className="flex flex-col sm:flex-row justify-between sm:items-center pb-3 border-b border-slate-200 gap-1 sm:gap-4">
                       <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Hình thức tư vấn:</span>
                       <span className="text-sm md:text-base font-bold text-slate-900">
-                        {formData.consultType === "offline" ? "Trực tiếp tại Văn phòng" : "Tư vấn Online từ xa"}
+                        {formData.consultType === "offline" ? "Trực tiếp tại Văn phòng" : "Trực tuyến / Qua điện thoại"}
                       </span>
                     </div>
 
