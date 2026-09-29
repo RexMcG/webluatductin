@@ -147,8 +147,7 @@ export default function Home() {
   }, []);
 
   const SEARCH_NAV_ROUTES = [
-    { keywords: ["lương", "tính lương", "gross", "net", "lương gross", "lương net", "thu nhập"], title: "Tính Lương Gross-to-Net", href: "/salary-calculator", icon: "payments", desc: "Chuyển đổi lương Gross sang Net & bảo hiểm chuẩn xác" },
-    { keywords: ["thuế", "thuế tncn", "tính thuế", "thuế thu nhập cá nhân", "giảm trừ gia cảnh"], title: "Tính Thuế TNCN Khấu Trừ", href: "/pit-calculator", icon: "account_balance", desc: "Tính chính xác mức thuế TNCN phải nộp & giảm trừ" },
+    { keywords: ["thuế", "thuế tncn", "tính thuế", "thuế thu nhập cá nhân", "pit", "giảm trừ gia cảnh", "lương", "thu nhập"], title: "Tính Thuế Thu Nhập Cá Nhân (PIT)", href: "/pit-calculator", icon: "account_balance", desc: "Tính chính xác số thuế TNCN phải nộp & giảm trừ gia cảnh" },
     { keywords: ["án phí", "tính án phí", "lệ phí tòa", "tòa án", "án phí dân sự", "án phí đất đai"], title: "Tính Án Phí Tòa Án", href: "/court-fee-calculator", icon: "calculate", desc: "Tra cứu & tính án phí sơ thẩm, phúc thẩm nhanh chóng" },
     { keywords: ["hợp đồng", "thẩm định", "soát hợp đồng", "check hợp đồng", "rủi ro hợp đồng"], title: "Tư Vấn Hợp Đồng Với Luật Sư AI", href: "/ai-chatbot", icon: "smart_toy", desc: "Hỏi Luật sư AI để rà soát rủi ro pháp lý hợp đồng" },
     { keywords: ["biểu mẫu", "mẫu đơn", "thư viện", "mẫu hợp đồng", "tải đơn", "văn bản mẫu"], title: "Thư Viện Biểu Mẫu Pháp Lý AI", href: "/ai-form-library", icon: "description", desc: "Tải về miễn phí 100+ mẫu đơn, mẫu hợp đồng chuẩn" },
@@ -640,14 +639,14 @@ export default function Home() {
                   </div>
                 </div>
                 <h3 className="font-headline-lg text-[26px] sm:text-[28px] text-primary mb-3 leading-tight font-bold group-hover:text-[#641D06] transition-colors">
-                  Tính Thuế TNCN
+                  Tính Thuế Thu Nhập Cá Nhân
                 </h3>
                 <p className="font-body-md text-text-secondary leading-relaxed mb-8 flex-grow text-sm sm:text-base">
-                  Chuyển đổi lương Gross-to-Net, tính BHXH, BHYT và các khoản trích theo lương chuẩn xác theo quy định pháp luật hiện hành.
+                  Tính nhanh và chuẩn xác số thuế thu nhập cá nhân (PIT) phải nộp theo biểu thuế lũy tiến từng phần 7 bậc và các mức giảm trừ gia cảnh mới nhất.
                 </p>
                 <div className="mt-auto">
-                  <Link href="/pit-calculator" aria-label="Tính Thuế TNCN" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3.5 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
-                    Tính Thuế TNCN
+                  <Link href="/pit-calculator" aria-label="Tính Thuế Thu Nhập Cá Nhân" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3.5 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                    Tính Thuế TNCN Ngay
                   </Link>
                 </div>
               </div>

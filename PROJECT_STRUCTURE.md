@@ -18,7 +18,7 @@ Cấu trúc thư mục được chia theo Route Groups `(folderName)` để tác
 │   │   ├── pit-calculator/
 │   │   │   └── page.tsx           # Trang tính thuế TNCN
 │   │   └── salary-calculator/
-│   │       └── page.tsx           # Trang tính lương Gross to Net
+│   │       └── page.tsx           # Tự động chuyển hướng về /pit-calculator (Tính thuế TNCN)
 │   ├── (ai)/
 │   │   ├── ai-chatbot/
 │   │   │   └── page.tsx           # Trang AI Chatbot (Client Component)

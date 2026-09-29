@@ -91,18 +91,11 @@ export default function Header() {
                   <span>Tính Án phí Tòa án</span>
                 </Link>
                 <Link
-                  href="/salary-calculator"
-                  className="px-4 py-3 text-slate-800 hover:bg-amber-50 hover:text-[#641D06] text-sm font-semibold border-b border-slate-100 flex items-center gap-2.5 group/item transition-colors"
-                >
-                  <span className="text-amber-800 font-bold text-base leading-none">•</span>
-                  <span>Tính Lương Gross &amp; Net</span>
-                </Link>
-                <Link
                   href="/pit-calculator"
                   className="px-4 py-3 text-slate-800 hover:bg-amber-50 hover:text-[#641D06] text-sm font-semibold flex items-center gap-2.5 group/item transition-colors"
                 >
                   <span className="text-amber-800 font-bold text-base leading-none">•</span>
-                  <span>Tính Thuế TNCN</span>
+                  <span>Tính Thuế Thu Nhập Cá Nhân</span>
                 </Link>
               </div>
             </div>
@@ -197,20 +190,12 @@ export default function Header() {
               <span>Tính Án phí Tòa án</span>
             </Link>
             <Link 
-              href="/salary-calculator" 
-              onClick={() => setIsMobileMenuOpen(false)}
-              className={isSubItemActive("/salary-calculator")}
-            >
-              <span className="text-amber-800 font-bold">•</span>
-              <span>Tính Lương Gross &amp; Net</span>
-            </Link>
-            <Link 
               href="/pit-calculator" 
               onClick={() => setIsMobileMenuOpen(false)}
               className={isSubItemActive("/pit-calculator")}
             >
               <span className="text-amber-800 font-bold">•</span>
-              <span>Tính Thuế TNCN</span>
+              <span>Tính Thuế Thu Nhập Cá Nhân</span>
             </Link>
 
             <div className="pt-3 mt-2 border-t border-slate-100 flex flex-col gap-2.5">

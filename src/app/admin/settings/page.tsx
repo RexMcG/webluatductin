@@ -243,7 +243,7 @@ export default function AdminSettingsPage() {
                   1. Mức Giảm Trừ Gia Cảnh Thuế TNCN (VNĐ/Tháng)
                 </h3>
               </div>
-              <span className="text-[11px] font-bold text-slate-500">Áp dụng cho /pit-calculator &amp; /salary-calculator</span>
+              <span className="text-[11px] font-bold text-slate-500">Áp dụng cho /pit-calculator (Công cụ Tính Thuế TNCN)</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">

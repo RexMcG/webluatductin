@@ -34,6 +34,66 @@ export function calcPIT(taxableIncome: number): number {
   return 0;
 }
 
+export interface PITBracketDetail {
+  bracket: number;
+  label: string;
+  min: number;
+  max: number;
+  rate: number;
+  taxableInBracket: number;
+  tax: number;
+}
+
+export function calcPITBreakdown(taxableIncome: number): {
+  totalTax: number;
+  brackets: PITBracketDetail[];
+} {
+  const bracketsConfig = [
+    { bracket: 1, label: "Đến 5 triệu VNĐ", min: 0, max: 5000000, rate: 0.05 },
+    { bracket: 2, label: "Trên 5 đến 10 triệu VNĐ", min: 5000000, max: 10000000, rate: 0.10 },
+    { bracket: 3, label: "Trên 10 đến 18 triệu VNĐ", min: 10000000, max: 18000000, rate: 0.15 },
+    { bracket: 4, label: "Trên 18 đến 32 triệu VNĐ", min: 18000000, max: 32000000, rate: 0.20 },
+    { bracket: 5, label: "Trên 32 đến 52 triệu VNĐ", min: 32000000, max: 52000000, rate: 0.25 },
+    { bracket: 6, label: "Trên 52 đến 80 triệu VNĐ", min: 52000000, max: 80000000, rate: 0.30 },
+    { bracket: 7, label: "Trên 80 triệu VNĐ", min: 80000000, max: Infinity, rate: 0.35 },
+  ];
+
+  if (taxableIncome <= 0) {
+    return {
+      totalTax: 0,
+      brackets: bracketsConfig.map((b) => ({
+        ...b,
+        taxableInBracket: 0,
+        tax: 0,
+      })),
+    };
+  }
+
+  let totalTax = 0;
+  const brackets: PITBracketDetail[] = [];
+
+  for (const b of bracketsConfig) {
+    if (taxableIncome > b.min) {
+      const taxableInBracket = Math.min(taxableIncome - b.min, b.max - b.min);
+      const tax = taxableInBracket * b.rate;
+      totalTax += tax;
+      brackets.push({
+        ...b,
+        taxableInBracket,
+        tax,
+      });
+    } else {
+      brackets.push({
+        ...b,
+        taxableInBracket: 0,
+        tax: 0,
+      });
+    }
+  }
+
+  return { totalTax: Math.round(totalTax), brackets };
+}
+
 export function calcCourtFee(value: number, caseType: string, isExempt: boolean): { fee: number, deposit: number } {
   if (isExempt) return { fee: 0, deposit: 0 };
 

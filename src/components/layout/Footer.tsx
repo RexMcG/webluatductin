@@ -303,11 +303,8 @@ export default function Footer() {
                 <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/court-fee-calculator">
                   Tính án phí tòa án
                 </Link>
-                <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/salary-calculator">
-                  Tính lương Gross-Net
-                </Link>
                 <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/pit-calculator">
-                  Tính thuế TNCN
+                  Tính thuế thu nhập cá nhân (PIT)
                 </Link>
                 <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/ai-form-library">
                   Thư viện Biểu mẫu AI

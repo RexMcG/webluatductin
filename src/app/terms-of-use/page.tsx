@@ -56,7 +56,7 @@ export default function TermsOfUsePage() {
               I. Quyền Sở Hữu Trí Tuệ
             </h2>
             <p>
-              Toàn bộ nội dung xuất bản trên Website này bao gồm nhưng không giới hạn ở: các bài viết chuyên môn, bản tin pháp luật, cấu trúc sơ đồ tư duy (mindmap), biểu mẫu pháp lý mẫu, mã nguồn thuật toán tính án phí, thuế TNCN, lương Gross - Net, hình ảnh nhận diện thương hiệu, logo và nhãn hiệu dịch vụ đều thuộc quyền sở hữu trí tuệ hợp pháp của Công ty Luật TNHH Đức Tín &amp; Cộng sự hoặc đã được cấp phép sử dụng theo luật định.
+              Toàn bộ nội dung xuất bản trên Website này bao gồm nhưng không giới hạn ở: các bài viết chuyên môn, bản tin pháp luật, cấu trúc sơ đồ tư duy (mindmap), biểu mẫu pháp lý mẫu, mã nguồn thuật toán tính án phí, thuế thu nhập cá nhân (TNCN), hình ảnh nhận diện thương hiệu, logo và nhãn hiệu dịch vụ đều thuộc quyền sở hữu trí tuệ hợp pháp của Công ty Luật TNHH Đức Tín &amp; Cộng sự hoặc đã được cấp phép sử dụng theo luật định.
             </p>
             <ul className="list-disc pl-6 space-y-1.5 text-slate-700">
               <li>Mọi hành vi sao chép, trích dẫn nội dung vì mục đích thương mại mà không có sự đồng ý trước bằng văn bản của Chúng tôi đều cấu thành hành vi xâm phạm quyền tác giả.</li>
