@@ -31,76 +31,85 @@ export interface LegalAlert {
 }
 
 export const DEFAULT_LEGAL_PARAMS: LegalParams = {
-  deductionSelf: 15500000,
-  deductionDep: 6200000,
-  baseSalary: 2530000,
-  bhxhCap: 50600000,
-  minWages: { 1: 5310000, 2: 4730000, 3: 4140000, 4: 3700000 },
+  deductionSelf: 11000000,
+  deductionDep: 4400000,
+  baseSalary: 2340000,
+  bhxhCap: 46800000,
+  minWages: { 1: 4960000, 2: 4410000, 3: 3860000, 4: 3450000 },
   rates: { bhxh: 0.08, bhyt: 0.015, bhtn: 0.01 },
   ratesEmployer: { bhxh: 0.175, bhyt: 0.03, bhtn: 0.01 },
   courtFeeNoValue: 300000,
   courtFeeBusinessNoValue: 3000000,
-  legalBasis: "Nghị định 293/2025/NĐ-CP & Nghị định 161/2026/NĐ-CP & Nghị quyết 326/2016/UBTVQH14",
-  effectiveDate: "01/07/2026",
-  lastUpdated: "28/08/2026",
+  legalBasis: "Nghị quyết 954/2020/UBTVQH14 & Nghị định 73/2024/NĐ-CP & Nghị định 74/2024/NĐ-CP",
+  effectiveDate: "01/07/2024",
+  lastUpdated: "29/09/2026",
 };
 
 export const MOCK_LEGAL_ALERTS: LegalAlert[] = [
   {
-    id: "alert-pit-2026",
+    id: "alert-pit-draft-proposal",
     source: "Cổng Thông Tin Điện Tử Quốc Hội & Bộ Tài Chính",
-    documentNumber: "Nghị quyết số 142/2026/UBTVQH15",
-    title: "Điều chỉnh mức giảm trừ gia cảnh thuế TNCN áp dụng từ kỳ tính thuế 2026",
-    summary: "Nâng mức giảm trừ cho bản thân người nộp thuế lên 15.5 triệu đồng/tháng (186 triệu/năm) và mỗi người phụ thuộc lên 6.2 triệu đồng/tháng.",
-    issueDate: "20/06/2026",
-    effectiveDate: "01/07/2026",
-    status: "applied",
+    documentNumber: "Dự thảo sửa đổi Luật Thuế TNCN (Bộ Tài chính đề xuất)",
+    title: "Đề xuất nâng mức giảm trừ gia cảnh lên 15.5 triệu đồng/tháng & điều chỉnh biểu thuế lũy tiến",
+    summary: "Bộ Tài chính đang hoàn thiện hồ sơ dự án Luật Thuế TNCN (sửa đổi), đề xuất điều chỉnh mức giảm trừ gia cảnh cho bản thân từ 11 triệu lên 15.5 triệu đồng/tháng và mỗi người phụ thuộc từ 4.4 triệu lên 6.2 triệu đồng/tháng theo biến động CPI, dự kiến trình Quốc hội xem xét.",
+    issueDate: "Đang lấy ý kiến",
+    effectiveDate: "Dự kiến kỳ họp Quốc hội tới",
+    status: "pending",
     suggestedChanges: [
-      { field: "deductionSelf", label: "Giảm trừ bản thân", oldValue: "11.000.000 VNĐ", newValue: "15.500.000 VNĐ" },
-      { field: "deductionDep", label: "Giảm trừ người phụ thuộc", oldValue: "4.400.000 VNĐ", newValue: "6.200.000 VNĐ" },
+      { field: "deductionSelf", label: "Giảm trừ bản thân", oldValue: "11.000.000 VNĐ", newValue: "15.500.000 VNĐ (Dự thảo)" },
+      { field: "deductionDep", label: "Giảm trừ người phụ thuộc", oldValue: "4.400.000 VNĐ", newValue: "6.200.000 VNĐ (Dự thảo)" },
     ]
   },
   {
-    id: "alert-salary-region-2026",
+    id: "alert-salary-region-nd74",
     source: "Cơ Sở Dữ Liệu Quốc Gia VBQPPL (chinhphu.vn)",
-    documentNumber: "Nghị định số 293/2025/NĐ-CP",
-    title: "Quy định mức lương tối thiểu vùng đối với người lao động làm việc theo HĐLĐ",
-    summary: "Tăng mức lương tối thiểu vùng thêm trung bình 6% áp dụng cho cả 4 vùng kinh tế trên toàn quốc.",
-    issueDate: "15/11/2025",
-    effectiveDate: "01/01/2026",
+    documentNumber: "Nghị định số 74/2024/NĐ-CP",
+    title: "Quy định mức lương tối thiểu vùng mới nhất đối với người lao động làm việc theo HĐLĐ",
+    summary: "Quy định mức lương tối thiểu vùng theo tháng áp dụng toàn quốc: Vùng I là 4.960.000 đ/tháng, Vùng II là 4.410.000 đ/tháng, Vùng III là 3.860.000 đ/tháng, Vùng IV là 3.450.000 đ/tháng.",
+    issueDate: "30/06/2024",
+    effectiveDate: "01/07/2024",
     status: "applied",
     suggestedChanges: [
-      { field: "minWage1", label: "Lương tối thiểu Vùng I", oldValue: "4.960.000 VNĐ", newValue: "5.310.000 VNĐ" },
-      { field: "minWage2", label: "Lương tối thiểu Vùng II", oldValue: "4.410.000 VNĐ", newValue: "4.730.000 VNĐ" },
-      { field: "minWage3", label: "Lương tối thiểu Vùng III", oldValue: "3.860.000 VNĐ", newValue: "4.140.000 VNĐ" },
-      { field: "minWage4", label: "Lương tối thiểu Vùng IV", oldValue: "3.450.000 VNĐ", newValue: "3.700.000 VNĐ" },
+      { field: "minWage1", label: "Lương tối thiểu Vùng I", oldValue: "4.680.000 VNĐ", newValue: "4.960.000 VNĐ" },
+      { field: "minWage2", label: "Lương tối thiểu Vùng II", oldValue: "4.160.000 VNĐ", newValue: "4.410.000 VNĐ" },
+      { field: "minWage3", label: "Lương tối thiểu Vùng III", oldValue: "3.640.000 VNĐ", newValue: "3.860.000 VNĐ" },
+      { field: "minWage4", label: "Lương tối thiểu Vùng IV", oldValue: "3.250.000 VNĐ", newValue: "3.450.000 VNĐ" },
     ]
   },
   {
-    id: "alert-base-salary-2026",
+    id: "alert-base-salary-nd73",
     source: "Bộ Lao Động - Thương Binh & Xã Hội / BHXH Việt Nam",
-    documentNumber: "Nghị định số 161/2026/NĐ-CP",
-    title: "Quy định mức lương cơ sở đối với cán bộ, công chức và mức đóng trần BHXH",
-    summary: "Điều chỉnh mức lương cơ sở lên 2.530.000 VNĐ/tháng. Mức đóng BHXH tối đa (20 lần) được điều chỉnh lên 50.600.000 VNĐ/tháng.",
-    issueDate: "25/05/2026",
-    effectiveDate: "01/07/2026",
+    documentNumber: "Nghị định số 73/2024/NĐ-CP & Luật BHXH 2024",
+    title: "Quy định mức lương cơ sở 2.340.000 VNĐ/tháng và trần đóng BHXH, BHYT tối đa",
+    summary: "Quy định mức lương cơ sở là 2.340.000 VNĐ/tháng. Mức đóng BHXH, BHYT tối đa (20 lần mức lương cơ sở) là 46.800.000 VNĐ/tháng.",
+    issueDate: "30/06/2024",
+    effectiveDate: "01/07/2024",
     status: "applied",
     suggestedChanges: [
-      { field: "baseSalary", label: "Mức lương cơ sở / tham chiếu", oldValue: "2.340.000 VNĐ", newValue: "2.530.000 VNĐ" },
-      { field: "bhxhCap", label: "Trần đóng BHXH (20 lần)", oldValue: "46.800.000 VNĐ", newValue: "50.600.000 VNĐ" },
+      { field: "baseSalary", label: "Mức lương cơ sở hiện hành", oldValue: "1.800.000 VNĐ", newValue: "2.340.000 VNĐ" },
+      { field: "bhxhCap", label: "Trần đóng BHXH/BHYT (20 lần)", oldValue: "36.000.000 VNĐ", newValue: "46.800.000 VNĐ" },
     ]
   }
 ];
 
-const STORAGE_KEY = "ductin_legal_params";
-const ALERTS_STORAGE_KEY = "ductin_legal_alerts";
+const STORAGE_KEY = "ductin_legal_params_v3";
+const ALERTS_STORAGE_KEY = "ductin_legal_alerts_v3";
 
 export const legalParamsService = {
   getParams: (): LegalParams => {
     if (typeof window === "undefined") return DEFAULT_LEGAL_PARAMS;
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
-      return stored ? { ...DEFAULT_LEGAL_PARAMS, ...JSON.parse(stored) } : DEFAULT_LEGAL_PARAMS;
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        // Clean out any stale 15.5m mock data from previous tests
+        if (parsed.deductionSelf === 15500000) {
+          localStorage.removeItem(STORAGE_KEY);
+          return DEFAULT_LEGAL_PARAMS;
+        }
+        return { ...DEFAULT_LEGAL_PARAMS, ...parsed };
+      }
+      return DEFAULT_LEGAL_PARAMS;
     } catch {
       return DEFAULT_LEGAL_PARAMS;
     }
@@ -150,23 +159,23 @@ export const legalParamsService = {
     let params = legalParamsService.getParams();
 
     if (target) {
-      if (alertId === "alert-pit-2026") {
+      if (alertId === "alert-pit-draft-proposal") {
         params = legalParamsService.saveParams({
           deductionSelf: 15500000,
           deductionDep: 6200000,
           legalBasis: `${target.documentNumber} (${target.title})`,
           effectiveDate: target.effectiveDate
         });
-      } else if (alertId === "alert-salary-region-2026") {
+      } else if (alertId === "alert-salary-region-nd74") {
         params = legalParamsService.saveParams({
-          minWages: { 1: 5310000, 2: 4730000, 3: 4140000, 4: 3700000 },
+          minWages: { 1: 4960000, 2: 4410000, 3: 3860000, 4: 3450000 },
           legalBasis: `${target.documentNumber} (${target.title})`,
           effectiveDate: target.effectiveDate
         });
-      } else if (alertId === "alert-base-salary-2026") {
+      } else if (alertId === "alert-base-salary-nd73") {
         params = legalParamsService.saveParams({
-          baseSalary: 2530000,
-          bhxhCap: 50600000,
+          baseSalary: 2340000,
+          bhxhCap: 46800000,
           legalBasis: `${target.documentNumber} (${target.title})`,
           effectiveDate: target.effectiveDate
         });

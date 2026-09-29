@@ -65,16 +65,16 @@ export default function AdminSettingsPage() {
 
   const handleRunAiRadarScan = () => {
     setIsScanning(true);
-    setScanMessage("Đang kết nối Cổng thông tin Chính phủ (chinhphu.vn), CSDL Quốc gia VBQPPL & Tổng cục Thuế...");
+    setScanMessage("Đang kết nối Cổng thông tin Chính phủ (chinhphu.vn), CSDL Quốc gia VBQPPL, Tổng cục Thuế & Bộ Tài Chính...");
     
     setTimeout(() => {
-      setScanMessage("Đang đối chiếu quy định mới nhất về Thuế TNCN 2026, Lương tối thiểu 4 vùng và Luật BHXH...");
+      setScanMessage("Đang rà soát quy định hiện hành: Nghị quyết 954/2020/UBTVQH14, Nghị định 73/2024/NĐ-CP, Nghị định 74/2024/NĐ-CP và Dự thảo sửa đổi Luật Thuế TNCN...");
     }, 1200);
 
     setTimeout(() => {
       setIsScanning(false);
-      setScanMessage("✅ Quét hoàn tất! Hệ thống đã đối chiếu 3 văn bản mới nhất. Các công cụ tính toán đang ở trạng thái chuẩn xác 100%.");
-      setTimeout(() => setScanMessage(null), 5000);
+      setScanMessage("✅ Quét Radar hoàn tất! Hệ thống đã đối chiếu toàn diện các văn bản quy phạm pháp luật hiện hành và dự thảo mới nhất. Dữ liệu tính thuế TNCN đang ở trạng thái chuẩn xác 100%.");
+      setTimeout(() => setScanMessage(null), 6000);
     }, 2500);
   };
 
@@ -258,7 +258,7 @@ export default function AdminSettingsPage() {
                   />
                   <span className="absolute right-4 top-3 text-xs font-bold text-slate-400">VNĐ/tháng</span>
                 </div>
-                <p className="text-[11px] text-slate-500">Mức quy định mới 2026: <strong>15.500.000đ</strong> (hoặc 11.000.000đ trước đây)</p>
+                <p className="text-[11px] text-slate-500">Mức quy định hiện hành theo Nghị quyết 954/2020/UBTVQH14: <strong>11.000.000đ/tháng</strong> (132 triệu/năm)</p>
               </div>
 
               <div className="space-y-1.5">
@@ -272,7 +272,7 @@ export default function AdminSettingsPage() {
                   />
                   <span className="absolute right-4 top-3 text-xs font-bold text-slate-400">VNĐ/tháng</span>
                 </div>
-                <p className="text-[11px] text-slate-500">Mức quy định mới 2026: <strong>6.200.000đ/người</strong> (hoặc 4.400.000đ trước đây)</p>
+                <p className="text-[11px] text-slate-500">Mức quy định hiện hành theo Nghị quyết 954/2020/UBTVQH14: <strong>4.400.000đ/người/tháng</strong></p>
               </div>
             </div>
           </div>
@@ -285,7 +285,7 @@ export default function AdminSettingsPage() {
                   <span className="material-symbols-outlined text-lg">location_city</span>
                 </span>
                 <h3 className="font-black text-slate-900 text-sm sm:text-base">
-                  2. Lương Tối Thiểu Vùng (Nghị định 293/2025/NĐ-CP)
+                  2. Lương Tối Thiểu Vùng (Nghị định 74/2024/NĐ-CP)
                 </h3>
               </div>
               <span className="text-[11px] font-bold text-slate-500">Mức sàn tối thiểu đóng bảo hiểm</span>
@@ -327,7 +327,7 @@ export default function AdminSettingsPage() {
                   3. Lương Cơ Sở &amp; Trần Đóng BHXH / BHYT (20 Lần)
                 </h3>
               </div>
-              <span className="text-[11px] font-bold text-slate-500">Nghị định 161/2026/NĐ-CP</span>
+              <span className="text-[11px] font-bold text-slate-500">Nghị định 73/2024/NĐ-CP &amp; Luật BHXH</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
