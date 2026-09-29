@@ -908,82 +908,56 @@ export default function Home() {
             if (lawyersList.length === 1) {
               const ls = lawyersList[0];
               return (
-                <div className="w-full bg-white rounded-3xl border border-slate-200/90 shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 relative group">
-                  {/* Top luxury brand accent line */}
-                  <div className="h-1.5 w-full bg-gradient-to-r from-[#641D06] via-[#8B2508] to-[#C0963B]" />
+                <div className="w-full bg-white rounded-3xl border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+                  {/* Top brand accent line */}
+                  <div className="h-1.5 w-full bg-[#641D06]" />
 
-                  <div className="p-6 sm:p-8 md:p-10 lg:p-12">
-                    <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12">
+                  <div className="p-6 sm:p-8 md:p-10">
+                    <div className="flex flex-col md:flex-row items-center md:items-start gap-6 sm:gap-10">
                       
-                      {/* Left: Distinguished Executive Portrait */}
+                      {/* Left: Compact rectangular portrait (sharp & high-res) */}
                       <div className="flex flex-col items-center shrink-0">
-                        <div className="w-52 sm:w-60 md:w-64 aspect-[3/4] rounded-2xl overflow-hidden shadow-lg border-2 border-amber-200/60 bg-gradient-to-b from-slate-50 to-amber-50/30 relative">
+                        <div className="w-40 sm:w-44 md:w-48 aspect-[3/4] rounded-2xl overflow-hidden shadow-md border border-slate-200 bg-slate-100">
                           <img
                             alt={ls.name}
-                            width={256}
-                            height={341}
+                            width={192}
+                            height={256}
                             loading="lazy"
-                            className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                            className="w-full h-full object-cover object-top"
                             src="/img/avatar1.webp"
                           />
-                          {/* Prestigious Credential Badge Overlay */}
-                          <div className="absolute bottom-2.5 left-2.5 right-2.5 bg-black/75 backdrop-blur-md text-white py-1.5 px-3 rounded-xl flex items-center justify-center gap-1.5 border border-white/15 shadow-md">
-                            <span className="material-symbols-outlined text-sm text-amber-400">verified</span>
-                            <span className="text-xs font-semibold tracking-wide">Đoàn Luật sư TP.HCM</span>
-                          </div>
                         </div>
                       </div>
 
-                      {/* Right: Detailed Professional Bio & Actions */}
-                      <div className="flex-1 flex flex-col justify-between text-center lg:text-left">
+                      {/* Right: Lawyer Details & Bio */}
+                      <div className="flex-1 flex flex-col justify-between text-center md:text-left">
                         <div>
-                          {/* Role Tag & Name */}
-                          <div className="mb-4">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-[#641D06] border border-amber-200 text-xs font-bold uppercase tracking-wider mb-2.5">
-                              <span className="w-1.5 h-1.5 rounded-full bg-[#641D06]" />
-                              <span>{ls.role}</span>
-                            </div>
-                            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 font-sans tracking-tight">
-                              {ls.name}
-                            </h3>
-                          </div>
+                          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 font-sans tracking-tight mb-1.5">
+                            {ls.name}
+                          </h3>
+                          <p className="text-sm sm:text-base font-bold text-[#641D06] uppercase tracking-wider mb-4">
+                            {ls.role}
+                          </p>
 
-                          {/* Key Practice Strengths Pills */}
-                          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-5">
-                            <span className="inline-flex items-center gap-1 px-3 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-medium border border-slate-200/80">
-                              <span className="material-symbols-outlined text-xs text-amber-600">gavel</span>
-                              Tranh tụng Tòa án &amp; Trọng tài (VIAC)
-                            </span>
-                            <span className="inline-flex items-center gap-1 px-3 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-medium border border-slate-200/80">
-                              <span className="material-symbols-outlined text-xs text-amber-600">domain</span>
-                              Tư vấn Doanh nghiệp &amp; M&amp;A
-                            </span>
-                            <span className="inline-flex items-center gap-1 px-3 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-medium border border-slate-200/80">
-                              <span className="material-symbols-outlined text-xs text-amber-600">home_work</span>
-                              Đất đai &amp; Bất động sản
-                            </span>
-                          </div>
-
-                          {/* Executive Bio Paragraphs */}
-                          <div className="space-y-3 text-slate-600 text-sm sm:text-base leading-relaxed text-justify mb-6">
+                          <div className="space-y-3 text-slate-700 text-sm sm:text-base leading-relaxed text-justify mb-6">
                             {(ls.desc || "").split("\n\n").map((para, pIdx) => (
                               <p key={pIdx}>{para}</p>
                             ))}
                           </div>
                         </div>
 
-                        {/* Action Buttons Row */}
-                        <div className="pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-center lg:justify-end gap-3.5">
+                        {/* Action Buttons */}
+                        <div className="pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-center md:justify-end gap-3.5">
                           <Link
                             href="/appointment"
-                            className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-[#641D06] hover:bg-black text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-md hover:shadow-xl transition-all duration-200 active:scale-98 tracking-wide"
+                            className="w-full sm:w-auto px-7 py-3 rounded-xl bg-[#641D06] hover:bg-black text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-sm hover:shadow-md transition-all active:scale-98 tracking-wide"
                           >
                             <span className="material-symbols-outlined text-lg text-amber-300">calendar_month</span>
                             <span>Đặt Lịch Làm Việc Với Luật Sư</span>
                           </Link>
                           <a
                             href="tel:0937863263"
-                            className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-[#641D06] border border-amber-300 font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-xs hover:shadow-sm transition-all duration-200 active:scale-98 tracking-wide"
+                            className="w-full sm:w-auto px-6 py-3 rounded-xl bg-amber-50 hover:bg-amber-100 text-[#641D06] border border-amber-300 font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-2xs hover:shadow-xs transition-all active:scale-98 tracking-wide"
                           >
                             <span className="material-symbols-outlined text-lg text-[#641D06]">call</span>
                             <span>Hotline: 093 786 32 63</span>
