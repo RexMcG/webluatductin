@@ -148,32 +148,32 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
       corporateClientsCount: "350+",
     },
     principles: {
-      heading: "Tôn Chỉ Hoạt Động & Năng Lực Vượt Trội",
-      subHeading: "TÔN CHỈ HOẠT ĐỘNG",
+      heading: "Tại sao lại chọn chúng tôi",
+      subHeading: "TẠI SAO CHỌN CHÚNG TÔI",
       items: [
         {
-          title: "1. ĐỘI NGŨ LUẬT SƯ CHUYÊN NGHIỆP & GIÀU KINH NGHIỆM",
-          desc: "Hội tụ đội ngũ Luật sư có nền tảng pháp lý vững chắc và bề dày kinh nghiệm thực tiễn. Đội ngũ DucTin & Partners tự tin sở hữu kỹ năng tranh tụng sắc bén, khả năng giải quyết vấn đề toàn diện, tiên phong ứng dụng công nghệ pháp lý và tuân thủ nghiêm ngặt chuẩn mực hành nghề."
+          title: "1. Đội ngũ luật sư vững chuyên môn",
+          desc: "Đội ngũ Luật sư của DucTin & Partners năng động, giàu kinh nghiệm, vững chuyên môn, am hiểu về công nghệ, tận tâm và luôn tuân thủ pháp luật, đạo đức nghề nghiệp."
         },
         {
-          title: "2. GIẢI PHÁP PHÁP LÝ TOÀN DIỆN & DỨT ĐIỂM",
-          desc: "Cam kết mang đến giải pháp pháp lý thực tế, tối ưu hóa lợi ích và giải quyết triệt để vấn đề của khách hàng; đồng hành từ khâu tham vấn, đàm phán đến tranh tụng và thi hành án."
+          title: "2. Chuyên nghiệp và chất lượng",
+          desc: "Xây dựng và tuân thủ bộ quy trình nghiệp vụ trong việc cung cấp dịch vụ pháp lý, cung cấp giải pháp pháp lý tối ưu, phù hợp và có khả năng vận dụng vào thực tiễn theo yêu cầu của khách hàng."
         },
         {
-          title: "3. Bảo mật thông tin thân chủ tuyệt đối",
-          desc: "Tuân thủ chặt chẽ nghĩa vụ giữ bí mật nghề nghiệp theo Điều 25 Luật Luật sư. Toàn bộ hồ sơ, thông tin vụ việc của thân chủ được bảo hộ an toàn tuyệt đối."
+          title: "3. Tuân thủ pháp luật và đạo đức",
+          desc: "DucTin & Partners luôn xác định khách hàng là trung tâm, tuy nhiên, chúng tôi luôn tôn trọng sự thật khách quan, tuân thủ pháp luật và đạo đức nghề nghiệp. Vì vậy, chúng tôi luôn dựa vào pháp luật để tư duy và tìm giải pháp tối ưu, có lợi nhất cho khách hàng."
         },
         {
-          title: "4. Đánh giá đúng bản chất & tính khả thi",
-          desc: "Phân tích khách quan các rủi ro pháp lý, cung cấp phương án hành động có tính khả thi cao nhất, không cam kết khống hoặc gây ngộ nhận cho thân chủ."
+          title: "4. Lĩnh vực hoạt động đa dạng",
+          desc: "Trong quá trình cung cấp dịch vụ pháp lý, DucTin & Partners đã thiết lập được mối quan hệ với cơ quan chuyên môn, Luật sư, Chuyên gia giàu kinh nghiệm và có kiến thức chuyên sâu trong các lĩnh vực tại các hãng luật danh tiếng."
         },
         {
-          title: "5. Chi phí minh bạch theo hợp đồng dịch vụ pháp lý",
-          desc: "Mọi khoản thù lao và chi phí tố tụng đều được thỏa thuận rõ ràng, minh bạch trong Hợp đồng dịch vụ pháp lý, phù hợp với tính chất phức tạp của từng vụ việc."
+          title: "5. Bảo mật",
+          desc: "Luôn tuân thủ bộ quy trình nghiệp vụ, pháp luật, đạo đức nghề nghiệp và tuân thủ các thoả thuận bảo mật với khách hàng"
         },
         {
-          title: "6. Tận tâm đồng hành bảo vệ thân chủ",
-          desc: "Luôn đặt quyền và lợi ích hợp pháp của thân chủ lên hàng đầu, chủ động cập nhật tiến độ giải quyết và sát cánh cùng thân chủ trong mọi giai đoạn tố tụng."
+          title: "6. Chi phí hợp lý",
+          desc: "Các gói dịch vụ tại DucTin & Partners được thiết kế linh hoạt, phù hợp với tính chất và độ phức tạp của từng hồ sơ, đảm bảo khách hàng luôn nhận được sự hỗ trợ pháp lý tận tâm, hiệu quả với mức ngân sách hợp lý nhất."
         }
       ]
     },
@@ -251,7 +251,7 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
   }
 };
 
-const STORAGE_KEY = "ductin_site_content_v6";
+const STORAGE_KEY = "ductin_site_content_v8";
 
 const getApiBase = () => {
   if (process.env.NEXT_PUBLIC_API_URL) {
@@ -303,11 +303,15 @@ class SiteContentService {
           ...(saved.home?.about || {}),
           paragraphs: saved.home?.about?.paragraphs || DEFAULT_SITE_CONTENT.home.about.paragraphs,
         },
-        principles: {
-          ...DEFAULT_SITE_CONTENT.home.principles,
-          ...(saved.home?.principles || {}),
-          items: saved.home?.principles?.items || DEFAULT_SITE_CONTENT.home.principles.items,
-        },
+        principles: (saved.home?.principles?.heading?.includes("Tôn Chỉ") || !saved.home?.principles?.items || saved.home.principles.items.length !== 6)
+          ? DEFAULT_SITE_CONTENT.home.principles
+          : {
+              ...DEFAULT_SITE_CONTENT.home.principles,
+              ...(saved.home?.principles || {}),
+              items: (saved.home?.principles?.items?.length === 6)
+                ? saved.home.principles.items
+                : DEFAULT_SITE_CONTENT.home.principles.items,
+            },
         stats: {
           ...DEFAULT_SITE_CONTENT.home.stats,
           ...(saved.home?.stats || {}),

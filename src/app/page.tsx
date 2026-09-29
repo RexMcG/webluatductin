@@ -388,68 +388,58 @@ export default function Home() {
             </div>
           </div>
 
-          {/* SỨ MỆNH VÀ TẦM NHÌN (Bổ sung theo yêu cầu) */}
-          <div className="bg-gradient-to-br from-amber-50/70 via-white to-amber-50/30 p-6 sm:p-8 md:p-10 rounded-3xl border border-amber-200/80 shadow-xs">
-            <div className="text-center mb-8 w-full flex flex-col items-center justify-center">
-              <h3 className="text-2xl md:text-3xl font-black text-slate-900 font-sans uppercase tracking-tight">
-                Sứ Mệnh &amp; Tầm Nhìn
-              </h3>
-              <div className="w-16 h-1 bg-amber-500 rounded-full mt-2"></div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-              {/* Sứ mệnh */}
-              <div className="bg-white p-6 sm:p-7 rounded-2xl border border-amber-200/60 shadow-xs flex flex-col gap-3.5 hover:border-amber-400 hover:shadow-md transition-all">
-                <div className="flex items-center gap-3.5">
-                  <div className="w-12 h-12 rounded-xl bg-[#641D06] text-amber-300 flex items-center justify-center shrink-0 shadow-xs">
-                    <span className="material-symbols-outlined text-2xl">flag</span>
-                  </div>
-                  <h4 className="text-lg md:text-xl font-black text-[#641D06] uppercase tracking-wide">
-                    Sứ Mệnh
-                  </h4>
-                </div>
-                <p className="text-slate-700 text-sm sm:text-base md:text-[17px] leading-relaxed">
-                  Bảo vệ tối đa quyền và lợi ích hợp pháp của thân chủ, đem lại giải pháp pháp lý an toàn, hiệu quả và kiến tạo giá trị bền vững cho cộng đồng doanh nghiệp và khách hàng cá nhân.
-                </p>
-              </div>
-
-              {/* Tầm nhìn */}
-              <div className="bg-white p-6 sm:p-7 rounded-2xl border border-amber-200/60 shadow-xs flex flex-col gap-3.5 hover:border-amber-400 hover:shadow-md transition-all">
-                <div className="flex items-center gap-3.5">
-                  <div className="w-12 h-12 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center shrink-0 shadow-xs">
-                    <span className="material-symbols-outlined text-2xl">visibility</span>
-                  </div>
-                  <h4 className="text-lg md:text-xl font-black text-[#641D06] uppercase tracking-wide">
-                    Tầm Nhìn
-                  </h4>
-                </div>
-                <p className="text-slate-700 text-sm sm:text-base md:text-[17px] leading-relaxed">
-                  Trở thành tổ chức hành nghề luật uy tín hàng đầu, tiên phong trong ứng dụng công nghệ pháp lý và chuẩn mực hành nghề chuyên nghiệp tại Việt Nam và khu vực.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Why Choose Us / Tôn Chỉ Hoạt Động */}
+          {/* Sứ Mệnh & Tầm Nhìn (Trình bày thanh lịch dạng bài viết như Về Chúng Tôi, không icon, không chia ô) */}
           <div>
             <div className="text-center mb-10 w-full flex flex-col items-center justify-center">
               <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
-                {siteContent.home.principles?.heading || "Tôn Chỉ Hoạt Động & Năng Lực Vượt Trội"}
+                Sứ Mệnh &amp; Tầm Nhìn
               </h2>
-              <SectionDivider label={siteContent.home.principles?.subHeading || "TÔN CHỈ HOẠT ĐỘNG"} />
+              <SectionDivider label="SỨ MỆNH & TẦM NHÌN" />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {(siteContent.home.principles?.items && siteContent.home.principles.items.length > 0 ? siteContent.home.principles.items : DEFAULT_SITE_CONTENT.home.principles.items).map((item, idx) => (
-                <div key={idx} className="bg-surface-main p-4 border border-border-neutral rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                  <h3 className="font-bold text-primary mb-2 text-base md:text-lg uppercase">
-                    {item.title}
-                  </h3>
-                  <p className="text-base md:text-lg text-text-secondary leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
-              ))}
+            <div className="prose prose-xl md:prose-2xl text-text-secondary leading-relaxed space-y-4 text-justify text-lg md:text-xl">
+              <p>
+                <strong className="text-slate-900 font-bold">Về sứ mệnh: </strong>
+                Bảo vệ tối đa quyền và lợi ích hợp pháp của thân chủ, đem lại giải pháp pháp lý an toàn, hiệu quả và kiến tạo giá trị bền vững cho cộng đồng doanh nghiệp và khách hàng cá nhân.
+              </p>
+              <p>
+                <strong className="text-slate-900 font-bold">Về tầm nhìn: </strong>
+                Trở thành tổ chức hành nghề luật uy tín hàng đầu, tiên phong trong ứng dụng công nghệ pháp lý và chuẩn mực hành nghề chuyên nghiệp tại Việt Nam và khu vực.
+              </p>
             </div>
           </div>
+
+          {/* Why Choose Us / Tại sao lại chọn chúng tôi */}
+          {(() => {
+            const isStale = !siteContent.home.principles?.items || 
+              siteContent.home.principles.items.length !== 6 || 
+              siteContent.home.principles.heading?.includes("Tôn Chỉ") ||
+              !siteContent.home.principles.items[0]?.title?.includes("Đội ngũ");
+            const activePrinciples = (isStale || !siteContent.home.principles?.heading) 
+              ? DEFAULT_SITE_CONTENT.home.principles 
+              : siteContent.home.principles;
+            return (
+              <div>
+                <div className="text-center mb-10 w-full flex flex-col items-center justify-center">
+                  <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
+                    {activePrinciples.heading || "Tại sao lại chọn chúng tôi"}
+                  </h2>
+                  <SectionDivider label={activePrinciples.subHeading || "TẠI SAO CHỌN CHÚNG TÔI"} />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {(activePrinciples.items && activePrinciples.items.length > 0 ? activePrinciples.items : DEFAULT_SITE_CONTENT.home.principles.items).map((item, idx) => (
+                    <div key={idx} className="bg-surface-main p-4 border border-border-neutral rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                      <h3 className="font-bold text-primary mb-2 text-base md:text-lg uppercase">
+                        {item.title}
+                      </h3>
+                      <p className="text-base md:text-lg text-text-secondary leading-relaxed">
+                        {item.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
         </div>
       </section>
 

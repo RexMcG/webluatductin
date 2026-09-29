@@ -536,16 +536,16 @@ export default function AdminContentPage() {
             </div>
           </div>
 
-          {/* Section 3: Tôn Chỉ Hoạt Động & Năng Lực Vượt Trội (Hình số 2) */}
+          {/* Section 3: Tại Sao Lại Chọn Chúng Tôi (Hình số 2) */}
           <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-5">
             <div className="border-b border-slate-100 pb-4 flex items-center justify-between">
               <div>
                 <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
-                  Khối Tôn Chỉ Hoạt Động &amp; Năng Lực Vượt Trội (6 Thẻ - Hình số 2)
+                  Khối Tại Sao Lại Chọn Chúng Tôi (6 Thẻ - Hình số 2)
                 </h2>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  Chỉnh sửa tiêu đề và nội dung từng thẻ trong 6 tôn chỉ hoạt động cốt lõi của văn phòng.
+                  Chỉnh sửa tiêu đề và nội dung từng thẻ trong các lý do chọn văn phòng.
                 </p>
               </div>
               <button
@@ -560,7 +560,7 @@ export default function AdminContentPage() {
                         ...(content.home.principles || DEFAULT_SITE_CONTENT.home.principles),
                         items: [
                           ...currentItems,
-                          { title: `${currentItems.length + 1}. Tôn chỉ mới`, desc: "Nội dung tôn chỉ..." },
+                          { title: `${currentItems.length + 1}. Lý do mới`, desc: "Nội dung chi tiết..." },
                         ],
                       },
                     },
@@ -569,18 +569,18 @@ export default function AdminContentPage() {
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 text-xs font-bold border border-amber-200 cursor-pointer"
               >
                 <span className="material-symbols-outlined text-sm">add</span>
-                <span>Thêm thẻ tôn chỉ</span>
+                <span>Thêm thẻ lý do</span>
               </button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-                  Tiêu đề phần tôn chỉ
+                  Tiêu đề phần
                 </label>
                 <input
                   type="text"
-                  value={content.home.principles?.heading || "Tôn Chỉ Hoạt Động & Năng Lực Vượt Trội"}
+                  value={content.home.principles?.heading || "Tại sao lại chọn chúng tôi"}
                   onChange={(e) =>
                     setContent({
                       ...content,
@@ -603,7 +603,7 @@ export default function AdminContentPage() {
                 </label>
                 <input
                   type="text"
-                  value={content.home.principles?.subHeading || "TÔN CHỈ HOẠT ĐỘNG"}
+                  value={content.home.principles?.subHeading || "TẠI SAO CHỌN CHÚNG TÔI"}
                   onChange={(e) =>
                     setContent({
                       ...content,
