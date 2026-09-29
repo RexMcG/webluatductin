@@ -328,7 +328,7 @@ Kể từ thời điểm ký kết biên bản này, Hợp đồng số: [...]/H
 export const formSentinelService = {
   getAlerts: async (): Promise<FormSentinelAlert[]> => {
     try {
-      const res: any = await apiClient.get('/forms/sentinel/alerts');
+      const res: any = await apiClient.get('/forms/sentinel/alerts', { timeout: 4000 });
       if (res?.success && Array.isArray(res.data)) {
         if (typeof window !== 'undefined') {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(res.data));
@@ -352,7 +352,7 @@ export const formSentinelService = {
 
   runScan: async (sources?: string[]): Promise<SentinelScanResult> => {
     try {
-      const res: any = await apiClient.post('/forms/sentinel/scan', { sources });
+      const res: any = await apiClient.post('/forms/sentinel/scan', { sources }, { timeout: 4000 });
       if (res?.success && res.data) {
         if (typeof window !== 'undefined' && res.data.alerts) {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(res.data.alerts));
@@ -386,7 +386,7 @@ export const formSentinelService = {
       const res: any = await apiClient.post('/forms/sentinel/apply', {
         alertId,
         ...overrides,
-      });
+      }, { timeout: 4000 });
       if (res?.success) {
         // Update local cache
         const list = await formSentinelService.getAlerts();
