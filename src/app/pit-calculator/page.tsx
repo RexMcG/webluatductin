@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { calcPITBreakdown, PITBracketDetail, getLegalParams } from "@/utils/calculator";
-import CalculatorGuide, { InfoTooltip } from "@/components/calculator/CalculatorGuide";
+import { InfoTooltip } from "@/components/calculator/CalculatorGuide";
 import { LegalParams, DEFAULT_LEGAL_PARAMS } from "@/services/legal-params.service";
 import SectionDivider from "@/components/common/SectionDivider";
 
@@ -525,10 +525,7 @@ export default function PITCalculator() {
             </ul>
           </div>
 
-          {/* Educational Legal Guide */}
-          <div className="mt-8">
-            <CalculatorGuide type="pit" />
-          </div>
+
         </div>
 
         {/* ===== RIGHT SIDEBAR ===== */}
