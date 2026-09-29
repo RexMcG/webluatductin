@@ -559,16 +559,7 @@ export default function Home() {
 
         </div>
 
-        {/* Action Button to view all 10 practice areas */}
-        <div className="mt-10 text-center">
-          <Link
-            href="/services"
-            className="inline-flex items-center gap-2 bg-[#641D06] hover:bg-black text-amber-300 font-bold px-7 sm:px-9 py-3.5 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all text-sm sm:text-base uppercase tracking-wider active:scale-98 border border-amber-500/30"
-          >
-            <span>Khám Phá Tất Cả 10 Lĩnh Vực Hoạt Động</span>
-            <span className="material-symbols-outlined text-lg sm:text-xl">arrow_forward</span>
-          </Link>
-        </div>
+
       </div>
     </section>
 
