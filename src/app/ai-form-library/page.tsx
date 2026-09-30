@@ -7,6 +7,7 @@ import { formLibraryService, FormItem } from "@/services/form-library.service";
 import { formLeadService } from "@/services/form-lead.service";
 import { exportFormToDoc } from "@/utils/form-exporter";
 import { sanitizeFormItem } from "@/utils/form-brand-cleaner";
+import { calculateFormMatch } from "@/utils/form-search-matcher";
 import SectionDivider from "@/components/common/SectionDivider";
 
 // Curated standard Vietnamese legal templates fallback & initial library (25+ chuẩn biểu mẫu)
@@ -497,100 +498,53 @@ export default function AIFormLibrary() {
     retry: 1,
   });
 
-  // ĐỀ XUẤT THÔNG MINH GỌN GÀNG: ĐÚNG 4 BIỂU MẪU CHUẨN XÁC & LIÊN QUAN NHẤT
+  // ĐỀ XUẤT THÔNG MINH: CHỈ HIỂN THỊ CÁC BIỂU MẪU THẬT SỰ PHÙ HỢP (TỐI ĐA 4), KHÔNG GHÉP MẪU LINH TINH
   const displayForms = useMemo(() => {
     if (!debouncedSearchTerm.trim()) {
       return POPULAR_FORMS.slice(0, 4).map(sanitizeFormItem);
     }
 
-    const term = debouncedSearchTerm.toLowerCase().trim();
-    const words = term.split(/\s+/).filter((w) => w.length >= 2);
-
-    const results: FormItem[] = [];
+    const term = debouncedSearchTerm.trim();
+    const candidates: FormItem[] = [];
     const seenIds = new Set<number>();
 
-    // 1. Nạp kết quả trực tiếp từ Backend API (tối đa 4) - Chuẩn hóa và lọc sạch 100% thương hiệu bên thứ ba
+    // 1. Lọc và chấm điểm chính xác từ kết quả Backend API
     if (searchResults && searchResults.length > 0) {
-      searchResults.slice(0, 4).forEach((item) => {
-        results.push(sanitizeFormItem(item));
-        seenIds.add(item.id);
-      });
+      for (const item of searchResults) {
+        const sanitized = sanitizeFormItem(item);
+        const matchResult = calculateFormMatch(term, sanitized);
+        if (matchResult.isMatch) {
+          candidates.push({
+            ...sanitized,
+            matchPercent: matchResult.matchPercent,
+            score: matchResult.score,
+          });
+          seenIds.add(item.id);
+        }
+      }
     }
 
-    // 2. Chấm điểm tìm kiếm theo từ khóa & ngữ nghĩa trên bộ mẫu chuẩn POPULAR_FORMS
-    const scoredLocal = POPULAR_FORMS.map((form) => {
-      const titleLower = form.title.toLowerCase();
-      const descLower = (form.description || "").toLowerCase();
-      const catLower = (form.category || "").toLowerCase();
-      const contentLower = (form.content || "").toLowerCase();
-
-      let score = 0;
-      if (titleLower.includes(term)) score += 6;
-      else if (descLower.includes(term) || catLower.includes(term)) score += 3.5;
-      else if (contentLower.includes(term)) score += 2;
-
-      // Phân tích từ khóa thành phần
-      for (const w of words) {
-        if (titleLower.includes(w)) score += 1.5;
-        else if (descLower.includes(w)) score += 0.8;
-        else if (catLower.includes(w)) score += 1.0;
-      }
-
-      return { form, score };
-    });
-
-    // Thêm các kết quả khớp có điểm số cao (giới hạn tối đa 4)
-    const directMatches = scoredLocal
-      .filter(({ score, form }) => score >= 1.5 && !seenIds.has(form.id))
-      .sort((a, b) => b.score - a.score);
-
-    for (const { form } of directMatches) {
-      if (results.length >= 4) break;
-      const idx = results.length;
-      const matchPct = Math.min(98, Math.max(88, 98 - idx * 2));
-      results.push({ ...form, matchPercent: form.matchPercent || matchPct });
-      seenIds.add(form.id);
-    }
-
-    // 3. ĐẢM BẢO ĐỀ XUẤT ĐỦ 4 BIỂU MẪU:
-    // Nếu kết quả ít hơn 4 cái, tự động bổ sung biểu mẫu cùng chuyên mục hoặc liên quan
-    if (results.length > 0 && results.length < 4) {
-      const primaryCat = results[0].category;
-
-      // Ưu tiên 1: Biểu mẫu cùng chuyên mục
-      const sameCatForms = POPULAR_FORMS.filter(
-        (f) => !seenIds.has(f.id) && f.category === primaryCat
-      );
-
-      for (const extra of sameCatForms) {
-        if (results.length >= 4) break;
-        const prevMatch = results[results.length - 1]?.matchPercent || 88;
-        results.push({
-          ...extra,
-          matchPercent: Math.max(82, prevMatch - 3),
-        });
-        seenIds.add(extra.id);
-      }
-
-      // Ưu tiên 2: Các biểu mẫu có điểm phù hợp tiếp theo
-      if (results.length < 4) {
-        const remainingLocal = scoredLocal
-          .filter(({ form }) => !seenIds.has(form.id))
-          .sort((a, b) => b.score - a.score);
-
-        for (const { form } of remainingLocal) {
-          if (results.length >= 4) break;
-          const prevMatch = results[results.length - 1]?.matchPercent || 85;
-          results.push({
+    // 2. Chấm điểm chính xác trên bộ biểu mẫu chuẩn POPULAR_FORMS
+    for (const form of POPULAR_FORMS) {
+      if (!seenIds.has(form.id)) {
+        const matchResult = calculateFormMatch(term, form);
+        if (matchResult.isMatch) {
+          candidates.push({
             ...form,
-            matchPercent: Math.max(78, prevMatch - 3),
+            matchPercent: matchResult.matchPercent,
+            score: matchResult.score,
           });
           seenIds.add(form.id);
         }
       }
     }
 
-    return results.slice(0, 4);
+    // 3. Sắp xếp theo tỷ lệ phù hợp giảm dần (từ cao xuống thấp)
+    candidates.sort((a, b) => (b.matchPercent || 0) - (a.matchPercent || 0));
+
+    // TUYỆT ĐỐI KHÔNG TỰ Ý CHÈN BIỂU MẪU KHÔNG LIÊN QUAN ĐỂ LÀM TRÒN 4!
+    // Có bao nhiêu mẫu thật sự phù hợp (tối đa 4) thì hiển thị bấy nhiêu.
+    return candidates.slice(0, 4);
   }, [debouncedSearchTerm, searchResults]);
 
   const handleDownloadClick = (form: FormItem) => {
@@ -906,10 +860,17 @@ export default function AIFormLibrary() {
 
                     <div className="flex-1 space-y-3">
                       <div className="flex items-center gap-2.5 flex-wrap">
-                        <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
-                          <span className="material-symbols-outlined text-[14px]">check_circle</span>
-                          {matchPercent}% phù hợp
-                        </span>
+                        {debouncedSearchTerm.trim() ? (
+                          <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
+                            <span className="material-symbols-outlined text-[14px]">verified</span>
+                            {matchPercent}% phù hợp
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200">
+                            <span className="material-symbols-outlined text-[14px]">local_fire_department</span>
+                            Biểu mẫu phổ biến
+                          </span>
+                        )}
                         {form.category && (
                           <span className="bg-slate-100 text-slate-700 text-[11px] font-semibold px-2.5 py-0.5 rounded-md border border-slate-200">
                             {form.category}
