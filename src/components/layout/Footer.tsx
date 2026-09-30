@@ -347,7 +347,7 @@ export default function Footer() {
                 <p>
                   <strong className="text-amber-300">Email:</strong>{" "}
                   <a href={`mailto:${footerData.email || "tin.phan@ductin-partners.com"}`} className="hover:text-amber-300 transition-colors break-all">
-                    {footerData.email || "tin.phan@ductin-partners.com"}
+                    tin.phan@ductin-partners.com
                   </a>
                 </p>
                 <p className="text-[11.5px] leading-snug">
