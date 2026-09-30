@@ -251,7 +251,7 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
   }
 };
 
-const STORAGE_KEY = "ductin_site_content_v8";
+const STORAGE_KEY = "ductin_site_content_v7";
 
 const getApiBase = () => {
   if (process.env.NEXT_PUBLIC_API_URL) {
@@ -303,15 +303,15 @@ class SiteContentService {
           ...(saved.home?.about || {}),
           paragraphs: saved.home?.about?.paragraphs || DEFAULT_SITE_CONTENT.home.about.paragraphs,
         },
-        principles: (saved.home?.principles?.heading?.includes("Tôn Chỉ") || !saved.home?.principles?.items || saved.home.principles.items.length !== 6)
+        principles: (saved.home?.principles?.heading && saved.home.principles.heading.includes("Tôn Chỉ"))
           ? DEFAULT_SITE_CONTENT.home.principles
           : {
-              ...DEFAULT_SITE_CONTENT.home.principles,
-              ...(saved.home?.principles || {}),
-              items: (saved.home?.principles?.items?.length === 6)
-                ? saved.home.principles.items
-                : DEFAULT_SITE_CONTENT.home.principles.items,
-            },
+            ...DEFAULT_SITE_CONTENT.home.principles,
+            ...(saved.home?.principles || {}),
+            items: (saved.home?.principles?.heading && saved.home.principles.heading.includes("Tôn Chỉ"))
+              ? DEFAULT_SITE_CONTENT.home.principles.items
+              : (saved.home?.principles?.items || DEFAULT_SITE_CONTENT.home.principles.items),
+          },
         stats: {
           ...DEFAULT_SITE_CONTENT.home.stats,
           ...(saved.home?.stats || {}),

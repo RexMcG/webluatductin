@@ -17,17 +17,36 @@ export default function ServicesPage() {
     return () => unsub();
   }, []);
 
-  const serviceList = Object.values(content.servicesDetail && Object.keys(content.servicesDetail).length > 0 ? content.servicesDetail : SERVICES_DATA);
+  // Danh mục 9 lĩnh vực cốt lõi chuẩn hóa theo nhận diện thực tế của Luật Đức Tín
+  const PRACTICE_AREAS_ORDER = [
+    "hop-tac-doanh-nghiep",
+    "tu-van-dau-tu",
+    "thu-tuc-phap-ly-giay-phep",
+    "di-chuc-thua-ke",
+    "dan-su",
+    "lao-dong",
+    "tranh-tung",
+    "bat-dong-san",
+    "hon-nhan-gia-dinh",
+  ];
+
+  const allServices = (content.servicesDetail && Object.keys(content.servicesDetail).length > 0)
+    ? { ...SERVICES_DATA, ...content.servicesDetail }
+    : SERVICES_DATA;
+
+  const serviceList = PRACTICE_AREAS_ORDER.map((slug) => allServices[slug]).filter(Boolean);
 
   const SERVICE_IMAGES: Record<string, string> = {
     "hop-tac-doanh-nghiep": "/img/card_business.webp",
-    "thu-hoi-no": "/img/card_debt.webp",
     "tu-van-dau-tu": "/img/card_fdi.webp",
+    "thu-tuc-phap-ly-giay-phep": "/img/card_license.webp",
+    "di-chuc-thua-ke": "/img/card_inheritance.webp",
+    "dan-su": "/img/card_civil.webp",
+    "lao-dong": "/img/card_labor.webp",
     "tranh-tung": "/img/card_court.webp",
     "bat-dong-san": "/img/card_realestate.webp",
-    "lao-dong": "/img/card_labor.webp",
     "hon-nhan-gia-dinh": "/img/card_family.webp",
-    "thu-tuc-phap-ly-giay-phep": "/img/card_license.webp",
+    "thu-hoi-no": "/img/card_debt.webp",
     "hinh-su-bao-chua": "/img/card_criminal.webp",
     "so-huu-tri-tue": "/img/card_ip.webp",
   };
@@ -54,7 +73,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Services Grid (GIỮ NGUYÊN LƯỚI 3 CỘT/HÀNG CÂN ĐỐI VỪA PHẢI, KHÔNG ĐÁNH SỐ) */}
+      {/* Services Grid (LƯỚI 3 CỘT/HÀNG CÂN ĐỐI VỪA PHẢI, TIÊU ĐỀ NGẮN GỌN CĂN GIỮA) */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 py-12">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 font-sans tracking-tight">
@@ -92,10 +111,11 @@ export default function ServicesPage() {
                   </div>
                 </div>
 
-                <h3 className="text-xl font-bold text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug">
+                {/* Tiêu đề ngắn gọn căn lề giữa */}
+                <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug text-center uppercase tracking-tight">
                   {srv.title}
                 </h3>
-                <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3 flex-1">
+                <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3 flex-1 text-center">
                   {srv.heroDesc}
                 </p>
               </Link>

@@ -457,7 +457,7 @@ export default function Home() {
               <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-5 border border-slate-100 bg-slate-100 shadow-2xs">
                 <img
                   src="/img/card_business.webp"
-                  alt="Pháp Lý Doanh Nghiệp & Luật Sư Nội Bộ"
+                  alt="Nội Bộ Doanh Nghiệp"
                   width={700}
                   height={394}
                   loading="lazy"
@@ -469,11 +469,11 @@ export default function Home() {
                   </span>
                 </div>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug">
-                Pháp Lý Doanh Nghiệp &amp; Luật Sư Nội Bộ
+              <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug text-center uppercase tracking-tight">
+                NỘI BỘ DOANH NGHIỆP
               </h3>
-              <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3 flex-1">
-                Thấu hiểu sâu sắc khuôn khổ pháp lý và thực tiễn thương mại tại Việt Nam, Đức Tín &amp; Cộng sự cung cấp giải pháp pháp lý toàn diện, giúp doanh nghiệp vững tâm phát triển và phòng ngừa hiệu quả các rủi ro nội bộ.
+              <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3 flex-1 text-center">
+                Tư vấn Luật thường xuyên, quản trị doanh nghiệp, xây dựng điều lệ và quy chế nội bộ, soạn thảo và rà soát hợp đồng kinh tế, giải quyết tranh chấp nội bộ và kinh doanh thương mại.
               </p>
             </Link>
             <div className="pt-4 border-t border-slate-100 mt-auto">
@@ -492,7 +492,7 @@ export default function Home() {
               <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-5 border border-slate-100 bg-slate-100 shadow-2xs">
                 <img
                   src="/img/card_fdi.webp"
-                  alt="Đầu Tư Nước Ngoài (FDI) & Cấp Phép Dự Án"
+                  alt="Tư Vấn Đầu Tư"
                   width={700}
                   height={394}
                   loading="lazy"
@@ -504,11 +504,11 @@ export default function Home() {
                   </span>
                 </div>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug">
-                Đầu Tư Nước Ngoài (FDI) &amp; Cấp Phép Dự Án
+              <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug text-center uppercase tracking-tight">
+                TƯ VẤN ĐẦU TƯ
               </h3>
-              <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3 flex-1">
-                Tối ưu hóa hành trình đầu tư vào Việt Nam cho các nhà đầu tư nước ngoài (FDI) bằng kinh nghiệm và sự am hiểu sâu sắc về quy định cấp phép dự án, pháp lý đất đai và các chính sách ưu đãi thuế.
+              <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3 flex-1 text-center">
+                Tư vấn đầu tư, thành lập doanh nghiệp có vốn đầu tư nước ngoài (FDI), chuyển nhượng cổ phần, vốn góp, mua bán và sáp nhập doanh nghiệp (M&amp;A), cấp phép dự án đầu tư.
               </p>
             </Link>
             <div className="pt-4 border-t border-slate-100 mt-auto">
@@ -527,7 +527,7 @@ export default function Home() {
               <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-5 border border-slate-100 bg-slate-100 shadow-2xs">
                 <img
                   src="/img/card_court.webp"
-                  alt="Giải Quyết Tranh Chấp & Tranh Tụng Tại Tòa"
+                  alt="Tranh Tụng"
                   width={700}
                   height={394}
                   loading="lazy"
@@ -539,11 +539,11 @@ export default function Home() {
                   </span>
                 </div>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug">
-                Giải Quyết Tranh Chấp &amp; Tranh Tụng Tại Tòa
+              <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug text-center uppercase tracking-tight">
+                TRANH TỤNG
               </h3>
-              <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3 flex-1">
-                Bảo vệ tối đa quyền và lợi ích hợp pháp của khách hàng tại Tòa án các cấp và Trung tâm Trọng tài với chiến lược giải quyết tranh chấp khôn khéo, linh hoạt dựa trên nền tảng pháp lý vững chắc.
+              <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3 flex-1 text-center">
+                Tham gia tố tụng tại Tòa án hoặc Trọng tài đối với các tranh chấp có liên quan đến kinh doanh thương mại, nợ khó đòi, đất đai, thừa kế, sở hữu trí tuệ, lao động và dân sự.
               </p>
             </Link>
             <div className="pt-4 border-t border-slate-100 mt-auto">

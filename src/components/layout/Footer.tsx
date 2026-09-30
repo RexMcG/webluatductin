@@ -273,22 +273,22 @@ export default function Footer() {
               </p>
               <div className="flex flex-col gap-1.5 text-xs md:text-[13px]">
                 <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services/hop-tac-doanh-nghiep">
-                  Pháp lý doanh nghiệp
-                </Link>
-                <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services/thu-hoi-no">
-                  Thu hồi nợ khó đòi
+                  Nội bộ doanh nghiệp
                 </Link>
                 <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services/tu-van-dau-tu">
-                  Đầu tư nước ngoài (FDI)
+                  Tư vấn đầu tư
+                </Link>
+                <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services/di-chuc-thua-ke">
+                  Di chúc - Thừa kế
                 </Link>
                 <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services/tranh-tung">
-                  Tranh tụng tại Tòa
+                  Tranh tụng
                 </Link>
                 <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services/bat-dong-san">
-                  Nhà đất &amp; Bất động sản
+                  Nhà đất - Bất động sản
                 </Link>
                 <Link className="text-amber-300/90 hover:text-amber-200 font-bold transition-colors pt-0.5 inline-flex items-center gap-1" href="/services">
-                  <span>Tất cả 10 lĩnh vực</span>
+                  <span>Xem tất cả 9 lĩnh vực</span>
                   <span className="material-symbols-outlined text-xs">arrow_forward</span>
                 </Link>
               </div>
