@@ -17,9 +17,10 @@ export default function ServicesPage() {
     return () => unsub();
   }, []);
 
-  // Danh mục 9 lĩnh vực cốt lõi chuẩn hóa theo nhận diện thực tế của Luật Đức Tín
+  // Danh mục lĩnh vực cốt lõi chuẩn hóa bao gồm đầy đủ Thu Hồi Nợ Khó Đòi
   const PRACTICE_AREAS_ORDER = [
     "hop-tac-doanh-nghiep",
+    "thu-hoi-no",
     "tu-van-dau-tu",
     "thu-tuc-phap-ly-giay-phep",
     "di-chuc-thua-ke",

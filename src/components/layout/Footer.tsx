@@ -275,6 +275,9 @@ export default function Footer() {
                 <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services/hop-tac-doanh-nghiep">
                   Nội bộ doanh nghiệp
                 </Link>
+                <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services/thu-hoi-no">
+                  Thu hồi nợ khó đòi
+                </Link>
                 <Link className="text-slate-200 hover:text-amber-300 transition-colors" href="/services/tu-van-dau-tu">
                   Tư vấn đầu tư
                 </Link>
@@ -288,7 +291,7 @@ export default function Footer() {
                   Nhà đất - Bất động sản
                 </Link>
                 <Link className="text-amber-300/90 hover:text-amber-200 font-bold transition-colors pt-0.5 inline-flex items-center gap-1" href="/services">
-                  <span>Xem tất cả 9 lĩnh vực</span>
+                  <span>Xem tất cả các lĩnh vực</span>
                   <span className="material-symbols-outlined text-xs">arrow_forward</span>
                 </Link>
               </div>

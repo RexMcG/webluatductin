@@ -251,7 +251,7 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
   }
 };
 
-const STORAGE_KEY = "ductin_site_content_v7";
+const STORAGE_KEY = "ductin_site_content_v10";
 
 const getApiBase = () => {
   if (process.env.NEXT_PUBLIC_API_URL) {
