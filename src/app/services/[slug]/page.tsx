@@ -173,54 +173,6 @@ export default function ServiceDetailPage() {
                 ))}
               </div>
             </div>
-
-            {/* 4-Step Legal Workflow */}
-            <div 
-              style={{ background: 'linear-gradient(180deg, #494949 0, #737373 100%)' }}
-              className="text-white p-8 md:p-12 rounded-3xl shadow-xl border border-white/10"
-            >
-              <div className="text-center max-w-2xl mx-auto mb-10">
-                <div className="text-amber-400 font-bold text-xs uppercase tracking-widest mb-2">Quy trình làm việc 4 bước</div>
-                <h2 className="text-2xl md:text-3xl font-black font-sans uppercase text-white">
-                  Phương Thức Triển Khai Minh Bạch
-                </h2>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {service.about.workflow.map((w, idx) => (
-                  <div key={idx} className="bg-white/10 border border-white/20 hover:border-amber-400/60 hover:bg-white/15 p-6 rounded-2xl relative overflow-hidden transition-all duration-300 group">
-                    <div className="text-4xl sm:text-5xl font-black text-amber-400 mb-3 tracking-tight group-hover:scale-105 transition-transform duration-300 inline-block drop-shadow-[0_2px_8px_rgba(251,191,36,0.3)]">
-                      {w.step}
-                    </div>
-                    <h3 className="font-bold text-white text-lg mb-2 group-hover:text-amber-300 transition-colors">{w.title}</h3>
-                    <p className="text-white text-xs md:text-sm leading-relaxed">{w.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Lead Attorney Badge */}
-            <div className="bg-gradient-to-r from-amber-100 via-amber-50 to-white p-6 md:p-8 rounded-3xl border border-amber-200 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
-              <div className="flex items-center gap-5">
-                <div className="w-20 h-20 rounded-full bg-emerald-100 border-2 border-emerald-400 overflow-hidden shrink-0 shadow-inner">
-                  <img src="/img/avatar1.png" alt="Ls. Phan Đức Tín" className="w-full h-full object-cover" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-amber-800 uppercase tracking-wider">Luật sư Chủ trì Lĩnh vực</div>
-                  <h3 className="text-xl md:text-2xl font-bold text-slate-900">Luật sư Phan Đức Tín</h3>
-                  <p className="text-sm text-slate-600 mt-1">Giám đốc Điều hành Công ty Luật TNHH Đức Tín và Cộng sự</p>
-                </div>
-              </div>
-              <div className="flex gap-3 shrink-0">
-                <Link href="/appointment" className="bg-[#641D06] hover:bg-black text-white px-6 py-3 rounded-xl font-bold text-sm transition-colors shadow-sm flex items-center gap-2">
-                  <span className="material-symbols-outlined text-sm">calendar_month</span>
-                  Đặt Hẹn Tư Vấn
-                </Link>
-                <a href="tel:0937863263" className="bg-[#22c55e] hover:bg-[#16a34a] text-white px-6 py-3 rounded-xl font-bold text-sm transition-colors shadow-sm flex items-center gap-2">
-                  <span className="material-symbols-outlined text-sm">call</span>
-                  093 786 32 63
-                </a>
-              </div>
-            </div>
           </div>
         )}
 
