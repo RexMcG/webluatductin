@@ -147,7 +147,8 @@ export default function Home() {
   }, []);
 
   const SEARCH_NAV_ROUTES = [
-    { keywords: ["thuế", "thuế tncn", "tính thuế", "thuế thu nhập cá nhân", "pit", "giảm trừ gia cảnh", "lương", "thu nhập"], title: "Tính Thuế Thu Nhập Cá Nhân (PIT)", href: "/pit-calculator", icon: "account_balance", desc: "Tính chính xác số thuế TNCN phải nộp & giảm trừ gia cảnh" },
+    { keywords: ["lương", "tính lương", "gross", "net", "lương gross", "lương net", "thu nhập"], title: "Tính Lương Gross sang Net", href: "/salary-calculator", icon: "payments", desc: "Chuyển đổi lương Gross sang Net & bảo hiểm chuẩn xác" },
+    { keywords: ["thuế", "thuế tncn", "tính thuế", "thuế thu nhập cá nhân", "pit", "giảm trừ gia cảnh", "thu nhập"], title: "Tính Thuế Thu Nhập Cá Nhân (PIT)", href: "/pit-calculator", icon: "account_balance", desc: "Tính chính xác số thuế TNCN phải nộp & giảm trừ gia cảnh" },
     { keywords: ["án phí", "tính án phí", "lệ phí tòa", "tòa án", "án phí dân sự", "án phí đất đai"], title: "Tính Án Phí Tòa Án", href: "/court-fee-calculator", icon: "calculate", desc: "Tra cứu & tính án phí sơ thẩm, phúc thẩm nhanh chóng" },
     { keywords: ["hợp đồng", "thẩm định", "soát hợp đồng", "check hợp đồng", "rủi ro hợp đồng"], title: "Tư Vấn Hợp Đồng Với Luật Sư AI", href: "/ai-chatbot", icon: "smart_toy", desc: "Hỏi Luật sư AI để rà soát rủi ro pháp lý hợp đồng" },
     { keywords: ["biểu mẫu", "mẫu đơn", "thư viện", "mẫu hợp đồng", "tải đơn", "văn bản mẫu"], title: "Thư Viện Biểu Mẫu Pháp Lý AI", href: "/ai-form-library", icon: "description", desc: "Tải về miễn phí 100+ mẫu đơn, mẫu hợp đồng chuẩn" },
