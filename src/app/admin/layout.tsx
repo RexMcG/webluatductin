@@ -232,6 +232,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       badge: "CMS",
     },
     {
+      label: "AI Tự Động Viết Bài",
+      href: "/admin/auto-content",
+      icon: "auto_awesome",
+      badge: "AI Auto",
+    },
+    {
       label: "Quản lý Biểu mẫu",
       href: "/admin/forms",
       icon: "folder_open",
