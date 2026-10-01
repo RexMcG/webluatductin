@@ -13,33 +13,49 @@ const PROMPT_TEMPLATE = `Bạn là Trưởng ban Biên tập kiêm Luật sư C�
 Mốc thời gian áp dụng: Năm 2026.
 BẮT BUỘC ÁP DỤNG CÁC VĂN BẢN PHÁP LUẬT MỚI NHẤT ĐANG CÓ HIỆU LỰC:
 - Bộ luật Dân sự 2015 (Quy định về thừa kế, di chúc, phân chia tài sản, giao dịch dân sự, hợp đồng).
-- Luật Đất đai 2024 (áp dụng 2026) và các Nghị định 101/2024/NĐ-CP, 102/2024/NĐ-CP (về cấp sổ đỏ, thừa kế nhà đất).
+- Luật Đất đai 2024 (có hiệu lực từ 01/08/2024 và áp dụng 2026) và các Nghị định 101/2024/NĐ-CP, 102/2024/NĐ-CP (về cấp sổ đỏ, thừa kế nhà đất).
 - Luật Nhà ở 2023, Luật Kinh doanh Bất động sản 2023, Luật Doanh nghiệp 2020.
 - Luật Hôn nhân và Gia đình 2014, Bộ luật Tố tụng Dân sự 2015, Bộ luật Hình sự 2015.
 
-YÊU CẦU ĐẶC BIỆT VỀ CÁCH TRÌNH BÀY (THEO ĐÚNG CHUẨN MẪU BÁO VNEXPRESS PHÁP LUẬT & BÀI VIẾT SỐ 10 ĐỨC TÍN):
+HƯỚNG DẪN CẤU TRÚC BÀI VIẾT (CHUẨN BÁO VNEXPRESS PHÁP LUẬT & BÀI VIẾT SỐ 10 ĐỨC TÍN):
+
 1. TIÊU ĐỀ BÀI VIẾT (title):
-   - Chuẩn câu hỏi báo chí giật tít thực tế kiểu VnExpress (VD: "Giám Đốc Bị Bắt, Người Góp Vốn Có Bị Xử Lý Hình Sự?", "Bố Mẹ Mất Không Để Lại Di Chúc, Con Nuôi Có Được Chia Đất?").
-   - BẮT BUỘC DƯỚI 100 KÝ TỰ (tuyệt đối KHÔNG quá 120 ký tự).
-2. BỐ CỤC CHUẨN VNEXPRESS:
-   - Ở TRÊN CÙNG: Có hộp "Tình huống bạn đọc gửi về" (câu chuyện trình nguyên tóm tắt hoặc trích dẫn từ thắc mắc của bạn đọc).
-   - Ở DƯỚI: Đề mục "Luật sư tư vấn:" (Ls. Phan Đức Tín - Đoàn Luật sư TP.HCM giải đáp).
-   - TIẾP THEO: Lời mở đầu phân tích trực diện + Sơ đồ tư duy Mindmap tóm tắt.
-3. 4 MỤC CHUYÊN SÂU (sections 01, 02, 03, 04):
-   - Layout style: "word-navigation" (Chuẩn bài 10 với thanh điều hướng mục lục).
-   - Diagram type: "mindmap" (Sơ đồ tư duy phân cấp).
-   - Mỗi mục có: number ("01", "02", "03", "04"), title, summary, content định dạng HTML có thẻ <p>, <ul>, <li> in đậm từ khóa, và hộp ghi chú <div class="bg-amber-50 p-4 rounded-xl border-l-4 border-amber-600 mb-4"><strong class="text-amber-900 block mb-1">⚖ Căn cứ Pháp lý & Khuyến nghị của Ls. Phan Đức Tín:</strong>...</div>.
-   - Mục 04 kết bài có chữ ký: <div class="text-right mt-4 pt-3 border-t border-slate-200 text-sm"><p class="font-bold text-slate-900">Luật sư Phan Đức Tín</p><p class="text-xs text-slate-500 italic">Đoàn Luật sư TP. Hồ Chí Minh</p></div>.
+   - Đọc kỹ toàn bộ nội dung câu hỏi/tình huống của bạn đọc.
+   - TỰ ĐẶT RA 1 CÂU HỎI DỄ HIỂU NHẤT, RÕ RÀNG VÀ GÃY GỌN VỀ NỘI DUNG PHÁP LÝ CỦA BÀI VIẾT (DƯỚI 80 KÝ TỰ, KẾT THÚC BẰNG DẤU CHẤM HỎI '?').
+   - TUYỆT ĐỐI KHÔNG bê nguyên xi câu chữ thô sơ của người dân, KHÔNG để từ xưng hô thân mật như "bố e", "chú e", "nhà e", KHÔNG dùng dấu ba chấm "..." cắt cụt câu.
+   - Ví dụ tiêu chuẩn:
+     + Tình huống về bố mất có con riêng tranh chấp đất: "Bố Mất Có Con Riêng: Con Riêng Có Được Hưởng Thừa Kế Đất Đai?"
+     + Tình huống lập di chúc cho 1 người con: "Lập Di Chúc Cho Đất Một Người Con Có Cần Chữ Ký Các Con Khác?"
+     + Tình huống em trai giấu giấy tờ sổ đỏ: "Em Trai Giấu Giấy Tờ Nhà Đất Thừa Kế: Làm Sao Ngăn Chặn Bán Trái Luật?"
+     + Tình huống cô ruột mất không con cái: "Cô Ruột Mất Không Có Chồng Con: Cháu Có Được Nhận Thừa Kế Không?"
+
+2. PHẦN MỞ ĐẦU (content):
+   - BẮT BUỘC gồm 2 phần rõ rệt:
+     + PHẦN 1 - NGUYÊN VĂN CÂU HỎI: Đặt trong khung hộp trích dẫn nguyên văn toàn bộ câu hỏi/tình huống bạn đọc gửi (giữ nguyên câu hỏi thực tế).
+     + PHẦN 2 - ĐỀ MỤC "Luật sư tư vấn:": Khung chuyển tiếp của Luật sư Phan Đức Tín.
+     + PHẦN 3 - Lời mở đầu phân tích pháp lý ngắn gọn.
+
+3. TỰ VIẾT NỘI DUNG PHÂN TÍCH CÂU HỎI (sections 01, 02, 03, 04):
+   - Phân tích cặn kẽ và giải đáp trực diện các thắc mắc trong câu hỏi.
+   - Bố cục chuẩn Word Navigation & Mindmap (bài số 10).
+   - Mục 01: Bản chất pháp lý & Tình huống thực tế.
+   - Mục 02: Căn cứ pháp luật hiện hành mới nhất (Điều luật Bộ luật Dân sự 2015, Luật Đất đai 2024...).
+   - Mục 03: Hướng giải quyết & Các bước tiến hành (Hồ sơ cần chuẩn bị, phương án hòa giải hoặc khởi kiện).
+   - Mục 04: Khuyến nghị thực tiễn của Luật sư Phan Đức Tín kèm chữ ký.
+
+4. TÓM TẮT CẨM NANG (summary):
+   - BẮT BUỘC là VĂN BẢN THUẦN TÚY (Plain text, KHÔNG chứa thẻ HTML nào).
+   - Dài khoảng 35-50 từ tóm tắt cốt lõi câu trả lời để hiển thị đẹp mắt ngoài danh sách bài viết.
 
 BẠN HÃY TRẢ VỀ DỮ LIỆU ĐỊNH DẠNG JSON DUY NHẤT (không dùng markdown code blocks ngoài JSON) theo cấu trúc sau:
 {
-  "title": "Tiêu đề câu hỏi báo chí dưới 100 ký tự",
-  "slug": "tieu-de-slug-ngan-gon",
+  "title": "Câu hỏi pháp lý dễ hiểu nhất dưới 80 ký tự kết thúc bằng dấu hỏi?",
+  "slug": "tieu-de-cau-hoi-slug",
   "category": "Thừa Kế & Di Chúc",
-  "summary": "Tóm tắt ngắn gọn 1-2 câu chuẩn SEO",
+  "summary": "Tóm tắt cốt lõi thuần text không chứa thẻ HTML nào",
   "layoutStyle": "word-navigation",
   "diagramType": "mindmap",
-  "content": "<div class=\\"reader-story-box bg-amber-50/70 border-l-4 border-[#641D06] p-4 sm:p-5 rounded-2xl mb-6 shadow-2xs\\"><div class=\\"flex items-center justify-between mb-2\\"><span class=\\"text-xs font-bold text-[#641D06] uppercase tracking-wider flex items-center gap-1.5\\"><span class=\\"material-symbols-outlined text-sm\\">help_center</span> Tình huống bạn đọc gửi về:</span><span class=\\"text-[11px] text-slate-500 font-medium\\">Hỏi đáp Pháp luật</span></div><p class=\\"text-slate-800 text-sm italic leading-relaxed mb-3\\">\\"[Tóm tắt câu chuyện/tình huống chi tiết bạn đọc gửi đến]... Vậy xin hỏi Luật sư trong trường hợp này quy định pháp luật giải quyết thế nào?\\"</p><div class=\\"text-right text-xs font-bold text-slate-600\\">— Độc giả gửi câu hỏi tham vấn</div></div><div class=\\"lawyer-intro-box flex items-center gap-3.5 my-6 p-4 bg-slate-50 rounded-2xl border border-slate-200 shadow-2xs\\"><div class=\\"w-12 h-12 rounded-full overflow-hidden border-2 border-amber-500 shrink-0\\"><img src=\\"/img/avatar1.png\\" alt=\\"Ls. Phan Đức Tín\\" class=\\"w-full h-full object-cover\\" /></div><div><h3 class=\\"text-base font-black text-[#641D06]\\">Luật sư tư vấn:</h3><p class=\\"text-xs text-slate-600\\"><strong>Luật sư Phan Đức Tín</strong> (Đoàn Luật sư TP.HCM) – Giám đốc Hãng Luật Đức Tín & Cộng Sự giải đáp:</p></div></div><p class=\\"leading-relaxed text-slate-800\\">Về nguyên tắc, việc giải quyết tình huống pháp lý nêu trên cần căn cứ trực tiếp vào quy định pháp luật mới nhất hiện hành và hệ thống chứng cứ chứng minh...</p>",
+  "content": "<div class=\\"reader-raw-question-box bg-amber-50/70 border-l-4 border-[#641D06] p-4 sm:p-5 rounded-2xl mb-6 shadow-2xs\\"><div class=\\"flex items-center justify-between mb-2\\"><span class=\\"text-xs font-bold text-[#641D06] uppercase tracking-wider flex items-center gap-1.5\\"><span class=\\"material-symbols-outlined text-sm\\">help_center</span> Câu hỏi của bạn đọc:</span><span class=\\"text-[11px] text-slate-500 font-medium\\">Hỏi đáp Pháp luật thực tế</span></div><p class=\\"text-slate-800 text-sm leading-relaxed mb-3 font-normal whitespace-pre-wrap\\">\\"[Nguyên văn toàn bộ câu hỏi của bạn đọc gửi đến]\\"</p><div class=\\"text-right text-xs font-bold text-slate-500 italic\\">— Độc giả gửi câu hỏi tham vấn</div></div><div class=\\"lawyer-intro-box flex items-center gap-3.5 my-6 p-4 bg-slate-50 rounded-2xl border border-slate-200 shadow-2xs\\"><div class=\\"w-12 h-12 rounded-full overflow-hidden border-2 border-amber-500 shrink-0\\"><img src=\\"/img/avatar1.png\\" alt=\\"Ls. Phan Đức Tín\\" class=\\"w-full h-full object-cover\\" /></div><div><h3 class=\\"text-base font-black text-[#641D06]\\">Luật sư tư vấn:</h3><p class=\\"text-xs text-slate-600\\"><strong>Luật sư Phan Đức Tín</strong> (Đoàn Luật sư TP.HCM) – Giám đốc Hãng Luật Đức Tín & Cộng Sự giải đáp:</p></div></div><p class=\\"leading-relaxed text-slate-800\\">Về câu hỏi của bạn đọc, căn cứ theo các quy định mới nhất của Bộ luật Dân sự 2015 và Luật Đất đai 2024 (áp dụng 2026), chúng tôi xin đưa ra các phân tích định hướng pháp lý cụ thể như sau:</p>",
   "sections": [
     {
       "id": "sec-1",
@@ -51,7 +67,7 @@ BẠN HÃY TRẢ VỀ DỮ LIỆU ĐỊNH DẠNG JSON DUY NHẤT (không dùng m
     {
       "id": "sec-2",
       "number": "02",
-      "title": "Căn Cứ Pháp Luật Hiện Hành Mới Nhất",
+      "title": "Căn Cứ Pháp Luật Hiện Hành Mới Nhất Áp Dụng",
       "summary": "Các điều luật áp dụng",
       "content": "<p class=\\"mb-3 leading-relaxed\\">Theo quy định pháp luật hiện hành...</p><ul class=\\"list-disc pl-6 space-y-2 text-slate-800 mb-3\\"><li><strong>Quy định pháp lý:</strong> Chi tiết...</li></ul><div class=\\"bg-amber-50 p-4 rounded-xl border-l-4 border-amber-600 mb-4\\"><strong class=\\"text-amber-900 block mb-1\\">⚖ Căn cứ Pháp lý then chốt:</strong><p class=\\"text-amber-800 text-sm\\">Nêu rõ điều luật...</p></div>"
     },
@@ -70,7 +86,7 @@ BẠN HÃY TRẢ VỀ DỮ LIỆU ĐỊNH DẠNG JSON DUY NHẤT (không dùng m
       "content": "<p class=\\"mb-3 leading-relaxed\\">Khuyến cáo thân chủ không tự ý thỏa thuận khi chưa rõ tính pháp lý...</p><div class=\\"bg-amber-50 p-4 rounded-xl border-l-4 border-amber-600 mb-4\\"><strong class=\\"text-amber-900 block mb-1\\">⚖ Lời khuyên của Ls. Phan Đức Tín:</strong><p class=\\"text-amber-800 text-sm\\">Quý khách nên mang hồ sơ gốc để được Luật sư Phan Đức Tín thẩm định trực tiếp trước khi tiến hành thủ tục.</p></div><div class=\\"text-right mt-4 pt-3 border-t border-slate-200 text-sm\\"><p class=\\"font-bold text-slate-900\\">Luật sư Phan Đức Tín</p><p class=\\"text-xs text-slate-500 italic\\">Đoàn Luật sư TP. Hồ Chí Minh</p></div>"
     }
   ],
-  "mindmap": "Tâm: CHỦ ĐỀ PHÁP LÝ\\n- 01. Căn Cứ Luật Mới\\n  + Quy định pháp luật hiện hành\\n  + Văn bản hướng dẫn áp dụng\\n- 02. Điều Kiện Áp Dụng\\n  + Giấy tờ chứng minh quan hệ\\n  + Nguồn gốc di sản / tài sản\\n- 03. Trình Tự Giải Quyết\\n  + Khai nhận thỏa thuận phân chia\\n  + Khởi kiện tranh chấp tại Tòa án\\n- 04. Khuyến Nghị Luật Sư\\n  + Không ký văn bản khi chưa rõ\\n  + Thẩm định hồ sơ cùng Ls. Đức Tín"
+  "mindmap": "Tâm: TƯ VẤN PHÁP LUẬT 2026\\n- 01. Nhận Diện Vấn Đề\\n  + Xác định quan hệ pháp luật\\n  + Phân định tài sản và chủ thể\\n- 02. Căn Cứ Luật Mới\\n  + Bộ luật Dân sự 2015\\n  + Luật Đất đai 2024 áp dụng 2026\\n- 03. Quy Trình Xử Lý\\n  + Bước 1: Thu thập chứng cứ gốc\\n  + Bước 2: Khai nhận hoặc thương lượng\\n  + Bước 3: Khởi kiện tại Tòa án nếu tranh chấp\\n- 04. Khuyến Nghị Luật Sư\\n  + Không ký biên bản bất lợi\\n  + Thẩm định hồ sơ cùng Ls. Đức Tín"
 }`;
 
 export async function POST(req: NextRequest) {
@@ -83,17 +99,22 @@ export async function POST(req: NextRequest) {
     }
 
     const apiKey = getGeminiKey();
-    const userPrompt = `Hãy viết một bài viết giải đáp pháp lý hoàn chỉnh theo chuẩn phong cách Báo VnExpress Pháp Luật & Bài viết số 10 cho câu hỏi sau:
-Chủ đề / Câu hỏi nguồn: "${topic.trim()}"
+    const userPrompt = `Đọc kỹ toàn bộ nội dung câu hỏi sau đây để viết một bài giải đáp pháp lý hoàn chỉnh:
+
+NỘI DUNG CÂU HỎI BẠN ĐỌC GỬI VỀ:
+"${topic.trim()}"
+
 Nguồn tham khảo: "${sourceUrl || "i-law.vn"}"
 Lĩnh vực: "${category || "Thừa Kế & Di Chúc"}"
-Phong cách: "${tone || "Phong cách hỏi đáp báo VnExpress: có câu chuyện bạn đọc ở trên, mục 'Luật sư tư vấn:' ở dưới, viện dẫn luật mới nhất 2024-2026, bố cục word-navigation bài 10"}"
+Phong cách: "${tone || "Phong cách Báo VnExpress: Đặt tiêu đề là 1 câu hỏi dễ hiểu nhất, ở dưới là nguyên văn câu hỏi bạn đọc, tiếp đến là 'Luật sư tư vấn:' và bài phân tích theo chuẩn bài 10"}"
 
-LƯU Ý ĐẶC BIỆT:
-- Tiêu đề (title) PHẢI NGẮN GỌN (dưới 100 ký tự, dạng câu hỏi báo chí giật tít thực tế).
-- Bắt buộc có khung Tình huống bạn đọc gửi về ở trên, sau đó là Đề mục "Luật sư tư vấn:", rồi mới đến phần giải đáp của Luật sư.
-- layoutStyle BẮT BUỘC là "word-navigation".
-- diagramType BẮT BUỘC là "mindmap".`;
+YÊU CẦU BẮT BUỘC:
+1. TIÊU ĐỀ: Đặt 1 CÂU HỎI DỄ HIỂU NHẤT về vấn đề pháp lý (dưới 80 ký tự, kết thúc bằng dấu ?, không xưng hô bố e/nhà e, không dùng dấu ba chấm ...).
+2. PHẦN MỞ ĐẦU:
+   - Khung trên cùng: Giữ NGUYÊN VĂN câu hỏi của bạn đọc.
+   - Tiếp theo: Khung "Luật sư tư vấn:" (Ls. Phan Đức Tín giải đáp).
+3. NỘI DUNG: Tự viết 4 sections phân tích pháp lý cặn kẽ giải đáp câu hỏi trên.
+4. TÓM TẮT (summary): Thuần text không có thẻ HTML nào.`;
 
     if (apiKey) {
       try {
@@ -124,9 +145,12 @@ LƯU Ý ĐẶC BIỆT:
             const cleanJson = rawText.replace(/^```json\s*/i, "").replace(/```$/i, "").trim();
             const parsed = JSON.parse(cleanJson);
             
-            // Enforce limits and article 10 style
+            // Enforce clean title & summary
             if (parsed.title) {
-              parsed.title = parsed.title.trim().slice(0, 120);
+              parsed.title = parsed.title.trim().slice(0, 100);
+            }
+            if (parsed.summary) {
+              parsed.summary = parsed.summary.replace(/<[^>]+>/g, '').trim().slice(0, 200);
             }
             parsed.layoutStyle = "word-navigation";
             parsed.diagramType = "mindmap";
@@ -139,13 +163,39 @@ LƯU Ý ĐẶC BIỆT:
       }
     }
 
-    // High quality intelligent fallback engine strictly matching VnExpress & Article #10
-    const rawClean = topic.trim().replace(/^[\d\.\s\-]+/, "").replace(/\?+$/, "");
-    const shortTitleCore = rawClean.length > 70 ? rawClean.slice(0, 65).trim() + "..." : rawClean;
-    const finalTitle = shortTitleCore.endsWith("?") ? shortTitleCore : `${shortTitleCore}?`;
+    // High quality intelligent fallback engine strictly matching user instructions
+    const combinedText = topic.toLowerCase();
+    let smartQuestionTitle = "Quy Định Phân Chia Di Sản Thừa Kế Nhà Đất Theo Luật Mới?";
 
-    const slug = rawClean
-      .slice(0, 60)
+    if (combinedText.includes("con riêng") && (combinedText.includes("thừa kế") || combinedText.includes("đất") || combinedText.includes("tài sản"))) {
+      smartQuestionTitle = "Bố Mất Có Con Riêng: Con Riêng Có Được Hưởng Thừa Kế Đất Đai?";
+    } else if (combinedText.includes("di chúc") && (combinedText.includes("chữ ký") || combinedText.includes("con khác") || combinedText.includes("đồng ý"))) {
+      smartQuestionTitle = "Lập Di Chúc Cho Đất Một Người Con Có Cần Chữ Ký Của Các Con Khác?";
+    } else if (combinedText.includes("giấu") && combinedText.includes("giấy tờ")) {
+      smartQuestionTitle = "Em Trai Giấu Giấy Tờ Nhà Đất Thừa Kế: Làm Sao Ngăn Chặn Bán Trái Luật?";
+    } else if (combinedText.includes("cô") && combinedText.includes("cháu")) {
+      smartQuestionTitle = "Cô Ruột Mất Không Có Chồng Con: Cháu Có Được Hưởng Thừa Kế Không?";
+    } else if (combinedText.includes("mất trước") && (combinedText.includes("ông bà") || combinedText.includes("cha mẹ"))) {
+      smartQuestionTitle = "Bố Mất Trước Ông Bà: Con Có Được Hưởng Thừa Kế Thay Bố Không?";
+    } else if (combinedText.includes("giám đốc") && combinedText.includes("góp vốn")) {
+      smartQuestionTitle = "Giám Đốc Bị Bắt, Người Góp Vốn Có Bị Xử Lý Hình Sự?";
+    } else {
+      // General question detection
+      const qSentenceMatch = topic.match(/([^.?!;\n]{20,80}\?)/);
+      if (qSentenceMatch && qSentenceMatch[1]) {
+        let q = qSentenceMatch[1].trim()
+          .replace(/^thì\s*/i, "")
+          .replace(/^vậy\s*/i, "")
+          .replace(/\bbố e\b/gi, "bố")
+          .replace(/\bmẹ e\b/gi, "mẹ")
+          .replace(/\bnhà e\b/gi, "gia đình")
+          .replace(/\be\b/gi, "tôi");
+        smartQuestionTitle = q.charAt(0).toUpperCase() + q.slice(1);
+      }
+    }
+
+    const slug = smartQuestionTitle
+      .slice(0, 50)
       .toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
@@ -154,25 +204,25 @@ LƯU Ý ĐẶC BIỆT:
       .replace(/^-+|-+$/g, "");
 
     const fallbackArticle = {
-      title: finalTitle.slice(0, 110),
+      title: smartQuestionTitle.slice(0, 95),
       slug: `${slug || "tu-van-phap-luat"}-${Date.now().toString().slice(-4)}`,
       category: category && category !== "Tự động phân loại" ? category : "Thừa Kế & Di Chúc",
-      summary: `Luật sư Phan Đức Tín giải đáp thắc mắc của bạn đọc về vấn đề: "${shortTitleCore}". Viện dẫn Bộ luật Dân sự 2015 và Luật Đất đai mới nhất.`,
+      summary: `Luật sư Phan Đức Tín giải đáp thắc mắc của bạn đọc: "${smartQuestionTitle}". Phân tích quy định Bộ luật Dân sự 2015 và Luật Đất đai mới nhất.`,
       layoutStyle: "word-navigation",
       diagramType: "mindmap",
       content: `
-        <div class="reader-story-box bg-amber-50/70 border-l-4 border-[#641D06] p-4 sm:p-5 rounded-2xl mb-6 shadow-2xs">
+        <div class="reader-raw-question-box bg-amber-50/70 border-l-4 border-[#641D06] p-4 sm:p-5 rounded-2xl mb-6 shadow-2xs">
           <div class="flex items-center justify-between mb-2">
             <span class="text-xs font-bold text-[#641D06] uppercase tracking-wider flex items-center gap-1.5">
               <span class="material-symbols-outlined text-sm">help_center</span>
-              Tình huống bạn đọc gửi về:
+              Câu hỏi của bạn đọc:
             </span>
-            <span class="text-[11px] text-slate-500 font-medium">Diễn đàn Pháp luật i-law.vn</span>
+            <span class="text-[11px] text-slate-500 font-medium">Hỏi đáp Pháp luật thực tế</span>
           </div>
-          <p class="text-slate-800 text-sm italic leading-relaxed mb-3">
+          <p class="text-slate-800 text-sm leading-relaxed mb-3 font-normal whitespace-pre-wrap">
             "${topic.trim()}"
           </p>
-          <div class="text-right text-xs font-bold text-slate-600">
+          <div class="text-right text-xs font-bold text-slate-500 italic">
             — Độc giả gửi câu hỏi tham vấn
           </div>
         </div>
@@ -190,7 +240,7 @@ LƯU Ý ĐẶC BIỆT:
         </div>
 
         <p class="leading-relaxed text-slate-800">
-          Về nguyên tắc, khi giải quyết các tranh chấp hoặc thắc mắc liên quan đến tình huống trên, pháp luật Việt Nam luôn căn cứ vào thời điểm phát sinh quan hệ pháp lý, nguồn gốc tạo lập tài sản và các tài liệu chứng cứ hợp pháp chứng minh quyền lợi của các bên.
+          Về câu hỏi của bạn đọc, căn cứ theo các quy định mới nhất của Bộ luật Dân sự 2015 và Luật Đất đai 2024 (áp dụng năm 2026), chúng tôi xin đưa ra các phân tích định hướng pháp lý cụ thể như sau:
         </p>
       `,
       sections: [

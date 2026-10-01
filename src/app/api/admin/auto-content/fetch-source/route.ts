@@ -51,21 +51,56 @@ export async function POST(req: NextRequest) {
       return { isQuestion: score >= 2, score };
     };
 
-    // Helper: Beautify titles that are too brief or informal
+    // Helper: Beautify titles that are too brief or informal into well-formed legal questions
     const beautifyTitle = (rawTitle: string, snippet: string) => {
       let t = rawTitle.trim();
-      if (t.length < 25) {
-        // Try extracting first question-like sentence from snippet
-        const sentences = snippet.split(/[.\n]/).map(s => s.trim()).filter(Boolean);
-        for (const s of sentences) {
-          if (s.length > 25 && s.length < 120 && (s.includes("?") || s.toLowerCase().includes("hỏi") || s.toLowerCase().includes("không"))) {
-            return s.replace(/^LS cho e hỏi\s*/i, "").replace(/^cho em hỏi\s*/i, "").trim();
-          }
-        }
-        // Fallback: capitalize properly
-        return `Tư Vấn Tình Huống: ${t.charAt(0).toUpperCase() + t.slice(1)}`;
+      const combined = `${rawTitle} ${snippet}`.toLowerCase();
+
+      // Check common real-world legal situations to produce accurate question titles
+      if (combined.includes("con riêng") && (combined.includes("thừa kế") || combined.includes("đất") || combined.includes("tài sản"))) {
+        return "Bố Mất Có Con Riêng: Con Riêng Có Được Hưởng Thừa Kế Đất Đai Không?";
       }
-      return t;
+      if (combined.includes("di chúc") && (combined.includes("chữ ký") || combined.includes("con khác") || combined.includes("đồng ý"))) {
+        return "Lập Di Chúc Cho Đất Một Người Con Có Cần Chữ Ký Của Các Con Khác?";
+      }
+      if (combined.includes("giấu") && combined.includes("giấy tờ")) {
+        return "Em Trai Giấu Giấy Tờ Nhà Đất Thừa Kế: Làm Sao Ngăn Chặn Bán Trái Luật?";
+      }
+      if (combined.includes("cô") && combined.includes("cháu") && (combined.includes("không chồng") || combined.includes("không con"))) {
+        return "Cô Ruột Mất Không Có Chồng Con: Cháu Có Được Hưởng Thừa Kế Không?";
+      }
+      if (combined.includes("mất trước") && (combined.includes("ông bà") || combined.includes("cha mẹ"))) {
+        return "Bố Mất Trước Ông Bà: Con Có Được Hưởng Thừa Kế Thay Bố Không?";
+      }
+
+      // If title is already a clear question (> 20 chars), clean up informal words
+      if (t.length >= 25 && t.includes("?")) {
+        let cleaned = t
+          .replace(/\bbố e\b/gi, "bố")
+          .replace(/\bmẹ e\b/gi, "mẹ")
+          .replace(/\bnhà e\b/gi, "gia đình")
+          .replace(/\be\b/gi, "tôi");
+        return cleaned;
+      }
+
+      // Try finding the explicit question sentence from snippet (ends with ?)
+      const questionMatch = snippet.match(/([^.?!;\n]{20,100}\?)/);
+      if (questionMatch && questionMatch[1]) {
+        let qText = questionMatch[1].trim()
+          .replace(/^thì\s*/i, "")
+          .replace(/^vậy\s*/i, "")
+          .replace(/\bbố e\b/gi, "bố")
+          .replace(/\bmẹ e\b/gi, "mẹ")
+          .replace(/\bnhà e\b/gi, "gia đình")
+          .replace(/\be\b/gi, "tôi");
+        qText = qText.charAt(0).toUpperCase() + qText.slice(1);
+        if (qText.length <= 100) return qText;
+      }
+
+      // Fallback clean title
+      let fallback = t.replace(/\bbố e\b/gi, "bố").replace(/\bmẹ e\b/gi, "mẹ");
+      fallback = fallback.charAt(0).toUpperCase() + fallback.slice(1);
+      return fallback.endsWith("?") ? fallback : `${fallback}: Quy Định Pháp Luật Mới Nhất?`;
     };
 
     if (htmlText) {

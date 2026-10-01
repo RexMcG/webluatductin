@@ -146,11 +146,16 @@ export default function AdminAutoContentPage() {
         .replace(/^-+|-+$/g, "")
         .slice(0, 100) || `bai-viet-${Date.now().toString().slice(-6)}`;
 
+      const cleanSummary = (generatedArticle.summary || "")
+        .replace(/<[^>]+>/g, "")
+        .trim()
+        .slice(0, 300);
+
       const payload = {
         title: cleanTitle,
         slug: cleanSlug,
         category: generatedArticle.category || "Thừa Kế & Di Chúc",
-        summary: (generatedArticle.summary || "").slice(0, 500),
+        summary: cleanSummary,
         content: generatedArticle.content || "<p class=\"leading-relaxed\">Nội dung bài viết tư vấn pháp luật.</p>",
         sections: generatedArticle.sections || [],
         mindmap: generatedArticle.mindmap || "",
@@ -580,12 +585,27 @@ export default function AdminAutoContentPage() {
                   </div>
                 )}
 
-                {/* Summary */}
-                <div className="space-y-1 bg-amber-50/50 p-4 rounded-xl border-l-4 border-amber-500">
-                  <div className="text-xs font-bold text-amber-900 uppercase">Tóm tắt cẩm nang (Summary):</div>
-                  <div className="text-sm font-semibold text-slate-700 leading-relaxed italic">
-                    {generatedArticle.summary}
+                {/* Summary with editor */}
+                <div className="space-y-1.5 bg-amber-50/50 p-4 rounded-xl border-l-4 border-amber-500">
+                  <div className="flex items-center justify-between text-xs">
+                    <label className="font-bold text-amber-900 uppercase flex items-center gap-1">
+                      <span className="material-symbols-outlined text-sm">short_text</span>
+                      Tóm tắt cẩm nang (Hiển thị ngoài danh sách bài viết):
+                    </label>
+                    <span className="text-[11px] text-slate-500">
+                      {generatedArticle.summary?.length || 0}/300 ký tự
+                    </span>
                   </div>
+                  <textarea
+                    rows={2}
+                    value={generatedArticle.summary || ""}
+                    maxLength={300}
+                    onChange={(e) =>
+                      setGeneratedArticle({ ...generatedArticle, summary: e.target.value })
+                    }
+                    className="w-full text-xs sm:text-sm font-medium text-slate-700 bg-white border border-amber-200 rounded-xl p-2.5 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                    placeholder="Nhập đoạn tóm tắt bài viết..."
+                  />
                 </div>
 
                 {/* Mindmap visual preview */}

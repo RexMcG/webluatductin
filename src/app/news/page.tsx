@@ -64,10 +64,9 @@ export default function NewsPage() {
                 <h3 className="font-bold text-lg text-primary mb-3 line-clamp-2 group-hover:text-accent transition-colors">
                   {news.title}
                 </h3>
-                <div 
-                  className="text-text-secondary line-clamp-3 text-sm flex-grow"
-                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(news.content || '') }}
-                />
+                <p className="text-text-secondary line-clamp-3 text-sm flex-grow leading-relaxed">
+                  {news.summary ? news.summary.replace(/<[^>]+>/g, '').trim() : news.content?.replace(/<[^>]+>/g, '').trim()}
+                </p>
                 <div className="mt-4 text-primary text-sm font-semibold flex items-center gap-1 group-hover:text-accent transition-colors">
                   Đọc tiếp <span className="material-symbols-outlined text-sm">arrow_forward</span>
                 </div>
