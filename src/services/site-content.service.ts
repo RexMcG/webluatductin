@@ -193,7 +193,7 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
         {
           name: "Ls. Phan Đức Tín",
           role: "Luật sư Sáng lập — Giám đốc Điều hành",
-          desc: "Luật sư Phan Đức Tín là người sáng lập kiêm Giám đốc Điều hành Công ty Luật TNHH Đức Tín & Cộng Sự. Với nhiều năm kinh nghiệm thực chiến chuyên sâu, Luật sư đã trực tiếp tư vấn chiến lược và bảo vệ thành công quyền lợi hợp pháp cho đông đảo khách hàng cá nhân cũng như các tập đoàn, doanh nghiệp trong nước và quốc tế (FDI).\n\nThế mạnh mũi nhọn của Luật sư là năng lực tranh tụng sắc bén tại các cấp Tòa án và Trọng tài thương mại quốc tế (VIAC) trong các lĩnh vực kinh doanh thương mại, M&A, giải quyết dứt điểm các tranh chấp phức tạp về đất đai và bất động sản với tinh thần trách nhiệm cao nhất.",
+          desc: "Luật sư Phan Đức Tín là người sáng lập kiêm Giám đốc Điều hành Công ty Luật TNHH Đức Tín & Cộng Sự. Với nhiều năm kinh nghiệm thực chiến chuyên sâu, Luật sư đã trực tiếp tư vấn chiến lược và bảo vệ thành công quyền lợi hợp pháp cho đông đảo khách hàng cá nhân cũng như các tập đoàn, doanh nghiệp trong nước và quốc tế (FDI).\n\nThế mạnh của Luật sư là năng lực tranh tụng sắc bén tại các cấp Tòa án và Trọng tài thương mại quốc tế (VIAC) trong các lĩnh vực kinh doanh thương mại, M&A, giải quyết dứt điểm các tranh chấp phức tạp về đất đai và bất động sản với tinh thần trách nhiệm cao nhất.",
           img: "avatar1.webp"
         }
       ]
@@ -326,7 +326,10 @@ class SiteContentService {
         lawyers: {
           ...DEFAULT_SITE_CONTENT.home.lawyers,
           ...(saved.home?.lawyers || {}),
-          items: saved.home?.lawyers?.items || DEFAULT_SITE_CONTENT.home.lawyers.items,
+          items: (saved.home?.lawyers?.items || DEFAULT_SITE_CONTENT.home.lawyers.items).map((item) => ({
+            ...item,
+            desc: item.desc ? item.desc.replace(/Thế mạnh mũi nhọn/g, "Thế mạnh") : item.desc,
+          })),
         },
         consultForm: { ...DEFAULT_SITE_CONTENT.home.consultForm, ...(saved.home?.consultForm || {}) },
         faqs: saved.home?.faqs || DEFAULT_SITE_CONTENT.home.faqs,
