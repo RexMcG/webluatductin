@@ -4,13 +4,26 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { newsService } from "@/services/news.service";
 
+interface ILawQuestion {
+  id: string;
+  title: string;
+  snippet: string;
+  url: string;
+  date?: string;
+}
+
 export default function AdminAutoContentPage() {
   const [activeTab, setActiveTab] = useState<"demo" | "schedule" | "history">("demo");
 
+  // Source & Scraping State
+  const [sourceUrlInput, setSourceUrlInput] = useState("https://i-law.vn/tat-ca-cau-hoi/thua-ke-di-chuc");
+  const [isFetchingSource, setIsFetchingSource] = useState(false);
+  const [fetchedQuestions, setFetchedQuestions] = useState<ILawQuestion[]>([]);
+
   // Generator State
+  const [selectedQuestion, setSelectedQuestion] = useState<ILawQuestion | null>(null);
   const [topicInput, setTopicInput] = useState("");
-  const [sourceUrlInput, setSourceUrlInput] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("Bất Động Sản & Đất Đai");
+  const [selectedCategory, setSelectedCategory] = useState("Thừa Kế & Di Chúc");
   const [selectedTone, setSelectedTone] = useState("Tham vấn khách quan, viện dẫn luật mới nhất 2024-2026, không khẳng định đúng sai tuyệt đối");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationStep, setGenerationStep] = useState("");
@@ -26,6 +39,7 @@ export default function AdminAutoContentPage() {
     autoMindmap: true,
     autoDisclaimer: true,
     sourceUrls: [
+      "https://i-law.vn/tat-ca-cau-hoi/thua-ke-di-chuc",
       "https://thuvienphapluat.vn/hoidap-phapluat",
       "https://luatvietnam.vn/hoi-dap-phap-luat",
     ],
@@ -33,53 +47,45 @@ export default function AdminAutoContentPage() {
   const [isSavingSchedule, setIsSavingSchedule] = useState(false);
   const [scheduleSavedMsg, setScheduleSavedMsg] = useState("");
 
-  // Sample Presets
-  const SAMPLE_PRESETS = [
-    {
-      title: "Tranh chấp ranh giới đất khi hàng xóm xây lấn 20cm giải quyết thế nào theo Luật Đất đai 2024?",
-      cat: "Bất Động Sản & Đất Đai",
-      src: "https://thuvienphapluat.vn/hoidap-phapluat/tranh-chap-ranh-gioi-dat",
-    },
-    {
-      title: "Công ty chấm dứt hợp đồng vì nhân viên không hoàn thành KPI có vi phạm luật lao động không?",
-      cat: "Lao Động & Tiền Lương",
-      src: "https://luatvietnam.vn/hoi-dap/kpi-sa-thai-lao-dong",
-    },
-    {
-      title: "Mua bán nhà đất bằng giấy tay trước 01/07/2014 có được cấp Sổ đỏ theo quy định mới?",
-      cat: "Bất Động Sản & Đất Đai",
-      src: "https://thuvienphapluat.vn/hoidap-phapluat/cap-so-do-giay-tay",
-    },
-    {
-      title: "Thủ tục ly hôn đơn phương khi chồng hoặc vợ đang ở nước ngoài không rõ địa chỉ cụ thể?",
-      cat: "Hôn Nhân & Gia Đình",
-      src: "https://luatvietnam.vn/hoi-dap/ly-hon-yeu-to-nuoc-ngoai",
-    },
-  ];
-
-  // Load schedule config from local
+  // Auto fetch i-law on mount
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem("ductin_auto_content_config");
-      if (saved) {
-        setScheduleConfig(JSON.parse(saved));
-      }
-    } catch (e) {
-      console.warn("Could not load schedule config:", e);
-    }
+    fetchQuestionsFromSource("https://i-law.vn/tat-ca-cau-hoi/thua-ke-di-chuc");
   }, []);
 
-  const handleApplyPreset = (preset: typeof SAMPLE_PRESETS[0]) => {
-    setTopicInput(preset.title);
-    setSelectedCategory(preset.cat);
-    setSourceUrlInput(preset.src);
+  const fetchQuestionsFromSource = async (urlToFetch: string) => {
+    setIsFetchingSource(true);
+    try {
+      const res = await fetch("/api/admin/auto-content/fetch-source", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: urlToFetch }),
+      });
+      const data = await res.json();
+      if (data.success && data.questions) {
+        setFetchedQuestions(data.questions);
+        if (data.questions.length > 0 && !topicInput) {
+          handleSelectQuestion(data.questions[0]);
+        }
+      }
+    } catch (err) {
+      console.warn("Failed to fetch source questions:", err);
+    } finally {
+      setIsFetchingSource(false);
+    }
+  };
+
+  const handleSelectQuestion = (q: ILawQuestion) => {
+    setSelectedQuestion(q);
+    setTopicInput(q.title + ": " + q.snippet);
+    setSourceUrlInput(q.url);
+    setSelectedCategory("Thừa Kế & Di Chúc");
     setGeneratedArticle(null);
     setSaveSuccessMsg("");
   };
 
   const handleGenerate = async () => {
     if (!topicInput.trim()) {
-      alert("Vui lòng nhập chủ đề hoặc đường dẫn câu hỏi cần phân tích.");
+      alert("Vui lòng chọn một câu hỏi từ nguồn i-law.vn hoặc nhập chủ đề cần viết.");
       return;
     }
 
@@ -88,13 +94,13 @@ export default function AdminAutoContentPage() {
     setSaveSuccessMsg("");
 
     try {
-      setGenerationStep("1. Đang quét và phân tích bản chất câu hỏi...");
+      setGenerationStep("1. Đang đọc câu hỏi thực tế từ i-law.vn & phân tích bản chất vụ việc...");
       await new Promise((r) => setTimeout(r, 600));
 
-      setGenerationStep("2. Đang đối chiếu các quy định pháp luật mới nhất (Luật Đất đai 2024, Luật Nhà ở 2023)...");
+      setGenerationStep("2. Đang đối chiếu Bộ luật Dân sự 2015 (Thừa kế) & Luật Đất đai 2024 mới nhất...");
       await new Promise((r) => setTimeout(r, 700));
 
-      setGenerationStep("3. Đang soạn thảo bài viết theo phong cách tham vấn khách quan của Luật sư...");
+      setGenerationStep("3. Đang soạn thảo bài viết tham vấn theo tác phong Luật sư khách quan (không phán quyết đúng/sai)...");
       
       const res = await fetch("/api/admin/auto-content/generate", {
         method: "POST",
@@ -107,7 +113,7 @@ export default function AdminAutoContentPage() {
         }),
       });
 
-      setGenerationStep("4. Khởi tạo sơ đồ tư duy Mindmap và hoàn tất cấu trúc chuẩn SEO...");
+      setGenerationStep("4. Khởi tạo sơ đồ tư duy Mindmap và khung khuyến nghị mời gặp Ls. Phan Đức Tín...");
       const json = await res.json();
 
       if (json.success && json.data) {
@@ -173,21 +179,21 @@ export default function AdminAutoContentPage() {
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/20 border border-amber-300/30 text-amber-300 text-xs font-bold uppercase tracking-wider">
               <span className="material-symbols-outlined text-sm animate-pulse">auto_awesome</span>
-              AI Auto-Content Studio (2026 Engine)
+              Nguồn cấp: i-law.vn (Thừa kế &amp; Di chúc)
             </div>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black font-sans tracking-tight">
-              Trung Tâm Tự Động Hóa Bài Viết Pháp Lý AI
+              AI Tự Động Viết Bài Từ Nguồn Hỏi Đáp Pháp Luật
             </h1>
             <p className="text-slate-300 text-xs sm:text-sm max-w-2xl leading-relaxed">
-              Tự động quét chủ đề hỏi đáp pháp luật, phân tích chuẩn xác theo văn bản luật mới nhất, soạn thảo theo tác phong tham vấn luật sư khách quan và hẹn giờ xuất bản tự động.
+              Tự động đọc câu hỏi tình huống thực tế của người dân từ <strong>i-law.vn</strong>, đối chiếu Bộ luật Dân sự &amp; Luật Đất đai mới nhất, soạn bài tư vấn khách quan như một luật sư giàu kinh nghiệm.
             </p>
           </div>
 
           {/* Quick Metrics */}
           <div className="flex flex-wrap sm:flex-nowrap gap-3 bg-white/10 backdrop-blur-md p-3.5 rounded-2xl border border-white/15">
             <div className="px-4 py-2 text-center border-r border-white/10">
-              <div className="text-xl sm:text-2xl font-black text-amber-400">100%</div>
-              <div className="text-[11px] text-slate-300 font-medium uppercase tracking-wider">Luật Mới 2024-2026</div>
+              <div className="text-xl sm:text-2xl font-black text-amber-400">{fetchedQuestions.length}</div>
+              <div className="text-[11px] text-slate-300 font-medium uppercase tracking-wider">Câu Hỏi i-law.vn</div>
             </div>
             <div className="px-4 py-2 text-center border-r border-white/10">
               <div className="text-xl sm:text-2xl font-black text-emerald-400">{scheduleConfig.enabled ? "BẬT" : "TẮT"}</div>
@@ -195,7 +201,7 @@ export default function AdminAutoContentPage() {
             </div>
             <div className="px-4 py-2 text-center">
               <div className="text-xl sm:text-2xl font-black text-white">{scheduleConfig.runTime}</div>
-              <div className="text-[11px] text-slate-300 font-medium uppercase tracking-wider">Giờ Quét Chạy</div>
+              <div className="text-[11px] text-slate-300 font-medium uppercase tracking-wider">Giờ Chạy</div>
             </div>
           </div>
         </div>
@@ -210,8 +216,8 @@ export default function AdminAutoContentPage() {
                 : "bg-white/10 text-white hover:bg-white/20"
             }`}
           >
-            <span className="material-symbols-outlined text-lg">play_circle</span>
-            Trải Nghiệm Viết Thử Ngay (1-Click Test)
+            <span className="material-symbols-outlined text-lg">psychology</span>
+            Cào i-law.vn &amp; Viết Bài Trực Tiếp
           </button>
           <button
             onClick={() => setActiveTab("schedule")}
@@ -234,147 +240,182 @@ export default function AdminAutoContentPage() {
         </div>
       </div>
 
-      {/* TAB 1: DEMO TESTER */}
+      {/* TAB 1: I-LAW INTEGRATION & DEMO TESTER */}
       {activeTab === "demo" && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left Column: Input Settings (5 cols) */}
-          <div className="lg:col-span-5 bg-white p-6 sm:p-7 rounded-3xl border border-slate-200 shadow-sm space-y-6">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-              <div className="flex items-center gap-2">
-                <span className="p-2 rounded-xl bg-amber-50 text-amber-800">
-                  <span className="material-symbols-outlined text-xl">psychology</span>
+          {/* Left Column: i-law Questions Feed & Controls (5 cols) */}
+          <div className="lg:col-span-5 space-y-6">
+            {/* Source URL Bar */}
+            <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-3">
+              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center justify-between">
+                <span className="flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-amber-600 text-base">cloud_download</span>
+                  Nguồn quét câu hỏi thực tế:
                 </span>
-                <div>
-                  <h3 className="font-bold text-slate-900 text-base">Bộ Điều Khiển AI Viết Bài</h3>
-                  <p className="text-xs text-slate-500">Nhập đường dẫn câu hỏi hoặc chọn mẫu có sẵn</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Presets */}
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-amber-600 text-base">bolt</span>
-                Chọn nhanh tình huống mẫu (1-Click Presets):
+                <span className="text-[11px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">
+                  i-law.vn Live
+                </span>
               </label>
-              <div className="space-y-1.5">
-                {SAMPLE_PRESETS.map((p, idx) => (
+
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={sourceUrlInput}
+                  onChange={(e) => setSourceUrlInput(e.target.value)}
+                  placeholder="https://i-law.vn/tat-ca-cau-hoi/thua-ke-di-chuc"
+                  className="flex-1 px-3.5 py-2 rounded-xl border border-slate-300 text-xs font-medium text-slate-800 bg-slate-50 focus:bg-white focus:outline-none focus:border-[#641D06]"
+                />
+                <button
+                  type="button"
+                  disabled={isFetchingSource}
+                  onClick={() => fetchQuestionsFromSource(sourceUrlInput)}
+                  className="px-4 py-2 bg-slate-900 hover:bg-black text-white text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 shrink-0 cursor-pointer disabled:opacity-60"
+                >
+                  {isFetchingSource ? (
+                    <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  ) : (
+                    <span className="material-symbols-outlined text-base">sync</span>
+                  )}
+                  <span>Quét Lại</span>
+                </button>
+              </div>
+
+              {/* Quick Category Chips from i-law */}
+              <div className="flex flex-wrap gap-1.5 pt-1 border-t border-slate-100">
+                {[
+                  { label: "Thừa kế - Di chúc", url: "https://i-law.vn/tat-ca-cau-hoi/thua-ke-di-chuc" },
+                  { label: "Đất đai - Nhà ở", url: "https://i-law.vn/tat-ca-cau-hoi/dat-dai-nha-o" },
+                  { label: "Hôn nhân gia đình", url: "https://i-law.vn/tat-ca-cau-hoi/hon-nhan-gia-dinh" },
+                  { label: "Lao động - Tiền lương", url: "https://i-law.vn/tat-ca-cau-hoi/lao-dong-tien-luong" },
+                ].map((chip, idx) => (
                   <button
                     key={idx}
                     type="button"
-                    onClick={() => handleApplyPreset(p)}
-                    className="w-full text-left p-2.5 rounded-xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 text-xs font-medium text-slate-800 transition-colors flex items-center justify-between gap-2 cursor-pointer group"
+                    onClick={() => {
+                      setSourceUrlInput(chip.url);
+                      fetchQuestionsFromSource(chip.url);
+                    }}
+                    className={`text-[11px] px-2.5 py-1 rounded-lg font-semibold transition-colors cursor-pointer ${
+                      sourceUrlInput === chip.url
+                        ? "bg-[#641D06] text-white"
+                        : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                    }`}
                   >
-                    <span className="line-clamp-1 group-hover:text-amber-900 font-semibold">{p.title}</span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 shrink-0 font-bold">
-                      {p.cat.split(" ")[0]}
-                    </span>
+                    {chip.label}
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Topic Input */}
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
-                Câu hỏi / Chủ đề pháp lý cần viết:
-              </label>
-              <textarea
-                rows={3}
-                value={topicInput}
-                onChange={(e) => setTopicInput(e.target.value)}
-                placeholder="VD: Mua bán nhà đất bằng vi bằng thừa phát lại có được sang tên sổ đỏ không?"
-                className="w-full px-4 py-3 rounded-2xl border border-slate-300 focus:outline-none focus:border-[#641D06] focus:ring-2 focus:ring-[#641D06]/10 text-sm text-slate-900 bg-slate-50 focus:bg-white transition-all font-medium"
-              />
-            </div>
-
-            {/* Source URL Input */}
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
-                Đường dẫn nguồn cào tham khảo (Tùy chọn):
-              </label>
-              <div className="relative">
-                <span className="material-symbols-outlined absolute left-3.5 top-3 text-slate-400 text-base">
-                  link
+            {/* Questions List from i-law.vn */}
+            <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-3">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                <span className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1">
+                  <span className="material-symbols-outlined text-amber-700 text-base">format_list_bulleted</span>
+                  Danh sách câu hỏi vừa cào được ({fetchedQuestions.length}):
                 </span>
-                <input
-                  type="text"
-                  value={sourceUrlInput}
-                  onChange={(e) => setSourceUrlInput(e.target.value)}
-                  placeholder="https://thuvienphapluat.vn/hoidap-phapluat/..."
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-[#641D06] focus:ring-2 focus:ring-[#641D06]/10 text-xs font-medium text-slate-800 bg-slate-50 focus:bg-white transition-all"
-                />
+                <span className="text-[11px] text-slate-500 font-medium">Bấm để chọn câu hỏi</span>
+              </div>
+
+              <div className="space-y-2.5 max-h-[380px] overflow-y-auto pr-1">
+                {fetchedQuestions.map((q, idx) => {
+                  const isSelected = selectedQuestion?.id === q.id;
+                  return (
+                    <div
+                      key={q.id || idx}
+                      onClick={() => handleSelectQuestion(q)}
+                      className={`p-3 rounded-2xl border-2 transition-all cursor-pointer ${
+                        isSelected
+                          ? "border-[#641D06] bg-amber-50/70 shadow-xs"
+                          : "border-slate-200 hover:border-slate-300 bg-white"
+                      }`}
+                    >
+                      <div className="flex items-start justify-between gap-2 mb-1">
+                        <h4 className="font-bold text-xs sm:text-sm text-slate-900 leading-snug line-clamp-1">
+                          #{idx + 1}. {q.title}
+                        </h4>
+                        {q.date && (
+                          <span className="text-[10px] text-slate-400 font-medium shrink-0">
+                            {q.date}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-[11.5px] text-slate-600 line-clamp-2 leading-relaxed">
+                        {q.snippet}
+                      </p>
+                      <div className="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                        <span className="text-[#641D06] font-bold flex items-center gap-1">
+                          <span className="material-symbols-outlined text-sm">
+                            {isSelected ? "check_circle" : "radio_button_unchecked"}
+                          </span>
+                          {isSelected ? "Đang chọn câu này" : "Chọn viết bài"}
+                        </span>
+                        <a
+                          href={q.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="text-slate-400 hover:text-blue-600 flex items-center gap-0.5"
+                        >
+                          Xem gốc trên iLAW <span className="material-symbols-outlined text-xs">open_in_new</span>
+                        </a>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
-            {/* Category Select */}
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
-                Chuyên mục bài viết:
-              </label>
-              <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-[#641D06] text-xs font-semibold text-slate-800 bg-slate-50"
+            {/* AI Control Card */}
+            <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+              <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200/80 space-y-1.5 text-xs">
+                <div className="font-bold text-amber-950 flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-amber-800 text-base">gavel</span>
+                  Quy tắc tham vấn Luật sư:
+                </div>
+                <p className="text-amber-900/90 leading-relaxed font-medium">
+                  AI sẽ bóc tách câu hỏi từ i-law.vn, áp dụng <strong>Bộ luật Dân sự 2015 &amp; Luật Đất đai 2024</strong>, giải đáp khách quan <em>(không phán quyết đúng/sai tuyệt đối khi chưa có chứng cứ)</em> và kèm lời khuyên thực tiễn của <strong>Luật sư Phan Đức Tín</strong>.
+                </p>
+              </div>
+
+              {/* Generate Button */}
+              <button
+                type="button"
+                disabled={isGenerating || !topicInput}
+                onClick={handleGenerate}
+                className="w-full py-4 bg-[#641D06] hover:bg-black text-white font-bold text-sm sm:text-base rounded-2xl transition-all shadow-lg active:scale-98 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
               >
-                <option value="Bất Động Sản & Đất Đai">Bất Động Sản &amp; Đất Đai (Luật Đất đai 2024)</option>
-                <option value="Lao Động & Tiền Lương">Lao Động &amp; Tiền Lương (BLLĐ 2019)</option>
-                <option value="Hôn Nhân & Gia Đình">Hôn Nhân &amp; Gia Đình (Chia tài sản, ly hôn)</option>
-                <option value="Doanh Nghiệp & Đầu Tư">Doanh Nghiệp &amp; Đầu Tư FDI (Luật DN 2020)</option>
-                <option value="Tố Tụng & Tranh Chấp">Tố Tụng Tòa Án &amp; Tranh Chấp</option>
-              </select>
-            </div>
+                {isGenerating ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <span>Đang Đọc iLAW &amp; Soạn Thảo Bài Viết...</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="material-symbols-outlined text-xl">auto_awesome</span>
+                    <span>AI Đọc Câu Này &amp; Viết Bài Mẫu Ngay</span>
+                  </>
+                )}
+              </button>
 
-            {/* Lawyer Tone Policy Card */}
-            <div className="p-4 rounded-2xl bg-amber-50/80 border border-amber-200/80 space-y-2 text-xs">
-              <div className="font-bold text-amber-950 flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-amber-800 text-base">verified</span>
-                Bộ lọc quy tắc Luật sư (Luật Đức Tín Policy):
-              </div>
-              <ul className="text-amber-900/90 space-y-1 list-disc pl-4 leading-relaxed font-medium">
-                <li><strong>Không khẳng định đúng/sai tuyệt đối:</strong> Nêu rõ kết quả phụ thuộc vào hồ sơ gốc thực tế.</li>
-                <li><strong>Luật mới nhất:</strong> Bắt buộc áp dụng Luật Đất đai 2024 và văn bản hiện hành năm 2026.</li>
-                <li><strong>Gắn CTA cuối bài:</strong> Kêu gọi khách mang hồ sơ đến Ls. Phan Đức Tín thẩm định.</li>
-              </ul>
-            </div>
-
-            {/* Generate Action Button */}
-            <button
-              type="button"
-              disabled={isGenerating}
-              onClick={handleGenerate}
-              className="w-full py-4 bg-[#641D06] hover:bg-black text-white font-bold text-sm sm:text-base rounded-2xl transition-all shadow-lg active:scale-98 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
-            >
-              {isGenerating ? (
-                <>
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  <span>Đang Phân Tích &amp; Soạn Thảo Bài Viết...</span>
-                </>
-              ) : (
-                <>
-                  <span className="material-symbols-outlined text-xl">auto_awesome</span>
-                  <span>Bắt Đầu AI Quét &amp; Soạn Thảo Mẫu Ngay</span>
-                </>
+              {isGenerating && generationStep && (
+                <div className="p-3 bg-slate-900 text-amber-300 text-xs font-mono rounded-xl animate-pulse">
+                  {generationStep}
+                </div>
               )}
-            </button>
-
-            {isGenerating && generationStep && (
-              <div className="p-3 bg-slate-900 text-amber-300 text-xs font-mono rounded-xl animate-pulse">
-                {generationStep}
-              </div>
-            )}
+            </div>
           </div>
 
           {/* Right Column: Live Article Preview (7 cols) */}
-          <div className="lg:col-span-7 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm min-h-[600px] flex flex-col">
+          <div className="lg:col-span-7 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm min-h-[640px] flex flex-col">
             <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
               <div className="flex items-center gap-2">
                 <span className="p-2 rounded-xl bg-emerald-50 text-emerald-700">
                   <span className="material-symbols-outlined text-xl">visibility</span>
                 </span>
                 <div>
-                  <h3 className="font-bold text-slate-900 text-base">Xem Trước Bài Viết Hoàn Chỉnh (Live Preview)</h3>
-                  <p className="text-xs text-slate-500">Mẫu bài viết thực tế được AI xuất bản</p>
+                  <h3 className="font-bold text-slate-900 text-base">Xem Trước Bài Viết AI Vừa Soạn (Live Preview)</h3>
+                  <p className="text-xs text-slate-500">Mẫu bài viết chuẩn SEO giải đáp cho câu hỏi từ i-law.vn</p>
                 </div>
               </div>
 
@@ -395,11 +436,11 @@ export default function AdminAutoContentPage() {
             {!generatedArticle ? (
               <div className="flex-1 flex flex-col items-center justify-center text-center p-8 border-2 border-dashed border-slate-200 rounded-2xl bg-slate-50/50">
                 <span className="material-symbols-outlined text-5xl text-slate-300 mb-3">
-                  feed
+                  menu_book
                 </span>
-                <h4 className="font-bold text-slate-700 text-base mb-1">Chưa có bản thảo bài viết</h4>
+                <h4 className="font-bold text-slate-700 text-base mb-1">Chưa có bài viết mẫu</h4>
                 <p className="text-xs text-slate-500 max-w-sm">
-                  Chọn một trong các tình huống mẫu bên trái hoặc nhập câu hỏi rồi bấm <strong>"Bắt Đầu AI Quét &amp; Soạn Thảo Mẫu Ngay"</strong> để xem kết quả trực tiếp tại đây.
+                  Chọn 1 câu hỏi từ danh sách bên trái rồi bấm <strong>"AI Đọc Câu Này &amp; Viết Bài Mẫu Ngay"</strong> để xem bài viết hoàn chỉnh tại đây.
                 </p>
               </div>
             ) : (
@@ -413,7 +454,7 @@ export default function AdminAutoContentPage() {
                     Áp Dụng Luật 2026
                   </span>
                   <span className="text-xs text-slate-400 font-medium ml-auto">
-                    Slug: /{generatedArticle.slug}
+                    Nguồn: i-law.vn
                   </span>
                 </div>
 
@@ -517,10 +558,10 @@ export default function AdminAutoContentPage() {
           <div className="border-b border-slate-100 pb-4">
             <h3 className="text-xl font-black text-slate-900 flex items-center gap-2">
               <span className="material-symbols-outlined text-amber-600">schedule</span>
-              Cấu Hình Nguồn Cào &amp; Lịch Trình Tự Động Chạy
+              Cấu Hình Nguồn Cào i-law.vn &amp; Lịch Trình Tự Động Chạy
             </h3>
             <p className="text-xs text-slate-500 mt-1">
-              Hệ thống sẽ tự động quét các chủ đề hỏi đáp mới nhất theo đúng khung giờ bạn cài đặt, tạo bài viết và phân loại tự động.
+              Hệ thống sẽ tự động quét các chủ đề hỏi đáp mới nhất từ i-law.vn theo đúng khung giờ bạn cài đặt, tạo bài viết và phân loại tự động.
             </p>
           </div>
 
@@ -536,7 +577,7 @@ export default function AdminAutoContentPage() {
             <div>
               <div className="font-bold text-slate-900 text-sm sm:text-base">Kích hoạt chế độ Tự động tạo bài viết hàng ngày</div>
               <div className="text-xs text-slate-500 mt-0.5">
-                Khi bật, hệ thống máy chủ sẽ tự động chạy ngầm mà không cần mở trình duyệt.
+                Khi bật, hệ thống máy chủ sẽ tự động quét nguồn i-law.vn và tạo bài viết ngầm theo lịch.
               </div>
             </div>
             <label className="relative inline-flex items-center cursor-pointer">
@@ -627,7 +668,7 @@ export default function AdminAutoContentPage() {
           <div className="space-y-3">
             <label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center justify-between">
               <span>Danh sách URL các nguồn cào chủ đề:</span>
-              <span className="text-[11px] text-amber-800 font-semibold">Tự động luân phiên nguồn</span>
+              <span className="text-[11px] text-amber-800 font-semibold">Ưu tiên i-law.vn</span>
             </label>
             <div className="space-y-2">
               {scheduleConfig.sourceUrls.map((url, idx) => (
