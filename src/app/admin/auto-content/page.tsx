@@ -10,6 +10,8 @@ interface ILawQuestion {
   snippet: string;
   url: string;
   date?: string;
+  isQuestion?: boolean;
+  questionScore?: number;
 }
 
 export default function AdminAutoContentPage() {
@@ -19,6 +21,7 @@ export default function AdminAutoContentPage() {
   const [sourceUrlInput, setSourceUrlInput] = useState("https://i-law.vn/tat-ca-cau-hoi/thua-ke-di-chuc");
   const [isFetchingSource, setIsFetchingSource] = useState(false);
   const [fetchedQuestions, setFetchedQuestions] = useState<ILawQuestion[]>([]);
+  const [filterMode, setFilterMode] = useState<"only-questions" | "all">("only-questions");
 
   // Generator State
   const [selectedQuestion, setSelectedQuestion] = useState<ILawQuestion | null>(null);
@@ -320,60 +323,107 @@ export default function AdminAutoContentPage() {
 
             {/* Questions List from i-law.vn */}
             <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-3">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
                 <span className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1">
                   <span className="material-symbols-outlined text-amber-700 text-base">format_list_bulleted</span>
-                  Danh sách câu hỏi vừa cào được ({fetchedQuestions.length}):
+                  Danh sách câu hỏi vừa cào ({fetchedQuestions.length}):
                 </span>
-                <span className="text-[11px] text-slate-500 font-medium">Bấm để chọn câu hỏi</span>
+
+                {/* Filter buttons */}
+                <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl">
+                  <button
+                    type="button"
+                    onClick={() => setFilterMode("only-questions")}
+                    className={`text-[11px] font-bold px-2.5 py-1 rounded-lg transition-all flex items-center gap-1 cursor-pointer ${
+                      filterMode === "only-questions"
+                        ? "bg-white text-emerald-800 shadow-xs"
+                        : "text-slate-600 hover:text-slate-900"
+                    }`}
+                  >
+                    <span>⭐ Chỉ câu hỏi hay</span>
+                    <span className="px-1.5 py-0.2 rounded-full bg-emerald-100 text-emerald-800 text-[10px]">
+                      {fetchedQuestions.filter((q) => q.isQuestion !== false).length}
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setFilterMode("all")}
+                    className={`text-[11px] font-bold px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
+                      filterMode === "all"
+                        ? "bg-white text-slate-900 shadow-xs"
+                        : "text-slate-600 hover:text-slate-900"
+                    }`}
+                  >
+                    Tất cả ({fetchedQuestions.length})
+                  </button>
+                </div>
               </div>
 
-              <div className="space-y-2.5 max-h-[380px] overflow-y-auto pr-1">
-                {fetchedQuestions.map((q, idx) => {
-                  const isSelected = selectedQuestion?.id === q.id;
-                  return (
-                    <div
-                      key={q.id || idx}
-                      onClick={() => handleSelectQuestion(q)}
-                      className={`p-3 rounded-2xl border-2 transition-all cursor-pointer ${
-                        isSelected
-                          ? "border-[#641D06] bg-amber-50/70 shadow-xs"
-                          : "border-slate-200 hover:border-slate-300 bg-white"
-                      }`}
-                    >
-                      <div className="flex items-start justify-between gap-2 mb-1">
-                        <h4 className="font-bold text-xs sm:text-sm text-slate-900 leading-snug line-clamp-1">
-                          #{idx + 1}. {q.title}
-                        </h4>
-                        {q.date && (
-                          <span className="text-[10px] text-slate-400 font-medium shrink-0">
-                            {q.date}
-                          </span>
-                        )}
+              <div className="space-y-2.5 max-h-[390px] overflow-y-auto pr-1">
+                {(() => {
+                  const filtered =
+                    filterMode === "only-questions"
+                      ? fetchedQuestions.filter((q) => q.isQuestion !== false)
+                      : fetchedQuestions;
+                  const displayList = filtered.length > 0 ? filtered : fetchedQuestions;
+
+                  if (displayList.length === 0) {
+                    return (
+                      <div className="p-6 text-center text-xs text-slate-500">
+                        Chưa có câu hỏi nào. Vui lòng bấm <strong>"Quét Lại"</strong> ở trên.
                       </div>
-                      <p className="text-[11.5px] text-slate-600 line-clamp-2 leading-relaxed">
-                        {q.snippet}
-                      </p>
-                      <div className="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
-                        <span className="text-[#641D06] font-bold flex items-center gap-1">
-                          <span className="material-symbols-outlined text-sm">
-                            {isSelected ? "check_circle" : "radio_button_unchecked"}
+                    );
+                  }
+
+                  return displayList.map((q, idx) => {
+                    const isSelected = selectedQuestion?.id === q.id;
+                    const isQuality = q.isQuestion !== false;
+
+                    return (
+                      <div
+                        key={q.id || idx}
+                        onClick={() => handleSelectQuestion(q)}
+                        className={`p-3 rounded-2xl border-2 transition-all cursor-pointer ${
+                          isSelected
+                            ? "border-[#641D06] bg-amber-50/70 shadow-xs"
+                            : "border-slate-200 hover:border-slate-300 bg-white"
+                        }`}
+                      >
+                        <div className="flex items-start justify-between gap-2 mb-1">
+                          <h4 className="font-bold text-xs sm:text-sm text-slate-900 leading-snug line-clamp-1">
+                            #{idx + 1}. {q.title}
+                          </h4>
+                          {isQuality && (
+                            <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full shrink-0 flex items-center gap-0.5">
+                              ✔ Câu hỏi chuẩn
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-[11.5px] text-slate-600 line-clamp-2 leading-relaxed">
+                          {q.snippet}
+                        </p>
+                        <div className="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                          <span className="text-[#641D06] font-bold flex items-center gap-1">
+                            <span className="material-symbols-outlined text-sm">
+                              {isSelected ? "check_circle" : "radio_button_unchecked"}
+                            </span>
+                            {isSelected ? "Đang chọn câu này" : "Chọn viết bài"}
                           </span>
-                          {isSelected ? "Đang chọn câu này" : "Chọn viết bài"}
-                        </span>
-                        <a
-                          href={q.url}
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="text-slate-400 hover:text-blue-600 flex items-center gap-0.5"
-                        >
-                          Xem gốc trên iLAW <span className="material-symbols-outlined text-xs">open_in_new</span>
-                        </a>
+                          <a
+                            href={q.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="text-slate-400 hover:text-blue-600 flex items-center gap-0.5"
+                          >
+                            Xem gốc trên iLAW <span className="material-symbols-outlined text-xs">open_in_new</span>
+                          </a>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  });
+                })()}
               </div>
             </div>
 
@@ -462,12 +512,13 @@ export default function AdminAutoContentPage() {
                   <span className="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-[11px] font-black uppercase">
                     {generatedArticle.category}
                   </span>
-                  <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-900 text-[11px] font-bold">
-                    Áp Dụng Luật 2026
+                  <span className="px-3 py-1 rounded-full bg-rose-100 text-rose-900 text-[11px] font-bold flex items-center gap-1">
+                    <span className="material-symbols-outlined text-xs">newspaper</span>
+                    Chuẩn Báo VnExpress (Hỏi - Đáp)
                   </span>
                   <span className="px-3 py-1 rounded-full bg-purple-100 text-purple-900 text-[11px] font-bold flex items-center gap-1">
                     <span className="material-symbols-outlined text-xs">view_sidebar</span>
-                    Bố cục: Word Navigation (Chuẩn Bài 10)
+                    Bố cục: Word Navigation (Bài 10)
                   </span>
                   <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-[11px] font-bold flex items-center gap-1">
                     <span className="material-symbols-outlined text-xs">account_tree</span>

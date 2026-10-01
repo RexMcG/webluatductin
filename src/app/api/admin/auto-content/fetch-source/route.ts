@@ -28,7 +28,45 @@ export async function POST(req: NextRequest) {
       snippet: string;
       url: string;
       date?: string;
+      isQuestion: boolean;
+      questionScore: number;
     }> = [];
+
+    // Helper: Identify if an item is a genuine question
+    const checkIsRealQuestion = (title: string, snippet: string) => {
+      const combined = `${title} ${snippet}`.toLowerCase();
+      const questionKeywords = [
+        "hỏi", "sao", "không", "được không", "như thế nào", "ra sao",
+        "phải làm gì", "quy định thế nào", "thủ tục ra sao", "ai được",
+        "có phải", "chia thế nào", "tranh chấp", "khiếu nại", "được chia",
+        "hưởng", "làm sao", "mấy phần", "giải quyết sao", "?"
+      ];
+      
+      let score = 0;
+      if (combined.includes("?")) score += 3;
+      questionKeywords.forEach(kw => {
+        if (combined.includes(kw)) score += 1;
+      });
+      if (snippet.length > 50) score += 2;
+      return { isQuestion: score >= 2, score };
+    };
+
+    // Helper: Beautify titles that are too brief or informal
+    const beautifyTitle = (rawTitle: string, snippet: string) => {
+      let t = rawTitle.trim();
+      if (t.length < 25) {
+        // Try extracting first question-like sentence from snippet
+        const sentences = snippet.split(/[.\n]/).map(s => s.trim()).filter(Boolean);
+        for (const s of sentences) {
+          if (s.length > 25 && s.length < 120 && (s.includes("?") || s.toLowerCase().includes("hỏi") || s.toLowerCase().includes("không"))) {
+            return s.replace(/^LS cho e hỏi\s*/i, "").replace(/^cho em hỏi\s*/i, "").trim();
+          }
+        }
+        // Fallback: capitalize properly
+        return `Tư Vấn Tình Huống: ${t.charAt(0).toUpperCase() + t.slice(1)}`;
+      }
+      return t;
+    };
 
     if (htmlText) {
       // Regex parsing for i-law question cards
@@ -53,16 +91,24 @@ export async function POST(req: NextRequest) {
           .trim();
 
         if (cleanTitle && cleanSnippet) {
+          const { isQuestion, score } = checkIsRealQuestion(cleanTitle, cleanSnippet);
+          const finalTitle = beautifyTitle(cleanTitle, cleanSnippet);
+
           questions.push({
             id: link,
-            title: cleanTitle,
+            title: finalTitle,
             snippet: cleanSnippet,
             url: link.startsWith("http") ? link : `https://i-law.vn${link}`,
             date: "Mới nhất",
+            isQuestion,
+            questionScore: score,
           });
         }
       }
     }
+
+    // Sort so genuine questions with higher score appear first
+    questions.sort((a, b) => b.questionScore - a.questionScore);
 
     // High quality live fallback questions if i-law rate limits or blocks cloud IPs
     if (questions.length === 0) {
@@ -73,6 +119,8 @@ export async function POST(req: NextRequest) {
           snippet: "Ông bà nội mất hết rồi. Có 3 con trai và 3 con gái. Người con trai thứ 2 đã mất, con trai của người con thứ 2 về tranh chấp đòi chia tài sản làm 3 phần bằng nhau. Trường hợp này di sản thừa kế của ông bà được chia theo pháp luật như thế nào?",
           url: "https://i-law.vn/cau-tra-loi-phap-ly/chia-di-san-thua-ke-3-102477",
           date: "01/10/2026",
+          isQuestion: true,
+          questionScore: 5,
         },
         {
           id: "ilaw-2",
@@ -80,6 +128,8 @@ export async function POST(req: NextRequest) {
           snippet: "Bố em mất năm 2025, gia đình xuất hiện 2 người con riêng của bố và yêu cầu chia di sản thừa kế đối với nhà đất bố mẹ em tự mua năm 1994. Con riêng có được hưởng thừa kế tài sản của bố không và quy định chứng minh quan hệ cha con ra sao?",
           url: "https://i-law.vn/cau-tra-loi-phap-ly/tai-san-thua-ke-cua-bo-e-102470",
           date: "30/09/2026",
+          isQuestion: true,
+          questionScore: 5,
         },
         {
           id: "ilaw-3",
@@ -87,6 +137,8 @@ export async function POST(req: NextRequest) {
           snippet: "Mẹ tôi vừa qua đời không để lại di chúc, có 2 người con. Em trai tôi cất giấu toàn bộ giấy tờ nhà đất để ngăn tôi chia di sản vì tôi đang ở nước ngoài. Làm thế nào để ngăn chặn em trai tự ý tẩu tán hoặc bán căn nhà đồng sở hữu thừa kế?",
           url: "https://i-law.vn/cau-tra-loi-phap-ly/quyen-thua-ke-va-cac-giay-to-phap-ly-102459",
           date: "30/09/2026",
+          isQuestion: true,
+          questionScore: 5,
         },
         {
           id: "ilaw-4",
@@ -94,6 +146,8 @@ export async function POST(req: NextRequest) {
           snippet: "Gia đình có 5 người con, bà và người con đầu đã mất. Nay ông muốn lập di chúc tại phòng công chứng để lại quyền sử dụng đất cho người con trai thứ 2. Cho hỏi khi ông lập di chúc có bắt buộc phải có sự đồng ý hoặc chữ ký của các con khác không?",
           url: "https://i-law.vn/cau-tra-loi-phap-ly/cong-chung-di-chuc-102452",
           date: "01/10/2026",
+          isQuestion: true,
+          questionScore: 5,
         },
         {
           id: "ilaw-5",
@@ -101,6 +155,8 @@ export async function POST(req: NextRequest) {
           snippet: "Bố mẹ và anh chị em ruột của cô tôi đều đã qua đời. Cô mất không lập di chúc và không có chồng con. Trong trường hợp này, các cháu ruột có được quyền làm thủ tục khai nhận di sản thừa kế của cô không và theo thứ tự hàng thừa kế nào?",
           url: "https://i-law.vn/cau-tra-loi-phap-ly/thua-ke-di-chuc-8-102438",
           date: "25/09/2026",
+          isQuestion: true,
+          questionScore: 5,
         }
       );
     }
