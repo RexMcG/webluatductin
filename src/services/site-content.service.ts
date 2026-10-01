@@ -293,11 +293,17 @@ class SiteContentService {
   }
 
   private mergeWithDefault(saved: Partial<SiteContentData>): SiteContentData {
+    const rawHero = { ...DEFAULT_SITE_CONTENT.home.hero, ...(saved.home?.hero || {}) };
+    if (rawHero.titlePrimary && rawHero.titleSecondary && rawHero.titlePrimary.includes(rawHero.titleSecondary)) {
+      rawHero.titlePrimary = rawHero.titlePrimary.replace(rawHero.titleSecondary, "").trim();
+      if (!rawHero.titlePrimary) rawHero.titlePrimary = "Công Ty Luật";
+    }
+
     return {
       home: {
         ...DEFAULT_SITE_CONTENT.home,
         ...(saved.home || {}),
-        hero: { ...DEFAULT_SITE_CONTENT.home.hero, ...(saved.home?.hero || {}) },
+        hero: rawHero,
         about: {
           ...DEFAULT_SITE_CONTENT.home.about,
           ...(saved.home?.about || {}),

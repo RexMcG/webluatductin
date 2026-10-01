@@ -259,8 +259,14 @@ export default function Home() {
           <div className="max-w-3xl lg:max-w-4xl w-full flex flex-col items-start text-left space-y-5 md:space-y-6">
             <h1 className="text-2xl sm:text-4xl md:text-[44px] lg:text-[52px] font-black font-sans leading-[1.2] tracking-tight">
               <span className="text-primary drop-shadow-sm block">
-                <span className="inline-block">{siteContent.home.hero.titlePrimary}</span>{" "}
-                <span className="inline-block">{siteContent.home.hero.titleSecondary}</span>
+                {siteContent.home.hero.titlePrimary?.includes(siteContent.home.hero.titleSecondary) ? (
+                  <span className="inline-block">{siteContent.home.hero.titlePrimary}</span>
+                ) : (
+                  <>
+                    <span className="inline-block">{siteContent.home.hero.titlePrimary}</span>{" "}
+                    <span className="inline-block">{siteContent.home.hero.titleSecondary}</span>
+                  </>
+                )}
               </span>
               <span className="text-accent drop-shadow-sm text-xl sm:text-3xl md:text-4xl lg:text-[42px] block mt-1.5 font-bold">
                 {siteContent.home.hero.titleAccent}
