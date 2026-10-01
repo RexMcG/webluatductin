@@ -132,23 +132,34 @@ export default function AdminAutoContentPage() {
   const handleSaveToCMS = async (status: "draft" | "published") => {
     if (!generatedArticle) return;
     try {
+      // Enforce strict title length <= 180 chars (backend requires <= 255)
+      const cleanTitle = (generatedArticle.title || "").trim().slice(0, 180);
+      const cleanSlug = (generatedArticle.slug || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/đ/g, "d")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 100) || `bai-viet-${Date.now().toString().slice(-6)}`;
+
       const payload = {
-        title: generatedArticle.title,
-        slug: generatedArticle.slug,
-        category: generatedArticle.category,
-        summary: generatedArticle.summary,
-        content: generatedArticle.content,
-        sections: generatedArticle.sections,
-        mindmap: generatedArticle.mindmap,
-        diagramType: (generatedArticle.diagramType as any) || "mindmap",
-        layoutStyle: ("cards" as const),
+        title: cleanTitle,
+        slug: cleanSlug,
+        category: generatedArticle.category || "Thừa Kế & Di Chúc",
+        summary: (generatedArticle.summary || "").slice(0, 500),
+        content: generatedArticle.content || "<p class=\"leading-relaxed\">Nội dung bài viết tư vấn pháp luật.</p>",
+        sections: generatedArticle.sections || [],
+        mindmap: generatedArticle.mindmap || "",
+        diagramType: ((generatedArticle.diagramType as any) || "mindmap") as "mindmap" | "flowchart" | "none",
+        layoutStyle: "word-navigation" as const, // Match Article #10 exactly
         status: status,
       };
 
       await newsService.createNews(payload);
       setSaveSuccessMsg(
         status === "published"
-          ? "🎉 Bài viết đã được XUẤT BẢN THÀNH CÔNG lên website chính thức!"
+          ? "🎉 Bài viết đã được XUẤT BẢN THÀNH CÔNG lên website chính thức (Bố cục Word Navigation chuẩn bài 10)!"
           : "✅ Đã lưu bài viết vào BẢN NHÁP (Draft). Bạn có thể kiểm tra trong mục 'Quản lý Bài viết & Sơ đồ'."
       );
     } catch (e: any) {
@@ -446,6 +457,7 @@ export default function AdminAutoContentPage() {
             ) : (
               <div className="space-y-6 flex-1">
                 {/* Meta info */}
+                {/* Meta info & Layout Style Indicator */}
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-[11px] font-black uppercase">
                     {generatedArticle.category}
@@ -453,15 +465,54 @@ export default function AdminAutoContentPage() {
                   <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-900 text-[11px] font-bold">
                     Áp Dụng Luật 2026
                   </span>
+                  <span className="px-3 py-1 rounded-full bg-purple-100 text-purple-900 text-[11px] font-bold flex items-center gap-1">
+                    <span className="material-symbols-outlined text-xs">view_sidebar</span>
+                    Bố cục: Word Navigation (Chuẩn Bài 10)
+                  </span>
+                  <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-[11px] font-bold flex items-center gap-1">
+                    <span className="material-symbols-outlined text-xs">account_tree</span>
+                    Sơ đồ: Mindmap
+                  </span>
                   <span className="text-xs text-slate-400 font-medium ml-auto">
                     Nguồn: i-law.vn
                   </span>
                 </div>
 
-                {/* Title */}
-                <h2 className="text-xl sm:text-2xl font-black text-slate-900 leading-snug">
-                  {generatedArticle.title}
-                </h2>
+                {/* Title with live editor & char counter */}
+                <div className="space-y-1.5 bg-slate-50 p-3.5 rounded-2xl border border-slate-200">
+                  <div className="flex items-center justify-between text-xs">
+                    <label className="font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1">
+                      <span className="material-symbols-outlined text-sm text-amber-600">edit_note</span>
+                      Tiêu đề bài viết (Có thể sửa trực tiếp):
+                    </label>
+                    <span
+                      className={`font-mono text-xs font-bold ${
+                        (generatedArticle.title?.length || 0) > 200
+                          ? "text-red-600"
+                          : (generatedArticle.title?.length || 0) > 140
+                          ? "text-amber-600"
+                          : "text-emerald-700"
+                      }`}
+                    >
+                      {generatedArticle.title?.length || 0}/200 ký tự (Tối đa 255)
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    value={generatedArticle.title || ""}
+                    maxLength={200}
+                    onChange={(e) =>
+                      setGeneratedArticle({ ...generatedArticle, title: e.target.value })
+                    }
+                    className="w-full text-base sm:text-lg font-black text-slate-900 bg-white border border-slate-300 rounded-xl px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                    placeholder="Nhập tiêu đề bài viết..."
+                  />
+                  {(generatedArticle.title?.length || 0) > 180 && (
+                    <p className="text-[11px] text-amber-600">
+                      ⚠️ Tiêu đề nên ngắn gọn dưới 120 ký tự để tối ưu SEO và hiển thị tốt nhất trên thiết bị di động.
+                    </p>
+                  )}
+                </div>
 
                 {/* Legal Basis Box */}
                 {generatedArticle.legalBasis && generatedArticle.legalBasis.length > 0 && (
@@ -479,8 +530,11 @@ export default function AdminAutoContentPage() {
                 )}
 
                 {/* Summary */}
-                <div className="text-sm font-semibold text-slate-700 bg-amber-50/50 p-4 rounded-xl border-l-4 border-amber-500 leading-relaxed italic">
-                  {generatedArticle.summary}
+                <div className="space-y-1 bg-amber-50/50 p-4 rounded-xl border-l-4 border-amber-500">
+                  <div className="text-xs font-bold text-amber-900 uppercase">Tóm tắt cẩm nang (Summary):</div>
+                  <div className="text-sm font-semibold text-slate-700 leading-relaxed italic">
+                    {generatedArticle.summary}
+                  </div>
                 </div>
 
                 {/* Mindmap visual preview */}
@@ -488,7 +542,7 @@ export default function AdminAutoContentPage() {
                   <div className="p-4 rounded-2xl bg-slate-900 text-white space-y-2">
                     <div className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
                       <span className="material-symbols-outlined text-base">account_tree</span>
-                      Sơ đồ tư duy thủ tục tóm tắt (AI Mindmap):
+                      Sơ đồ tư duy thủ tục tóm tắt (Mindmap chuẩn bài 10):
                     </div>
                     <pre className="text-xs text-slate-300 font-mono whitespace-pre-wrap leading-relaxed overflow-x-auto">
                       {generatedArticle.mindmap}
@@ -496,23 +550,41 @@ export default function AdminAutoContentPage() {
                   </div>
                 )}
 
-                {/* Main Content */}
-                <div className="prose prose-slate max-w-none text-xs sm:text-sm leading-relaxed text-slate-800 space-y-4 border-t border-slate-100 pt-4">
-                  {generatedArticle.sections ? (
-                    generatedArticle.sections.map((sec: any, idx: number) => (
-                      <div key={sec.id || idx} className="space-y-1.5">
-                        <h3 className="text-sm sm:text-base font-bold text-[#641D06] flex items-center gap-2">
-                          <span className="w-6 h-6 rounded-full bg-amber-100 text-amber-900 text-xs font-black inline-flex items-center justify-center">
-                            {sec.number || idx + 1}
-                          </span>
+                {/* Introduction Content */}
+                {generatedArticle.content && (
+                  <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-xs sm:text-sm text-slate-800 leading-relaxed">
+                    <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Lời mở đầu dẫn nhập:</div>
+                    <div dangerouslySetInnerHTML={{ __html: generatedArticle.content }} />
+                  </div>
+                )}
+
+                {/* Main Content Sections (Word Navigation Style) */}
+                <div className="space-y-4 border-t border-slate-200 pt-4">
+                  <div className="text-xs font-bold text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-sm text-[#641D06]">format_list_bulleted</span>
+                    4 Mục nội dung chuyên sâu (Bố cục Word Navigation chuẩn bài 10):
+                  </div>
+                  {generatedArticle.sections && generatedArticle.sections.map((sec: any, idx: number) => (
+                    <div key={sec.id || idx} className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-xs space-y-2.5">
+                      <div className="flex items-center gap-2.5 border-b border-slate-100 pb-2">
+                        <span className="w-7 h-7 rounded-xl bg-amber-100 text-[#641D06] text-xs font-black inline-flex items-center justify-center shrink-0">
+                          {sec.number || `0${idx + 1}`}
+                        </span>
+                        <h4 className="text-sm sm:text-base font-bold text-[#641D06] leading-snug">
                           {sec.title}
-                        </h3>
-                        <p className="text-slate-700 leading-relaxed pl-8">{sec.content}</p>
+                        </h4>
                       </div>
-                    ))
-                  ) : (
-                    <div className="whitespace-pre-wrap">{generatedArticle.content}</div>
-                  )}
+                      {sec.summary && (
+                        <p className="text-xs text-slate-500 italic bg-slate-50 p-2 rounded-lg">
+                          💡 <strong>Tóm lược:</strong> {sec.summary}
+                        </p>
+                      )}
+                      <div
+                        className="prose prose-slate max-w-none text-xs sm:text-sm leading-relaxed text-slate-700"
+                        dangerouslySetInnerHTML={{ __html: sec.content }}
+                      />
+                    </div>
+                  ))}
                 </div>
 
                 {/* Lawyer Disclaimer Callout */}
