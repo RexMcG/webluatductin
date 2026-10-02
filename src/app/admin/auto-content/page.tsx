@@ -32,6 +32,7 @@ export default function AdminAutoContentPage() {
   const [generationStep, setGenerationStep] = useState("");
   const [generatedArticle, setGeneratedArticle] = useState<any | null>(null);
   const [saveSuccessMsg, setSaveSuccessMsg] = useState("");
+  const [publishedSlug, setPublishedSlug] = useState("");
 
   // Schedule Config State
   const [scheduleConfig, setScheduleConfig] = useState({
@@ -164,15 +165,17 @@ export default function AdminAutoContentPage() {
         status: status,
       };
 
-      await newsService.createNews(payload);
+      const created = await newsService.createNews(payload);
+      setPublishedSlug(created?.slug || cleanSlug);
       setSaveSuccessMsg(
         status === "published"
-          ? "🎉 Bài viết đã được XUẤT BẢN THÀNH CÔNG lên website chính thức (Bố cục Word Navigation chuẩn bài 10)!"
-          : "✅ Đã lưu bài viết vào BẢN NHÁP (Draft). Bạn có thể kiểm tra trong mục 'Quản lý Bài viết & Sơ đồ'."
+          ? "🎉 Bài viết đã được LƯU VĨNH VIỄN VÀO CƠ SỞ DỮ LIỆU và XUẤT BẢN THÀNH CÔNG lên website chính thức!"
+          : "✅ Đã LƯU BÀI VIẾT VÀO DATABASE dưới dạng BẢN NHÁP (Draft). Bạn có thể kiểm tra trong mục 'Quản lý Bài viết & Sơ đồ'."
       );
     } catch (e: any) {
-      alert("Lỗi khi lưu bài viết: " + (e?.message || "Vui lòng thử lại"));
+      alert("Lỗi khi lưu bài viết vào cơ sở dữ liệu: " + (e?.message || "Vui lòng thử lại"));
     }
+
   };
 
   const handleSaveSchedule = () => {
@@ -493,11 +496,34 @@ export default function AdminAutoContentPage() {
             </div>
 
             {saveSuccessMsg && (
-              <div className="mb-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 font-bold text-sm flex items-center gap-2">
-                <span className="material-symbols-outlined text-emerald-600">check_circle</span>
-                <span>{saveSuccessMsg}</span>
+              <div className="mb-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-sm space-y-2.5">
+                <div className="flex items-center gap-2 font-bold">
+                  <span className="material-symbols-outlined text-emerald-600">check_circle</span>
+                  <span>{saveSuccessMsg}</span>
+                </div>
+                {publishedSlug && (
+                  <div className="flex items-center gap-2 pt-2 border-t border-emerald-200/60 text-xs font-semibold">
+                    <a
+                      href={`/news/${publishedSlug}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-1.5 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700 transition-colors flex items-center gap-1 shadow-2xs"
+                    >
+                      <span className="material-symbols-outlined text-sm">open_in_new</span>
+                      Xem bài viết ngoài Website
+                    </a>
+                    <Link
+                      href="/admin/news"
+                      className="px-3 py-1.5 rounded-xl bg-white border border-emerald-300 text-emerald-800 hover:bg-emerald-100 transition-colors flex items-center gap-1"
+                    >
+                      <span className="material-symbols-outlined text-sm">article</span>
+                      Vào Quản lý Bài viết &amp; Sơ đồ
+                    </Link>
+                  </div>
+                )}
               </div>
             )}
+
 
             {!generatedArticle ? (
               <div className="flex-1 flex flex-col items-center justify-center text-center p-8 border-2 border-dashed border-slate-200 rounded-2xl bg-slate-50/50">
