@@ -14,6 +14,17 @@ interface ILawQuestion {
   questionScore?: number;
 }
 
+const PRESET_THUMBNAILS = [
+  { label: "Thừa Kế & Di Sản", url: "/img/card_inheritance.webp", category: "Thừa Kế" },
+  { label: "Đất Đai & Nhà Ở", url: "/img/card_realestate.webp", category: "Đất Đai" },
+  { label: "Tòa Án & Tranh Tụng", url: "/img/card_court.webp", category: "Tranh Tụng" },
+  { label: "Doanh Nghiệp & Đầu Tư", url: "/img/card_business.webp", category: "Doanh Nghiệp" },
+  { label: "Hôn Nhân & Gia Đình", url: "/img/card_family.webp", category: "Gia Đình" },
+  { label: "Lao Động & Tiền Lương", url: "/img/card_labor.webp", category: "Lao Động" },
+  { label: "Giấy Phép Doanh Nghiệp", url: "/img/card_license.webp", category: "Giấy Phép" },
+  { label: "Thu Hồi Nợ Khó Đòi", url: "/img/card_debt.webp", category: "Thu Hồi Nợ" },
+];
+
 export default function AdminAutoContentPage() {
   const [activeTab, setActiveTab] = useState<"demo" | "schedule" | "history">("demo");
 
@@ -133,6 +144,23 @@ export default function AdminAutoContentPage() {
     }
   };
 
+  const handleUploadThumbnailFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      alert("Dung lượng ảnh tối đa 5MB. Vui lòng chọn ảnh nhỏ hơn.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (uploadEvent) => {
+      const result = uploadEvent.target?.result as string;
+      if (result && generatedArticle) {
+        setGeneratedArticle({ ...generatedArticle, thumbnailUrl: result });
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleSaveToCMS = async (status: "draft" | "published") => {
     if (!generatedArticle) return;
     try {
@@ -156,6 +184,7 @@ export default function AdminAutoContentPage() {
         title: cleanTitle,
         slug: cleanSlug,
         category: generatedArticle.category || "Thừa Kế & Di Chúc",
+        thumbnailUrl: generatedArticle.thumbnailUrl || "/img/card_inheritance.webp",
         summary: cleanSummary,
         content: generatedArticle.content || "<p class=\"leading-relaxed\">Nội dung bài viết tư vấn pháp luật.</p>",
         sections: generatedArticle.sections || [],
@@ -558,6 +587,132 @@ export default function AdminAutoContentPage() {
                   <span className="text-xs text-slate-400 font-medium ml-auto">
                     Nguồn: i-law.vn
                   </span>
+                </div>
+
+                {/* Thumbnail Configuration Block */}
+                <div className="bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+                      <span className="material-symbols-outlined text-sm text-[#641D06]">image</span>
+                      Ảnh bìa đại diện (Thumbnail bài viết):
+                    </label>
+                    {generatedArticle.thumbnailUrl ? (
+                      <span className="text-[11px] text-emerald-700 font-bold bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 flex items-center gap-1">
+                        <span className="material-symbols-outlined text-xs">check_circle</span>
+                        Đã chọn ảnh bìa
+                      </span>
+                    ) : (
+                      <span className="text-[11px] text-amber-700 font-bold bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+                        Chưa chọn ảnh
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Thumbnail Preview & URL input */}
+                  <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
+                    {/* Live Image Box */}
+                    <div className="sm:col-span-4 relative h-36 rounded-xl overflow-hidden border-2 border-slate-200 bg-slate-200 group shadow-2xs">
+                      {generatedArticle.thumbnailUrl ? (
+                        <img
+                          src={generatedArticle.thumbnailUrl}
+                          alt="Thumbnail preview"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex flex-col items-center justify-center text-slate-400 p-2 text-center">
+                          <span className="material-symbols-outlined text-3xl mb-1">image_not_supported</span>
+                          <span className="text-[10px]">Chưa có ảnh bìa</span>
+                        </div>
+                      )}
+                      <div className="absolute bottom-1.5 left-1.5 right-1.5 bg-black/75 backdrop-blur-xs text-white text-[10px] px-2 py-0.5 rounded text-center truncate font-medium">
+                        Ảnh hiển thị trên thẻ bài viết
+                      </div>
+                    </div>
+
+                    {/* Inputs & Upload */}
+                    <div className="sm:col-span-8 space-y-2.5">
+                      <div className="space-y-1">
+                        <div className="text-[11px] font-bold text-slate-600 flex items-center justify-between">
+                          <span>Nhập link ảnh (URL hoặc đường dẫn nội bộ):</span>
+                        </div>
+                        <input
+                          type="text"
+                          value={generatedArticle.thumbnailUrl || ""}
+                          onChange={(e) =>
+                            setGeneratedArticle({ ...generatedArticle, thumbnailUrl: e.target.value })
+                          }
+                          placeholder="https://images.unsplash.com/... hoặc /img/card_inheritance.webp"
+                          className="w-full text-xs font-mono text-slate-800 bg-white border border-slate-300 rounded-xl px-3 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                        />
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-2 pt-1">
+                        {/* File Upload Button */}
+                        <label className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 hover:border-slate-400 rounded-xl text-xs font-bold cursor-pointer transition-all shadow-2xs active:scale-98">
+                          <span className="material-symbols-outlined text-base text-amber-700">upload_file</span>
+                          <span>Tải ảnh từ máy tính lên</span>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleUploadThumbnailFile}
+                            className="hidden"
+                          />
+                        </label>
+
+                        {/* Reset to Default */}
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setGeneratedArticle({ ...generatedArticle, thumbnailUrl: "/img/card_inheritance.webp" })
+                          }
+                          className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl text-xs font-semibold transition-colors"
+                          title="Khôi phục ảnh mặc định"
+                        >
+                          <span className="material-symbols-outlined text-sm">restart_alt</span>
+                          Mặc định
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Preset Gallery */}
+                  <div className="pt-2 border-t border-slate-200/80 space-y-2">
+                    <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1">
+                      <span className="material-symbols-outlined text-xs text-amber-600">collections</span>
+                      Hoặc chọn nhanh 1-click từ kho ảnh pháp lý chuẩn:
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                      {PRESET_THUMBNAILS.map((preset) => {
+                        const isSelected = generatedArticle.thumbnailUrl === preset.url;
+                        return (
+                          <button
+                            key={preset.url}
+                            type="button"
+                            onClick={() =>
+                              setGeneratedArticle({ ...generatedArticle, thumbnailUrl: preset.url })
+                            }
+                            className={`p-1.5 rounded-xl border text-left transition-all flex items-center gap-2 cursor-pointer ${
+                              isSelected
+                                ? "bg-amber-50 border-[#641D06] ring-2 ring-[#641D06]/20 shadow-xs"
+                                : "bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50"
+                            }`}
+                          >
+                            <img
+                              src={preset.url}
+                              alt={preset.label}
+                              className="w-10 h-10 rounded-lg object-cover shrink-0 border border-slate-100"
+                            />
+                            <div className="min-w-0 flex-1">
+                              <div className={`text-[11px] font-bold truncate leading-tight ${isSelected ? "text-[#641D06]" : "text-slate-800"}`}>
+                                {preset.label}
+                              </div>
+                              <div className="text-[9px] text-slate-400 truncate">{preset.category}</div>
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
 
                 {/* Title with live editor & char counter */}

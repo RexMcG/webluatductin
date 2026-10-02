@@ -159,6 +159,23 @@ YÊU CẦU BẮT BUỘC:
             }
             parsed.layoutStyle = "word-navigation";
             parsed.diagramType = "mindmap";
+
+            const catLower = (parsed.category || category || "").toLowerCase();
+            let defaultThumb = "/img/card_inheritance.webp";
+            if (catLower.includes("đất") || catLower.includes("nhà ở") || catLower.includes("bất động sản")) {
+              defaultThumb = "/img/card_realestate.webp";
+            } else if (catLower.includes("tòa") || catLower.includes("tranh tụng") || catLower.includes("hình sự")) {
+              defaultThumb = "/img/card_court.webp";
+            } else if (catLower.includes("doanh nghiệp") || catLower.includes("công ty") || catLower.includes("đầu tư")) {
+              defaultThumb = "/img/card_business.webp";
+            } else if (catLower.includes("hôn nhân") || catLower.includes("ly hôn") || catLower.includes("gia đình")) {
+              defaultThumb = "/img/card_family.webp";
+            } else if (catLower.includes("lao động") || catLower.includes("tiền lương")) {
+              defaultThumb = "/img/card_labor.webp";
+            } else if (catLower.includes("thu nợ") || catLower.includes("nợ")) {
+              defaultThumb = "/img/card_debt.webp";
+            }
+            parsed.thumbnailUrl = parsed.thumbnailUrl || defaultThumb;
             
             return NextResponse.json({ success: true, data: parsed });
           }
@@ -208,10 +225,27 @@ YÊU CẦU BẮT BUỘC:
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-+|-+$/g, "");
 
+    const catLower = (category || "").toLowerCase();
+    let defaultThumb = "/img/card_inheritance.webp";
+    if (catLower.includes("đất") || catLower.includes("nhà ở") || catLower.includes("bất động sản")) {
+      defaultThumb = "/img/card_realestate.webp";
+    } else if (catLower.includes("tòa") || catLower.includes("tranh tụng") || catLower.includes("hình sự")) {
+      defaultThumb = "/img/card_court.webp";
+    } else if (catLower.includes("doanh nghiệp") || catLower.includes("công ty") || catLower.includes("đầu tư")) {
+      defaultThumb = "/img/card_business.webp";
+    } else if (catLower.includes("hôn nhân") || catLower.includes("ly hôn") || catLower.includes("gia đình")) {
+      defaultThumb = "/img/card_family.webp";
+    } else if (catLower.includes("lao động") || catLower.includes("tiền lương")) {
+      defaultThumb = "/img/card_labor.webp";
+    } else if (catLower.includes("thu nợ") || catLower.includes("nợ")) {
+      defaultThumb = "/img/card_debt.webp";
+    }
+
     const fallbackArticle = {
       title: smartQuestionTitle.slice(0, 95),
       slug: `${slug || "tu-van-phap-luat"}-${Date.now().toString().slice(-4)}`,
       category: category && category !== "Tự động phân loại" ? category : "Thừa Kế & Di Chúc",
+      thumbnailUrl: defaultThumb,
       summary: `Luật sư tư vấn giải đáp thắc mắc của bạn đọc: "${smartQuestionTitle}". Phân tích quy định Bộ luật Dân sự 2015 và Luật Đất đai mới nhất.`,
       layoutStyle: "word-navigation",
       diagramType: "mindmap",
