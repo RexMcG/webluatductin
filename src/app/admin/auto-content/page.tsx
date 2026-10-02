@@ -117,7 +117,7 @@ export default function AdminAutoContentPage() {
         }),
       });
 
-      setGenerationStep("4. Khởi tạo sơ đồ tư duy Mindmap và khung khuyến nghị mời gặp Ls. Phan Đức Tín...");
+      setGenerationStep("4. Khởi tạo sơ đồ tư duy Mindmap và khuyến nghị của Luật sư tư vấn...");
       const json = await res.json();
 
       if (json.success && json.data) {
@@ -443,7 +443,7 @@ export default function AdminAutoContentPage() {
                   Quy tắc tham vấn Luật sư:
                 </div>
                 <p className="text-amber-900/90 leading-relaxed font-medium">
-                  AI sẽ bóc tách câu hỏi từ i-law.vn, áp dụng <strong>Bộ luật Dân sự 2015 &amp; Luật Đất đai 2024</strong>, giải đáp khách quan <em>(không phán quyết đúng/sai tuyệt đối khi chưa có chứng cứ)</em> và kèm lời khuyên thực tiễn của <strong>Luật sư Phan Đức Tín</strong>.
+                  AI sẽ bóc tách câu hỏi từ i-law.vn, áp dụng <strong>Bộ luật Dân sự 2015 &amp; Luật Đất đai 2024</strong>, giải đáp khách quan <em>(không phán quyết đúng/sai tuyệt đối khi chưa có chứng cứ)</em> và kèm lời khuyên thực tiễn của <strong>Luật sư tư vấn</strong>.
                 </p>
               </div>
 
@@ -688,7 +688,7 @@ export default function AdminAutoContentPage() {
                 <div className="p-4 rounded-2xl bg-stone-900 text-white space-y-2 text-xs">
                   <div className="font-bold text-amber-400 flex items-center gap-1.5 text-sm">
                     <span className="material-symbols-outlined text-base">support_agent</span>
-                    Khuyến cáo tham vấn từ Luật sư Phan Đức Tín:
+                    Khuyến cáo tham vấn từ Luật sư tư vấn:
                   </div>
                   <p className="text-slate-300 leading-relaxed">
                     Nội dung phân tích trên mang tính chất định hướng pháp lý tham khảo. Để bảo vệ tối đa quyền và lợi ích hợp pháp của mình, Quý khách nên mang hồ sơ gốc để Luật sư thẩm định cụ thể trước khi ký kết văn bản hoặc tiến hành tố tụng.

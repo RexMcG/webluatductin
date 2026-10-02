@@ -352,10 +352,10 @@ export default function NewsDetailPage() {
             <div className="flex flex-wrap items-center justify-between gap-3 text-slate-600 text-xs font-semibold uppercase tracking-wide bg-slate-50 p-3.5 md:p-4 rounded-2xl border border-slate-200 mb-6 md:mb-8">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-slate-200 border border-slate-300 overflow-hidden flex items-center justify-center shrink-0">
-                  <img src="/img/avatar1.png" alt="Ls. Phan Đức Tín" className="w-full h-full object-cover" />
+                  <img src="/img/avatar1.png" alt="Luật sư" className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <div className="text-slate-900 font-bold text-sm">Ls. Phan Đức Tín</div>
+                  <div className="text-slate-900 font-bold text-sm">Luật sư</div>
                   <div className="text-slate-500 text-[11px] lowercase">Đoàn Luật sư TP. Hồ Chí Minh</div>
                 </div>
               </div>
@@ -417,7 +417,7 @@ export default function NewsDetailPage() {
                     </div>
 
                     <div className="mt-2.5 pt-2 border-t border-slate-100 text-[10px] text-slate-500 flex items-center justify-between">
-                      <span>Thẩm định: Ls. Phan Đức Tín</span>
+                      <span>Thẩm định: Ban Luật sư</span>
                       <span className="font-bold text-[#641D06]">Luật Đức Tín</span>
                     </div>
                   </div>
@@ -564,14 +564,14 @@ export default function NewsDetailPage() {
               <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#641D06]" />
 
               <div className="w-24 h-24 rounded-2xl bg-white p-1 mx-auto mb-3 border-2 border-[#641D06]/20 shadow-md overflow-hidden mt-1">
-                <img src="/img/avatar1.png" alt="Ls. Phan Đức Tín" className="w-full h-full object-cover object-top rounded-xl" />
+                <img src="/img/avatar1.png" alt="Luật sư tư vấn" className="w-full h-full object-cover object-top rounded-xl" />
               </div>
-              <h4 className="font-black text-sm sm:text-[15px] text-slate-900 tracking-tight">Ls. PHAN ĐỨC TÍN</h4>
+              <h4 className="font-black text-sm sm:text-[15px] text-slate-900 tracking-tight">LUẬT SƯ TƯ VẤN</h4>
               <span className="inline-block text-[10px] font-extrabold text-[#641D06] bg-amber-200/70 border border-amber-400/60 px-2.5 py-0.5 rounded-full uppercase tracking-wider mt-1 shadow-2xs">
-                Giám Đốc Điều Hành
+                Chuyên gia Pháp lý
               </span>
               <p className="text-[11.5px] text-slate-700 mt-2.5 leading-relaxed text-center font-normal">
-                Trực tiếp tư vấn các thương vụ M&amp;A, cơ cấu vốn và giải quyết tranh chấp kinh tế phức tạp.
+                Trực tiếp tư vấn giải quyết tranh chấp pháp lý, thừa kế đất đai và bảo vệ quyền lợi hợp pháp.
               </p>
 
               <div className="mt-4 pt-3.5 border-t border-amber-900/15 space-y-2">
@@ -829,10 +829,10 @@ export default function NewsDetailPage() {
         <div className="flex flex-wrap items-center justify-between gap-4 text-slate-600 text-sm font-semibold uppercase tracking-wide bg-slate-50 p-4 rounded-2xl border border-slate-200">
           <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-full bg-slate-200 border border-slate-300 overflow-hidden flex items-center justify-center">
-              <img src="/img/avatar1.png" alt="Ls. Phan Đức Tín" className="w-full h-full object-cover" />
+              <img src="/img/avatar1.png" alt="Luật sư" className="w-full h-full object-cover" />
             </div>
             <div>
-              <div className="text-slate-900 font-bold text-sm">Ls. Phan Đức Tín</div>
+              <div className="text-slate-900 font-bold text-sm">Luật sư</div>
               <div className="text-slate-500 text-xs lowercase">Đoàn Luật sư TP. Hồ Chí Minh</div>
             </div>
           </div>
@@ -986,7 +986,7 @@ export default function NewsDetailPage() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <div className="text-amber-400 font-bold text-xs uppercase tracking-widest mb-1">Cần tư vấn chuyên sâu?</div>
-            <h3 className="text-2xl font-bold font-sans mb-2 text-white">Trao đổi trực tiếp với Luật sư Phan Đức Tín</h3>
+            <h3 className="text-2xl font-bold font-sans mb-2 text-white">Trao đổi trực tiếp với Luật sư tư vấn</h3>
             <p className="text-white text-sm max-w-xl leading-relaxed">
               Mọi vướng mắc về thủ tục pháp lý, tranh chấp hoặc hồ sơ sẽ được Luật sư trực tiếp tư vấn bảo mật và chính xác nhất.
             </p>
