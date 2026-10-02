@@ -219,7 +219,7 @@ export default function CalculatorGuide({ type }: CalculatorGuideProps) {
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-[#641D06] text-xs font-bold mb-2 border border-amber-200">
               <span className="w-2 h-2 rounded-full bg-amber-500"></span>
-              Bài viết phân tích bởi Luật sư Phan Đức Tín
+              Bài viết phân tích bởi Luật sư tư vấn
             </div>
             <Link href={`/news/${article.slug}`} className="block group/title">
               <h3 className="text-xl sm:text-2xl font-black text-slate-900 group-hover/title:text-[#641D06] leading-snug transition-colors">

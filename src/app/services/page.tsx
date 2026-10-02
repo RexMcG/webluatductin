@@ -91,12 +91,12 @@ export default function ServicesPage() {
           {serviceList.map((srv, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-xs hover:shadow-2xl hover:border-amber-500 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group overflow-hidden relative cursor-pointer"
+              className="bg-white rounded-3xl border border-slate-200 shadow-xs hover:shadow-2xl hover:border-amber-500 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group overflow-hidden relative cursor-pointer"
             >
               {/* Main Clickable Area navigating to service detail */}
               <Link href={`/services/${srv.slug}`} className="block flex-1 flex flex-col">
-                {/* Thumbnail Image */}
-                <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-5 border border-slate-100 bg-slate-100 shadow-2xs">
+                {/* Thumbnail Image Full-Bleed */}
+                <div className="relative w-full h-52 sm:h-56 overflow-hidden bg-slate-100">
                   <img
                     src={SERVICE_IMAGES[srv.slug] || "/img/card_court.webp"}
                     alt={srv.title}
@@ -105,7 +105,7 @@ export default function ServicesPage() {
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-3 left-3">
+                  <div className="absolute top-3.5 left-3.5">
                     <span className="rounded-full px-3.5 py-1 bg-white/95 backdrop-blur-xs text-[11px] uppercase tracking-wider font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
                       {srv.category}
                     </span>
@@ -113,16 +113,18 @@ export default function ServicesPage() {
                 </div>
 
                 {/* Tiêu đề ngắn gọn căn lề giữa */}
-                <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug text-center uppercase tracking-tight">
-                  {srv.title}
-                </h3>
-                <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3 flex-1 text-center">
-                  {srv.heroDesc}
-                </p>
+                <div className="p-5 sm:p-6 flex-1 flex flex-col">
+                  <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug text-center uppercase tracking-tight">
+                    {srv.title}
+                  </h3>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-2 line-clamp-3 flex-1 text-center">
+                    {srv.heroDesc}
+                  </p>
+                </div>
               </Link>
 
               {/* Quick Action Footer: Nút Xem Chi Tiết */}
-              <div className="pt-4 border-t border-slate-100 mt-auto">
+              <div className="px-5 sm:px-6 pb-5 sm:pb-6 mt-auto">
                 <Link
                   href={`/services/${srv.slug}`}
                   className="w-full flex items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-xl py-2.5 sm:py-3 text-sm sm:text-[15px] font-bold transition-all active:scale-98 shadow-sm hover:shadow-md text-center tracking-wide"

@@ -459,9 +459,9 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
           
           {/* 1. Pháp lý doanh nghiệp */}
-          <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-xs hover:shadow-2xl hover:border-amber-500 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group overflow-hidden relative cursor-pointer">
+          <div className="bg-white rounded-3xl border border-slate-200 shadow-xs hover:shadow-2xl hover:border-amber-500 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group overflow-hidden relative cursor-pointer">
             <Link href="/services/hop-tac-doanh-nghiep" className="block flex-1 flex flex-col">
-              <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-5 border border-slate-100 bg-slate-100 shadow-2xs">
+              <div className="relative w-full h-52 sm:h-56 overflow-hidden bg-slate-100">
                 <img
                   src="/img/card_business.webp"
                   alt="Nội Bộ Doanh Nghiệp"
@@ -470,20 +470,22 @@ export default function Home() {
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-3 left-3">
+                <div className="absolute top-3.5 left-3.5">
                   <span className="rounded-full px-3.5 py-1 bg-white/95 backdrop-blur-xs text-[11px] uppercase tracking-wider font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
                     Doanh nghiệp
                   </span>
                 </div>
               </div>
-              <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug text-center uppercase tracking-tight">
-                NỘI BỘ DOANH NGHIỆP
-              </h3>
-              <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3 flex-1 text-center">
-                Tư vấn Luật thường xuyên, quản trị doanh nghiệp, xây dựng điều lệ và quy chế nội bộ, soạn thảo và rà soát hợp đồng kinh tế, giải quyết tranh chấp nội bộ và kinh doanh thương mại.
-              </p>
+              <div className="p-5 sm:p-6 flex-1 flex flex-col">
+                <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug text-center uppercase tracking-tight">
+                  NỘI BỘ DOANH NGHIỆP
+                </h3>
+                <p className="text-slate-600 text-sm leading-relaxed mb-2 line-clamp-3 flex-1 text-center">
+                  Tư vấn Luật thường xuyên, quản trị doanh nghiệp, xây dựng điều lệ và quy chế nội bộ, soạn thảo và rà soát hợp đồng kinh tế, giải quyết tranh chấp nội bộ và kinh doanh thương mại.
+                </p>
+              </div>
             </Link>
-            <div className="pt-4 border-t border-slate-100 mt-auto">
+            <div className="px-5 sm:px-6 pb-5 sm:pb-6 mt-auto">
               <Link
                 href="/services/hop-tac-doanh-nghiep"
                 className="w-full flex items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-xl py-2.5 sm:py-3 text-sm sm:text-[15px] font-bold transition-all active:scale-98 shadow-sm hover:shadow-md text-center tracking-wide"
@@ -494,9 +496,9 @@ export default function Home() {
           </div>
 
           {/* 2. Đầu tư nước ngoài FDI */}
-          <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-xs hover:shadow-2xl hover:border-amber-500 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group overflow-hidden relative cursor-pointer">
+          <div className="bg-white rounded-3xl border border-slate-200 shadow-xs hover:shadow-2xl hover:border-amber-500 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group overflow-hidden relative cursor-pointer">
             <Link href="/services/tu-van-dau-tu" className="block flex-1 flex flex-col">
-              <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-5 border border-slate-100 bg-slate-100 shadow-2xs">
+              <div className="relative w-full h-52 sm:h-56 overflow-hidden bg-slate-100">
                 <img
                   src="/img/card_fdi.webp"
                   alt="Tư Vấn Đầu Tư"
@@ -505,20 +507,22 @@ export default function Home() {
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-3 left-3">
+                <div className="absolute top-3.5 left-3.5">
                   <span className="rounded-full px-3.5 py-1 bg-white/95 backdrop-blur-xs text-[11px] uppercase tracking-wider font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
                     Đầu tư
                   </span>
                 </div>
               </div>
-              <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug text-center uppercase tracking-tight">
-                TƯ VẤN ĐẦU TƯ
-              </h3>
-              <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3 flex-1 text-center">
-                Tư vấn đầu tư, thành lập doanh nghiệp có vốn đầu tư nước ngoài (FDI), chuyển nhượng cổ phần, vốn góp, mua bán và sáp nhập doanh nghiệp (M&amp;A), cấp phép dự án đầu tư.
-              </p>
+              <div className="p-5 sm:p-6 flex-1 flex flex-col">
+                <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug text-center uppercase tracking-tight">
+                  TƯ VẤN ĐẦU TƯ
+                </h3>
+                <p className="text-slate-600 text-sm leading-relaxed mb-2 line-clamp-3 flex-1 text-center">
+                  Tư vấn đầu tư, thành lập doanh nghiệp có vốn đầu tư nước ngoài (FDI), chuyển nhượng cổ phần, vốn góp, mua bán và sáp nhập doanh nghiệp (M&amp;A), cấp phép dự án đầu tư.
+                </p>
+              </div>
             </Link>
-            <div className="pt-4 border-t border-slate-100 mt-auto">
+            <div className="px-5 sm:px-6 pb-5 sm:pb-6 mt-auto">
               <Link
                 href="/services/tu-van-dau-tu"
                 className="w-full flex items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-xl py-2.5 sm:py-3 text-sm sm:text-[15px] font-bold transition-all active:scale-98 shadow-sm hover:shadow-md text-center tracking-wide"
@@ -529,9 +533,9 @@ export default function Home() {
           </div>
 
           {/* 3. Giải quyết tranh chấp & Tranh tụng tại Tòa */}
-          <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-xs hover:shadow-2xl hover:border-amber-500 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group overflow-hidden relative cursor-pointer">
+          <div className="bg-white rounded-3xl border border-slate-200 shadow-xs hover:shadow-2xl hover:border-amber-500 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group overflow-hidden relative cursor-pointer">
             <Link href="/services/tranh-tung" className="block flex-1 flex flex-col">
-              <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-5 border border-slate-100 bg-slate-100 shadow-2xs">
+              <div className="relative w-full h-52 sm:h-56 overflow-hidden bg-slate-100">
                 <img
                   src="/img/card_court.webp"
                   alt="Tranh Tụng"
@@ -540,20 +544,22 @@ export default function Home() {
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-3 left-3">
+                <div className="absolute top-3.5 left-3.5">
                   <span className="rounded-full px-3.5 py-1 bg-white/95 backdrop-blur-xs text-[11px] uppercase tracking-wider font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
                     Tố tụng
                   </span>
                 </div>
               </div>
-              <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug text-center uppercase tracking-tight">
-                TRANH TỤNG
-              </h3>
-              <p className="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3 flex-1 text-center">
-                Tham gia tố tụng tại Tòa án hoặc Trọng tài đối với các tranh chấp có liên quan đến kinh doanh thương mại, nợ khó đòi, đất đai, thừa kế, sở hữu trí tuệ, lao động và dân sự.
-              </p>
+              <div className="p-5 sm:p-6 flex-1 flex flex-col">
+                <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug text-center uppercase tracking-tight">
+                  TRANH TỤNG
+                </h3>
+                <p className="text-slate-600 text-sm leading-relaxed mb-2 line-clamp-3 flex-1 text-center">
+                  Tham gia tố tụng tại Tòa án hoặc Trọng tài đối với các tranh chấp có liên quan đến kinh doanh thương mại, nợ khó đòi, đất đai, thừa kế, sở hữu trí tuệ, lao động và dân sự.
+                </p>
+              </div>
             </Link>
-            <div className="pt-4 border-t border-slate-100 mt-auto">
+            <div className="px-5 sm:px-6 pb-5 sm:pb-6 mt-auto">
               <Link
                 href="/services/tranh-tung"
                 className="w-full flex items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-xl py-2.5 sm:py-3 text-sm sm:text-[15px] font-bold transition-all active:scale-98 shadow-sm hover:shadow-md text-center tracking-wide"
@@ -629,8 +635,8 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Tool 1: Tính thuế TNCN */}
             <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
-              <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-6 sm:p-8 h-full flex flex-col border border-border-neutral/50">
-                <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-6 border border-slate-100 bg-slate-100 shadow-2xs">
+              <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] overflow-hidden h-full flex flex-col border border-border-neutral/50">
+                <div className="relative w-full h-52 sm:h-56 overflow-hidden bg-slate-100">
                   <img
                     src="/img/card_labor.webp"
                     alt="Tính Thuế TNCN"
@@ -639,30 +645,32 @@ export default function Home() {
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-3 left-3">
+                  <div className="absolute top-3.5 left-3.5">
                     <span className="rounded-full px-3 py-1 bg-white/95 backdrop-blur-xs text-[10px] uppercase tracking-[0.2em] font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
                       Thuế &amp; Thu Nhập
                     </span>
                   </div>
                 </div>
-                <h3 className="font-headline-lg text-[26px] sm:text-[28px] text-primary mb-3 leading-tight font-bold group-hover:text-[#641D06] transition-colors">
-                  Tính Thuế Thu Nhập Cá Nhân
-                </h3>
-                <p className="font-body-md text-text-secondary leading-relaxed mb-8 flex-grow text-sm sm:text-base">
-                  Tính nhanh và chuẩn xác số thuế thu nhập cá nhân (PIT) phải nộp theo biểu thuế lũy tiến từng phần 7 bậc và các mức giảm trừ gia cảnh mới nhất.
-                </p>
-                <div className="mt-auto">
-                  <Link href="/pit-calculator" aria-label="Tính Thuế Thu Nhập Cá Nhân" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3.5 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
-                    Tính Thuế TNCN Ngay
-                  </Link>
+                <div className="p-6 sm:p-8 flex flex-col flex-grow">
+                  <h3 className="font-headline-lg text-[24px] sm:text-[26px] text-primary mb-3 leading-tight font-bold group-hover:text-[#641D06] transition-colors">
+                    Tính Thuế Thu Nhập Cá Nhân
+                  </h3>
+                  <p className="font-body-md text-text-secondary leading-relaxed mb-6 flex-grow text-sm sm:text-base">
+                    Tính nhanh và chuẩn xác số thuế thu nhập cá nhân (PIT) phải nộp theo biểu thuế lũy tiến từng phần 7 bậc và các mức giảm trừ gia cảnh mới nhất.
+                  </p>
+                  <div className="mt-auto">
+                    <Link href="/pit-calculator" aria-label="Tính Thuế Thu Nhập Cá Nhân" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3.5 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                      Tính Thuế TNCN Ngay
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Tool 2: Tính Án Phí Tòa Án */}
             <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
-              <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-6 sm:p-8 h-full flex flex-col border border-border-neutral/50">
-                <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-6 border border-slate-100 bg-slate-100 shadow-2xs">
+              <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] overflow-hidden h-full flex flex-col border border-border-neutral/50">
+                <div className="relative w-full h-52 sm:h-56 overflow-hidden bg-slate-100">
                   <img
                     src="/img/card_tool_calc.webp"
                     alt="Tính Án Phí Tòa Án"
@@ -671,30 +679,32 @@ export default function Home() {
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-3 left-3">
+                  <div className="absolute top-3.5 left-3.5">
                     <span className="rounded-full px-3 py-1 bg-white/95 backdrop-blur-xs text-[10px] uppercase tracking-[0.2em] font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
                       Tố tụng &amp; Án phí
                     </span>
                   </div>
                 </div>
-                <h3 className="font-headline-lg text-[26px] sm:text-[28px] text-primary mb-3 leading-tight font-bold group-hover:text-[#641D06] transition-colors">
-                  Tính Án Phí Tòa Án
-                </h3>
-                <p className="font-body-md text-text-secondary leading-relaxed mb-8 flex-grow text-sm sm:text-base">
-                  Tính nhanh mức đóng tạm ứng án phí, án phí cho các vụ việc Dân sự, Thương mại, Đất đai và Hôn nhân gia đình.
-                </p>
-                <div className="mt-auto">
-                  <Link href="/court-fee-calculator" aria-label="Tính Án Phí Tòa Án" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3.5 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                <div className="p-6 sm:p-8 flex flex-col flex-grow">
+                  <h3 className="font-headline-lg text-[24px] sm:text-[26px] text-primary mb-3 leading-tight font-bold group-hover:text-[#641D06] transition-colors">
                     Tính Án Phí Tòa Án
-                  </Link>
+                  </h3>
+                  <p className="font-body-md text-text-secondary leading-relaxed mb-6 flex-grow text-sm sm:text-base">
+                    Tính nhanh mức đóng tạm ứng án phí, án phí cho các vụ việc Dân sự, Thương mại, Đất đai và Hôn nhân gia đình.
+                  </p>
+                  <div className="mt-auto">
+                    <Link href="/court-fee-calculator" aria-label="Tính Án Phí Tòa Án" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3.5 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                      Tính Án Phí Tòa Án
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Tool 3: Thư Viện Biểu Mẫu AI */}
             <div className="bg-border-neutral/30 p-2 rounded-[2.5rem] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[0.98] group">
-              <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] p-6 sm:p-8 h-full flex flex-col border border-border-neutral/50">
-                <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-6 border border-slate-100 bg-slate-100 shadow-2xs">
+              <div className="bg-surface-main shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)] rounded-[calc(2.5rem-0.5rem)] overflow-hidden h-full flex flex-col border border-border-neutral/50">
+                <div className="relative w-full h-52 sm:h-56 overflow-hidden bg-slate-100">
                   <img
                     src="/img/card_tool_forms.webp"
                     alt="Thư Viện Biểu Mẫu AI"
@@ -703,22 +713,24 @@ export default function Home() {
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-3 left-3">
+                  <div className="absolute top-3.5 left-3.5">
                     <span className="rounded-full px-3 py-1 bg-white/95 backdrop-blur-xs text-[10px] uppercase tracking-[0.2em] font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
                       Kho biểu mẫu AI
                     </span>
                   </div>
                 </div>
-                <h3 className="font-headline-lg text-[26px] sm:text-[28px] text-primary mb-3 leading-tight font-bold group-hover:text-[#641D06] transition-colors">
-                  Thư Viện Biểu Mẫu AI
-                </h3>
-                <p className="font-body-md text-text-secondary leading-relaxed mb-8 flex-grow text-sm sm:text-base">
-                  Hệ thống cung cấp biểu mẫu pháp lý hiện hành, tích hợp công cụ rà soát và tinh chỉnh tự động.
-                </p>
-                <div className="mt-auto">
-                  <Link href="/ai-form-library" aria-label="Khám phá Thư Viện Biểu Mẫu AI" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3.5 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
-                    Khám Phá Biểu Mẫu AI
-                  </Link>
+                <div className="p-6 sm:p-8 flex flex-col flex-grow">
+                  <h3 className="font-headline-lg text-[24px] sm:text-[26px] text-primary mb-3 leading-tight font-bold group-hover:text-[#641D06] transition-colors">
+                    Thư Viện Biểu Mẫu AI
+                  </h3>
+                  <p className="font-body-md text-text-secondary leading-relaxed mb-6 flex-grow text-sm sm:text-base">
+                    Hệ thống cung cấp biểu mẫu pháp lý hiện hành, tích hợp công cụ rà soát và tinh chỉnh tự động.
+                  </p>
+                  <div className="mt-auto">
+                    <Link href="/ai-form-library" aria-label="Khám phá Thư Viện Biểu Mẫu AI" className="flex w-full items-center justify-center bg-[#641D06] hover:bg-black text-white rounded-full px-6 py-3.5 transition-colors font-bold text-sm sm:text-[15px] shadow-2xs text-center">
+                      Khám Phá Biểu Mẫu AI
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

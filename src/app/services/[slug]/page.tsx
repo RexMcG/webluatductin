@@ -249,11 +249,11 @@ export default function ServiceDetailPage() {
               {service.articles.map((art, idx) => (
                 <div
                   key={idx}
-                  className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200 shadow-sm hover:shadow-xl hover:border-[#641D06] transition-all flex flex-col justify-between group overflow-hidden"
+                  className="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-[#641D06] transition-all flex flex-col justify-between group overflow-hidden"
                 >
-                  <div>
-                    {/* Article Card Thumbnail */}
-                    <div className="relative w-full h-44 rounded-2xl overflow-hidden mb-4 border border-slate-100 bg-slate-100 shadow-2xs">
+                  <div className="flex flex-col flex-grow">
+                    {/* Article Card Thumbnail Full Bleed */}
+                    <div className="relative w-full h-48 overflow-hidden bg-slate-100">
                       <img
                         src="/img/card_license.webp"
                         alt={art.title}
@@ -267,26 +267,28 @@ export default function ServiceDetailPage() {
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2 text-xs text-slate-500 font-semibold mb-2">
-                      <span className="material-symbols-outlined text-sm text-amber-700">schedule</span>
-                      <span>{art.readTime}</span>
+                    <div className="p-5 sm:p-6 flex flex-col flex-grow">
+                      <div className="flex items-center gap-2 text-xs text-slate-500 font-semibold mb-2">
+                        <span className="material-symbols-outlined text-sm text-amber-700">schedule</span>
+                        <span>{art.readTime}</span>
+                      </div>
+                      <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug">
+                        <Link href={`/news/${art.slug}`}>{art.title}</Link>
+                      </h3>
+                      <p className="text-slate-600 text-xs sm:text-sm leading-relaxed line-clamp-3">
+                        {art.excerpt}
+                      </p>
                     </div>
-                    <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug">
-                      <Link href={`/news/${art.slug}`}>{art.title}</Link>
-                    </h3>
-                    <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6 line-clamp-3">
-                      {art.excerpt}
-                    </p>
                   </div>
-                  <Link
-                    href={`/news/${art.slug}`}
-                    className="inline-flex items-center justify-between bg-slate-50 hover:bg-[#641D06] text-slate-800 hover:text-white rounded-xl px-4 py-2.5 font-bold text-xs transition-colors group/link mt-auto"
-                  >
-                    <span>Đọc Toàn Bộ Bài Viết</span>
-                    <span className="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform">
-                      arrow_forward
-                    </span>
-                  </Link>
+                  <div className="px-5 sm:px-6 pb-5 sm:pb-6 pt-0 mt-auto">
+                    <Link
+                      href={`/news/${art.slug}`}
+                      className="inline-flex w-full items-center justify-between bg-slate-50 hover:bg-[#641D06] text-slate-800 hover:text-white rounded-xl px-4 py-2.5 font-bold text-xs transition-colors group/link"
+                    >
+                      <span>Đọc Toàn Bộ Bài Viết</span>
+                      <span className="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
+                    </Link>
+                  </div>
                 </div>
               ))}
             </div>
