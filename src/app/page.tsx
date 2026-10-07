@@ -470,11 +470,6 @@ export default function Home() {
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-3.5 left-3.5">
-                  <span className="rounded-full px-3.5 py-1 bg-white/95 backdrop-blur-xs text-[11px] uppercase tracking-wider font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
-                    Doanh nghiệp
-                  </span>
-                </div>
               </div>
               <div className="p-5 sm:p-6 flex-1 flex flex-col">
                 <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug text-center uppercase tracking-tight">
@@ -507,11 +502,6 @@ export default function Home() {
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-3.5 left-3.5">
-                  <span className="rounded-full px-3.5 py-1 bg-white/95 backdrop-blur-xs text-[11px] uppercase tracking-wider font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
-                    Đầu tư
-                  </span>
-                </div>
               </div>
               <div className="p-5 sm:p-6 flex-1 flex flex-col">
                 <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug text-center uppercase tracking-tight">
@@ -544,11 +534,6 @@ export default function Home() {
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-3.5 left-3.5">
-                  <span className="rounded-full px-3.5 py-1 bg-white/95 backdrop-blur-xs text-[11px] uppercase tracking-wider font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
-                    Tố tụng
-                  </span>
-                </div>
               </div>
               <div className="p-5 sm:p-6 flex-1 flex flex-col">
                 <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2.5 group-hover:text-[#641D06] transition-colors leading-snug text-center uppercase tracking-tight">

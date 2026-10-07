@@ -105,11 +105,6 @@ export default function ServicesPage() {
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-3.5 left-3.5">
-                    <span className="rounded-full px-3.5 py-1 bg-white/95 backdrop-blur-xs text-[11px] uppercase tracking-wider font-extrabold text-amber-950 border border-amber-200/80 shadow-xs">
-                      {srv.category}
-                    </span>
-                  </div>
                 </div>
 
                 {/* Tiêu đề ngắn gọn căn lề giữa */}
