@@ -41,10 +41,11 @@ export default function AdminAutoContentPage() {
   const [filterMode, setFilterMode] = useState<"only-questions" | "all">("only-questions");
 
   // Laya-specific Criteria States
-  const [layaMode, setLayaMode] = useState<"auto" | "custom">("auto");
+  const [layaMode, setLayaMode] = useState<"sync" | "auto" | "custom">("sync");
   const [customLayaUrl, setCustomLayaUrl] = useState("https://dantri.com.vn/phap-luat.htm");
   const [layaCategoryFilter, setLayaCategoryFilter] = useState("all");
   const [layaMinScore, setLayaMinScore] = useState<number>(0);
+  const [lastWorkerSyncTime, setLastWorkerSyncTime] = useState<string>("");
 
   // Generator State
   const [selectedQuestion, setSelectedQuestion] = useState<ILawQuestion | null>(null);
@@ -79,13 +80,41 @@ export default function AdminAutoContentPage() {
     fetchQuestionsFromSource("https://i-law.vn/tat-ca-cau-hoi/thua-ke-di-chuc", "ilaw");
   }, []);
 
+  const fetchSyncedFromWorker = async () => {
+    setIsFetchingSource(true);
+    try {
+      const res = await fetch("/api/admin/auto-content/sync-laya");
+      const data = await res.json();
+      if (data.success && Array.isArray(data.articles)) {
+        if (data.articles.length > 0) {
+          setFetchedQuestions(data.articles);
+          setLastWorkerSyncTime(data.lastSync || "Vừa xong");
+          if (!topicInput) {
+            handleSelectQuestion(data.articles[0]);
+          }
+        } else {
+          alert("Hộp thư tin tức Laya Worker hiện chưa có bài. Bạn hãy chạy script 'python run_laya_worker.py' trên laptop/Mac để cào và đẩy tin lên nhé!");
+        }
+      }
+    } catch (e) {
+      console.warn("Fetch synced articles error:", e);
+    } finally {
+      setIsFetchingSource(false);
+    }
+  };
+
   const fetchQuestionsFromSource = async (
     urlToFetch?: string,
     engine: "ilaw" | "laya" = sourceEngine,
-    overrideLayaMode: "auto" | "custom" = layaMode,
+    overrideLayaMode: "sync" | "auto" | "custom" = layaMode,
     overrideCategory: string = layaCategoryFilter,
     overrideMinScore: number = layaMinScore
   ) => {
+    if (engine === "laya" && overrideLayaMode === "sync") {
+      await fetchSyncedFromWorker();
+      return;
+    }
+
     setIsFetchingSource(true);
     try {
       const payload: any = {
@@ -441,48 +470,89 @@ export default function AdminAutoContentPage() {
                   </div>
 
                   {/* Mode Selector */}
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-3 gap-1.5 p-1 bg-slate-100 rounded-2xl">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setLayaMode("sync");
+                        fetchQuestionsFromSource("", "laya", "sync");
+                      }}
+                      className={`p-2 rounded-xl text-center transition-all cursor-pointer ${
+                        layaMode === "sync"
+                          ? "bg-white text-[#641D06] shadow-xs font-bold"
+                          : "text-slate-600 hover:text-slate-900"
+                      }`}
+                    >
+                      <div className="text-xs flex items-center justify-center gap-1">
+                        <span className="material-symbols-outlined text-sm">move_to_inbox</span>
+                        Hộp thư Worker
+                      </div>
+                      <div className="text-[10px] text-slate-500 font-normal mt-0.5">
+                        Từ Laptop/Mac Mini
+                      </div>
+                    </button>
+
                     <button
                       type="button"
                       onClick={() => {
                         setLayaMode("auto");
                         fetchQuestionsFromSource("", "laya", "auto");
                       }}
-                      className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
+                      className={`p-2 rounded-xl text-center transition-all cursor-pointer ${
                         layaMode === "auto"
-                          ? "border-[#641D06] bg-amber-50/50 text-[#641D06] font-bold"
-                          : "border-slate-200 text-slate-600 hover:border-slate-300"
+                          ? "bg-white text-[#641D06] shadow-xs font-bold"
+                          : "text-slate-600 hover:text-slate-900"
                       }`}
                     >
-                      <div className="text-xs flex items-center gap-1">
+                      <div className="text-xs flex items-center justify-center gap-1">
                         <span className="material-symbols-outlined text-sm">hub</span>
-                        Tự động nguồn uy tín
+                        Nguồn lớn uy tín
                       </div>
                       <div className="text-[10px] text-slate-500 font-normal mt-0.5">
-                        VnExpress, Dân Trí, Tuổi Trẻ...
+                        VnExpress, Dân Trí...
                       </div>
                     </button>
 
                     <button
                       type="button"
                       onClick={() => setLayaMode("custom")}
-                      className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
+                      className={`p-2 rounded-xl text-center transition-all cursor-pointer ${
                         layaMode === "custom"
-                          ? "border-[#641D06] bg-amber-50/50 text-[#641D06] font-bold"
-                          : "border-slate-200 text-slate-600 hover:border-slate-300"
+                          ? "bg-white text-[#641D06] shadow-xs font-bold"
+                          : "text-slate-600 hover:text-slate-900"
                       }`}
                     >
-                      <div className="text-xs flex items-center gap-1">
+                      <div className="text-xs flex items-center justify-center gap-1">
                         <span className="material-symbols-outlined text-sm">link</span>
-                        Dán link nguồn tùy chỉnh
+                        Dán link
                       </div>
                       <div className="text-[10px] text-slate-500 font-normal mt-0.5">
-                        Nhập link web / báo pháp luật
+                        Link báo tùy chỉnh
                       </div>
                     </button>
                   </div>
 
-                  {/* Custom URL Input if selected */}
+                  {/* Mode 1: Sync from local worker */}
+                  {layaMode === "sync" && (
+                    <div className="p-3 rounded-2xl bg-emerald-50/70 border border-emerald-200 text-xs space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-emerald-950 flex items-center gap-1">
+                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                          Đồng bộ Laya Worker (Máy tính Local)
+                        </span>
+                        {lastWorkerSyncTime && (
+                          <span className="text-[10px] text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full font-semibold">
+                            Cập nhật: {lastWorkerSyncTime}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-[11px] text-emerald-800 leading-relaxed">
+                        Chạy lệnh <code className="bg-white px-1.5 py-0.5 rounded font-mono font-bold text-slate-800 border border-emerald-200">python run_laya_worker.py</code> trên máy tính để tự cào tin và đẩy lên hộp thư này!
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Mode 3: Custom URL Input if selected */}
                   {layaMode === "custom" && (
                     <div className="space-y-1.5">
                       <label className="text-[11px] font-semibold text-slate-600">Dán link bài báo / chuyên mục:</label>
