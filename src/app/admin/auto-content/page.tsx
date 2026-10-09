@@ -45,6 +45,7 @@ export default function AdminAutoContentPage() {
   const [customLayaUrl, setCustomLayaUrl] = useState("https://dantri.com.vn/phap-luat.htm");
   const [layaCategoryFilter, setLayaCategoryFilter] = useState("all");
   const [layaMinScore, setLayaMinScore] = useState<number>(0);
+  const [layaItemLimit, setLayaItemLimit] = useState<number>(20);
   const [lastWorkerSyncTime, setLastWorkerSyncTime] = useState<string>("");
 
   // Generator State
@@ -80,10 +81,19 @@ export default function AdminAutoContentPage() {
     fetchQuestionsFromSource("https://i-law.vn/tat-ca-cau-hoi/thua-ke-di-chuc", "ilaw");
   }, []);
 
-  const fetchSyncedFromWorker = async () => {
+  const fetchSyncedFromWorker = async (
+    overrideCategory: string = layaCategoryFilter,
+    overrideMinScore: number = layaMinScore,
+    overrideLimit: number = layaItemLimit
+  ) => {
     setIsFetchingSource(true);
     try {
-      const res = await fetch("/api/admin/auto-content/sync-laya");
+      const params = new URLSearchParams({
+        limit: String(overrideLimit),
+        category: overrideCategory,
+        minScore: String(overrideMinScore),
+      });
+      const res = await fetch(`/api/admin/auto-content/sync-laya?${params.toString()}`);
       const data = await res.json();
       if (data.success && Array.isArray(data.articles)) {
         if (data.articles.length > 0) {
@@ -108,10 +118,11 @@ export default function AdminAutoContentPage() {
     engine: "ilaw" | "laya" = sourceEngine,
     overrideLayaMode: "sync" | "auto" | "custom" = layaMode,
     overrideCategory: string = layaCategoryFilter,
-    overrideMinScore: number = layaMinScore
+    overrideMinScore: number = layaMinScore,
+    overrideLimit: number = layaItemLimit
   ) => {
     if (engine === "laya" && overrideLayaMode === "sync") {
-      await fetchSyncedFromWorker();
+      await fetchSyncedFromWorker(overrideCategory, overrideMinScore, overrideLimit);
       return;
     }
 
@@ -123,6 +134,7 @@ export default function AdminAutoContentPage() {
         layaMode: overrideLayaMode,
         categoryFilter: overrideCategory,
         minScore: overrideMinScore,
+        limit: overrideLimit,
       };
 
       const res = await fetch("/api/admin/auto-content/fetch-source", {
@@ -576,8 +588,8 @@ export default function AdminAutoContentPage() {
                     </div>
                   )}
 
-                  {/* Laya Filter Options: Category & Min Score */}
-                  <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100">
+                  {/* Laya Filter Options: Category, Min Score, Limit */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2 border-t border-slate-100">
                     <div>
                       <label className="text-[11px] font-bold text-slate-700 block mb-1">Lĩnh vực ưu tiên:</label>
                       <select
@@ -585,7 +597,7 @@ export default function AdminAutoContentPage() {
                         onChange={(e) => {
                           const val = e.target.value;
                           setLayaCategoryFilter(val);
-                          fetchQuestionsFromSource("", "laya", layaMode, val, layaMinScore);
+                          fetchQuestionsFromSource("", "laya", layaMode, val, layaMinScore, layaItemLimit);
                         }}
                         className="w-full px-2.5 py-1.5 rounded-xl border border-slate-300 text-xs font-medium text-slate-800 bg-white focus:outline-none focus:border-[#641D06]"
                       >
@@ -606,7 +618,7 @@ export default function AdminAutoContentPage() {
                         onChange={(e) => {
                           const val = Number(e.target.value);
                           setLayaMinScore(val);
-                          fetchQuestionsFromSource("", "laya", layaMode, layaCategoryFilter, val);
+                          fetchQuestionsFromSource("", "laya", layaMode, layaCategoryFilter, val, layaItemLimit);
                         }}
                         className="w-full px-2.5 py-1.5 rounded-xl border border-slate-300 text-xs font-medium text-slate-800 bg-white focus:outline-none focus:border-[#641D06]"
                       >
@@ -615,13 +627,32 @@ export default function AdminAutoContentPage() {
                         <option value="4.0">&ge; 4.0 ⭐ (Chính sách lớn/Sốt dẻo)</option>
                       </select>
                     </div>
+
+                    <div>
+                      <label className="text-[11px] font-bold text-slate-700 block mb-1">Số lượng bài đề xuất:</label>
+                      <select
+                        value={layaItemLimit}
+                        onChange={(e) => {
+                          const val = Number(e.target.value);
+                          setLayaItemLimit(val);
+                          fetchQuestionsFromSource("", "laya", layaMode, layaCategoryFilter, layaMinScore, val);
+                        }}
+                        className="w-full px-2.5 py-1.5 rounded-xl border border-slate-300 text-xs font-medium text-slate-800 bg-white focus:outline-none focus:border-[#641D06]"
+                      >
+                        <option value={5}>5 bài tuyển chọn</option>
+                        <option value={10}>10 bài tiêu biểu</option>
+                        <option value={20}>20 bài (Mặc định)</option>
+                        <option value={30}>30 bài mở rộng</option>
+                        <option value={50}>50 bài quét sâu</option>
+                      </select>
+                    </div>
                   </div>
 
                   {/* Refresh Button */}
                   <button
                     type="button"
                     disabled={isFetchingSource}
-                    onClick={() => fetchQuestionsFromSource("", "laya", layaMode)}
+                    onClick={() => fetchQuestionsFromSource("", "laya", layaMode, layaCategoryFilter, layaMinScore, layaItemLimit)}
                     className="w-full py-2.5 px-4 bg-[#641D06] hover:bg-[#4E1604] text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm disabled:opacity-60"
                   >
                     {isFetchingSource ? (

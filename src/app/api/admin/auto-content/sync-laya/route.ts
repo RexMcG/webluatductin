@@ -42,7 +42,29 @@ function saveStoredArticles(articles: any[]) {
 // GET: Lấy danh sách tin tức do Laya Worker đẩy lên
 export async function GET(req: NextRequest) {
   try {
-    const articles = readStoredArticles();
+    let articles = readStoredArticles();
+    const { searchParams } = new URL(req.url);
+    const limit = Number(searchParams.get("limit")) || 0;
+    const category = searchParams.get("category");
+    const minScore = Number(searchParams.get("minScore")) || 0;
+
+    if (category && category !== "all") {
+      articles = articles.filter(
+        (a: any) =>
+          a.category?.toLowerCase().includes(category.toLowerCase()) ||
+          a.title?.toLowerCase().includes(category.toLowerCase()) ||
+          a.question?.toLowerCase().includes(category.toLowerCase())
+      );
+    }
+
+    if (minScore > 0) {
+      articles = articles.filter((a: any) => (a.layaScore || 0) >= minScore);
+    }
+
+    if (limit > 0) {
+      articles = articles.slice(0, limit);
+    }
+
     return NextResponse.json({
       success: true,
       total: articles.length,

@@ -93,6 +93,7 @@ export async function POST(req: NextRequest) {
       layaMode = "auto", // "auto" | "custom"
       categoryFilter = "all",
       minScore = 0,
+      limit = 20,
     } = body;
 
     const headers = {
@@ -109,7 +110,7 @@ export async function POST(req: NextRequest) {
       let candidateNews: Array<{ id: string; title: string; snippet: string; url: string; date?: string; sourceName: string }> = [];
 
       if (layaMode === "auto") {
-        // Fetch from verified major Vietnamese legal news feeds
+        // Fetch from verified major Vietnamese legal news feeds (cào tối đa 25 bài mỗi nguồn)
         const RSS_FEEDS = [
           { url: "https://vnexpress.net/rss/phap-luat.rss", name: "VnExpress Pháp Luật" },
           { url: "https://tuoitre.vn/rss/phap-luat.rss", name: "Tuổi Trẻ Pháp Luật" },
@@ -121,7 +122,7 @@ export async function POST(req: NextRequest) {
             const res = await fetch(feed.url, { headers, next: { revalidate: 60 } });
             if (res.ok) {
               const xml = await res.text();
-              return parseRssItems(xml, feed.name).slice(0, 8);
+              return parseRssItems(xml, feed.name).slice(0, 25);
             }
           } catch (e) {
             console.warn(`Lỗi cào nguồn ${feed.name}:`, e);
@@ -144,7 +145,7 @@ export async function POST(req: NextRequest) {
             } else {
               // Parse titles from HTML articles
               const titleMatches = html.match(/<(?:h1|h2|h3)[^>]*>(?:<a[^>]*>)?([\s\S]*?)(?:<\/a>)?<\/(?:h1|h2|h3)>/gi) || [];
-              candidateNews = titleMatches.slice(0, 15).map((match, idx) => {
+              candidateNews = titleMatches.slice(0, 40).map((match, idx) => {
                 const clean = match.replace(/<[^>]+>/g, "").trim();
                 return {
                   id: `custom-${idx}`,
@@ -231,6 +232,10 @@ export async function POST(req: NextRequest) {
 
       // Sort by Laya score descending (hottest news first)
       scoredQuestions.sort((a, b) => b.layaScore - a.layaScore);
+
+      // Cắt theo số lượng bài yêu cầu (limit: 5, 10, 20, 30, 50)
+      const maxResults = Math.max(5, Math.min(50, Number(limit) || 20));
+      scoredQuestions = scoredQuestions.slice(0, maxResults);
 
       return NextResponse.json({
         success: true,
