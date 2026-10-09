@@ -12,6 +12,11 @@ interface ILawQuestion {
   date?: string;
   isQuestion?: boolean;
   questionScore?: number;
+  sourceName?: string;
+  layaCategory?: string;
+  layaScore?: number;
+  layaConfidence?: number;
+  isWorthWriting?: boolean;
 }
 
 const PRESET_THUMBNAILS = [
@@ -28,11 +33,18 @@ const PRESET_THUMBNAILS = [
 export default function AdminAutoContentPage() {
   const [activeTab, setActiveTab] = useState<"demo" | "schedule" | "history">("demo");
 
-  // Source & Scraping State
+  // Source & Engine State (i-law vs Laya Decision Engine)
+  const [sourceEngine, setSourceEngine] = useState<"ilaw" | "laya">("ilaw");
   const [sourceUrlInput, setSourceUrlInput] = useState("https://i-law.vn/tat-ca-cau-hoi/thua-ke-di-chuc");
   const [isFetchingSource, setIsFetchingSource] = useState(false);
   const [fetchedQuestions, setFetchedQuestions] = useState<ILawQuestion[]>([]);
   const [filterMode, setFilterMode] = useState<"only-questions" | "all">("only-questions");
+
+  // Laya-specific Criteria States
+  const [layaMode, setLayaMode] = useState<"auto" | "custom">("auto");
+  const [customLayaUrl, setCustomLayaUrl] = useState("https://dantri.com.vn/phap-luat.htm");
+  const [layaCategoryFilter, setLayaCategoryFilter] = useState("all");
+  const [layaMinScore, setLayaMinScore] = useState<number>(0);
 
   // Generator State
   const [selectedQuestion, setSelectedQuestion] = useState<ILawQuestion | null>(null);
@@ -64,16 +76,30 @@ export default function AdminAutoContentPage() {
 
   // Auto fetch i-law on mount
   useEffect(() => {
-    fetchQuestionsFromSource("https://i-law.vn/tat-ca-cau-hoi/thua-ke-di-chuc");
+    fetchQuestionsFromSource("https://i-law.vn/tat-ca-cau-hoi/thua-ke-di-chuc", "ilaw");
   }, []);
 
-  const fetchQuestionsFromSource = async (urlToFetch: string) => {
+  const fetchQuestionsFromSource = async (
+    urlToFetch?: string,
+    engine: "ilaw" | "laya" = sourceEngine,
+    overrideLayaMode: "auto" | "custom" = layaMode,
+    overrideCategory: string = layaCategoryFilter,
+    overrideMinScore: number = layaMinScore
+  ) => {
     setIsFetchingSource(true);
     try {
+      const payload: any = {
+        engine,
+        url: engine === "laya" ? (overrideLayaMode === "custom" ? customLayaUrl : "") : (urlToFetch || sourceUrlInput),
+        layaMode: overrideLayaMode,
+        categoryFilter: overrideCategory,
+        minScore: overrideMinScore,
+      };
+
       const res = await fetch("/api/admin/auto-content/fetch-source", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url: urlToFetch }),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
       if (data.success && data.questions) {
@@ -93,7 +119,11 @@ export default function AdminAutoContentPage() {
     setSelectedQuestion(q);
     setTopicInput(q.title + ": " + q.snippet);
     setSourceUrlInput(q.url);
-    setSelectedCategory("Thừa Kế & Di Chúc");
+    if (q.layaCategory) {
+      setSelectedCategory(q.layaCategory);
+    } else {
+      setSelectedCategory("Thừa Kế & Di Chúc");
+    }
     setGeneratedArticle(null);
     setSaveSuccessMsg("");
   };
@@ -294,76 +324,255 @@ export default function AdminAutoContentPage() {
       {/* TAB 1: I-LAW INTEGRATION & DEMO TESTER */}
       {activeTab === "demo" && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left Column: i-law Questions Feed & Controls (5 cols) */}
+          {/* Left Column: Source Feed & Decision Engine Controls (5 cols) */}
           <div className="lg:col-span-5 space-y-6">
-            {/* Source URL Bar */}
-            <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-3">
-              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center justify-between">
-                <span className="flex items-center gap-1.5">
-                  <span className="material-symbols-outlined text-amber-600 text-base">cloud_download</span>
-                  Nguồn quét câu hỏi thực tế:
-                </span>
-                <span className="text-[11px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">
-                  i-law.vn Live
-                </span>
-              </label>
-
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={sourceUrlInput}
-                  onChange={(e) => setSourceUrlInput(e.target.value)}
-                  placeholder="https://i-law.vn/tat-ca-cau-hoi/thua-ke-di-chuc"
-                  className="flex-1 px-3.5 py-2 rounded-xl border border-slate-300 text-xs font-medium text-slate-800 bg-slate-50 focus:bg-white focus:outline-none focus:border-[#641D06]"
-                />
+            {/* Source Engine Card */}
+            <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+              {/* Engine Switcher */}
+              <div className="flex p-1 bg-slate-100 rounded-2xl gap-1">
                 <button
                   type="button"
-                  disabled={isFetchingSource}
-                  onClick={() => fetchQuestionsFromSource(sourceUrlInput)}
-                  className="px-4 py-2 bg-slate-900 hover:bg-black text-white text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 shrink-0 cursor-pointer disabled:opacity-60"
+                  onClick={() => {
+                    setSourceEngine("ilaw");
+                    fetchQuestionsFromSource(sourceUrlInput, "ilaw");
+                  }}
+                  className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                    sourceEngine === "ilaw"
+                      ? "bg-white text-slate-900 shadow-xs border border-slate-200"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
                 >
-                  {isFetchingSource ? (
-                    <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  ) : (
-                    <span className="material-symbols-outlined text-base">sync</span>
-                  )}
-                  <span>Quét Lại</span>
+                  <span className="material-symbols-outlined text-amber-700 text-base">forum</span>
+                  <span>i-law.vn Live</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSourceEngine("laya");
+                    fetchQuestionsFromSource("", "laya", layaMode);
+                  }}
+                  className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                    sourceEngine === "laya"
+                      ? "bg-[#641D06] text-white shadow-xs"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                >
+                  <span className="material-symbols-outlined text-amber-400 text-base">psychology</span>
+                  <span>Laya Decision AI</span>
                 </button>
               </div>
 
-              {/* Quick Category Chips from i-law */}
-              <div className="flex flex-wrap gap-1.5 pt-1 border-t border-slate-100">
-                {[
-                  { label: "Thừa kế - Di chúc", url: "https://i-law.vn/tat-ca-cau-hoi/thua-ke-di-chuc" },
-                  { label: "Đất đai - Nhà ở", url: "https://i-law.vn/tat-ca-cau-hoi/dat-dai-nha-o" },
-                  { label: "Hôn nhân gia đình", url: "https://i-law.vn/tat-ca-cau-hoi/hon-nhan-gia-dinh" },
-                  { label: "Lao động - Tiền lương", url: "https://i-law.vn/tat-ca-cau-hoi/lao-dong-tien-luong" },
-                ].map((chip, idx) => (
+              {/* ENGINE 1: i-law.vn MODE (PRESERVED 100%) */}
+              {sourceEngine === "ilaw" && (
+                <div className="space-y-3">
+                  <label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center justify-between">
+                    <span className="flex items-center gap-1.5">
+                      <span className="material-symbols-outlined text-amber-600 text-base">cloud_download</span>
+                      Nguồn quét câu hỏi thực tế:
+                    </span>
+                    <span className="text-[11px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">
+                      i-law.vn Live
+                    </span>
+                  </label>
+
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={sourceUrlInput}
+                      onChange={(e) => setSourceUrlInput(e.target.value)}
+                      placeholder="https://i-law.vn/tat-ca-cau-hoi/thua-ke-di-chuc"
+                      className="flex-1 px-3.5 py-2 rounded-xl border border-slate-300 text-xs font-medium text-slate-800 bg-slate-50 focus:bg-white focus:outline-none focus:border-[#641D06]"
+                    />
+                    <button
+                      type="button"
+                      disabled={isFetchingSource}
+                      onClick={() => fetchQuestionsFromSource(sourceUrlInput, "ilaw")}
+                      className="px-4 py-2 bg-slate-900 hover:bg-black text-white text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 shrink-0 cursor-pointer disabled:opacity-60"
+                    >
+                      {isFetchingSource ? (
+                        <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      ) : (
+                        <span className="material-symbols-outlined text-base">sync</span>
+                      )}
+                      <span>Quét Lại</span>
+                    </button>
+                  </div>
+
+                  {/* Quick Category Chips from i-law */}
+                  <div className="flex flex-wrap gap-1.5 pt-1 border-t border-slate-100">
+                    {[
+                      { label: "Thừa kế - Di chúc", url: "https://i-law.vn/tat-ca-cau-hoi/thua-ke-di-chuc" },
+                      { label: "Đất đai - Nhà ở", url: "https://i-law.vn/tat-ca-cau-hoi/dat-dai-nha-o" },
+                      { label: "Hôn nhân gia đình", url: "https://i-law.vn/tat-ca-cau-hoi/hon-nhan-gia-dinh" },
+                      { label: "Lao động - Tiền lương", url: "https://i-law.vn/tat-ca-cau-hoi/lao-dong-tien-luong" },
+                    ].map((chip, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => {
+                          setSourceUrlInput(chip.url);
+                          fetchQuestionsFromSource(chip.url, "ilaw");
+                        }}
+                        className={`text-[11px] px-2.5 py-1 rounded-lg font-semibold transition-colors cursor-pointer ${
+                          sourceUrlInput === chip.url
+                            ? "bg-[#641D06] text-white"
+                            : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                        }`}
+                      >
+                        {chip.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* ENGINE 2: LAYA DECISION AI MODE */}
+              {sourceEngine === "laya" && (
+                <div className="space-y-3.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+                      <span className="material-symbols-outlined text-amber-600 text-base">tune</span>
+                      Điều kiện tìm &amp; lọc của Laya:
+                    </span>
+                    <span className="text-[10px] text-amber-800 font-bold bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
+                      Laya Multilingual (322M)
+                    </span>
+                  </div>
+
+                  {/* Mode Selector */}
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setLayaMode("auto");
+                        fetchQuestionsFromSource("", "laya", "auto");
+                      }}
+                      className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
+                        layaMode === "auto"
+                          ? "border-[#641D06] bg-amber-50/50 text-[#641D06] font-bold"
+                          : "border-slate-200 text-slate-600 hover:border-slate-300"
+                      }`}
+                    >
+                      <div className="text-xs flex items-center gap-1">
+                        <span className="material-symbols-outlined text-sm">hub</span>
+                        Tự động nguồn uy tín
+                      </div>
+                      <div className="text-[10px] text-slate-500 font-normal mt-0.5">
+                        VnExpress, Dân Trí, Tuổi Trẻ...
+                      </div>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setLayaMode("custom")}
+                      className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
+                        layaMode === "custom"
+                          ? "border-[#641D06] bg-amber-50/50 text-[#641D06] font-bold"
+                          : "border-slate-200 text-slate-600 hover:border-slate-300"
+                      }`}
+                    >
+                      <div className="text-xs flex items-center gap-1">
+                        <span className="material-symbols-outlined text-sm">link</span>
+                        Dán link nguồn tùy chỉnh
+                      </div>
+                      <div className="text-[10px] text-slate-500 font-normal mt-0.5">
+                        Nhập link web / báo pháp luật
+                      </div>
+                    </button>
+                  </div>
+
+                  {/* Custom URL Input if selected */}
+                  {layaMode === "custom" && (
+                    <div className="space-y-1.5">
+                      <label className="text-[11px] font-semibold text-slate-600">Dán link bài báo / chuyên mục:</label>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={customLayaUrl}
+                          onChange={(e) => setCustomLayaUrl(e.target.value)}
+                          placeholder="https://dantri.com.vn/phap-luat.htm"
+                          className="flex-1 px-3 py-2 rounded-xl border border-slate-300 text-xs font-medium text-slate-800 bg-slate-50 focus:bg-white focus:outline-none focus:border-[#641D06]"
+                        />
+                        <button
+                          type="button"
+                          disabled={isFetchingSource}
+                          onClick={() => fetchQuestionsFromSource(customLayaUrl, "laya", "custom")}
+                          className="px-3.5 py-2 bg-slate-900 hover:bg-black text-white text-xs font-bold rounded-xl transition-all cursor-pointer disabled:opacity-60"
+                        >
+                          Quét
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Laya Filter Options: Category & Min Score */}
+                  <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100">
+                    <div>
+                      <label className="text-[11px] font-bold text-slate-700 block mb-1">Lĩnh vực ưu tiên:</label>
+                      <select
+                        value={layaCategoryFilter}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          setLayaCategoryFilter(val);
+                          fetchQuestionsFromSource("", "laya", layaMode, val, layaMinScore);
+                        }}
+                        className="w-full px-2.5 py-1.5 rounded-xl border border-slate-300 text-xs font-medium text-slate-800 bg-white focus:outline-none focus:border-[#641D06]"
+                      >
+                        <option value="all">Tất cả lĩnh vực</option>
+                        <option value="Đất Đai">Đất Đai &amp; Nhà Ở</option>
+                        <option value="Thừa Kế">Thừa Kế &amp; Di Chúc</option>
+                        <option value="Doanh Nghiệp">Doanh Nghiệp &amp; Đầu Tư</option>
+                        <option value="Hôn Nhân">Hôn Nhân &amp; Gia Đình</option>
+                        <option value="Lao Động">Lao Động &amp; Tiền Lương</option>
+                        <option value="Hình Sự">Hình Sự &amp; Tranh Tụng</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="text-[11px] font-bold text-slate-700 block mb-1">Điểm HOT tối thiểu:</label>
+                      <select
+                        value={layaMinScore}
+                        onChange={(e) => {
+                          const val = Number(e.target.value);
+                          setLayaMinScore(val);
+                          fetchQuestionsFromSource("", "laya", layaMode, layaCategoryFilter, val);
+                        }}
+                        className="w-full px-2.5 py-1.5 rounded-xl border border-slate-300 text-xs font-medium text-slate-800 bg-white focus:outline-none focus:border-[#641D06]"
+                      >
+                        <option value="0">Tất cả bài viết</option>
+                        <option value="3.5">&ge; 3.5 ⭐ (Đáng chú ý)</option>
+                        <option value="4.0">&ge; 4.0 ⭐ (Chính sách lớn/Sốt dẻo)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Refresh Button */}
                   <button
-                    key={idx}
                     type="button"
-                    onClick={() => {
-                      setSourceUrlInput(chip.url);
-                      fetchQuestionsFromSource(chip.url);
-                    }}
-                    className={`text-[11px] px-2.5 py-1 rounded-lg font-semibold transition-colors cursor-pointer ${
-                      sourceUrlInput === chip.url
-                        ? "bg-[#641D06] text-white"
-                        : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                    }`}
+                    disabled={isFetchingSource}
+                    onClick={() => fetchQuestionsFromSource("", "laya", layaMode)}
+                    className="w-full py-2.5 px-4 bg-[#641D06] hover:bg-[#4E1604] text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm disabled:opacity-60"
                   >
-                    {chip.label}
+                    {isFetchingSource ? (
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    ) : (
+                      <span className="material-symbols-outlined text-base">psychology</span>
+                    )}
+                    <span>Quét &amp; Lọc Lại Bằng Laya AI</span>
                   </button>
-                ))}
-              </div>
+                </div>
+              )}
             </div>
 
-            {/* Questions List from i-law.vn */}
+            {/* Questions / Articles List */}
             <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-3">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
                 <span className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1">
-                  <span className="material-symbols-outlined text-amber-700 text-base">format_list_bulleted</span>
-                  Danh sách câu hỏi vừa cào ({fetchedQuestions.length}):
+                  <span className="material-symbols-outlined text-amber-700 text-base">
+                    {sourceEngine === "laya" ? "star" : "format_list_bulleted"}
+                  </span>
+                  {sourceEngine === "laya" ? "Tin tức Laya đã sàng lọc" : "Danh sách câu hỏi vừa cào"} ({fetchedQuestions.length}):
                 </span>
 
                 {/* Filter buttons */}
@@ -377,9 +586,9 @@ export default function AdminAutoContentPage() {
                         : "text-slate-600 hover:text-slate-900"
                     }`}
                   >
-                    <span>⭐ Chỉ câu hỏi hay</span>
+                    <span>⭐ Điểm cao</span>
                     <span className="px-1.5 py-0.2 rounded-full bg-emerald-100 text-emerald-800 text-[10px]">
-                      {fetchedQuestions.filter((q) => q.isQuestion !== false).length}
+                      {fetchedQuestions.filter((q) => (q.layaScore ? q.layaScore >= 3.5 : q.isQuestion !== false)).length}
                     </span>
                   </button>
 
@@ -397,55 +606,81 @@ export default function AdminAutoContentPage() {
                 </div>
               </div>
 
-              <div className="space-y-2.5 max-h-[390px] overflow-y-auto pr-1">
+              <div className="space-y-2.5 max-h-[420px] overflow-y-auto pr-1">
                 {(() => {
                   const filtered =
                     filterMode === "only-questions"
-                      ? fetchedQuestions.filter((q) => q.isQuestion !== false)
+                      ? fetchedQuestions.filter((q) => (q.layaScore ? q.layaScore >= 3.5 : q.isQuestion !== false))
                       : fetchedQuestions;
                   const displayList = filtered.length > 0 ? filtered : fetchedQuestions;
 
                   if (displayList.length === 0) {
                     return (
                       <div className="p-6 text-center text-xs text-slate-500">
-                        Chưa có câu hỏi nào. Vui lòng bấm <strong>"Quét Lại"</strong> ở trên.
+                        Chưa có bài viết nào phù hợp. Vui lòng bấm <strong>"Quét Lại"</strong> ở trên.
                       </div>
                     );
                   }
 
                   return displayList.map((q, idx) => {
                     const isSelected = selectedQuestion?.id === q.id;
-                    const isQuality = q.isQuestion !== false;
 
                     return (
                       <div
                         key={q.id || idx}
                         onClick={() => handleSelectQuestion(q)}
-                        className={`p-3 rounded-2xl border-2 transition-all cursor-pointer ${
+                        className={`p-3.5 rounded-2xl border-2 transition-all cursor-pointer ${
                           isSelected
                             ? "border-[#641D06] bg-amber-50/70 shadow-xs"
                             : "border-slate-200 hover:border-slate-300 bg-white"
                         }`}
                       >
-                        <div className="flex items-start justify-between gap-2 mb-1">
-                          <h4 className="font-bold text-xs sm:text-sm text-slate-900 leading-snug line-clamp-1">
+                        <div className="flex items-start justify-between gap-2 mb-1.5">
+                          <h4 className="font-bold text-xs sm:text-sm text-slate-900 leading-snug line-clamp-2">
                             #{idx + 1}. {q.title}
                           </h4>
-                          {isQuality && (
-                            <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full shrink-0 flex items-center gap-0.5">
-                              ✔ Câu hỏi chuẩn
+                          {q.layaScore ? (
+                            <span className="text-[10px] bg-amber-100 text-amber-900 font-black px-2 py-0.5 rounded-full shrink-0 flex items-center gap-0.5 border border-amber-300">
+                              ⭐ {q.layaScore} / 5.0
                             </span>
+                          ) : (
+                            q.isQuestion !== false && (
+                              <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full shrink-0 flex items-center gap-0.5">
+                                ✔ Câu hỏi chuẩn
+                              </span>
+                            )
                           )}
                         </div>
+
+                        {/* Laya Metadata Badges */}
+                        {q.layaCategory && (
+                          <div className="flex flex-wrap items-center gap-1.5 mb-2">
+                            <span className="text-[10px] bg-blue-50 text-blue-800 font-bold px-2 py-0.5 rounded-md border border-blue-200">
+                              🏷️ {q.layaCategory}
+                            </span>
+                            {q.sourceName && (
+                              <span className="text-[10px] bg-slate-100 text-slate-700 font-medium px-2 py-0.5 rounded-md">
+                                📰 {q.sourceName}
+                              </span>
+                            )}
+                            {q.layaConfidence && (
+                              <span className="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-1.5 py-0.5 rounded-md">
+                                🎯 {q.layaConfidence}% Tin cậy
+                              </span>
+                            )}
+                          </div>
+                        )}
+
                         <p className="text-[11.5px] text-slate-600 line-clamp-2 leading-relaxed">
                           {q.snippet}
                         </p>
-                        <div className="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
+
+                        <div className="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
                           <span className="text-[#641D06] font-bold flex items-center gap-1">
                             <span className="material-symbols-outlined text-sm">
                               {isSelected ? "check_circle" : "radio_button_unchecked"}
                             </span>
-                            {isSelected ? "Đang chọn câu này" : "Chọn viết bài"}
+                            {isSelected ? "Đang chọn bài này" : "Chọn để viết bài"}
                           </span>
                           <a
                             href={q.url}
@@ -454,7 +689,7 @@ export default function AdminAutoContentPage() {
                             onClick={(e) => e.stopPropagation()}
                             className="text-slate-400 hover:text-blue-600 flex items-center gap-0.5"
                           >
-                            Xem gốc trên iLAW <span className="material-symbols-outlined text-xs">open_in_new</span>
+                            Xem bài gốc <span className="material-symbols-outlined text-xs">open_in_new</span>
                           </a>
                         </div>
                       </div>
