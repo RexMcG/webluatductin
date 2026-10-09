@@ -47,6 +47,8 @@ export default function AdminAutoContentPage() {
   const [layaMinScore, setLayaMinScore] = useState<number>(0);
   const [layaItemLimit, setLayaItemLimit] = useState<number>(20);
   const [lastWorkerSyncTime, setLastWorkerSyncTime] = useState<string>("");
+  const [isWorkerOnline, setIsWorkerOnline] = useState<boolean | null>(null);
+  const [workerScanningStatus, setWorkerScanningStatus] = useState<string>("");
 
   // Generator State
   const [selectedQuestion, setSelectedQuestion] = useState<ILawQuestion | null>(null);
@@ -76,9 +78,22 @@ export default function AdminAutoContentPage() {
   const [isSavingSchedule, setIsSavingSchedule] = useState(false);
   const [scheduleSavedMsg, setScheduleSavedMsg] = useState("");
 
-  // Auto fetch i-law on mount
+  // Auto fetch i-law on mount & poll worker status
   useEffect(() => {
     fetchQuestionsFromSource("https://i-law.vn/tat-ca-cau-hoi/thua-ke-di-chuc", "ilaw");
+
+    const checkWorker = async () => {
+      try {
+        const res = await fetch("/api/admin/auto-content/sync-laya?action=status");
+        const d = await res.json();
+        if (d.success) {
+          setIsWorkerOnline(Boolean(d.isOnline));
+        }
+      } catch {}
+    };
+    checkWorker();
+    const timer = setInterval(checkWorker, 8000);
+    return () => clearInterval(timer);
   }, []);
 
   const fetchSyncedFromWorker = async (
@@ -87,29 +102,89 @@ export default function AdminAutoContentPage() {
     overrideLimit: number = layaItemLimit
   ) => {
     setIsFetchingSource(true);
+    setWorkerScanningStatus("Đang kiểm tra kết nối Laya AI trên máy tính...");
     try {
-      const params = new URLSearchParams({
-        limit: String(overrideLimit),
-        category: overrideCategory,
-        minScore: String(overrideMinScore),
-      });
-      const res = await fetch(`/api/admin/auto-content/sync-laya?${params.toString()}`);
-      const data = await res.json();
-      if (data.success && Array.isArray(data.articles)) {
-        if (data.articles.length > 0) {
-          setFetchedQuestions(data.articles);
-          setLastWorkerSyncTime(data.lastSync || "Vừa xong");
-          if (!topicInput) {
-            handleSelectQuestion(data.articles[0]);
-          }
-        } else {
-          alert("Hộp thư tin tức Laya Worker hiện chưa có bài. Bạn hãy chạy script 'python run_laya_worker.py' trên laptop/Mac để cào và đẩy tin lên nhé!");
-        }
+      // 1. Kiểm tra trạng thái worker
+      const statusRes = await fetch("/api/admin/auto-content/sync-laya?action=status");
+      const statusData = await statusRes.json();
+      const online = Boolean(statusData.success && statusData.isOnline);
+      setIsWorkerOnline(online);
+
+      if (!online) {
+        setIsFetchingSource(false);
+        setWorkerScanningStatus("");
+        alert(
+          "⚠️ Quét không thành công: Máy tính chưa bật Laya Worker (Trạng thái: Offline)!\n\n" +
+          "👉 Để quét tin tức bằng mô hình Laya AI, vui lòng mở máy tính và chạy lệnh:\n" +
+          "python run_laya_worker.py\n\n" +
+          "(Ngay khi máy tính bật script, bạn hoặc bất kỳ ai vào trang web này đều có thể bấm Quét để lấy bài mới)."
+        );
+        return;
       }
-    } catch (e) {
+
+      // 2. Worker đang online -> Gửi lệnh quét từ xa sang máy tính!
+      setWorkerScanningStatus(`Đã kết nối máy tính! Đang gửi lệnh quét ${overrideLimit} bài sang Laya AI...`);
+      const reqRes = await fetch("/api/admin/auto-content/sync-laya?action=request_scan", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          limit: overrideLimit,
+          category: overrideCategory,
+          minScore: overrideMinScore,
+        }),
+      });
+      const reqData = await reqRes.json();
+
+      if (!reqData.success || !reqData.jobId) {
+        setIsFetchingSource(false);
+        setWorkerScanningStatus("");
+        alert(reqData.message || "Không thể gửi lệnh quét sang máy tính.");
+        return;
+      }
+
+      const jobId = reqData.jobId;
+      setWorkerScanningStatus("Máy tính đã nhận lệnh! Laya AI (322M) đang đọc báo & chấm điểm pháp luật...");
+
+      // 3. Polling chờ kết quả từ máy tính (tối đa 35 giây)
+      let attempts = 0;
+      const maxAttempts = 25;
+      const pollTimer = setInterval(async () => {
+        attempts++;
+        try {
+          const checkRes = await fetch(`/api/admin/auto-content/sync-laya?action=check_job&jobId=${jobId}`);
+          const checkData = await checkRes.json();
+
+          if (checkData.success && checkData.status === "completed" && Array.isArray(checkData.articles)) {
+            clearInterval(pollTimer);
+            setIsFetchingSource(false);
+            setWorkerScanningStatus("");
+            if (checkData.articles.length > 0) {
+              setFetchedQuestions(checkData.articles);
+              setLastWorkerSyncTime("Vừa quét xong");
+              if (!topicInput) {
+                handleSelectQuestion(checkData.articles[0]);
+              }
+              alert(`🎉 Quét thành công! Laya AI trên máy tính đã sàng lọc và gửi về ${checkData.articles.length} bài viết.`);
+            }
+          } else if (attempts >= maxAttempts) {
+            clearInterval(pollTimer);
+            setIsFetchingSource(false);
+            setWorkerScanningStatus("");
+            alert("⚠️ Quá thời gian chờ phản hồi từ laptop. Vui lòng kiểm tra lại màn hình Terminal của script python trên máy tính!");
+          }
+        } catch {
+          if (attempts >= maxAttempts) {
+            clearInterval(pollTimer);
+            setIsFetchingSource(false);
+            setWorkerScanningStatus("");
+          }
+        }
+      }, 1500);
+
+    } catch (e: any) {
       console.warn("Fetch synced articles error:", e);
-    } finally {
       setIsFetchingSource(false);
+      setWorkerScanningStatus("");
     }
   };
 
@@ -546,21 +621,39 @@ export default function AdminAutoContentPage() {
 
                   {/* Mode 1: Sync from local worker */}
                   {layaMode === "sync" && (
-                    <div className="p-3 rounded-2xl bg-emerald-50/70 border border-emerald-200 text-xs space-y-2">
-                      <div className="flex items-center justify-between">
-                        <span className="font-bold text-emerald-950 flex items-center gap-1">
-                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                          Đồng bộ Laya Worker (Máy tính Local)
-                        </span>
+                    <div className={`p-3.5 rounded-2xl border text-xs space-y-2.5 transition-all ${
+                      isWorkerOnline
+                        ? "bg-emerald-50/80 border-emerald-300"
+                        : "bg-amber-50/80 border-amber-300"
+                    }`}>
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <span className={`w-2.5 h-2.5 rounded-full ${isWorkerOnline ? "bg-emerald-500 animate-pulse" : "bg-rose-500"}`}></span>
+                          <span className="font-bold text-slate-900">
+                            Laya Worker: {isWorkerOnline ? "ONLINE (Laptop đã kết nối)" : "OFFLINE (Laptop chưa bật)"}
+                          </span>
+                        </div>
                         {lastWorkerSyncTime && (
-                          <span className="text-[10px] text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full font-semibold">
-                            Cập nhật: {lastWorkerSyncTime}
+                          <span className="text-[10px] text-slate-700 bg-white/80 border border-slate-200 px-2 py-0.5 rounded-full font-semibold">
+                            {lastWorkerSyncTime}
                           </span>
                         )}
                       </div>
-                      <p className="text-[11px] text-emerald-800 leading-relaxed">
-                        Chạy lệnh <code className="bg-white px-1.5 py-0.5 rounded font-mono font-bold text-slate-800 border border-emerald-200">python run_laya_worker.py</code> trên máy tính để tự cào tin và đẩy lên hộp thư này!
-                      </p>
+
+                      {workerScanningStatus ? (
+                        <div className="p-2 rounded-xl bg-white border border-[#641D06]/20 text-[#641D06] font-semibold flex items-center gap-2 text-[11px] animate-pulse">
+                          <div className="w-3.5 h-3.5 border-2 border-[#641D06] border-t-transparent rounded-full animate-spin"></div>
+                          <span>{workerScanningStatus}</span>
+                        </div>
+                      ) : (
+                        <p className="text-[11px] text-slate-700 leading-relaxed">
+                          {isWorkerOnline ? (
+                            <span>✨ Laptop đang bật sẵn sàng! Bạn bấm nút <strong>Quét &amp; Lọc Lại</strong> bên dưới để yêu cầu máy tính chạy Laya và gửi bài lên ngay lập tức.</span>
+                          ) : (
+                            <span>💡 Máy tính hiện chưa chạy. Khi cần quét, bạn mở Terminal trên laptop và chạy: <code className="bg-white px-1.5 py-0.5 rounded font-mono font-bold text-slate-800 border border-slate-300">python run_laya_worker.py</code></span>
+                          )}
+                        </p>
+                      )}
                     </div>
                   )}
 
