@@ -107,7 +107,7 @@ const jsonLd = {
   founder: {
     "@type": "Person",
     name: "Phan Đức Tín",
-    jobTitle: "Luật sư Trưởng - Giám đốc Điều hành",
+    jobTitle: "Giám đốc Điều hành",
     image: `${SITE_CONFIG.baseUrl}/img/avatar1.webp`,
   },
   address: {

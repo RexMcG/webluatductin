@@ -151,7 +151,7 @@ function getClientIp(req: NextRequest): string {
 
 const LAWYER_CONTACT = {
   name: "Ls. Phan Đức Tín",
-  role: "Luật sư Trưởng - Giám đốc Điều hành",
+  role: "Giám đốc Điều hành",
   phone: "093 786 32 63",
   phoneClean: "0937863263",
   zaloUrl: "https://zalo.me/0937863263",

@@ -1069,7 +1069,7 @@ export default function AdminSettingsPage() {
           <div className="border-b border-slate-100 pb-4">
             <h3 className="font-bold text-slate-900 text-sm flex items-center gap-2">
               <span className="material-symbols-outlined text-base text-[#641D06]">gavel</span>
-              1. Thông tin Pháp nhân &amp; Luật sư Trưởng
+              1. Thông tin Pháp nhân &amp; Luật sư Điều hành
             </h3>
           </div>
 
@@ -1085,7 +1085,7 @@ export default function AdminSettingsPage() {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-700 uppercase">Luật sư Trưởng / Giám đốc:</label>
+              <label className="text-xs font-bold text-slate-700 uppercase">Luật sư Điều hành / Giám đốc:</label>
               <input
                 type="text"
                 value={settings.director}

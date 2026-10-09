@@ -378,9 +378,6 @@ function AIChatbotContent() {
                 />
               </div>
               <h2 className="text-base font-bold text-slate-900 tracking-tight">Ls. PHAN ĐỨC TÍN</h2>
-              <p className="text-xs font-bold text-[#641D06] uppercase mt-0.5 tracking-wide">
-                Luật sư Trưởng - Giám đốc Điều hành
-              </p>
               <p className="text-xs text-slate-700 mt-2 leading-relaxed text-justify">
                 Nhiều năm kinh nghiệm tranh tụng tại Tòa án và tư vấn pháp lý chuyên sâu về Đất đai, Hôn nhân gia đình, Doanh nghiệp &amp; Hình sự.
               </p>

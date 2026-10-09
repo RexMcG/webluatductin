@@ -62,7 +62,7 @@ export default function AppointmentPage() {
     phone: "",
     email: "",
     address: "",
-    attorney: "Ls. Phan Đức Tín (Luật sư Trưởng - Giám đốc Điều hành)",
+    attorney: "Ls. Phan Đức Tín (Giám đốc Điều hành)",
     date: new Date(Date.now() + 86400000).toISOString().split("T")[0],
     timeSlot: "09:00 - 10:00",
   });

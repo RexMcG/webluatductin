@@ -269,12 +269,9 @@ export default function Home() {
                 )}
               </span>
               <span className="text-accent drop-shadow-sm text-xl sm:text-3xl md:text-4xl lg:text-[42px] block mt-1.5 font-bold">
-                {siteContent.home.hero.titleAccent}
+                {siteContent.home.hero.titleAccent || "Điểm Tựa Pháp Lý Kết Nối Thành Công"}
               </span>
             </h1>
-            <p className="font-body-md text-base md:text-xl text-primary font-semibold max-w-2xl leading-relaxed">
-              {siteContent.home.hero.description}
-            </p>
 
             {/* Smart Navigation Search Bar */}
             <div ref={searchRef} className="mt-4 w-full relative max-w-2xl z-40">

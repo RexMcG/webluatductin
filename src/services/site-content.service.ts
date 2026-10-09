@@ -125,8 +125,8 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
       badge: "CÔNG TY LUẬT UY TÍN TP.HCM",
       titlePrimary: "Công Ty Luật",
       titleSecondary: "Đức Tín & Cộng Sự",
-      titleAccent: "Điểm Tựa Pháp Lý Vững Chắc",
-      description: "Đồng hành pháp lý chiến lược — Giải pháp toàn diện cho Doanh nghiệp & Cá nhân.",
+      titleAccent: "Điểm Tựa Pháp Lý Kết Nối Thành Công",
+      description: "",
       searchPlaceholder: "Nhập nhu cầu (VD: tranh chấp đất đai, tính án phí, ly hôn, rà soát hợp đồng M&A...)",
       ctaButtonText: "Đặt Lịch Hẹn Luật Sư",
       aiChatButtonText: "Tham Vấn Trực Tuyến 24/7",
@@ -251,7 +251,7 @@ export const DEFAULT_SITE_CONTENT: SiteContentData = {
   }
 };
 
-const STORAGE_KEY = "ductin_site_content_v10";
+const STORAGE_KEY = "ductin_site_content_v11";
 
 const getApiBase = () => {
   if (process.env.NEXT_PUBLIC_API_URL) {
@@ -298,6 +298,10 @@ class SiteContentService {
       rawHero.titlePrimary = rawHero.titlePrimary.replace(rawHero.titleSecondary, "").trim();
       if (!rawHero.titlePrimary) rawHero.titlePrimary = "Công Ty Luật";
     }
+    if (rawHero.titleAccent === "Điểm Tựa Pháp Lý Vững Chắc" || !rawHero.titleAccent) {
+      rawHero.titleAccent = "Điểm Tựa Pháp Lý Kết Nối Thành Công";
+    }
+    rawHero.description = "";
 
     return {
       home: {
