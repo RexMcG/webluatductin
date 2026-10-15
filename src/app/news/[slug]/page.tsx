@@ -231,7 +231,7 @@ export default function NewsDetailPage() {
             className="inline-flex items-center gap-2 text-slate-500 hover:text-[#641D06] transition-colors font-semibold text-xs sm:text-sm"
           >
             <span className="material-symbols-outlined text-base">arrow_back</span>
-            Bảng tin pháp luật
+            Hỏi đáp pháp luật - Bài viết
           </Link>
         </div>
 
@@ -817,7 +817,7 @@ export default function NewsDetailPage() {
         className="inline-flex items-center gap-2 text-slate-500 hover:text-emerald-700 transition-colors mb-6 font-semibold text-sm"
       >
         <span className="material-symbols-outlined text-sm">arrow_back</span>
-        Quay lại Bảng tin pháp luật
+        Quay lại Hỏi đáp pháp luật - Bài viết
       </Link>
 
       {/* Article Header */}
