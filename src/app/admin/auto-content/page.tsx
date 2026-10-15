@@ -145,14 +145,18 @@ export default function AdminAutoContentPage() {
       const jobId = reqData.jobId;
       setWorkerScanningStatus("Máy tính đã nhận lệnh! Laya AI (322M) đang đọc báo & chấm điểm pháp luật...");
 
-      // 3. Polling chờ kết quả từ máy tính (tối đa 35 giây)
+      // 3. Polling chờ kết quả từ máy tính (tối đa 90 giây)
       let attempts = 0;
-      const maxAttempts = 25;
+      const maxAttempts = 60; // 60 x 1.5s = 90s
       const pollTimer = setInterval(async () => {
         attempts++;
         try {
           const checkRes = await fetch(`/api/admin/auto-content/sync-laya?action=check_job&jobId=${jobId}`);
           const checkData = await checkRes.json();
+
+          if (checkData.progress) {
+            setWorkerScanningStatus(`Laya AI trên máy tính: ${checkData.progress}`);
+          }
 
           if (checkData.success && checkData.status === "completed" && Array.isArray(checkData.articles)) {
             clearInterval(pollTimer);

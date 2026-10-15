@@ -76,6 +76,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(data, { status: res.status });
     }
 
+    // 1.5 Cập nhật tiến độ từ Worker
+    if (action === "progress") {
+      const res = await fetch(`${BRIDGE_API}/progress`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+        cache: "no-store",
+      });
+      const data = await res.json().catch(() => ({}));
+      return NextResponse.json(data, { status: res.status });
+    }
+
     // 2. Worker nộp kết quả bài viết
     const res = await fetch(`${BRIDGE_API}/submit-result`, {
       method: "POST",
