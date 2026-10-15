@@ -32,7 +32,7 @@ export default function Header() {
   return (
     <>
       <nav className="bg-white fixed top-0 w-full z-50 shadow-xs border-b-[7px] border-[#641D06]">
-        <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20">
+        <div className="w-full max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20">
           <Link href="/" className="shrink-0 mr-2 lg:mr-4 xl:mr-8">
             <img
               src="/img/Logo_website.webp"
@@ -45,7 +45,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-2.5 xl:gap-5 2xl:gap-7">
+          <div className="hidden lg:flex items-center gap-3.5 xl:gap-5 2xl:gap-7">
             <Link
               href="/"
               className={`${isActive("/")} uppercase text-[12.5px] xl:text-[14px] 2xl:text-[15px] whitespace-nowrap`}
@@ -73,7 +73,7 @@ export default function Header() {
               Biểu mẫu
             </Link>
 
-            {/* Dropdown: Tiện ích */}
+            {/* Dropdown: Tiện ích & AI */}
             <div className="relative group">
               <a
                 href="#"
@@ -82,7 +82,17 @@ export default function Header() {
               >
                 Tiện ích <span className="material-symbols-outlined text-sm">expand_more</span>
               </a>
-              <div className="absolute top-full left-0 mt-1 w-60 bg-white rounded-2xl shadow-xl border border-slate-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col z-50 overflow-hidden">
+              <div className="absolute top-full left-0 mt-1 w-64 bg-white rounded-2xl shadow-xl border border-slate-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 flex flex-col z-50 overflow-hidden">
+                <Link
+                  href="/ai-chatbot"
+                  className="px-4 py-3 text-slate-800 hover:bg-amber-50 hover:text-[#641D06] text-sm font-semibold border-b border-slate-100 flex items-center justify-between group/item transition-colors"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <span className="material-symbols-outlined text-[#641D06] text-lg">smart_toy</span>
+                    <span>AI Chatbot Pháp Lý</span>
+                  </div>
+                  <span className="text-[10px] bg-amber-100 text-[#641D06] font-bold px-1.5 py-0.5 rounded-full uppercase">24/7</span>
+                </Link>
                 <Link
                   href="/court-fee-calculator"
                   className="px-4 py-3 text-slate-800 hover:bg-amber-50 hover:text-[#641D06] text-sm font-semibold border-b border-slate-100 flex items-center gap-2.5 group/item transition-colors"
@@ -108,12 +118,6 @@ export default function Header() {
             </div>
 
             <Link
-              href="/ai-chatbot"
-              className={`${isActive("/ai-chatbot")} uppercase text-[12.5px] xl:text-[14px] 2xl:text-[15px] whitespace-nowrap`}
-            >
-              AI Chat
-            </Link>
-            <Link
               href="/appointment"
               className={`${isActive("/appointment")} uppercase text-[12.5px] xl:text-[14px] 2xl:text-[15px] whitespace-nowrap`}
             >
@@ -124,12 +128,13 @@ export default function Header() {
           <div className="flex items-center gap-2 lg:gap-3 ml-2 lg:ml-3 xl:ml-6 shrink-0 pr-1 sm:pr-2">
             <a
               href="tel:0937863263"
-              className="hidden sm:flex items-center gap-2 text-white bg-[#22c55e] hover:bg-[#16a34a] px-3.5 lg:px-4 py-1.5 lg:py-2 rounded-full border border-emerald-600/30 transition-all shrink-0 font-bold text-xs lg:text-[13px] xl:text-sm shadow-sm whitespace-nowrap active:scale-95 group"
+              className="hidden sm:flex items-center gap-2 text-white bg-[#22c55e] hover:bg-[#16a34a] px-3 xl:px-4 py-1.5 lg:py-2 rounded-full border border-emerald-600/30 transition-all shrink-0 font-bold text-xs lg:text-[13px] xl:text-sm shadow-sm whitespace-nowrap active:scale-95 group"
             >
               <span className="w-5 h-5 lg:w-5.5 lg:h-5.5 rounded-full bg-white text-[#16a34a] flex items-center justify-center shrink-0 shadow-xs group-hover:scale-110 transition-transform overflow-hidden">
                 <span className="material-symbols-outlined leading-none" style={{ fontSize: '12px', lineHeight: 1 }}>call</span>
               </span>
-              <span>Hotline: 093 786 32 63</span>
+              <span className="hidden xl:inline">Hotline: 093 786 32 63</span>
+              <span className="inline xl:hidden font-extrabold tracking-tight">093 786 32 63</span>
             </a>
 
             {/* Mobile Menu Button */}
