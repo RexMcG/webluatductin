@@ -71,7 +71,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // Core Service slugs
-  const serviceSlugs = Object.keys(SERVICES_DATA);
+  // Hình sự và Sở hữu trí tuệ chưa hiển thị trên trang /services nên không đưa vào sitemap
+  const HIDDEN_SERVICE_SLUGS = ['hinh-su-bao-chua', 'so-huu-tri-tue'];
+  const serviceSlugs = Object.keys(SERVICES_DATA).filter((slug) => !HIDDEN_SERVICE_SLUGS.includes(slug));
 
   const serviceRoutes: MetadataRoute.Sitemap = serviceSlugs.map((slug) => ({
     url: `${baseUrl}/services/${slug}`,
