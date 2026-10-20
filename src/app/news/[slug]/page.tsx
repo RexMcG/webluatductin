@@ -60,9 +60,34 @@ export default function NewsDetailPage() {
 
   const scrollToHeading = (id: string) => {
     setActiveHeadingId(id);
-    const element = document.getElementById(`heading-${id}`);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    setOpenSections((prev) => ({ ...prev, [id]: true }));
+    setTimeout(() => {
+      const element = document.getElementById(`heading-${id}`);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 50);
+  };
+
+  const handleFlowchartSelect = (phaseNumber: number) => {
+    const sectionsList = newsItem?.sections || [];
+    const targetSec =
+      sectionsList[phaseNumber - 1] ||
+      sectionsList.find((s: any) => parseInt(s.number, 10) === phaseNumber) ||
+      sectionsList[0];
+
+    if (targetSec) {
+      setOpenSections((prev) => ({ ...prev, [targetSec.id]: true }));
+      setActiveHeadingId(targetSec.id);
+      setTimeout(() => {
+        const element =
+          document.getElementById(`heading-${targetSec.id}`) ||
+          document.getElementById(`sec-${phaseNumber}`) ||
+          document.querySelector(`[data-section-index="${phaseNumber - 1}"]`);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 50);
     }
   };
 
@@ -495,7 +520,7 @@ export default function NewsDetailPage() {
             {/* Flowchart Overview Visual */}
             {newsItem.flowchart && (
               <section id="heading-flowchart" className="scroll-mt-28 mb-8 md:mb-10">
-                <FlowchartVisual rawText={newsItem.flowchart} />
+                <FlowchartVisual rawText={newsItem.flowchart} onPhaseSelect={handleFlowchartSelect} />
               </section>
             )}
 
@@ -873,7 +898,7 @@ export default function NewsDetailPage() {
       {/* Flowchart Overview Visual */}
       {newsItem.flowchart && (
         <section id="heading-flowchart" className="scroll-mt-28 mb-8 md:mb-10">
-          <FlowchartVisual rawText={newsItem.flowchart} />
+          <FlowchartVisual rawText={newsItem.flowchart} onPhaseSelect={handleFlowchartSelect} />
         </section>
       )}
 
@@ -924,11 +949,16 @@ export default function NewsDetailPage() {
           <div className="space-y-6 mb-14 text-slate-800">
             {(() => {
               const usedFormIds = new Set<number>();
-              return sections.map((section: any) => {
+              return sections.map((section: any, idx: number) => {
                 const attachedForm = getAttachedFormForSection(section, newsItem, usedFormIds);
                 const isOpen = !!openSections[section.id];
                 return (
-                  <section key={section.id} className="border-b border-slate-200/70 pb-6">
+                  <section
+                    key={section.id}
+                    id={`heading-${section.id}`}
+                    data-section-index={idx}
+                    className="scroll-mt-24 border-b border-slate-200/70 pb-6"
+                  >
                     <button
                       type="button"
                       onClick={() => toggleSection(section.id)}
@@ -978,13 +1008,15 @@ export default function NewsDetailPage() {
           <div className="space-y-4 mb-12">
             {(() => {
               const usedFormIds = new Set<number>();
-              return sections.map((section: any) => {
+              return sections.map((section: any, idx: number) => {
                 const attachedForm = getAttachedFormForSection(section, newsItem, usedFormIds);
                 const isOpen = !!openSections[section.id];
                 return (
                   <div
                     key={section.id}
-                    className={`bg-white rounded-2xl border transition-all duration-200 overflow-hidden ${
+                    id={`heading-${section.id}`}
+                    data-section-index={idx}
+                    className={`scroll-mt-24 bg-white rounded-2xl border transition-all duration-200 overflow-hidden ${
                       isOpen ? "border-amber-400 shadow-md ring-1 ring-amber-400/30" : "border-slate-200 shadow-sm hover:border-slate-300"
                     }`}
                   >

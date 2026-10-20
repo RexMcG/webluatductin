@@ -191,7 +191,13 @@ export function parsePhaseFlowData(rawText: string): PhaseFlowData | null {
   return { title, phases };
 }
 
-export default function FlowchartVisual({ rawText }: { rawText?: string }) {
+export default function FlowchartVisual({
+  rawText,
+  onPhaseSelect,
+}: {
+  rawText?: string;
+  onPhaseSelect?: (phaseNumber: number) => void;
+}) {
   const [isOpen, setIsOpen] = useState(true);
   const [expandedPhases, setExpandedPhases] = useState<Record<number, boolean>>({});
   const data = rawText ? parsePhaseFlowData(rawText) : null;
@@ -203,6 +209,21 @@ export default function FlowchartVisual({ rawText }: { rawText?: string }) {
       ...prev,
       [phaseNum]: !prev[phaseNum],
     }));
+  };
+
+  const handlePhaseClick = (phaseNum: number) => {
+    togglePhase(phaseNum);
+    if (onPhaseSelect) {
+      onPhaseSelect(phaseNum);
+    } else {
+      const target =
+        document.getElementById(`heading-sec-${phaseNum}`) ||
+        document.getElementById(`sec-${phaseNum}`) ||
+        document.querySelector(`[data-section-index="${phaseNum - 1}"]`);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
   };
 
   const areAllExpanded = data.phases.every((p) => expandedPhases[p.phaseNumber]);
@@ -263,12 +284,12 @@ export default function FlowchartVisual({ rawText }: { rawText?: string }) {
         <div className="mb-4 py-2 px-3 bg-slate-50 border border-slate-200/80 rounded-xl flex items-center justify-between text-xs text-slate-600">
           <div className="flex items-center gap-1.5">
             <span className="material-symbols-outlined text-sm text-amber-700">info</span>
-            <span>Chạm vào từng <strong>Giai đoạn</strong> để xổ ra / thu gọn các bước thực hiện chi tiết.</span>
+            <span>Bấm vào từng <strong>Giai đoạn</strong> để xem chi tiết và cuộn đến nội dung trong bài viết.</span>
           </div>
         </div>
       )}
 
-      {/* SƠ ĐỒ TREE DIAGRAM: BAN ĐẦU CHỈ HIỆN GIAI ĐOẠN, ẤN VÀO XỔ RA CÁC BƯỚC */}
+      {/* SƠ ĐỒ TREE DIAGRAM */}
       {isOpen && (
         <div className="w-full flex flex-col items-center space-y-3">
           {data.phases.map((phaseRow, idx) => {
@@ -282,10 +303,9 @@ export default function FlowchartVisual({ rawText }: { rawText?: string }) {
                 <div
                   className={`w-full rounded-2xl p-3 sm:p-4 flex flex-col items-center transition-all ${phaseRow.theme.outerBorder} ${phaseRow.theme.outerBg}`}
                 >
-                  {/* THANH HEADER TIÊU ĐỀ GIAI ĐOẠN (CLICK ĐỂ XỔ RA / THU GỌN) */}
-                  <button
-                    type="button"
-                    onClick={() => togglePhase(phaseRow.phaseNumber)}
+                  {/* THANH HEADER TIÊU ĐỀ GIAI ĐOẠN (CLICK ĐỂ NHẢY ĐẾN BƯỚC ĐÓ VÀ XỔ RA) */}
+                  <div
+                    onClick={() => handlePhaseClick(phaseRow.phaseNumber)}
                     className={`w-full flex items-center justify-between px-3.5 py-3 rounded-xl bg-white border border-slate-200/80 shadow-2xs ${phaseRow.theme.borderLeft} cursor-pointer hover:shadow-xs transition-all active:scale-[0.99] text-left group`}
                   >
                     <div className="flex items-center gap-2.5 min-w-0 pr-2">
@@ -300,6 +320,11 @@ export default function FlowchartVisual({ rawText }: { rawText?: string }) {
                     </div>
 
                     <div className="flex items-center gap-2 shrink-0">
+                      <span className="text-[10.5px] font-bold text-[#641D06] bg-amber-50 hover:bg-amber-100 border border-amber-300 px-2 py-0.5 rounded-lg flex items-center gap-0.5 transition-colors">
+                        <span>Đến mục này</span>
+                        <span className="material-symbols-outlined text-xs">south</span>
+                      </span>
+
                       {subCount > 0 && (
                         <span
                           className={`text-[10px] font-bold px-2 py-0.5 rounded-full border transition-colors flex items-center gap-1 ${
@@ -315,7 +340,7 @@ export default function FlowchartVisual({ rawText }: { rawText?: string }) {
                         {isExpanded ? "expand_less" : "expand_more"}
                       </span>
                     </div>
-                  </button>
+                  </div>
 
                   {/* CÁC BƯỚC PHỤ PHÂN NHÁNH CÂY (HIỆN RA KHI ĐƯỢC XỔ RA) */}
                   {isExpanded && subCount > 0 && (
@@ -343,19 +368,29 @@ export default function FlowchartVisual({ rawText }: { rawText?: string }) {
                         }`}
                       >
                         {phaseRow.subSteps.map((sub, sIdx) => (
-                          <div key={sIdx} className="flex flex-col items-center">
+                          <div
+                            key={sIdx}
+                            className="flex flex-col items-center cursor-pointer group/step"
+                            onClick={() => handlePhaseClick(phaseRow.phaseNumber)}
+                            title="Bấm để cuộn đến giai đoạn này trong bài viết"
+                          >
                             {/* Đường chân nối đứng */}
                             <div className={`w-0.5 h-2.5 ${phaseRow.theme.lineColor}`} />
 
                             <div
-                              className={`w-full min-h-[76px] p-3 rounded-xl bg-white border border-slate-200 ${phaseRow.theme.hoverBorder} hover:shadow-xs transition-all flex flex-col justify-between`}
+                              className={`w-full min-h-[76px] p-3 rounded-xl bg-white border border-slate-200 ${phaseRow.theme.hoverBorder} group-hover/step:shadow-sm group-hover/step:border-[#641D06] transition-all flex flex-col justify-between`}
                             >
-                              <span
-                                className={`text-[9.5px] font-extrabold uppercase tracking-wider px-1.5 py-0.5 rounded inline-block mb-1.5 self-start ${phaseRow.theme.tagBg}`}
-                              >
-                                {sub.code}
-                              </span>
-                              <h6 className="text-[11.5px] sm:text-xs font-bold text-slate-800 leading-snug whitespace-normal break-words">
+                              <div className="flex items-center justify-between w-full mb-1.5">
+                                <span
+                                  className={`text-[9.5px] font-extrabold uppercase tracking-wider px-1.5 py-0.5 rounded ${phaseRow.theme.tagBg}`}
+                                >
+                                  {sub.code}
+                                </span>
+                                <span className="material-symbols-outlined text-xs text-slate-300 group-hover/step:text-[#641D06] transition-colors">
+                                  south
+                                </span>
+                              </div>
+                              <h6 className="text-[11.5px] sm:text-xs font-bold text-slate-800 leading-snug whitespace-normal break-words group-hover/step:text-[#641D06] transition-colors">
                                 {sub.title}
                               </h6>
                             </div>
@@ -381,20 +416,6 @@ export default function FlowchartVisual({ rawText }: { rawText?: string }) {
               </React.Fragment>
             );
           })}
-
-          {/* Footer Note Tối Giản */}
-          <div className="w-full flex items-center justify-between text-[10px] text-slate-500 pt-3 mt-3 border-t border-slate-100">
-            <span className="flex items-center gap-1 font-medium">
-              <span className="material-symbols-outlined text-xs text-[#641D06]">gavel</span>
-              Công ty Luật TNHH Đức Tín &amp; Cộng sự
-            </span>
-            <a href="tel:0937863263" className="flex items-center gap-1.5 font-bold text-[#16a34a] hover:underline">
-              <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#22c55e] text-white shadow-2xs">
-                <span className="material-symbols-outlined text-[10px]">call</span>
-              </span>
-              093 786 32 63 (Ls. Phan Đức Tín)
-            </a>
-          </div>
         </div>
       )}
     </div>
