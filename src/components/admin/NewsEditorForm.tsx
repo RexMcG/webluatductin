@@ -6,6 +6,8 @@ import Link from "next/link";
 import MindmapVisual from "@/components/common/MindmapVisual";
 import FlowchartVisual from "@/components/common/FlowchartVisual";
 import { newsService } from "@/services/news.service";
+import { POPULAR_FORMS } from "@/data/popular-forms";
+import { getAttachedFormForSection } from "@/utils/section-form-matcher";
 
 export interface SectionDraft {
   id: string;
@@ -13,6 +15,7 @@ export interface SectionDraft {
   title: string;
   summary: string;
   content: string;
+  attachedFormId?: number;
 }
 
 export interface NewsArticleDraft {
@@ -137,7 +140,7 @@ export default function NewsEditorForm({
     }));
   };
 
-  const updateSection = (index: number, field: keyof SectionDraft, value: string) => {
+  const updateSection = (index: number, field: keyof SectionDraft, value: any) => {
     setFormData((prev) => {
       const updated = [...prev.sections];
       updated[index] = { ...updated[index], [field]: value };
@@ -623,6 +626,98 @@ export default function NewsEditorForm({
                     placeholder="<p class='mb-3'>Nội dung chi tiết...</p><p>– Gạch đầu dòng thứ nhất...</p>"
                     className="w-full px-4 py-3 text-xs bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-[#641D06] text-slate-800 leading-relaxed font-mono"
                   />
+                </div>
+
+                {/* Form Attachment Picker for this Section */}
+                <div className="md:col-span-12 mt-1 pt-3 border-t border-slate-200/80">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                    <div className="flex items-center gap-2">
+                      <span className="w-6 h-6 rounded-lg bg-amber-100 text-[#641D06] flex items-center justify-center shrink-0">
+                        <span className="material-symbols-outlined text-sm">attach_file</span>
+                      </span>
+                      <div>
+                        <div className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                          <span>Biểu Mẫu Đính Kèm Mục Này:</span>
+                          <span className="text-[10px] text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full font-bold">
+                            Tùy chọn
+                          </span>
+                        </div>
+                        <p className="text-[10.5px] text-slate-500">
+                          Khách xem bài viết sẽ thấy thẻ biểu mẫu này kèm nút &quot;Xem trước &amp; Tải mẫu&quot;
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="w-full sm:w-auto min-w-[320px]">
+                      <select
+                        value={sec.attachedFormId ?? 0}
+                        onChange={(e) => updateSection(idx, "attachedFormId", parseInt(e.target.value, 10))}
+                        className="w-full text-xs bg-white border border-slate-300 rounded-xl px-3 py-2 font-medium text-slate-800 focus:outline-none focus:border-[#641D06] shadow-2xs"
+                      >
+                        <option value={0}>✨ Tự động nhận diện theo từ khóa (Khuyên dùng)</option>
+                        <option value={-1}>🚫 Không đính kèm biểu mẫu cho mục này</option>
+                        <optgroup label="── CHỌN CHỈ ĐỊNH MẪU CỤ THỂ ──">
+                          {POPULAR_FORMS.map((f) => (
+                            <option key={f.id} value={f.id}>
+                              #{f.id} - {f.title} ({f.category})
+                            </option>
+                          ))}
+                        </optgroup>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Status Preview Indicator */}
+                  {(() => {
+                    const explicitId = sec.attachedFormId;
+                    if (explicitId === -1) {
+                      return (
+                        <div className="mt-2 text-[11px] text-slate-500 bg-slate-100 px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+                          <span className="material-symbols-outlined text-sm text-slate-400">block</span>
+                          <span>Đã tắt hiển thị biểu mẫu đính kèm cho mục này.</span>
+                        </div>
+                      );
+                    }
+                    if (explicitId && explicitId > 0) {
+                      const chosen = POPULAR_FORMS.find((f) => f.id === explicitId);
+                      return (
+                        <div className="mt-2 text-[11px] text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-2 rounded-xl flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-2">
+                            <span className="material-symbols-outlined text-base text-emerald-600">check_circle</span>
+                            <span><strong>Đã chỉ định:</strong> #{chosen?.id} - {chosen?.title}</span>
+                          </div>
+                          <span className="text-[10px] bg-white border border-emerald-300 px-2 py-0.5 rounded text-emerald-700 font-bold">
+                            {chosen?.category}
+                          </span>
+                        </div>
+                      );
+                    }
+                    // Auto mode
+                    const autoMatched = getAttachedFormForSection(
+                      { title: sec.title, content: sec.content, summary: sec.summary },
+                      { title: formData.title, category: formData.category, summary: formData.summary },
+                      new Set<number>()
+                    );
+                    if (autoMatched) {
+                      return (
+                        <div className="mt-2 text-[11px] text-amber-900 bg-amber-50 border border-amber-200 px-3 py-2 rounded-xl flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-2">
+                            <span className="material-symbols-outlined text-base text-amber-600">auto_awesome</span>
+                            <span><strong>Hệ thống đang tự động nhận diện:</strong> #{autoMatched.id} - {autoMatched.title}</span>
+                          </div>
+                          <span className="text-[10px] bg-white border border-amber-300 px-2 py-0.5 rounded text-amber-800 font-bold">
+                            Tự động
+                          </span>
+                        </div>
+                      );
+                    }
+                    return (
+                      <div className="mt-2 text-[11px] text-slate-500 bg-slate-100/70 border border-slate-200/60 px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+                        <span className="material-symbols-outlined text-sm text-slate-400">info</span>
+                        <span>Chưa phát hiện từ khóa pháp lý đặc thù để tự động khớp mẫu nào. Bạn có thể chọn chỉ định mẫu ở menu trên nếu muốn.</span>
+                      </div>
+                    );
+                  })()}
                 </div>
               </div>
             </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useParams, notFound } from "next/navigation";
 import Link from "next/link";
 import { SERVICES_DATA } from "@/data/servicesData";
 import SectionDivider from "@/components/common/SectionDivider";
@@ -22,9 +22,11 @@ export default function ServiceDetailPage() {
     return () => unsub();
   }, []);
 
-  const service = (content.servicesDetail && content.servicesDetail[slug]) || SERVICES_DATA[slug] || SERVICES_DATA["hop-tac-doanh-nghiep"];
+  const service = (content.servicesDetail && content.servicesDetail[slug]) || SERVICES_DATA[slug];
 
   const [activeTab, setActiveTab] = useState<TabType>("about");
+
+  if (!service) notFound();
 
   const handleTabChange = (tab: TabType) => {
     setActiveTab(tab);
@@ -78,7 +80,7 @@ export default function ServiceDetailPage() {
               }`}
             >
               <span className="material-symbols-outlined text-lg sm:text-xl">group</span>
-              <span>Về Chúng Tôi</span>
+              <span>Tổng Quan</span>
             </button>
 
             {/* Tab 2: Kinh nghiệm */}
@@ -151,7 +153,7 @@ export default function ServiceDetailPage() {
                   Phạm Vi Dịch Vụ Cụ Thể
                 </h2>
                 <p className="text-slate-600 text-sm mt-2">
-                  Các hạng mục công việc pháp lý chuyên sâu được đảm nhiệm trực tiếp bởi luật sư giàu kinh nghiệm.
+                  Các hạng mục công việc pháp lý do luật sư phụ trách lĩnh vực trực tiếp thực hiện.
                 </p>
               </div>
 
@@ -199,9 +201,9 @@ export default function ServiceDetailPage() {
                       <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-800 text-xs font-bold uppercase">
                         {exp.year}
                       </span>
-                      <span className="text-emerald-700 font-bold text-xs uppercase flex items-center gap-1">
-                        <span className="material-symbols-outlined text-sm">verified</span>
-                        Thắng lợi
+                      <span className="text-amber-900 font-bold text-xs uppercase flex items-center gap-1">
+                        <span className="material-symbols-outlined text-sm">workspace_premium</span>
+                        Vụ việc tiêu biểu
                       </span>
                     </div>
                     <div className="text-xs font-bold text-amber-900 uppercase tracking-wider mb-1">
@@ -230,6 +232,10 @@ export default function ServiceDetailPage() {
                 </div>
               ))}
             </div>
+
+            <p className="text-center text-xs sm:text-sm text-slate-500 italic max-w-3xl mx-auto leading-relaxed">
+              Thông tin về kinh nghiệm và vụ việc được trình bày khái quát, đã lược bỏ thông tin nhận diện khách hàng. Kết quả của mỗi vụ việc phụ thuộc vào hồ sơ và tình tiết cụ thể.
+            </p>
           </div>
         )}
 
@@ -301,7 +307,7 @@ export default function ServiceDetailPage() {
             Cần Tư Vấn Chuyên Sâu Trong Lĩnh Vực Này?
           </h2>
           <p className="text-amber-100 text-base md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-            Luật sư Phan Đức Tín và đội ngũ chuyên gia sẵn sàng lắng nghe và đưa ra giải pháp pháp lý tối ưu nhất cho bạn.
+            Luật sư Phan Đức Tín và đội ngũ luật sư sẵn sàng lắng nghe và đưa ra giải pháp pháp lý phù hợp cho Quý khách.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Link

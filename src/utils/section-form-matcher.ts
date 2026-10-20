@@ -18,10 +18,22 @@ export interface MatchedForm {
  * Tìm biểu mẫu phù hợp nhất cho một Section trong bài viết
  */
 export function getAttachedFormForSection(
-  section: { id?: string; number?: number | string; title?: string; content?: string; summary?: string },
+  section: { id?: string; number?: number | string; title?: string; content?: string; summary?: string; attachedFormId?: number },
   article: { title?: string; category?: string; summary?: string },
   alreadyUsedFormIds: Set<number>
 ): MatchedForm | null {
+  // 0. Nếu Admin chỉ định thủ công biểu mẫu cho mục này:
+  if (section.attachedFormId !== undefined && section.attachedFormId !== 0) {
+    if (section.attachedFormId === -1) {
+      return null; // Tắt biểu mẫu thủ công
+    }
+    const manualForm = POPULAR_FORMS.find((f) => f.id === section.attachedFormId);
+    if (manualForm) {
+      alreadyUsedFormIds.add(manualForm.id);
+      return manualForm;
+    }
+  }
+
   const secTitle = (section.title || "").toLowerCase();
   const secContent = (section.content || "").toLowerCase();
   const secSummary = (section.summary || "").toLowerCase();

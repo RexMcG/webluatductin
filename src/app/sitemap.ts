@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { SITE_CONFIG } from '@/config/site';
+import { SERVICES_DATA } from '@/data/servicesData';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = SITE_CONFIG.baseUrl;
@@ -70,17 +71,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // Core Service slugs
-  const serviceSlugs = [
-    'dan-su-thoa-thuan',
-    'hon-nhan-gia-dinh',
-    'dat-dai-nha-o',
-    'doanh-nghiep-dau-tu',
-    'lao-dong-tien-luong',
-    'so-huu-tri-tue',
-    'hinh-su-bao-chua',
-    'thu-tuc-phap-ly-giay-phep',
-    'tranh-tung-toa-an',
-  ];
+  const serviceSlugs = Object.keys(SERVICES_DATA);
 
   const serviceRoutes: MetadataRoute.Sitemap = serviceSlugs.map((slug) => ({
     url: `${baseUrl}/services/${slug}`,
