@@ -1152,3 +1152,18 @@ export const SERVICES_DATA: Record<string, ServiceDetail> = {
     articles: []
   }
 };
+
+export const SERVICE_IMAGES: Record<string, string> = {
+  "hop-tac-doanh-nghiep": "/img/card_business.webp",
+  "tu-van-dau-tu": "/img/card_fdi.webp",
+  "thu-tuc-phap-ly-giay-phep": "/img/card_license.webp",
+  "di-chuc-thua-ke": "/img/card_inheritance.webp",
+  "dan-su": "/img/card_civil.webp",
+  "lao-dong": "/img/card_labor.webp",
+  "tranh-tung": "/img/card_court.webp",
+  "bat-dong-san": "/img/card_realestate.webp",
+  "hon-nhan-gia-dinh": "/img/card_family.webp",
+  "thu-hoi-no": "/img/card_debt.webp",
+  "hinh-su-bao-chua": "/img/card_criminal.webp",
+  "so-huu-tri-tue": "/img/card_ip.webp",
+};

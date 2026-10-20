@@ -870,6 +870,28 @@ export default function NewsDetailPage() {
         </div>
       )}
 
+      {/* Flowchart Overview Visual */}
+      {newsItem.flowchart && (
+        <section id="heading-flowchart" className="scroll-mt-28 mb-8 md:mb-10">
+          <FlowchartVisual rawText={newsItem.flowchart} />
+        </section>
+      )}
+
+      {/* Mindmap Overview Visual */}
+      {newsItem.mindmap && (
+        <section id="heading-mindmap" className="scroll-mt-28 mb-8 md:mb-10">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-purple-100 text-purple-700 text-sm font-bold">
+              <span className="material-symbols-outlined text-sm">bubble_chart</span>
+            </span>
+            <h3 className="text-xs md:text-sm font-bold uppercase tracking-wider text-purple-900">
+              Sơ Đồ Tư Duy Tổng Quan Bài Viết (Mindmap)
+            </h3>
+          </div>
+          <MindmapVisual rawText={newsItem.mindmap} />
+        </section>
+      )}
+
       {/* SECTION CONTROLS (Expand all / Collapse all) */}
       {sections.length > 0 && (
         <div className="mb-8 flex items-center justify-between gap-4 border-b border-slate-200 pb-3">

@@ -370,82 +370,88 @@ export default function Home() {
       </section>
 
       {/* About Us & Why Choose Us */}
-      <section id="about-us" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 pb-16 scroll-mt-24">
-        <div className="flex flex-col gap-12">
-          {/* About Us */}
-          <div>
-            <div className="text-center mb-10 w-full flex flex-col items-center justify-center">
-              <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
-                {siteContent.home.about.heading || "Về Chúng Tôi"}
-              </h2>
-              <SectionDivider label={siteContent.home.about.subHeading || "GIỚI THIỆU"} />
-            </div>
-            <div className="prose prose-xl md:prose-2xl text-text-secondary leading-relaxed space-y-4 text-justify text-lg md:text-xl">
+      <section id="about-us" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-20 pb-14 md:pb-20 scroll-mt-24">
+        <div className="text-center mb-10 md:mb-12 w-full flex flex-col items-center justify-center">
+          <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
+            {siteContent.home.about.heading || "Về Chúng Tôi"}
+          </h2>
+          <SectionDivider label={siteContent.home.about.subHeading || "GIỚI THIỆU"} />
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+          {/* Về Chúng Tôi */}
+          <div className="lg:col-span-7">
+            <div className="space-y-5 text-text-secondary text-base md:text-lg leading-[1.8]">
               {(siteContent.home.about.paragraphs && siteContent.home.about.paragraphs.length > 0 ? siteContent.home.about.paragraphs : [
                 "Trải qua hơn 20 năm xây dựng và phát triển, Công ty Luật TNHH Đức Tín và Cộng sự (Đoàn Luật sư TP.HCM), dưới sự dẫn dắt của Luật sư Phan Đức Tín, tự hào là đối tác pháp lý vững chắc của cộng đồng doanh nghiệp và khách hàng cá nhân.",
                 "Trong suốt hai thập kỷ qua, đội ngũ của chúng tôi đã khẳng định năng lực và vị thế thông qua việc tư vấn, giải quyết thành công hàng trăm vụ việc phức tạp. Dấu ấn đậm nét của Công ty được thể hiện qua các dự án tư vấn Đầu tư nước ngoài (FDI) và Mua bán sáp nhập (M&A), kiến tạo nền tảng pháp lý an toàn cho các tập đoàn, nhà đầu tư đến từ Nhật Bản, Hàn Quốc, Mỹ, Singapore, Châu Âu...",
                 "Bên cạnh đó, Đức Tín & Cộng sự luôn chứng minh bản lĩnh vượt trội trong vai trò đại diện tranh tụng tại Tòa án các cấp và Trọng tài Thương mại; tháo gỡ hiệu quả các vướng mắc về cơ cấu vốn, cũng như giải quyết thấu đáo, hài hòa các tranh chấp dân sự, đất đai và hôn nhân - gia đình."
               ]).map((p, idx) => (
-                <p key={idx}>{p}</p>
+                <p key={idx} className={idx === 0 ? "text-lg md:text-xl text-slate-900 font-medium" : undefined}>{p}</p>
               ))}
             </div>
           </div>
 
-          {/* Sứ Mệnh & Tầm Nhìn (Trình bày thanh lịch dạng bài viết như Về Chúng Tôi, không icon, không chia ô) */}
-          <div>
-            <div className="text-center mb-10 w-full flex flex-col items-center justify-center">
-              <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
-                Sứ Mệnh &amp; Tầm Nhìn
-              </h2>
-              <SectionDivider label="SỨ MỆNH & TẦM NHÌN" />
-            </div>
-            <div className="prose prose-xl md:prose-2xl text-text-secondary leading-relaxed space-y-4 text-justify text-lg md:text-xl">
-              <p>
-                Sứ mệnh của chúng tôi là bảo vệ tối đa quyền và lợi ích hợp pháp của thân chủ, đem lại giải pháp pháp lý an toàn, hiệu quả và kiến tạo giá trị bền vững cho cộng đồng doanh nghiệp và khách hàng cá nhân.
-              </p>
-              <p>
-                Về tầm nhìn, Đức Tín &amp; Cộng sự hướng tới trở thành tổ chức hành nghề luật uy tín hàng đầu, tiên phong trong ứng dụng công nghệ pháp lý và chuẩn mực hành nghề chuyên nghiệp tại Việt Nam và khu vực.
-              </p>
-            </div>
-          </div>
-
-          {/* Why Choose Us / Tại sao lại chọn chúng tôi */}
-          {(() => {
-            const isStale = !siteContent.home.principles?.items || 
-              siteContent.home.principles.items.length !== 6 || 
-              siteContent.home.principles.heading?.includes("Tôn Chỉ") ||
-              !siteContent.home.principles.items[0]?.title?.includes("Đội ngũ");
-            const activePrinciples = (isStale || !siteContent.home.principles?.heading) 
-              ? DEFAULT_SITE_CONTENT.home.principles 
-              : siteContent.home.principles;
-            return (
-              <div>
-                <div className="text-center mb-10 w-full flex flex-col items-center justify-center">
-                  <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
-                    {activePrinciples.heading || "Tại sao lại chọn chúng tôi"}
-                  </h2>
-                  <SectionDivider label={activePrinciples.subHeading || "TẠI SAO CHỌN CHÚNG TÔI"} />
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {(activePrinciples.items && activePrinciples.items.length > 0 ? activePrinciples.items : DEFAULT_SITE_CONTENT.home.principles.items).map((item, idx) => (
-                    <div key={idx} className="bg-surface-main p-4 border border-border-neutral rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                      <h3 className="font-bold text-primary mb-2 text-base md:text-lg uppercase">
-                        {item.title}
-                      </h3>
-                      <p className="text-base md:text-lg text-text-secondary leading-relaxed">
-                        {item.desc}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+          {/* Sứ Mệnh & Tầm Nhìn */}
+          <aside className="lg:col-span-5 lg:sticky lg:top-28">
+            <div className="relative bg-[#2B1408] text-white rounded-2xl overflow-hidden">
+              <div className="absolute inset-x-0 top-0 h-1 bg-[#C0963B]" aria-hidden="true" />
+              <div className="p-6 sm:p-8 md:p-10">
+                <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight text-[#D9B872] mb-3">Sứ mệnh</h3>
+                <p className="text-base md:text-lg leading-relaxed text-white/90">
+                  Bảo vệ tối đa quyền và lợi ích hợp pháp của thân chủ, đem lại giải pháp pháp lý an toàn, hiệu quả và kiến tạo giá trị bền vững cho cộng đồng doanh nghiệp và khách hàng cá nhân.
+                </p>
+                <div className="h-px bg-white/15 my-6 md:my-8" aria-hidden="true" />
+                <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight text-[#D9B872] mb-3">Tầm nhìn</h3>
+                <p className="text-base md:text-lg leading-relaxed text-white/90">
+                  Trở thành tổ chức hành nghề luật uy tín, tiên phong trong ứng dụng công nghệ pháp lý và chuẩn mực hành nghề chuyên nghiệp tại Việt Nam và khu vực.
+                </p>
               </div>
-            );
-          })()}
+            </div>
+          </aside>
         </div>
       </section>
 
+      {/* Why Choose Us / Tại sao lại chọn chúng tôi */}
+      {(() => {
+        const isStale = !siteContent.home.principles?.items ||
+          siteContent.home.principles.items.length !== 6 ||
+          siteContent.home.principles.heading?.includes("Tôn Chỉ") ||
+          !siteContent.home.principles.items[0]?.title?.includes("Đội ngũ");
+        const activePrinciples = (isStale || !siteContent.home.principles?.heading)
+          ? DEFAULT_SITE_CONTENT.home.principles
+          : siteContent.home.principles;
+        const items = activePrinciples.items && activePrinciples.items.length > 0 ? activePrinciples.items : DEFAULT_SITE_CONTENT.home.principles.items;
+        return (
+          <section className="bg-[#FAF6EF] border-y border-[#EFE6D8] py-14 md:py-20">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-10 md:mb-14 w-full flex flex-col items-center justify-center">
+                <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">
+                  {activePrinciples.heading || "Tại sao lại chọn chúng tôi"}
+                </h2>
+                <SectionDivider label={activePrinciples.subHeading || "TẠI SAO CHỌN CHÚNG TÔI"} />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-8 md:gap-y-12">
+                {items.map((item, idx) => (
+                  <div key={idx} className="border-t-2 border-[#C0963B]/60 pt-5">
+                    <p className="text-3xl md:text-4xl font-black text-[#C0963B] leading-none tabular-nums mb-4">
+                      {String(idx + 1).padStart(2, "0")}
+                    </p>
+                    <h3 className="font-bold text-primary mb-2 text-lg md:text-xl leading-snug">
+                      {item.title.replace(/^\d+\.\s*/, "")}
+                    </h3>
+                    <p className="text-base md:text-lg text-text-secondary leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      })()}
+
       {/* Practice Areas Grid */}
-      <section className="border-t border-border-neutral py-16">
+      <section className="py-16">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 w-full flex flex-col items-center justify-center">
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 font-sans leading-tight tracking-tight uppercase text-center mb-1">

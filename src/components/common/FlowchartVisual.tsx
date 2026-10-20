@@ -95,9 +95,43 @@ const PERFECT_PHASE_THEMES = [
 export function parsePhaseFlowData(rawText: string): PhaseFlowData | null {
   if (!rawText) return null;
 
-  const lines = rawText.split("\n").map((l) => l.trim()).filter((l) => l.length > 0);
   let title = "SƠ ĐỒ QUY TRÌNH THỰC HIỆN TỪNG BƯỚC";
   const phases: PhaseTreeRow[] = [];
+
+  // Support JSON formatted flowchart data (e.g. { nodes: [...] })
+  const trimmed = rawText.trim();
+  if (trimmed.startsWith("{")) {
+    try {
+      const parsed = JSON.parse(trimmed);
+      if (parsed.nodes && Array.isArray(parsed.nodes)) {
+        title = parsed.title || "SƠ ĐỒ QUY TRÌNH THỰC HIỆN TỪNG BƯỚC";
+        parsed.nodes.forEach((node: any, idx: number) => {
+          const stepNum = node.id || String(idx + 1);
+          const rawLabel = node.label || node.title || `Bước ${idx + 1}`;
+          const cleanLabel = rawLabel.replace(/^Bước\s*\d+[\.:\s]*/i, "").trim();
+          const theme = PERFECT_PHASE_THEMES[idx % PERFECT_PHASE_THEMES.length];
+          const subSteps: PhaseStepItem[] = [];
+          if (node.details && Array.isArray(node.details)) {
+            node.details.forEach((d: string, dIdx: number) => {
+              subSteps.push({ code: `Bước ${stepNum}.${dIdx + 1}`, title: d });
+            });
+          }
+          phases.push({
+            phaseNumber: Number(stepNum) || idx + 1,
+            label: `GIAI ĐOẠN ${stepNum}`,
+            mainTitle: cleanLabel || rawLabel,
+            theme,
+            subSteps,
+          });
+        });
+        if (phases.length > 0) return { title, phases };
+      }
+    } catch {
+      // Fallback to line by line parsing
+    }
+  }
+
+  const lines = rawText.split("\n").map((l) => l.trim()).filter((l) => l.length > 0);
   let currentPhase: PhaseTreeRow | null = null;
   let themeIdx = 0;
 

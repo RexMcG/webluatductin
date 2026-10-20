@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { SERVICES_DATA } from "@/data/servicesData";
+import { SERVICES_DATA, SERVICE_IMAGES } from "@/data/servicesData";
 import SectionDivider from "@/components/common/SectionDivider";
 import { siteContentService, DEFAULT_SITE_CONTENT } from "@/services/site-content.service";
 
@@ -36,21 +36,6 @@ export default function ServicesPage() {
     : SERVICES_DATA;
 
   const serviceList = PRACTICE_AREAS_ORDER.map((slug) => allServices[slug]).filter(Boolean);
-
-  const SERVICE_IMAGES: Record<string, string> = {
-    "hop-tac-doanh-nghiep": "/img/card_business.webp",
-    "tu-van-dau-tu": "/img/card_fdi.webp",
-    "thu-tuc-phap-ly-giay-phep": "/img/card_license.webp",
-    "di-chuc-thua-ke": "/img/card_inheritance.webp",
-    "dan-su": "/img/card_civil.webp",
-    "lao-dong": "/img/card_labor.webp",
-    "tranh-tung": "/img/card_court.webp",
-    "bat-dong-san": "/img/card_realestate.webp",
-    "hon-nhan-gia-dinh": "/img/card_family.webp",
-    "thu-hoi-no": "/img/card_debt.webp",
-    "hinh-su-bao-chua": "/img/card_criminal.webp",
-    "so-huu-tri-tue": "/img/card_ip.webp",
-  };
 
   return (
     <div className="bg-surface-alt min-h-screen pb-20">
