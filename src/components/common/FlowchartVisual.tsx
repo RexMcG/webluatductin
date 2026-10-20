@@ -221,7 +221,9 @@ export default function FlowchartVisual({
         document.getElementById(`sec-${phaseNum}`) ||
         document.querySelector(`[data-section-index="${phaseNum - 1}"]`);
       if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        const navOffset = 90;
+        const targetPos = target.getBoundingClientRect().top + window.pageYOffset - navOffset;
+        window.scrollTo({ top: targetPos, behavior: "smooth" });
       }
     }
   };

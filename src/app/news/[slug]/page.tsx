@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { newsService } from "@/services/news.service";
 import MindmapVisual from "@/components/common/MindmapVisual";
@@ -58,15 +58,33 @@ export default function NewsDetailPage() {
     setOpenSections({});
   };
 
+  const isProgrammaticScrollRef = useRef(false);
+  const scrollLockTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const smoothScrollToElement = (element: HTMLElement) => {
+    isProgrammaticScrollRef.current = true;
+    if (scrollLockTimeoutRef.current) clearTimeout(scrollLockTimeoutRef.current);
+    scrollLockTimeoutRef.current = setTimeout(() => {
+      isProgrammaticScrollRef.current = false;
+    }, 800);
+
+    const navOffset = 90;
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
+  };
+
   const scrollToHeading = (id: string) => {
     setActiveHeadingId(id);
     setOpenSections((prev) => ({ ...prev, [id]: true }));
-    setTimeout(() => {
-      const element = document.getElementById(`heading-${id}`);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }, 50);
+    const element = document.getElementById(`heading-${id}`);
+    if (element) {
+      smoothScrollToElement(element);
+    }
   };
 
   const handleFlowchartSelect = (phaseNumber: number) => {
@@ -79,56 +97,69 @@ export default function NewsDetailPage() {
     if (targetSec) {
       setOpenSections((prev) => ({ ...prev, [targetSec.id]: true }));
       setActiveHeadingId(targetSec.id);
-      setTimeout(() => {
-        const element =
-          document.getElementById(`heading-${targetSec.id}`) ||
-          document.getElementById(`sec-${phaseNumber}`) ||
-          document.querySelector(`[data-section-index="${phaseNumber - 1}"]`);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      }, 50);
+      const element =
+        document.getElementById(`heading-${targetSec.id}`) ||
+        document.getElementById(`sec-${phaseNumber}`) ||
+        document.querySelector(`[data-section-index="${phaseNumber - 1}"]`);
+      if (element instanceof HTMLElement) {
+        smoothScrollToElement(element);
+      }
     }
   };
 
-  // Accurate Scroll spy using getBoundingClientRect to highlight active heading
+  // High-performance, throttled Scroll Spy using requestAnimationFrame
   useEffect(() => {
     if (!newsItem?.sections || newsItem.layoutStyle !== "word-navigation") return;
 
-    let isScrollingTimeout: NodeJS.Timeout;
+    let rafId: number | null = null;
 
     const handleScroll = () => {
-      const sectionsList = newsItem.sections || [];
-      let foundId = "";
+      if (isProgrammaticScrollRef.current) return;
 
-      for (const section of sectionsList) {
-        const el = document.getElementById(`heading-${section.id}`);
+      const sectionsList = newsItem.sections || [];
+      if (sectionsList.length === 0) return;
+
+      const scrollY = window.scrollY + 140;
+      let currentSectionId = sectionsList[0].id;
+
+      for (let i = 0; i < sectionsList.length; i++) {
+        const sec = sectionsList[i];
+        const el = document.getElementById(`heading-${sec.id}`);
         if (el) {
-          const rect = el.getBoundingClientRect();
-          // Active when the section is at or above viewport line (between 60px and bottom)
-          if (rect.top <= 200 && rect.bottom > 120) {
-            foundId = section.id;
+          const top = el.offsetTop;
+          if (top <= scrollY) {
+            currentSectionId = sec.id;
+          } else {
             break;
           }
         }
       }
 
-      // Fallback: If scrolled to bottom of page, highlight the last section
-      if (!foundId && window.innerHeight + window.scrollY >= document.body.offsetHeight - 80) {
-        if (sectionsList.length > 0) {
-          foundId = sectionsList[sectionsList.length - 1].id;
-        }
+      // Fallback: If scrolled near the bottom of page, highlight the last section
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80) {
+        currentSectionId = sectionsList[sectionsList.length - 1].id;
       }
 
-      if (foundId) {
-        setActiveHeadingId(foundId);
-      }
+      setActiveHeadingId((prev) => (prev !== currentSectionId ? currentSectionId : prev));
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Initial check on load
+    const onScroll = () => {
+      if (isProgrammaticScrollRef.current) return;
+      if (rafId !== null) return;
+      rafId = window.requestAnimationFrame(() => {
+        handleScroll();
+        rafId = null;
+      });
+    };
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafId !== null) window.cancelAnimationFrame(rafId);
+      if (scrollLockTimeoutRef.current) clearTimeout(scrollLockTimeoutRef.current);
+    };
   }, [newsItem]);
 
   if (isLoading) {
@@ -305,9 +336,9 @@ export default function NewsDetailPage() {
                     type="button"
                     onClick={() => {
                       const el = document.getElementById("heading-mindmap");
-                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                      if (el) smoothScrollToElement(el);
                     }}
-                    className="w-full text-left px-3 py-2.5 rounded-xl transition-all flex items-center gap-2 cursor-pointer bg-purple-50 hover:bg-purple-100 text-purple-900 font-bold border border-purple-200 mb-2 shadow-2xs"
+                    className="w-full text-left px-3 py-2.5 rounded-xl transition-colors duration-150 flex items-center gap-2 cursor-pointer bg-purple-50 hover:bg-purple-100 text-purple-900 font-bold border border-purple-200 mb-2 shadow-2xs"
                   >
                     <span className="material-symbols-outlined text-lg text-purple-700">hub</span>
                     <span className="leading-snug">Sơ Đồ Tư Duy Mindmap</span>
@@ -319,9 +350,9 @@ export default function NewsDetailPage() {
                     type="button"
                     onClick={() => {
                       const el = document.getElementById("heading-flowchart");
-                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                      if (el) smoothScrollToElement(el);
                     }}
-                    className="w-full text-left px-3 py-2.5 rounded-xl transition-all flex items-center gap-2 cursor-pointer bg-amber-50 hover:bg-amber-100 text-amber-900 font-bold border border-amber-200 mb-2 shadow-2xs"
+                    className="w-full text-left px-3 py-2.5 rounded-xl transition-colors duration-150 flex items-center gap-2 cursor-pointer bg-amber-50 hover:bg-amber-100 text-amber-900 font-bold border border-amber-200 mb-2 shadow-2xs"
                   >
                     <span className="material-symbols-outlined text-lg text-amber-700">account_tree</span>
                     <span className="leading-snug">Sơ Đồ Quy Trình (Flowchart)</span>
@@ -335,13 +366,17 @@ export default function NewsDetailPage() {
                       key={sec.id}
                       type="button"
                       onClick={() => scrollToHeading(sec.id)}
-                      className={`w-full text-left px-3 py-2 rounded-lg transition-all flex items-start gap-2 cursor-pointer ${
+                      className={`w-full text-left pl-2.5 pr-3 py-2 rounded-lg border-l-4 flex items-start gap-2 cursor-pointer transition-colors duration-150 ${
                         isActive
-                          ? "bg-blue-50 text-blue-800 font-bold border-l-4 border-blue-600 pl-2"
-                          : "text-slate-700 hover:bg-slate-100 hover:text-slate-900 font-medium"
+                          ? "bg-blue-50 text-blue-800 font-bold border-blue-600"
+                          : "border-transparent text-slate-700 hover:bg-slate-100 hover:text-slate-900 font-medium"
                       }`}
                     >
-                      <span className="material-symbols-outlined text-xs text-slate-400 mt-0.5 shrink-0">
+                      <span
+                        className={`material-symbols-outlined text-xs mt-0.5 shrink-0 transition-colors duration-150 ${
+                          isActive ? "text-blue-600 font-bold" : "text-slate-400"
+                        }`}
+                      >
                         arrow_right
                       </span>
                       <span className="leading-snug">
