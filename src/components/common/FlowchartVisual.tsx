@@ -211,8 +211,8 @@ export default function FlowchartVisual({
     }));
   };
 
-  const handlePhaseClick = (phaseNum: number) => {
-    togglePhase(phaseNum);
+  const handleJumpToSection = (e: React.MouseEvent, phaseNum: number) => {
+    e.stopPropagation();
     if (onPhaseSelect) {
       onPhaseSelect(phaseNum);
     } else {
@@ -286,7 +286,7 @@ export default function FlowchartVisual({
         <div className="mb-4 py-2 px-3 bg-slate-50 border border-slate-200/80 rounded-xl flex items-center justify-between text-xs text-slate-600">
           <div className="flex items-center gap-1.5">
             <span className="material-symbols-outlined text-sm text-amber-700">info</span>
-            <span>Bấm vào từng <strong>Giai đoạn</strong> để xem chi tiết và cuộn đến nội dung trong bài viết.</span>
+            <span>Bấm vào từng <strong>Giai đoạn</strong> để xem chi tiết các bước. Bấm <strong>Đến mục này ↓</strong> để cuộn tới nội dung bài viết.</span>
           </div>
         </div>
       )}
@@ -305,9 +305,9 @@ export default function FlowchartVisual({
                 <div
                   className={`w-full rounded-2xl p-3 sm:p-4 flex flex-col items-center transition-all ${phaseRow.theme.outerBorder} ${phaseRow.theme.outerBg}`}
                 >
-                  {/* THANH HEADER TIÊU ĐỀ GIAI ĐOẠN (CLICK ĐỂ NHẢY ĐẾN BƯỚC ĐÓ VÀ XỔ RA) */}
+                  {/* THANH HEADER TIÊU ĐỀ GIAI ĐOẠN (CHỈ XỔ RA / THU GỌN BƯỚC ĐÓ, KHÔNG NHẢY TRANG) */}
                   <div
-                    onClick={() => handlePhaseClick(phaseRow.phaseNumber)}
+                    onClick={() => togglePhase(phaseRow.phaseNumber)}
                     className={`w-full flex items-center justify-between px-3.5 py-3 rounded-xl bg-white border border-slate-200/80 shadow-2xs ${phaseRow.theme.borderLeft} cursor-pointer hover:shadow-xs transition-all active:scale-[0.99] text-left group`}
                   >
                     <div className="flex items-center gap-2.5 min-w-0 pr-2">
@@ -322,10 +322,16 @@ export default function FlowchartVisual({
                     </div>
 
                     <div className="flex items-center gap-2 shrink-0">
-                      <span className="text-[10.5px] font-bold text-[#641D06] bg-amber-50 hover:bg-amber-100 border border-amber-300 px-2 py-0.5 rounded-lg flex items-center gap-0.5 transition-colors">
+                      {/* CHỈ KHI BẤM NÚT NÀY MỚI NHẢY ĐẾN NỘI DUNG BÀI VIẾT */}
+                      <button
+                        type="button"
+                        onClick={(e) => handleJumpToSection(e, phaseRow.phaseNumber)}
+                        className="text-[10.5px] font-bold text-[#641D06] bg-amber-50 hover:bg-amber-100 border border-amber-300 px-2 py-0.5 rounded-lg flex items-center gap-0.5 transition-colors cursor-pointer active:scale-95 shadow-2xs"
+                        title={`Cuộn đến nội dung Giai đoạn ${phaseRow.phaseNumber} trong bài viết`}
+                      >
                         <span>Đến mục này</span>
                         <span className="material-symbols-outlined text-xs">south</span>
-                      </span>
+                      </button>
 
                       {subCount > 0 && (
                         <span
@@ -372,15 +378,13 @@ export default function FlowchartVisual({
                         {phaseRow.subSteps.map((sub, sIdx) => (
                           <div
                             key={sIdx}
-                            className="flex flex-col items-center cursor-pointer group/step"
-                            onClick={() => handlePhaseClick(phaseRow.phaseNumber)}
-                            title="Bấm để cuộn đến giai đoạn này trong bài viết"
+                            className="flex flex-col items-center"
                           >
                             {/* Đường chân nối đứng */}
                             <div className={`w-0.5 h-2.5 ${phaseRow.theme.lineColor}`} />
 
                             <div
-                              className={`w-full min-h-[76px] p-3 rounded-xl bg-white border border-slate-200 ${phaseRow.theme.hoverBorder} group-hover/step:shadow-sm group-hover/step:border-[#641D06] transition-all flex flex-col justify-between`}
+                              className={`w-full min-h-[76px] p-3 rounded-xl bg-white border border-slate-200 ${phaseRow.theme.hoverBorder} transition-all flex flex-col justify-between`}
                             >
                               <div className="flex items-center justify-between w-full mb-1.5">
                                 <span
@@ -388,11 +392,8 @@ export default function FlowchartVisual({
                                 >
                                   {sub.code}
                                 </span>
-                                <span className="material-symbols-outlined text-xs text-slate-300 group-hover/step:text-[#641D06] transition-colors">
-                                  south
-                                </span>
                               </div>
-                              <h6 className="text-[11.5px] sm:text-xs font-bold text-slate-800 leading-snug whitespace-normal break-words group-hover/step:text-[#641D06] transition-colors">
+                              <h6 className="text-[11.5px] sm:text-xs font-bold text-slate-800 leading-snug whitespace-normal break-words">
                                 {sub.title}
                               </h6>
                             </div>
