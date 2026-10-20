@@ -163,10 +163,14 @@ export default function AdminAutoContentPage() {
             setIsFetchingSource(false);
             setWorkerScanningStatus("");
             if (checkData.articles.length > 0) {
-              setFetchedQuestions(checkData.articles);
+              const formattedArticles = checkData.articles.map((item: any, idx: number) => ({
+                ...item,
+                id: item.id || item.url || `laya-article-${idx}`,
+              }));
+              setFetchedQuestions(formattedArticles);
               setLastWorkerSyncTime("Vừa quét xong");
               if (!topicInput) {
-                handleSelectQuestion(checkData.articles[0]);
+                handleSelectQuestion(formattedArticles[0]);
               }
               alert(`🎉 Quét thành công! Laya AI trên máy tính đã sàng lọc và gửi về ${checkData.articles.length} bài viết.`);
             }
@@ -223,9 +227,13 @@ export default function AdminAutoContentPage() {
       });
       const data = await res.json();
       if (data.success && data.questions) {
-        setFetchedQuestions(data.questions);
-        if (data.questions.length > 0 && !topicInput) {
-          handleSelectQuestion(data.questions[0]);
+        const formatted = (data.questions || []).map((item: any, idx: number) => ({
+          ...item,
+          id: item.id || item.url || `source-q-${idx}`,
+        }));
+        setFetchedQuestions(formatted);
+        if (formatted.length > 0 && !topicInput) {
+          handleSelectQuestion(formatted[0]);
         }
       }
     } catch (err) {
@@ -821,7 +829,12 @@ export default function AdminAutoContentPage() {
                   }
 
                   return displayList.map((q, idx) => {
-                    const isSelected = selectedQuestion?.id === q.id;
+                    const isSelected = Boolean(
+                      selectedQuestion &&
+                      ((selectedQuestion.id && q.id && selectedQuestion.id === q.id) ||
+                       (selectedQuestion.url && q.url && selectedQuestion.url === q.url) ||
+                       (selectedQuestion.title && q.title && selectedQuestion.title === q.title))
+                    );
 
                     return (
                       <div
