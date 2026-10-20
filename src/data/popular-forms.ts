@@ -376,5 +376,159 @@ Tên tôi là: ............................................................ Mã 
     matchPercent: 92,
     fileUrl: "/uploads/forms/mau-08-uq-qtt-tncn.docx",
     createdAt: "2026-03-17T08:00:00.000Z",
+  },
+
+  // 6. THỪA KẾ & DI CHÚC (ĐẤT ĐAI)
+  {
+    id: 18,
+    title: "Văn bản từ chối nhận di sản thừa kế (Khước từ di sản theo Điều 620 BLDS)",
+    category: "Đất đai & Hợp đồng",
+    description: "Mẫu văn bản công chứng dùng cho đồng thừa kế tự nguyện khước từ phần quyền sử dụng đất và tài sản thừa kế của mình cho người thân.",
+    content: `CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+-------------------------
+
+VĂN BẢN TỪ CHỐI NHẬN DI SẢN THỪA KẾ
+
+Hôm nay, ngày ..... tháng ..... năm .........., tại ................................................................
+Tôi là: ............................................................ Sinh năm: ....................
+CCCD/Hộ chiếu số: ................................. Cấp ngày: ................ Nơi cấp: ................
+Địa chỉ thường trú: ................................................................................
+
+LÀ NGƯỜI THỪA KẾ THUỘC HÀNG THỪA KẾ THỨ NHẤT CỦA:
+Ông/Bà: ............................................................ Mất ngày: ...../...../.........
+Theo Giấy chứng tử số: ........................ do UBND ........................................ cấp ngày ...../...../.........
+
+BẰNG VĂN BẢN NÀY, TÔI XIN TUYÊN BỐ:
+1. Bằng sự tự nguyện và minh mẫn, tôi từ chối nhận toàn bộ phần di sản thừa kế mà tôi được hưởng từ người đã khuất (bao gồm toàn bộ quyền sử dụng đất và tài sản gắn liền với đất tại địa chỉ ................................................................ theo Giấy chứng nhận số ........................).
+2. Việc từ chối này hoàn toàn tự nguyện, không vì mục đích trốn tránh bất kỳ nghĩa vụ tài sản nào đối với người khác theo đúng quy định tại Điều 620 Bộ luật Dân sự 2015.
+3. Tôi cam đoan không khiếu nại, tranh chấp hay đòi hỏi bất kỳ quyền lợi nào liên quan đến khối di sản nói trên sau khi ký văn bản này.
+
+NGƯỜI TỪ CHỐI NHẬN DI SẢN
+(Ký, ghi rõ họ tên và điểm chỉ)`,
+    matchPercent: 99,
+    fileUrl: "/uploads/forms/van-ban-tu-choi-nhan-di-san-thua-ke.docx",
+    createdAt: "2026-03-18T08:00:00.000Z",
+  },
+  {
+    id: 19,
+    title: "Văn bản thỏa thuận phân chia di sản thừa kế nhà đất chuẩn Công chứng",
+    category: "Đất đai & Hợp đồng",
+    description: "Văn bản phân chia di sản bắt buộc công chứng giữa tất cả các đồng thừa kế theo quy định Luật Công chứng và Luật Đất đai mới nhất.",
+    content: `CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+-------------------------
+
+VĂN BẢN THỎA THUẬN PHÂN CHIA DI SẢN THỪA KẾ
+(Quyền sử dụng đất và tài sản gắn liền với đất)
+
+Tại Văn phòng Công chứng ................................................................
+Các bên thừa kế gồm có:
+BÊN A: Ông/Bà ............................................................ CCCD: ....................
+BÊN B: Ông/Bà ............................................................ CCCD: ....................
+BÊN C: Ông/Bà ............................................................ CCCD: ....................
+
+CÙNG THỐNG NHẤT THỎA THUẬN VỚI NỘI DUNG NHƯ SAU:
+Điều 1: Di sản thừa kế của Ông/Bà ........................................ (chết ngày ...../...../.........) để lại gồm:
+- Quyền sử dụng thửa đất số: ...................., Tờ bản đồ số: ....................
+- Địa chỉ thửa đất: ................................................................................
+- Theo Giấy chứng nhận quyền sử dụng đất số: ........................ do UBND ........................ cấp ngày ...../...../.........
+
+Điều 2: Phương án phân chia di sản
+Toàn bộ các đồng thừa kế thống nhất phân chia như sau:
+Giao toàn bộ quyền sử dụng thửa đất và tài sản gắn liền với đất nêu trên cho Bên A (Ông/Bà ........................................) toàn quyền sở hữu, sử dụng và thực hiện thủ tục đăng ký sang tên biến động tại cơ quan nhà nước có thẩm quyền.
+Bên B và Bên C hoàn toàn đồng thuận và không có bất kỳ yêu cầu thanh toán hay tranh chấp nào.
+
+Điều 3: Cam đoan của các bên
+Các bên cam đoan ngoài những người nêu trên, không còn ai khác thuộc hàng thừa kế. Mọi tranh chấp phát sinh (nếu có) các bên cùng tự chịu trách nhiệm trước pháp luật.
+
+CÁC BÊN THỪA KẾ CÙNG KÝ TÊN VÀ ĐIỂM CHỈ
+(Công chứng viên chứng nhận)`,
+    matchPercent: 99,
+    fileUrl: "/uploads/forms/van-ban-thoa-thuan-phan-chia-di-san-thua-ke.docx",
+    createdAt: "2026-03-19T08:00:00.000Z",
+  },
+  {
+    id: 20,
+    title: "Văn bản khai nhận di sản thừa kế nhà đất (Trường hợp duy nhất một người thừa kế)",
+    category: "Đất đai & Hợp đồng",
+    description: "Mẫu văn bản khai nhận di sản thừa kế tại tổ chức hành nghề công chứng khi chỉ có duy nhất một người thừa kế hợp pháp hoặc tất cả người khác đã từ chối.",
+    content: `CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+-------------------------
+
+VĂN BẢN KHAI NHẬN DI SẢN THỪA KẾ
+
+Tôi là: ............................................................ Sinh năm: ....................
+Số CCCD: ................................. Cấp ngày: ................ Nơi cấp: ................
+Địa chỉ: ................................................................................
+
+LÀ NGƯỜI THỪA KẾ DUY NHẤT HỢP PHÁP CỦA:
+Ông/Bà: ............................................................ Mất ngày: ...../...../.........
+
+KÊ KHAI VÀ NHẬN DI SẢN NHƯ SAU:
+1. Di sản thừa kế gồm: Quyền sử dụng đất tại thửa đất số ....., tờ bản đồ số ..... tại địa chỉ ................................................................ theo GCN số ........................
+2. Nay tôi lập văn bản này để khai nhận toàn bộ di sản nói trên và đề nghị cơ quan nhà nước có thẩm quyền thực hiện thủ tục đăng ký biến động sang tên quyền sử dụng đất cho tôi.
+
+NGƯỜI KHAI NHẬN
+(Ký, ghi rõ họ tên và điểm chỉ)`,
+    matchPercent: 96,
+    fileUrl: "/uploads/forms/van-ban-khai-nhan-di-san-thua-ke.docx",
+    createdAt: "2026-03-20T08:00:00.000Z",
+  },
+  {
+    id: 21,
+    title: "Đơn khởi kiện vụ án dân sự về tranh chấp di sản thừa kế (Mẫu số 23-DS chuẩn TANDTC)",
+    category: "Tố tụng & Khởi kiện",
+    description: "Đơn khởi kiện chuẩn Nghị quyết 01/2017/NQ-HĐTP dùng để khởi kiện ra Tòa án nhân dân yêu cầu chia di sản thừa kế nhà đất khi các bên không thể hòa giải.",
+    content: `CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+Độc lập - Tự do - Hạnh phúc
+-------------------------
+
+ĐƠN KHỞI KIỆN
+(V/v: Tranh chấp chia di sản thừa kế là quyền sử dụng đất và tài sản gắn liền với đất)
+(Mẫu số 23-DS ban hành kèm theo Nghị quyết số 01/2017/NQ-HĐTP)
+
+Kính gửi: TÒA ÁN NHÂN DÂN ................................................................
+
+Người khởi kiện: ............................................................ Sinh năm: ....................
+Địa chỉ: ................................................................................
+Số điện thoại liên hệ: ....................................................
+
+Người bị kiện: ............................................................ Sinh năm: ....................
+Địa chỉ: ................................................................................
+
+NỘI DUNG KHỞI KIỆN VÀ YÊU CẦU TÒA ÁN GIẢI QUYẾT:
+1. Nguồn gốc tài sản: Bố mẹ chúng tôi là cụ ........................................ (chết năm ........) để lại di sản là thửa đất số ....., tờ bản đồ số ..... tại .................................................... diện tích ......... m2.
+2. Quá trình giải quyết: Do Người bị kiện tự ý chiếm giữ di sản và không chịu phân chia công bằng cho các đồng thừa kế khác theo quy định pháp luật.
+3. Yêu cầu Tòa án giải quyết:
+- Xác định hàng thừa kế thứ nhất gồm những ai.
+- Phân chia di sản thừa kế thửa đất trên theo quy định pháp luật.
+- Buộc người đang quản lý di sản phải bàn giao phần tài sản/giá trị tương ứng.
+
+NGƯỜI KHỞI KIỆN
+(Ký và ghi rõ họ tên)`,
+    matchPercent: 98,
+    fileUrl: "/uploads/forms/don-khoi-kien-tranh-chap-thua-ke.docx",
+    createdAt: "2026-03-21T08:00:00.000Z",
+  },
+  {
+    id: 22,
+    title: "Hợp đồng tặng cho quyền sử dụng đất và tài sản gắn liền với đất chuẩn công chứng",
+    category: "Đất đai & Hợp đồng",
+    description: "Mẫu hợp đồng tặng cho nhà đất giữa cha mẹ và con cái hoặc giữa các thành viên gia đình, phục vụ sang tên Sổ đỏ miễn thuế TNCN.",
+    content: `HỢP ĐỒNG TẶNG CHO QUYỀN SỬ DỤNG ĐẤT
+
+BÊN TẶNG CHO (BÊN A):
+Ông/Bà: ............................................................ CCCD: ....................
+
+BÊN ĐƯỢC TẶNG CHO (BÊN B):
+Ông/Bà: ............................................................ CCCD: ....................
+
+HAI BÊN THỎA THUẬN:
+Bên A tự nguyện tặng cho toàn bộ quyền sử dụng đất và tài sản gắn liền với đất tại địa chỉ .................................................... theo GCN số ........................ cho Bên B. Bên B đồng ý nhận món quà tặng cho trên mà không kèm theo bất kỳ điều kiện trái pháp luật nào.`,
+    matchPercent: 97,
+    fileUrl: "/uploads/forms/hop-dong-tang-cho-nha-dat.docx",
+    createdAt: "2026-03-22T08:00:00.000Z",
   }
 ];

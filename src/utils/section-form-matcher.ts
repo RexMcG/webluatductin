@@ -32,7 +32,7 @@ export function getAttachedFormForSection(
 
   // 1. Kiểm tra các từ khóa đặc thù theo từng mẫu chuẩn
   const rules: Array<{ formId: number; keywords: string[] }> = [
-    // HÔN NHÂN & GIA ĐÌNH
+    // HÔN NHÂN & GIA ĐÌNH (1 - 5)
     {
       formId: 1,
       keywords: ["thuận tình ly hôn", "đồng thuận ly hôn", "mẫu đơn thuận tình", "xin ly hôn thuận tình", "yêu cầu công nhận thuận tình"],
@@ -54,10 +54,10 @@ export function getAttachedFormForSection(
       keywords: ["trích lục kết hôn", "trích lục hộ tịch", "ủy quyền nộp hồ sơ kết hôn", "xin cấp lại giấy chứng nhận kết hôn"],
     },
 
-    // ĐẤT ĐAI & HỢP ĐỒNG / THỪA KẾ
+    // ĐẤT ĐAI & HỢP ĐỒNG (6 - 10)
     {
       formId: 6,
-      keywords: ["đặt cọc", "hợp đồng đặt cọc", "tiền cọc", "phạt cọc", "ký cọc mua nhà"],
+      keywords: ["thuê nhà", "thuê mặt bằng", "hợp đồng thuê nhà"],
     },
     {
       formId: 7,
@@ -65,81 +65,75 @@ export function getAttachedFormForSection(
     },
     {
       formId: 8,
-      keywords: ["tặng cho quyền sử dụng đất", "hợp đồng tặng cho", "cho tặng nhà đất", "tặng cho con"],
+      keywords: ["đặt cọc", "hợp đồng đặt cọc", "tiền cọc", "phạt cọc", "ký cọc mua nhà"],
     },
     {
       formId: 9,
-      keywords: ["tranh chấp đất đai", "hòa giải tại ubnd", "đơn yêu cầu hòa giải", "ubnd cấp xã hòa giải", "tranh chấp ranh giới"],
+      keywords: ["cấp đổi sổ đỏ", "cấp lại sổ đỏ", "đổi giấy chứng nhận quyền sử dụng đất"],
     },
     {
       formId: 10,
-      keywords: ["phân chia di sản", "thỏa thuận phân chia", "văn bản thỏa thuận thừa kế", "chia di sản thừa kế", "khai nhận di sản"],
+      keywords: ["hòa giải tranh chấp đất đai", "hòa giải tại ubnd", "đơn yêu cầu hòa giải", "ubnd cấp xã hòa giải", "tranh chấp ranh giới"],
     },
+
+    // DOANH NGHIỆP & ĐẦU TƯ (11 - 13)
     {
       formId: 11,
-      keywords: ["từ chối nhận di sản", "khước từ di sản", "văn bản từ chối thừa kế", "không nhận di sản"],
+      keywords: ["điều lệ công ty", "thành lập công ty", "thành lập tnhh", "điều lệ tnhh"],
     },
-
-    // LAO ĐỘNG & TIỀN LƯƠNG
     {
       formId: 12,
-      keywords: ["hợp đồng lao động", "ký hợp đồng lao động", "thử việc", "giao kết hợp đồng lao động"],
-    },
-    {
-      formId: 13,
-      keywords: ["nghỉ việc", "đơn xin thôi việc", "chấm dứt hợp đồng lao động", "đơn xin nghỉ việc"],
-    },
-    {
-      formId: 14,
-      keywords: ["sa thải", "kỷ luật sa thải", "khiếu nại sa thải", "sa thải trái luật", "đơn khiếu nại kỷ luật"],
-    },
-    {
-      formId: 15,
-      keywords: ["thỏa thuận chấm dứt", "biên bản thỏa thuận", "trợ cấp thôi việc", "thôi việc"],
-    },
-    {
-      formId: 16,
-      keywords: ["thai sản", "nghỉ thai sản", "chế độ thai sản", "trợ cấp thai sản"],
-    },
-
-    // TỐ TỤNG & KHỞI KIỆN
-    {
-      formId: 17,
-      keywords: ["mẫu số 23-ds", "đơn khởi kiện vụ án dân sự", "nộp đơn khởi kiện", "mẫu đơn khởi kiện chuẩn tòa án", "khởi kiện dân sự"],
-    },
-    {
-      formId: 18,
-      keywords: ["kinh doanh thương mại", "tranh chấp hợp đồng kinh tế", "đòi nợ doanh nghiệp", "thu hồi nợ", "khởi kiện thương mại"],
-    },
-    {
-      formId: 19,
-      keywords: ["bản tự khai dân sự", "tự khai tại tòa", "bản tự khai của đương sự"],
-    },
-    {
-      formId: 20,
-      keywords: ["biện pháp khẩn cấp tạm thời", "phong tỏa tài sản", "kê biên tài sản", "cấm xuất cảnh", "tạm thời"],
-    },
-    {
-      formId: 21,
-      keywords: ["kháng cáo", "đơn kháng cáo", "kháng nghị", "phúc thẩm", "không đồng ý bản án sơ thẩm"],
-    },
-
-    // HÀNH CHÍNH & DOANH NGHIỆP
-    {
-      formId: 22,
-      keywords: ["hợp đồng ủy quyền", "giấy ủy quyền tham gia", "đại diện theo ủy quyền", "ủy quyền luật sư"],
-    },
-    {
-      formId: 23,
       keywords: ["hợp đồng hợp tác kinh doanh", "hợp đồng bcc", "góp vốn đầu tư", "liên doanh không thành lập pháp nhân"],
     },
     {
-      formId: 24,
-      keywords: ["quyết toán thuế", "ủy quyền quyết toán thuế", "mẫu 08/uq-qtt-tncn", "thuế tncn"],
+      formId: 13,
+      keywords: ["tăng vốn điều lệ", "họp đại hội đồng cổ đông", "họp hội đồng thành viên", "biên bản họp tăng vốn"],
+    },
+
+    // LAO ĐỘNG & TIỀN LƯƠNG (14 - 15)
+    {
+      formId: 14,
+      keywords: ["hợp đồng lao động", "ký hợp đồng lao động", "giao kết hợp đồng lao động"],
     },
     {
-      formId: 25,
-      keywords: ["điều lệ công ty", "thành lập công ty", "thành lập tnhh", "điều lệ tnhh", "vốn điều lệ"],
+      formId: 15,
+      keywords: ["thử việc", "hợp đồng thử việc", "thỏa thuận bảo mật", "nda"],
+    },
+
+    // TỐ TỤNG & KHỞI KIỆN (16)
+    {
+      formId: 16,
+      keywords: ["mẫu số 23-ds", "đơn khởi kiện vụ án dân sự", "nộp đơn khởi kiện", "mẫu đơn khởi kiện chuẩn tòa án", "khởi kiện dân sự", "khởi kiện ra tòa"],
+    },
+
+    // THUẾ & TÀI CHÍNH (17)
+    {
+      formId: 17,
+      keywords: ["quyết toán thuế", "ủy quyền quyết toán thuế", "mẫu 08/uq-qtt-tncn", "thuế tncn"],
+    },
+
+    // THỪA KẾ & DI CHÚC (18 - 21)
+    {
+      formId: 18,
+      keywords: ["từ chối nhận di sản", "khước từ di sản", "văn bản từ chối thừa kế", "văn bản từ chối nhận di sản", "không nhận di sản", "từ chối thừa kế"],
+    },
+    {
+      formId: 19,
+      keywords: ["phân chia di sản", "thỏa thuận phân chia", "văn bản thỏa thuận thừa kế", "chia di sản thừa kế", "văn bản thỏa thuận phân chia"],
+    },
+    {
+      formId: 20,
+      keywords: ["khai nhận di sản", "khai nhận thừa kế", "văn bản khai nhận"],
+    },
+    {
+      formId: 21,
+      keywords: ["tranh chấp thừa kế", "khởi kiện tranh chấp thừa kế", "tranh chấp chia di sản", "khởi kiện di sản"],
+    },
+
+    // TẶNG CHO ĐẤT ĐAI (22)
+    {
+      formId: 22,
+      keywords: ["tặng cho quyền sử dụng đất", "hợp đồng tặng cho", "cho tặng nhà đất", "tặng cho con"],
     },
   ];
 
