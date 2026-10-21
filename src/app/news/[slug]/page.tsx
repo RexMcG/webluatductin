@@ -197,14 +197,8 @@ export default function NewsDetailPage() {
               <div className="h-8 md:h-10 w-3/4 bg-slate-300 rounded-xl" />
             </div>
 
-            {/* Author Meta */}
-            <div className="flex items-center gap-3 pb-6 border-b border-slate-100">
-              <div className="w-10 h-10 rounded-full bg-slate-200" />
-              <div className="space-y-1.5">
-                <div className="h-4 w-36 bg-slate-200 rounded" />
-                <div className="h-3 w-28 bg-slate-100 rounded" />
-              </div>
-            </div>
+            {/* Meta Bar Skeleton */}
+            <div className="h-10 w-full bg-slate-100 rounded-xl" />
 
             {/* Mindmap Box Skeleton */}
             <div className="h-44 w-full bg-purple-50/70 border border-purple-100 rounded-2xl p-4 space-y-2">
@@ -410,22 +404,13 @@ export default function NewsDetailPage() {
               {newsItem.title}
             </h1>
 
-            {/* Author info bar */}
-            <div className="flex flex-wrap items-center justify-between gap-3 text-slate-600 text-xs font-semibold uppercase tracking-wide bg-slate-50 p-3.5 md:p-4 rounded-2xl border border-slate-200 mb-6 md:mb-8">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-slate-200 border border-slate-300 overflow-hidden flex items-center justify-center shrink-0">
-                  <img src="/img/avatar1.png" alt="Luật sư" className="w-full h-full object-cover" />
-                </div>
-                <div>
-                  <div className="text-slate-900 font-bold text-sm">Luật sư</div>
-                  <div className="text-slate-500 text-[11px] lowercase">Đoàn Luật sư TP. Hồ Chí Minh</div>
-                </div>
+            {/* Metadata bar (Ngày đăng & Giai đoạn) */}
+            <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-50 px-4 py-3 rounded-2xl border border-slate-200 mb-6 md:mb-8">
+              <div className="flex items-center gap-2 text-slate-600 text-xs sm:text-sm font-semibold">
+                <span className="material-symbols-outlined text-base text-slate-500">calendar_today</span>
+                <span>Ngày đăng: <strong className="text-slate-900 font-bold">{new Date(newsItem.publishedAt || Date.now()).toLocaleDateString("vi-VN")}</strong></span>
               </div>
               <div className="flex items-center gap-3 text-slate-500 text-[11px] md:text-xs">
-                <span className="flex items-center gap-1">
-                  <span className="material-symbols-outlined text-sm">calendar_today</span>
-                  {new Date(newsItem.publishedAt || Date.now()).toLocaleDateString("vi-VN")}
-                </span>
 
                 {/* Interactive Stages Hover Pill & Popup */}
                 <div className="relative group/stages inline-block">
@@ -899,25 +884,18 @@ export default function NewsDetailPage() {
           {newsItem.title}
         </h1>
 
-        <div className="flex flex-wrap items-center justify-between gap-4 text-slate-600 text-sm font-semibold uppercase tracking-wide bg-slate-50 p-4 rounded-2xl border border-slate-200">
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-full bg-slate-200 border border-slate-300 overflow-hidden flex items-center justify-center">
-              <img src="/img/avatar1.png" alt="Luật sư" className="w-full h-full object-cover" />
-            </div>
-            <div>
-              <div className="text-slate-900 font-bold text-sm">Luật sư</div>
-              <div className="text-slate-500 text-xs lowercase">Đoàn Luật sư TP. Hồ Chí Minh</div>
-            </div>
+        <div className="flex flex-wrap items-center justify-between gap-4 text-slate-600 text-sm font-semibold bg-slate-50 px-4 py-3 rounded-2xl border border-slate-200">
+          <div className="flex items-center gap-2 text-slate-600 text-xs sm:text-sm">
+            <span className="material-symbols-outlined text-base text-slate-500">calendar_today</span>
+            <span>Ngày đăng: <strong className="text-slate-900 font-bold">{new Date(newsItem.publishedAt || Date.now()).toLocaleDateString("vi-VN")}</strong></span>
           </div>
           <div className="flex items-center gap-4 text-xs font-semibold text-slate-500">
-            <span className="flex items-center gap-1">
-              <span className="material-symbols-outlined text-sm text-slate-400">calendar_today</span>
-              {new Date(newsItem.publishedAt || Date.now()).toLocaleDateString("vi-VN")}
-            </span>
-            <span className="flex items-center gap-1">
-              <span className="material-symbols-outlined text-sm text-slate-400">toc</span>
-              {sections.length} Mục chuyên sâu
-            </span>
+            {sections.length > 0 && (
+              <span className="flex items-center gap-1.5 font-bold text-[#641D06] bg-amber-50 border border-amber-200 px-3 py-1 rounded-full">
+                <span className="material-symbols-outlined text-sm">format_list_bulleted</span>
+                {sections.length} Giai đoạn chuyên sâu
+              </span>
+            )}
           </div>
         </div>
       </header>
