@@ -121,7 +121,6 @@ export default function AppointmentPage() {
         if (!value) return "Vui lòng chọn lĩnh vực pháp lý.";
         return "";
       case "service":
-        if (!value) return "Vui lòng chọn dịch vụ cụ thể.";
         return "";
       case "description":
         if (!value || value.trim().length < 10) {
@@ -155,9 +154,6 @@ export default function AppointmentPage() {
 
       const catErr = validateField("category", formData.category);
       if (catErr) newErrors.category = catErr;
-
-      const srvErr = validateField("service", formData.service);
-      if (srvErr) newErrors.service = srvErr;
 
       const descErr = validateField("description", formData.description);
       if (descErr) newErrors.description = descErr;
@@ -244,7 +240,7 @@ export default function AppointmentPage() {
         email: formData.email.trim() || "khachhang@ductinlaw.vn",
         appointmentDate: formData.date,
         appointmentTime: timeClean + ":00",
-        service: `${selectedCategoryLabel} - ${selectedServiceLabel}`,
+        service: selectedCategoryLabel,
         notes: `[Hình thức: ${formData.consultType === "offline" ? "Tại Văn phòng" : "Online"}] [Luật sư: ${formData.attorney}] [Địa chỉ: ${formData.address || "Chưa nhập"}] ${formData.description}`,
         consultType: formData.consultType,
         attorney: formData.attorney,
@@ -553,43 +549,10 @@ export default function AppointmentPage() {
                     )}
                   </div>
 
-                  {/* 1.3 Dịch vụ cụ thể */}
-                  <div className="mb-6">
-                    <label className="block text-sm font-bold text-slate-900 mb-2 uppercase tracking-wider" htmlFor="service">
-                      3. Dịch vụ pháp lý cụ thể <span className="text-rose-600">*</span>
-                    </label>
-                    <select
-                      className={`w-full border-2 rounded-xl p-3.5 bg-white text-slate-900 font-medium text-sm md:text-base outline-none transition-all ${
-                        errors.service && touched.service
-                          ? "border-rose-500 bg-rose-50/20"
-                          : "border-slate-300 focus:border-[#641D06]"
-                      }`}
-                      id="service"
-                      name="service"
-                      value={formData.service}
-                      onChange={handleChange}
-                      onBlur={() => handleBlur("service")}
-                      required
-                    >
-                      <option value="">-- Vui lòng chọn dịch vụ cụ thể --</option>
-                      {SERVICE_TYPES.map((srv) => (
-                        <option key={srv.value} value={srv.value}>
-                          {srv.label}
-                        </option>
-                      ))}
-                    </select>
-                    {errors.service && touched.service && (
-                      <p className="text-rose-600 text-xs mt-1.5 flex items-center gap-1 font-semibold">
-                        <span className="material-symbols-outlined text-sm">error</span>
-                        {errors.service}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* 1.4 Mô tả vụ việc (BẮT BUỘC ĐỂ LUẬT SƯ CHUẨN BỊ) */}
+                  {/* 1.3 Mô tả vụ việc (BẮT BUỘC ĐỂ LUẬT SƯ CHUẨN BỊ) */}
                   <div className="mb-8">
                     <label className="block text-sm font-bold text-slate-900 mb-2 uppercase tracking-wider" htmlFor="description">
-                      4. Tóm tắt nội dung vụ việc / Câu hỏi cần tư vấn <span className="text-rose-600">*</span>
+                      3. Tóm tắt nội dung vụ việc / Câu hỏi cần tư vấn <span className="text-rose-600">*</span>
                     </label>
                     <textarea
                       className={`w-full border-2 rounded-xl p-3.5 bg-white text-slate-900 text-sm md:text-base outline-none resize-y transition-all ${
@@ -974,13 +937,6 @@ export default function AppointmentPage() {
                     </div>
 
                     <div className="flex flex-col sm:flex-row justify-between sm:items-center pb-3 border-b border-slate-200 gap-1 sm:gap-4">
-                      <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Dịch vụ cụ thể:</span>
-                      <span className="text-sm md:text-base font-bold text-slate-900">
-                        {selectedServiceLabel}
-                      </span>
-                    </div>
-
-                    <div className="flex flex-col sm:flex-row justify-between sm:items-center pb-3 border-b border-slate-200 gap-1 sm:gap-4">
                       <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Luật sư phụ trách:</span>
                       <span className="text-sm md:text-base font-bold text-slate-900">
                         {formData.attorney}
@@ -1064,13 +1020,6 @@ export default function AppointmentPage() {
                     <span className="text-slate-500 font-medium shrink-0">Lĩnh vực:</span>
                     <span className="text-[#641D06] font-bold text-right">
                       {selectedCategoryLabel}
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between items-start gap-3 pb-3 border-b border-slate-100">
-                    <span className="text-slate-500 font-medium shrink-0">Dịch vụ:</span>
-                    <span className="text-slate-900 font-semibold text-right text-xs leading-snug">
-                      {selectedServiceLabel}
                     </span>
                   </div>
 
