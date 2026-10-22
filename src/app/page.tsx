@@ -268,8 +268,8 @@ export default function Home() {
                   </>
                 )}
               </span>
-              <span className="text-accent drop-shadow-sm text-xl sm:text-3xl md:text-4xl lg:text-[42px] block mt-1.5 font-bold">
-                {siteContent.home.hero.titleAccent || "Điểm Tựa Pháp Lý Kết Nối Thành Công"}
+              <span className="text-accent drop-shadow-sm text-base sm:text-xl md:text-2xl lg:text-[26px] block mt-2 md:mt-3 font-bold tracking-wide">
+                {siteContent.home.hero.titleAccent || "Điểm Tựa Công Lý - Kết Nối Thành Công"}
               </span>
             </h1>
 
