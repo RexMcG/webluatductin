@@ -62,7 +62,7 @@ export default function Header() {
               href="/news"
               className={`${isActive("/news")} uppercase text-[12.5px] xl:text-[14px] 2xl:text-[15px] whitespace-nowrap`}
             >
-              Hỏi đáp pháp luật - Bài viết
+              Bài viết
             </Link>
 
             {/* Direct Link: Biểu mẫu */}
@@ -173,7 +173,7 @@ export default function Header() {
               onClick={() => setIsMobileMenuOpen(false)}
               className={isMobileActive("/news")}
             >
-              Hỏi đáp pháp luật - Bài viết
+              Bài viết
             </Link>
             <Link 
               href="/ai-form-library" 

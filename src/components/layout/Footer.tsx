@@ -234,7 +234,7 @@ export default function Footer() {
                 </Link>
                 <span className="text-white/30">•</span>
                 <Link href="/news" className="text-amber-300 hover:underline font-bold">
-                  Hỏi đáp pháp luật - Bài viết
+                  Bài viết
                 </Link>
               </div>
 
