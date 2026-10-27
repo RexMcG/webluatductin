@@ -24,15 +24,12 @@ async function postArticle() {
     content: '<p>Tranh chấp đất đai là một trong những dạng tranh chấp dân sự phổ biến và phức tạp nhất hiện nay. Quy trình khởi kiện yêu cầu đương sự phải tuân thủ nghiêm ngặt các quy định về điều kiện tiền khởi kiện, hòa giải bắt buộc và thời hạn tố tụng theo Luật Đất đai 2024 và Bộ luật Tố tụng Dân sự 2015.</p>',
     layoutStyle: 'word-navigation',
     diagramType: 'flowchart',
-    flowchart: `flowchart TD
-    A["1. Phát sinh tranh chấp đất đai"] --> B["2. Hòa giải bắt buộc tại UBND cấp xã\n(Theo Điều 236 Luật Đất đai 2024)"]
-    B -->|Hòa giải thành| C["Lập biên bản hòa giải thành\nĐăng ký biến động quyền sử dụng đất"]
-    B -->|Hòa giải không thành| D["3. Chuẩn bị hồ sơ & Đơn khởi kiện\n(Mẫu số 23-DS chuẩn TAND Tối cao)"]
-    D --> E["4. Nộp đơn tại TAND cấp có thẩm quyền\n& Nộp tạm ứng án phí sơ thẩm"]
-    E --> F["5. Tòa án thụ lý vụ án dân sự\nThẩm định, đo vẽ hiện trạng tại chỗ"]
-    F --> G["Phiên họp kiểm tra giao nộp công khai chứng cứ & Hòa giải tại Tòa"]
-    G -->|Hòa giải thành| H["Tòa ra Quyết định công nhận sự thỏa thuận"]
-    G -->|Hòa giải không thành| I["Mở phiên tòa xét xử sơ thẩm & Tuyên án"]`,
+    flowchart: `Quy trình: 5 Bước Khởi Kiện Tranh Chấp Đất Đai Tại Tòa Án Nhân Dân Chi Tiết Nhất 2026
+1. Hòa Giải Bắt Buộc Tại UBND Cấp Xã | Điều kiện tiền khởi kiện bắt buộc theo Điều 236 Luật Đất đai 2024 | Nộp Đơn yêu cầu hòa giải tranh chấp đất đai tại UBND cấp xã/phường, UBND thành lập Hội đồng hòa giải trong thời hạn 30 ngày, Nhận Biên bản hòa giải không thành làm điều kiện nộp đơn khởi kiện Tòa án
+2. Xác Định Tòa Án Thẩm Quyền & Soạn Đơn | Thẩm quyền theo lãnh thổ nơi có bất động sản tọa lạc | TAND cấp huyện nơi có đất thụ lý giải quyết sơ thẩm, Soạn thảo Đơn khởi kiện chuẩn Mẫu số 23-DS theo Nghị quyết 01/2017/NQ-HĐTP, Nêu rõ thông tin đương sự và yêu cầu buộc tháo dỡ công trình lấn chiếm
+3. Thu Thập Trọn Bộ Chứng Cứ Pháp Lý | Nghĩa vụ chứng minh quyền sử dụng đất theo Điều 91 BLTTDS | Bản chính Đơn khởi kiện & Biên bản hòa giải không thành UBND, Bản sao chứng thực CCCD & Giấy chứng nhận quyền sử dụng đất (Sổ đỏ), Trích lục bản đồ địa chính thửa đất & trích đo ranh giới hiện trạng, Cung cấp Hợp đồng đặt cọc hoặc Hợp đồng chuyển nhượng nhà đất liên quan
+4. Nộp Đơn Khởi Kiện & Tạm Ứng Án Phí | Quy trình thụ lý vụ án dân sự theo Điều 191 BLTTDS 2015 | Nộp đơn trực tiếp tại bộ phận Một cửa hoặc qua đường bưu điện TAND, Thẩm phán xem xét hồ sơ và ban hành Thông báo nộp tạm ứng án phí, Nộp tiền tạm ứng án phí tại Chi cục Thi hành án dân sự trong 7 ngày, Nhận Thông báo thụ lý vụ án dân sự chính thức
+5. Thẩm Định Tại Chỗ, Hòa Giải & Xét Xử | Quá trình chuẩn bị xét xử kéo dài từ 4 đến 6 tháng | Tòa án phối hợp cơ quan địa chính đo vẽ hiện trạng & định giá đất tranh chấp, Mở phiên họp kiểm tra việc giao nộp công khai chứng cứ và hòa giải tại Tòa, Tòa ra Quyết định công nhận sự thỏa thuận nếu hòa giải thành, Mở Phiên tòa sơ thẩm xét xử công khai và tuyên Bản án dân sự nếu không hòa giải được`,
     sections: [
       {
         id: 'sec-1',
@@ -138,17 +135,19 @@ async function postArticle() {
     status: 'published'
   };
 
-  console.log('Sending create request for article...');
-  const createRes = await fetch('https://webluat-backend.onrender.com/api/v1/news', {
-    method: 'POST',
+  console.log('Sending full update request for article 19...');
+  const updateRes = await fetch('https://webluat-backend.onrender.com/api/v1/news/19', {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token
     },
     body: JSON.stringify(articlePayload)
   });
-  const createData = await createRes.json();
-  console.log('Create article response:', JSON.stringify(createData, null, 2));
+  const updateData = await updateRes.json();
+  console.log('Update result status:', updateData?.data?.id ? 'SUCCESS' : 'FAILED');
+  console.log('Updated sections count:', updateData?.data?.sections?.length);
+  console.log('Updated flowchart length:', updateData?.data?.flowchart?.length);
 }
 
 postArticle().catch(err => console.error('Error:', err));

@@ -127,7 +127,50 @@ export function parsePhaseFlowData(rawText: string): PhaseFlowData | null {
         if (phases.length > 0) return { title, phases };
       }
     } catch {
-      // Fallback to line by line parsing
+      // Fallback
+    }
+  }
+
+  // Support Mermaid formatted flowchart (e.g. flowchart TD \n A["..."] --> B["..."])
+  if (trimmed.includes("-->") || trimmed.toLowerCase().startsWith("flowchart")) {
+    const nodeRegex = /(\w+)\["([^"]+)"\]|(\w+)\[([^\]]+)\]/g;
+    let nodeMatch;
+    const seenNodes = new Set<string>();
+    while ((nodeMatch = nodeRegex.exec(trimmed)) !== null) {
+      const nodeContent = (nodeMatch[2] || nodeMatch[4] || "").trim();
+      if (!nodeContent || seenNodes.has(nodeContent)) continue;
+      seenNodes.add(nodeContent);
+
+      const parts = nodeContent.split(/\n|\\n/);
+      const rawHeader = parts[0].trim();
+      const stepMatch = rawHeader.match(/^(\d+|Bước \d+)[\.:\s]*(.*)/i);
+      const stepNum = stepMatch ? stepMatch[1].replace(/Bước\s*/i, "").trim() : String(phases.length + 1);
+      const mainTitle = stepMatch ? stepMatch[2].trim() || rawHeader : rawHeader;
+
+      const theme = PERFECT_PHASE_THEMES[phases.length % PERFECT_PHASE_THEMES.length];
+      const subSteps: PhaseStepItem[] = [];
+
+      parts.slice(1).forEach((detail, dIdx) => {
+        const cleanDetail = detail.replace(/^[-(•\s]+/, "").replace(/[)\]\s]+$/, "").trim();
+        if (cleanDetail) {
+          subSteps.push({
+            code: `Bước ${stepNum}.${dIdx + 1}`,
+            title: cleanDetail,
+          });
+        }
+      });
+
+      phases.push({
+        phaseNumber: Number(stepNum) || phases.length + 1,
+        label: `GIAI ĐOẠN ${stepNum}`,
+        mainTitle,
+        theme,
+        subSteps,
+      });
+    }
+
+    if (phases.length > 0) {
+      return { title: title || "SƠ ĐỒ QUY TRÌNH THỰC HIỆN TỪNG BƯỚC", phases };
     }
   }
 
