@@ -8,8 +8,13 @@ import FlowchartVisual from "@/components/common/FlowchartVisual";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import DOMPurify from "isomorphic-dompurify";
-import InlineAttachedForm from "@/components/common/InlineAttachedForm";
-import { getAttachedFormForSection } from "@/utils/section-form-matcher";
+
+const sanitizeContent = (html: string) => {
+  return DOMPurify.sanitize(html || "", {
+    ADD_ATTR: ["target", "rel", "class", "href", "title", "data-form-id"],
+    ADD_TAGS: ["strong", "b", "em", "i", "u", "span", "a", "p", "br", "ul", "ol", "li", "h1", "h2", "h3", "h4", "h5", "h6", "blockquote", "code", "pre"],
+  });
+};
 
 export default function NewsDetailPage() {
   const params = useParams();
@@ -561,38 +566,29 @@ export default function NewsDetailPage() {
 
             {/* Continuous Sections without collapsing */}
             <div className="space-y-6 md:space-y-7">
-              {(() => {
-                const usedFormIds = new Set<number>();
-                return sections.map((section: any, idx: number) => {
-                  const attachedForm = getAttachedFormForSection(section, newsItem, usedFormIds);
-                  return (
-                    <section
-                      key={section.id}
-                      id={`heading-${section.id}`}
-                      data-section-index={idx}
-                      className="scroll-mt-24 border-b border-slate-100 pb-5 md:pb-6 last:border-b-0"
-                    >
-                      {/* Section Title */}
-                      <div className="mb-2 md:mb-2.5">
-                        <h2 className="text-lg sm:text-2xl font-bold text-[#641D06] font-sans tracking-tight leading-snug">
-                          {section.title.startsWith(section.number) || /^\d+\./.test(section.title) ? section.title : `${section.number}. ${section.title}`}
-                        </h2>
-                      </div>
+              {sections.map((section: any, idx: number) => {
+                return (
+                  <section
+                    key={section.id}
+                    id={`heading-${section.id}`}
+                    data-section-index={idx}
+                    className="scroll-mt-24 border-b border-slate-100 pb-5 md:pb-6 last:border-b-0"
+                  >
+                    {/* Section Title */}
+                    <div className="mb-2 md:mb-2.5">
+                      <h2 className="text-lg sm:text-2xl font-bold text-[#641D06] font-sans tracking-tight leading-snug">
+                        {section.title.startsWith(section.number) || /^\d+\./.test(section.title) ? section.title : `${section.number}. ${section.title}`}
+                      </h2>
+                    </div>
 
-                      {/* Section Full Body Content */}
-                      <div
-                        className="prose prose-slate max-w-none text-slate-800 leading-relaxed text-sm md:text-base prose-p:my-2 prose-p:leading-relaxed prose-ul:my-2 prose-li:my-1 prose-strong:text-slate-900 [&>*:last-child]:!mb-0 [&>*:first-child]:!mt-0"
-                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(section.content || '') }}
-                      />
-
-                      {/* Biểu mẫu đính kèm giai đoạn này (Phương án C: Inline Form Attachment) */}
-                      {attachedForm && (
-                        <InlineAttachedForm form={attachedForm} />
-                      )}
-                    </section>
-                  );
-                });
-              })()}
+                    {/* Section Full Body Content */}
+                    <div
+                      className="prose prose-slate max-w-none text-slate-800 leading-relaxed text-sm md:text-base prose-p:my-2 prose-p:leading-relaxed prose-ul:my-2 prose-li:my-1 prose-strong:text-slate-900 [&>*:last-child]:!mb-0 [&>*:first-child]:!mt-0"
+                      dangerouslySetInnerHTML={{ __html: sanitizeContent(section.content || '') }}
+                    />
+                  </section>
+                );
+              })}
             </div>
 
             {/* End of article notice */}
@@ -960,12 +956,9 @@ export default function NewsDetailPage() {
       {sections.length > 0 ? (
         isWordStyle ? (
           <div className="space-y-6 mb-14 text-slate-800">
-            {(() => {
-              const usedFormIds = new Set<number>();
-              return sections.map((section: any, idx: number) => {
-                const attachedForm = getAttachedFormForSection(section, newsItem, usedFormIds);
-                const isOpen = !!openSections[section.id];
-                return (
+            {sections.map((section: any, idx: number) => {
+              const isOpen = !!openSections[section.id];
+              return (
                   <section
                     key={section.id}
                     id={`heading-${section.id}`}
@@ -989,12 +982,6 @@ export default function NewsDetailPage() {
                           <h2 className="text-xl md:text-2xl font-black text-slate-900 font-sans tracking-tight group-hover:text-[#641D06] transition-colors leading-snug">
                             {section.number}. {section.title}
                           </h2>
-                          {attachedForm && !isOpen && (
-                            <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#641D06] bg-amber-100 border border-amber-300 px-2 py-0.5 rounded-md mt-1.5 shadow-2xs">
-                              <span className="material-symbols-outlined text-xs">attach_file</span>
-                              Có đính kèm: {attachedForm.title}
-                            </span>
-                          )}
                         </div>
                       </div>
                     </button>
@@ -1003,108 +990,76 @@ export default function NewsDetailPage() {
                       <div className="pl-8 sm:pl-9 mt-3 text-slate-800 text-base md:text-[17px] leading-relaxed">
                         <div
                           className="prose prose-slate max-w-none prose-p:my-2 prose-ul:my-2 prose-li:my-1 prose-strong:text-slate-900 [&>*:last-child]:!mb-0 [&>*:first-child]:!mt-0"
-                          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(section.content || '') }}
+                          dangerouslySetInnerHTML={{ __html: sanitizeContent(section.content || '') }}
                         />
-                        {attachedForm && (
-                          <div className="mt-4">
-                            <InlineAttachedForm form={attachedForm} />
-                          </div>
-                        )}
                       </div>
                     )}
                   </section>
                 );
-              });
-            })()}
+              })}
           </div>
         ) : (
           <div className="space-y-4 mb-12">
-            {(() => {
-              const usedFormIds = new Set<number>();
-              return sections.map((section: any, idx: number) => {
-                const attachedForm = getAttachedFormForSection(section, newsItem, usedFormIds);
-                const isOpen = !!openSections[section.id];
-                return (
-                  <div
-                    key={section.id}
-                    id={`heading-${section.id}`}
-                    data-section-index={idx}
-                    className={`scroll-mt-24 bg-white rounded-2xl border transition-all duration-200 overflow-hidden ${
-                      isOpen ? "border-amber-400 shadow-md ring-1 ring-amber-400/30" : "border-slate-200 shadow-sm hover:border-slate-300"
-                    }`}
+            {sections.map((section: any, idx: number) => {
+              const isOpen = !!openSections[section.id];
+              return (
+                <div
+                  key={section.id}
+                  id={`heading-${section.id}`}
+                  data-section-index={idx}
+                  className={`scroll-mt-24 bg-white rounded-2xl border transition-all duration-200 overflow-hidden ${
+                    isOpen ? "border-amber-400 shadow-md ring-1 ring-amber-400/30" : "border-slate-200 shadow-sm hover:border-slate-300"
+                  }`}
+                >
+                  <button
+                    type="button"
+                    onClick={() => toggleSection(section.id)}
+                    className="w-full p-5 md:p-6 text-left flex items-start justify-between gap-4 transition-colors"
                   >
-                    <button
-                      type="button"
-                      onClick={() => toggleSection(section.id)}
-                      className="w-full p-5 md:p-6 text-left flex items-start justify-between gap-4 transition-colors"
-                    >
-                      <div className="flex items-start gap-4">
-                        <span className="w-10 h-10 rounded-xl bg-amber-100 text-amber-900 font-black text-base flex items-center justify-center shrink-0">
-                          {section.number}
-                        </span>
-                        <div>
-                          <h3 className="text-lg md:text-xl font-bold text-slate-900 leading-snug">
-                            {section.title}
-                          </h3>
-                          {section.summary && (
-                            <p className="text-slate-500 text-xs md:text-sm mt-1 leading-relaxed">
-                              {section.summary}
-                            </p>
-                          )}
-                          {attachedForm && (
-                            <div className="mt-2">
-                              <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#641D06] bg-amber-100/90 border border-amber-300 px-2 py-0.5 rounded-md shadow-2xs">
-                                <span className="material-symbols-outlined text-xs">attach_file</span>
-                                Có mẫu đính kèm: {attachedForm.title}
-                              </span>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-
-                      <div
-                        className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-transform duration-200 ${
-                          isOpen ? "bg-amber-100 text-amber-900 rotate-180" : "bg-slate-100 text-slate-500"
-                        }`}
-                      >
-                        <span className="material-symbols-outlined text-xl">expand_more</span>
-                      </div>
-                    </button>
-
-                    {isOpen && (
-                      <div className="px-5 md:px-6 pb-6 pt-2 border-t border-slate-100 text-slate-800 leading-relaxed text-base">
-                        <div
-                          className="prose prose-slate max-w-none prose-p:my-2 prose-headings:font-bold prose-headings:text-slate-900 prose-ul:my-2 prose-li:my-1 [&>*:last-child]:!mb-0 [&>*:first-child]:!mt-0"
-                          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(section.content || '') }}
-                        />
-                        {attachedForm && (
-                          <div className="mt-4">
-                            <InlineAttachedForm form={attachedForm} />
-                          </div>
+                    <div className="flex items-start gap-4">
+                      <span className="w-10 h-10 rounded-xl bg-amber-100 text-amber-900 font-black text-base flex items-center justify-center shrink-0">
+                        {section.number}
+                      </span>
+                      <div>
+                        <h3 className="text-lg md:text-xl font-bold text-slate-900 leading-snug">
+                          {section.title}
+                        </h3>
+                        {section.summary && (
+                          <p className="text-slate-500 text-xs md:text-sm mt-1 leading-relaxed">
+                            {section.summary}
+                          </p>
                         )}
                       </div>
-                    )}
-                  </div>
-                );
-              });
-            })()}
+                    </div>
+
+                    <div
+                      className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-transform duration-200 ${
+                        isOpen ? "bg-amber-100 text-amber-900 rotate-180" : "bg-slate-100 text-slate-500"
+                      }`}
+                    >
+                      <span className="material-symbols-outlined text-xl">expand_more</span>
+                    </div>
+                  </button>
+
+                  {isOpen && (
+                    <div className="px-5 md:px-6 pb-6 pt-2 border-t border-slate-100 text-slate-800 leading-relaxed text-base">
+                      <div
+                        className="prose prose-slate max-w-none prose-p:my-2 prose-headings:font-bold prose-headings:text-slate-900 prose-ul:my-2 prose-li:my-1 [&>*:last-child]:!mb-0 [&>*:first-child]:!mt-0"
+                        dangerouslySetInnerHTML={{ __html: sanitizeContent(section.content || '') }}
+                      />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         )
       ) : (
         <div className="space-y-6 mb-12">
           <div
             className="prose prose-lg max-w-none text-slate-800 leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(newsItem.content || '') }}
+            dangerouslySetInnerHTML={{ __html: sanitizeContent(newsItem.content || '') }}
           />
-          {/* For non-section articles, check if any form matches article title/category */}
-          {(() => {
-            const singleMatched = getAttachedFormForSection(
-              { title: newsItem.title, content: newsItem.content, summary: newsItem.summary },
-              newsItem,
-              new Set<number>()
-            );
-            return singleMatched ? <InlineAttachedForm form={singleMatched} /> : null;
-          })()}
         </div>
       )}
 
