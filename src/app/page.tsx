@@ -252,13 +252,13 @@ export default function Home() {
     <>
       {/* Hero Section */}
       <section
-        className="relative w-full bg-cover bg-[right_center] bg-no-repeat border-b-[7px] border-[#641D06] overflow-hidden"
+        className="relative w-full bg-cover bg-[right_top] bg-no-repeat border-b-[7px] border-[#641D06] overflow-hidden"
         style={{ backgroundImage: "url('/img/herobanner.webp')" }}
       >
         {/* Soft readable gradient for mobile / narrow viewports where text crosses statue */}
         <div className="md:hidden absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-transparent z-0 pointer-events-none" />
 
-        <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 md:py-16 lg:py-20 flex items-center min-h-[420px] sm:min-h-[460px] md:min-h-[520px] lg:min-h-[580px]">
+        <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 flex items-center min-h-[460px] sm:min-h-[500px] md:min-h-[560px] lg:min-h-[620px]">
           <div className="w-full md:max-w-[50%] lg:max-w-[48%] xl:max-w-[46%] flex flex-col items-start text-left space-y-3 sm:space-y-4 md:space-y-5">
             <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-[44px] font-black font-sans leading-[1.2] tracking-tight">
               <span className="text-primary drop-shadow-sm block">
