@@ -48,14 +48,14 @@ export default function ServicesPage() {
         <div className="md:hidden absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-transparent z-0 pointer-events-none" />
 
         <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 flex items-center min-h-[460px] sm:min-h-[500px] md:min-h-[560px] lg:min-h-[620px]">
-          <div className="w-full md:max-w-[50%] lg:max-w-[48%] xl:max-w-[46%] space-y-3 sm:space-y-4 md:space-y-5 flex flex-col items-start text-left">
-            <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-[44px] font-black font-sans leading-[1.2] text-primary tracking-tight">
+          <div className="w-full md:max-w-[52%] lg:max-w-[50%] space-y-4 md:space-y-6 flex flex-col items-start text-left">
+            <h1 className="text-3xl sm:text-5xl md:text-5xl lg:text-6xl font-black font-sans leading-[1.15] text-primary tracking-tight">
               {content.servicesPage.hero.title} <br />{" "}
-              <span className="text-accent text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold tracking-wide block mt-1.5 md:mt-2.5">
+              <span className="text-accent text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide block mt-2 md:mt-3">
                 {content.servicesPage.hero.titleAccent}
               </span>
             </h1>
-            <p className="font-body-md text-sm sm:text-base md:text-lg text-slate-800 font-medium leading-relaxed">
+            <p className="font-body-md text-base sm:text-lg md:text-xl text-slate-800 font-semibold leading-relaxed max-w-xl">
               {content.servicesPage.hero.description}
             </p>
           </div>

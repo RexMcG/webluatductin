@@ -259,8 +259,8 @@ export default function Home() {
         <div className="md:hidden absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-transparent z-0 pointer-events-none" />
 
         <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 flex items-center min-h-[460px] sm:min-h-[500px] md:min-h-[560px] lg:min-h-[620px]">
-          <div className="w-full md:max-w-[50%] lg:max-w-[48%] xl:max-w-[46%] flex flex-col items-start text-left space-y-3 sm:space-y-4 md:space-y-5">
-            <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-[44px] font-black font-sans leading-[1.2] tracking-tight">
+          <div className="w-full md:max-w-[52%] lg:max-w-[50%] flex flex-col items-start text-left space-y-4 md:space-y-5">
+            <h1 className="text-2xl sm:text-4xl md:text-[42px] lg:text-[48px] xl:text-[52px] font-black font-sans leading-[1.2] tracking-tight">
               <span className="text-primary drop-shadow-sm block">
                 {siteContent.home.hero.titlePrimary?.includes(siteContent.home.hero.titleSecondary) ? (
                   <span className="inline-block">{siteContent.home.hero.titlePrimary}</span>
@@ -271,16 +271,16 @@ export default function Home() {
                   </>
                 )}
               </span>
-              <span className="text-accent drop-shadow-sm text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl block mt-1.5 md:mt-2.5 font-bold tracking-wide">
+              <span className="text-accent drop-shadow-sm text-base sm:text-lg md:text-xl lg:text-2xl xl:text-[26px] block mt-2 md:mt-3 font-bold tracking-wide">
                 {siteContent.home.hero.titleAccent || "Điểm Tựa Công Lý - Kết Nối Thành Công"}
               </span>
             </h1>
 
             {/* Smart Navigation Search Bar */}
-            <div ref={searchRef} className="mt-2 md:mt-4 w-full relative max-w-full md:max-w-[520px] lg:max-w-[560px] z-40">
+            <div ref={searchRef} className="mt-2 md:mt-4 w-full relative max-w-full md:max-w-[560px] lg:max-w-[620px] z-40">
               <form onSubmit={handleSearchSubmit} className="relative w-full shadow-2xl rounded-2xl">
                 <input
-                  className="w-full h-13 sm:h-14 md:h-15 lg:h-17 pl-5 sm:pl-6 pr-16 md:pr-18 border-[3px] border-accent rounded-2xl focus:ring-4 focus:ring-accent/30 focus:border-accent bg-white text-slate-900 placeholder:text-slate-400 outline-none text-sm sm:text-base md:text-lg font-medium shadow-inner"
+                  className="w-full h-14 sm:h-16 md:h-18 pl-6 sm:pl-7 pr-18 md:pr-20 border-[3px] border-accent rounded-2xl focus:ring-4 focus:ring-accent/30 focus:border-accent bg-white text-slate-900 placeholder:text-slate-400 outline-none text-base sm:text-lg md:text-xl font-medium shadow-inner"
                   id="hero-search"
                   placeholder={siteContent.home.hero.searchPlaceholder}
                   type="text"
@@ -293,7 +293,7 @@ export default function Home() {
                 />
                 <button
                   type="submit"
-                  className="material-symbols-outlined absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 bg-[#641D06] hover:bg-black text-amber-400 w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 lg:w-12 lg:h-12 rounded-xl flex items-center justify-center text-xl sm:text-2xl md:text-2xl transition-transform hover:scale-105 cursor-pointer border border-amber-500/40 shadow-md"
+                  className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 bg-[#641D06] hover:bg-black text-amber-400 w-10 h-10 sm:w-12 sm:h-12 md:w-13 md:h-13 rounded-xl flex items-center justify-center text-xl sm:text-2xl md:text-3xl transition-transform hover:scale-105 cursor-pointer border border-amber-500/40 shadow-md"
                   id="hero-search-btn"
                   title="Tìm kiếm & Trỏ ngay đến trang"
                 >
@@ -354,14 +354,14 @@ export default function Home() {
 
             <div className="flex flex-wrap items-center justify-start gap-3 sm:gap-4 mt-2">
               <Link
-                className="bg-primary hover:bg-secondary text-white h-11 sm:h-12 md:h-13 px-5 sm:px-6 md:px-7 rounded-xl font-label-sm text-xs sm:text-sm md:text-base font-bold transition-all inline-flex items-center shadow-lg gap-2 cursor-pointer"
+                className="bg-primary hover:bg-secondary text-white h-12 sm:h-13 md:h-14 px-6 sm:px-7 md:px-8 rounded-xl font-label-sm text-sm sm:text-base md:text-lg font-bold transition-all inline-flex items-center shadow-lg gap-2 cursor-pointer"
                 href="/appointment"
               >
                 <span className="material-symbols-outlined text-lg sm:text-xl">calendar_month</span>
                 {siteContent.home.hero.ctaButtonText || "Đặt Lịch Tham Vấn Luật Sư"}
               </Link>
               <Link
-                className="bg-accent hover:opacity-90 text-white h-11 sm:h-12 md:h-13 px-5 sm:px-6 md:px-7 rounded-xl font-label-sm text-xs sm:text-sm md:text-base font-bold transition-all inline-flex items-center shadow-lg gap-2 cursor-pointer"
+                className="bg-accent hover:opacity-90 text-white h-12 sm:h-13 md:h-14 px-6 sm:px-7 md:px-8 rounded-xl font-label-sm text-sm sm:text-base md:text-lg font-bold transition-all inline-flex items-center shadow-lg gap-2 cursor-pointer"
                 href="/ai-chatbot"
               >
                 <span className="material-symbols-outlined text-lg sm:text-xl">smart_toy</span>
