@@ -41,18 +41,21 @@ export default function ServicesPage() {
     <div className="bg-surface-alt min-h-screen pb-20">
       {/* Hero Section VỚI ĐƯỜNG LINE ĐỎ ĐÔ 7PX Ở DƯỚI CÙNG */}
       <section
-        className="relative w-full bg-cover bg-[center_25%] bg-no-repeat border-b-[7px] border-[#641D06]"
+        className="relative w-full bg-cover bg-[right_top] bg-no-repeat border-b-[7px] border-[#641D06] overflow-hidden"
         style={{ backgroundImage: "url('/img/herobanner.webp')" }}
       >
-        <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-32 md:py-40 flex items-center min-h-[480px]">
-          <div className="max-w-3xl space-y-6 flex flex-col items-start text-left">
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black font-sans leading-[1.15] text-primary tracking-tight">
+        {/* Soft readable gradient for mobile / narrow viewports where text crosses statue */}
+        <div className="md:hidden absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-transparent z-0 pointer-events-none" />
+
+        <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 flex items-center min-h-[460px] sm:min-h-[500px] md:min-h-[560px] lg:min-h-[620px]">
+          <div className="w-full md:max-w-[50%] lg:max-w-[48%] xl:max-w-[46%] space-y-3 sm:space-y-4 md:space-y-5 flex flex-col items-start text-left">
+            <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-[44px] font-black font-sans leading-[1.2] text-primary tracking-tight">
               {content.servicesPage.hero.title} <br />{" "}
-              <span className="italic text-accent font-sans">
+              <span className="text-accent text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold tracking-wide block mt-1.5 md:mt-2.5">
                 {content.servicesPage.hero.titleAccent}
               </span>
             </h1>
-            <p className="font-body-md text-base md:text-xl text-primary font-semibold max-w-2xl leading-relaxed">
+            <p className="font-body-md text-sm sm:text-base md:text-lg text-slate-800 font-medium leading-relaxed">
               {content.servicesPage.hero.description}
             </p>
           </div>
@@ -60,7 +63,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Services Grid (LƯỚI 3 CỘT/HÀNG CÂN ĐỐI VỪA PHẢI, TIÊU ĐỀ NGẮN GỌN CĂN GIỮA) */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 py-12">
+      <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 font-sans tracking-tight">
             {content.servicesPage.section.heading}
